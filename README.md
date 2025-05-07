@@ -18,7 +18,7 @@ La repo è organizzata per facilitare la navigazione tra le varie sezioni. Ecco 
 
 ```
 ┌── Codice/                	# ⚙️ I codici delle parti applicative del progetto
-│   ├── Api LLM/			# 🦙 L'implementazione API dell'LLM LLAMA
+│   ├── Api LLM/		# 🦙 L'implementazione API dell'LLM LLAMA
 │   ├── Paper Review/		# ☕ L'implementazione JavaFX dell'applicazione
 │   └── ...
 ├── Documenti/         		# 📄 I documenti che sono stati prodotti
@@ -56,7 +56,6 @@ Il progetto è stato sviluppato da:
 	<tr>
 		<td>
 			<a href="https://www.instagram.com/leonardocaiezza03/">Instagram 📸</a><br>
-			<a href="">LinkedIn 👔</a><br>
 			<a href="mailto:leonardocaiezza20@gmail.com">Email 📨</a>
 		</td>
 		<td>
@@ -66,7 +65,6 @@ Il progetto è stato sviluppato da:
 		</td>
 		<td>
 			<a href="https://www.instagram.com/luca._gaetani/">Instagram 📸</a><br>
-			<a href="">LinkedIn 👔</a><br>
 			<a href="mailto:luca.gae03@gmail.com">Email 📨</a>
 		</td>
 		<td>
