@@ -12,7 +12,7 @@ Seguire la **guida ufficiale di CUDA** per l'installazione, in modo tale da pote
 
 ### Installare LLAMA
 
-L'installazione è automatica, basta **scaricare ed eseguire il file relativo al proprio OS** dal sito di [LLAMA](https://ollama.com/download)
+L'installazione è automatica, basta **scaricare ed eseguire il file relativo al proprio OS** dal sito di [LLAMA](https://ollama.com/download).
 
 ### Installare i moduli python
 
