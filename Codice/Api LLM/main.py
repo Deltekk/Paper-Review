@@ -42,7 +42,7 @@ def genera_tag_con_ollama(testo, max_parole=1000, modello='llama3'):
     prompt = (
         "Analizza il seguente testo e restituisci ESCLUSIVAMENTE una lista JSON e nient'altro. Prendi 4-7 argomenti principali, "
         "scritti in italiano, adatti come tag generici. NON scrivere nient'altro se non il JSON con i tag. "
-        "Formato atteso: [\"Argomento1\", \"Argomento2\", ...]\n\n"
+        "Formato atteso, in italiano: [\"Argomento1\", \"Argomento2\", ...]\n\n"
         f"Testo:\n{testo_troncato}\n\n"
     )
 
