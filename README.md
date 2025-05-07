@@ -4,7 +4,7 @@
 
 # ✒️ PAPER REVIEW
 
-## Introduzione
+## 📖 Introduzione
 
 Questa è la repo di **Paper Review**, progetto di **Ingegneria del Software** dell'A.A **2024-2025**.
 
