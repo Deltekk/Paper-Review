@@ -1,6 +1,6 @@
 package com.paperreview.paperreview.controllers;
 
-import com.paperreview.paperreview.forms.LoginFormModel;
+import com.paperreview.paperreview.forms.RegistrazioneFormModel;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.Border;
 
 
-public class LoginControl implements ControlledScreen {
+public class RegistrazioneControl implements ControlledScreen {
 
     @FXML
     private VBox formContainer;
@@ -25,7 +25,7 @@ public class LoginControl implements ControlledScreen {
     @FXML
     private ImageView logoImage;
 
-    private LoginFormModel loginFormModel = new LoginFormModel();
+    private RegistrazioneFormModel registrazioneFormModel = new RegistrazioneFormModel();
 
     private MainControl mainControl;
 
@@ -39,13 +39,14 @@ public class LoginControl implements ControlledScreen {
         confirmButton.setDisable(true);
 
         Image logo = new Image(getClass().getResourceAsStream("/images/logo.png"));
+
         if (logo == null) {
             System.err.println("Logo non trovato nel classpath!");
         } else {
             logoImage.setImage(logo);
         }
 
-        Form form = loginFormModel.createForm();
+        Form form = registrazioneFormModel.createForm();
         FormRenderer formRenderer = new FormRenderer(form);
         formContainer.getChildren().add(formRenderer);
         formRenderer.setStyle("-fx-border-color: transparent; -fx-border-width: 0;\n");
@@ -67,41 +68,30 @@ public class LoginControl implements ControlledScreen {
         form.validProperty().addListener((obs, oldVal, newVal) -> {
             confirmButton.setDisable(!newVal);
         });
-
     }
 
-
     @FXML
-    private void handleLogin() {
-        String email = loginFormModel.getEmail();
-        String password = loginFormModel.getPassword();
+    private void handleRegistrazione() {
+        String email = registrazioneFormModel.getEmail();
+        String password = registrazioneFormModel.getPassword();
 
         // Simulo un login fallito per esempio
         boolean loginSuccess = false; // TODO: qui metti la tua logica reale
 
-        // TODO: logica login reale
-
         if (!loginSuccess) {
             errorLabel.setText("Email o password errati");
             errorLabel.setVisible(true);
+            return;
         }
 
         errorLabel.setVisible(false);
         System.out.println("Eseguo login con: " + email + ":" + password);
 
-
-        mainControl.setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
+        // TODO: logica login reale
     }
 
     @FXML
-    private void handleRegister() {
-        mainControl.setView("/com/paperreview/paperreview/boundaries/registrazione/registrazioneBoundary.fxml");
+    private void handleBack() {
+        mainControl.setView("/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml");
     }
-
-    @FXML
-    private void handleRecover() {
-        mainControl.setView("/com/paperreview/paperreview/boundaries/recuperoPassword/recuperoPasswordBoundary.fxml");
-    }
-
-
 }

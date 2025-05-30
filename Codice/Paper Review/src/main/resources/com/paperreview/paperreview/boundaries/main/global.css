@@ -196,6 +196,29 @@
     -fx-border-color: transparent; /* nessun bordo */
 }
 
+.header {
+    -fx-background-color: #44C8F4;
+    -fx-padding: 10;
+    -fx-alignment: center_left;
+}
+
+.header-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-family: 'Zain';
+    -fx-cursor: hand;              /* cambio cursore al passaggio */
+    -fx-border-color: transparent; /* nessun bordo */
+    -fx-font-size: 18px;
+    -fx-background-radius: 12;     /* bordi arrotondati */
+    -fx-padding: 10 20 10 20;      /* padding interno (top right bottom left) */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 2, 2); /* ombra */
+}
+
+.header-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
 .confirm-button {
     -fx-background-color: #16F397; /* verde brillante come nell'immagine */
     -fx-text-fill: white;           /* testo bianco */
@@ -218,13 +241,45 @@
     -fx-background-color: #00b35a; /* verde ancora più scuro */
 }
 
+.back-button {
+    -fx-background-color:#4559F5; /* blu brillante come nell'immagine */
+    -fx-text-fill: white;           /* testo bianco */
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;     /* bordi arrotondati */
+    -fx-padding: 10 20 10 20;      /* padding interno (top right bottom left) */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 2, 2); /* ombra */
+    -fx-cursor: hand;              /* cambio cursore al passaggio */
+    -fx-border-color: transparent; /* nessun bordo */
+}
+
+/* Effetto hover per il pulsante */
+.back-button:hover {
+    -fx-background-color: #3a4acc; /* blu leggermente più scuro */
+}
+
+/* Effetto click */
+.back-button:pressed {
+    -fx-background-color: #2e3b99; /* blu ancora più scuro */
+}
+
 .cursore-puntatore{
     -fx-cursor: hand;
 }
 
-/* Stile per link */
 .link-label {
     -fx-underline: false;
+    -fx-border-color: transparent;
+    -fx-text-fill: #4559F5; /* bluelettrico */
+    -fx-cursor: hand;
+}
+
+.link-label:hover {
+    -fx-text-fill: #3a4acc; /* bluelettrico scuro */
+}
+
+.link-label:pressed {
+    -fx-text-fill: #2e3b99; /* bluelettrico ancora più scuro al click */
 }
 
 .ombra{
@@ -248,7 +303,7 @@
 .form-label {
     -fx-font-weight: bold;
     -fx-font-size: 14pt;
-    -fx-text-fill: #564de8;
+    -fx-text-fill: #4559F5;
 }
 
 /* Campi di input */
@@ -285,6 +340,7 @@ formsfx-group{
     border: none;
     --border-color: transparent; /* Imposto colore trasparente */
 }
+
 
 .no-border{
     border: none;

@@ -1,20 +1,22 @@
 package com.paperreview.paperreview.controllers;
 
-import com.paperreview.paperreview.forms.LoginFormModel;
-import com.paperreview.paperreview.interfaces.ControlledScreen;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
+import com.paperreview.paperreview.forms.RecuperoPasswordFormModel;
+import com.paperreview.paperreview.interfaces.ControlledScreen;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Border;
 
 
-public class LoginControl implements ControlledScreen {
+public class RecuperoPasswordControl implements ControlledScreen {
 
     @FXML
     private VBox formContainer;
@@ -25,7 +27,7 @@ public class LoginControl implements ControlledScreen {
     @FXML
     private ImageView logoImage;
 
-    private LoginFormModel loginFormModel = new LoginFormModel();
+    private RecuperoPasswordFormModel recuperoPasswordFormModel = new RecuperoPasswordFormModel();
 
     private MainControl mainControl;
 
@@ -39,20 +41,20 @@ public class LoginControl implements ControlledScreen {
         confirmButton.setDisable(true);
 
         Image logo = new Image(getClass().getResourceAsStream("/images/logo.png"));
+
         if (logo == null) {
             System.err.println("Logo non trovato nel classpath!");
         } else {
             logoImage.setImage(logo);
         }
 
-        Form form = loginFormModel.createForm();
+        Form form = recuperoPasswordFormModel.createForm();
         FormRenderer formRenderer = new FormRenderer(form);
         formContainer.getChildren().add(formRenderer);
         formRenderer.setStyle("-fx-border-color: transparent; -fx-border-width: 0;\n");
         formContainer.setStyle("-fx-border-color: transparent; -fx-border-width: 0;\n");
 
         Border noBorder = Border.EMPTY;
-
 
         formRenderer.setBorder(noBorder);
         formContainer.setBorder(noBorder);
@@ -72,36 +74,29 @@ public class LoginControl implements ControlledScreen {
 
 
     @FXML
-    private void handleLogin() {
-        String email = loginFormModel.getEmail();
-        String password = loginFormModel.getPassword();
+    private void handleRecuperoPassword() {
+        String email = recuperoPasswordFormModel.getEmail();
 
-        // Simulo un login fallito per esempio
-        boolean loginSuccess = false; // TODO: qui metti la tua logica reale
+        // TODO: Da implementare il send dell'email.
 
-        // TODO: logica login reale
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Recupero password");
+        alert.setHeaderText(null);  // Nessun header
 
-        if (!loginSuccess) {
-            errorLabel.setText("Email o password errati");
-            errorLabel.setVisible(true);
-        }
+        String message = "Se " + email + " appartiene ad un account memorizzato nel sistema, ti arriverà una email con la tua password temporanea.";
+        alert.setContentText(message);
 
-        errorLabel.setVisible(false);
-        System.out.println("Eseguo login con: " + email + ":" + password);
+        alert.getDialogPane().setPrefWidth(600);  // puoi aumentare o diminuire la larghezza
+        alert.getDialogPane().setPrefHeight(100);  // puoi aumentare o diminuire la larghezza
 
+        alert.showAndWait();
 
-        mainControl.setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
+        mainControl.setView("/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml");
+
     }
 
     @FXML
-    private void handleRegister() {
-        mainControl.setView("/com/paperreview/paperreview/boundaries/registrazione/registrazioneBoundary.fxml");
+    private void handleBack() {
+        mainControl.setView("/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml");
     }
-
-    @FXML
-    private void handleRecover() {
-        mainControl.setView("/com/paperreview/paperreview/boundaries/recuperoPassword/recuperoPasswordBoundary.fxml");
-    }
-
-
 }

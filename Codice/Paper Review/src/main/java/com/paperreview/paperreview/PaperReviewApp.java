@@ -17,8 +17,8 @@ public class PaperReviewApp extends Application {
         primaryStage.setTitle("Paper Review");
 
         // Imposta dimensione minima della finestra
-        primaryStage.setMinWidth(1280);
-        primaryStage.setMinHeight(720);
+        primaryStage.setMinWidth(1480);
+        primaryStage.setMinHeight(920);
 
         // Impostiamo full screen se massimizzato
         primaryStage.maximizedProperty().addListener((obs, wasMaximized, isNowMaximized) -> {

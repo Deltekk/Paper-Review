@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 
-<StackPane fx:id="rootPane"
-           xmlns="http://javafx.com/javafx/24"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.paperreview.paperreview.controllers.MainControl"
-           stylesheets="@global.css">
-</StackPane>
+<?import javafx.scene.layout.RowConstraints?>
+<?import java.lang.String?>
+<GridPane xmlns="http://javafx.com/javafx/24"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.paperreview.paperreview.controllers.MainControl"
+          stylesheets="@global.css">
+
+    <rowConstraints>
+        <!-- Header altezza 25% -->
+        <RowConstraints fx:id="headerRow" percentHeight="5" />
+        <!-- Contenuto altezza 75% -->
+        <RowConstraints fx:id="contentRow" percentHeight="95"  />
+    </rowConstraints>
+
+    <!-- Header (riga 0) -->
+    <HBox fx:id="header" GridPane.rowIndex="0" spacing="15" styleClass="header" visible="false" managed="false" GridPane.vgrow="NEVER" GridPane.hgrow="ALWAYS" >
+        <Button text="Home" onAction="#handleHome" styleClass="header-button"/>
+        <Button text="Profilo" onAction="#handleProfile" styleClass="header-button"/>
+        <!-- altri pulsanti -->
+    </HBox>
+
+    <!-- Contenuto dinamico (riga 1) -->
+    <StackPane fx:id="rootPane" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" />
+
+</GridPane>
