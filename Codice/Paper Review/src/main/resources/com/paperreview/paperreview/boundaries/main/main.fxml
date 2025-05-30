@@ -5,7 +5,11 @@
 <?import javafx.scene.control.Button?>
 
 <?import javafx.scene.layout.RowConstraints?>
-<?import java.lang.String?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Region?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
 <GridPane xmlns="http://javafx.com/javafx/24"
           xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="com.paperreview.paperreview.controllers.MainControl"
@@ -19,9 +23,39 @@
     </rowConstraints>
 
     <!-- Header (riga 0) -->
-    <HBox fx:id="header" GridPane.rowIndex="0" spacing="15" styleClass="header" visible="false" managed="false" GridPane.vgrow="NEVER" GridPane.hgrow="ALWAYS" >
-        <Button text="Home" onAction="#handleHome" styleClass="header-button"/>
-        <Button text="Profilo" onAction="#handleProfile" styleClass="header-button"/>
+    <HBox fx:id="header" GridPane.rowIndex="0" spacing="15" styleClass="header" visible="false" managed="false" GridPane.vgrow="NEVER" GridPane.hgrow="ALWAYS" alignment="CENTER">
+        <Button styleClass="header-button" onAction="#handleProfile">
+            <graphic>
+                <FontIcon iconLiteral="fas-arrow-left" iconColor="white" iconSize="30" styleClass="header-button"/>
+            </graphic>
+        </Button>
+
+        <Button fx:id="logoButton" styleClass="header-button" onAction="#handleProfile">
+            <graphic>
+                <ImageView fx:id="logoImage" fitWidth="100" preserveRatio="true" />
+            </graphic>
+        </Button>
+
+        <Button text="Gestisci Conferenze" onAction="#handleProfile" styleClass="header-button"/>
+        <Button text="Revisioni" onAction="#handleProfile" styleClass="header-button"/>
+        <Button text="Sottomissioni" onAction="#handleProfile" styleClass="header-button"/>
+        <Button text="Editing" onAction="#handleProfile" styleClass="header-button"/>
+        <Button text="Inserisci Invito" onAction="#handleProfile" styleClass="header-button"/>
+
+        <!-- Spazio flessibile -->
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Button styleClass="header-button" onAction="#handleProfile">
+            <graphic>
+                <FontIcon iconLiteral="fas-bell" iconColor="white" iconSize="25" styleClass="header-button"/>
+            </graphic>
+        </Button>
+
+        <Button styleClass="header-button" onAction="#handleProfile">
+            <graphic>
+                <FontIcon iconLiteral="fas-user" iconColor="white" iconSize="25" styleClass="header-button"/>
+            </graphic>
+        </Button>
         <!-- altri pulsanti -->
     </HBox>
 

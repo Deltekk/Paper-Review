@@ -216,7 +216,13 @@
 }
 
 .header-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: #0B7C9F;
+    -fx-fill: #0B7C9F;
+}
+
+.header-button:pressed {
+    -fx-text-fill: #085D77;
+    -fx-fill: #085D77;
 }
 
 .confirm-button {
@@ -284,6 +290,11 @@
 
 .ombra{
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 2, 2); /* ombra */
+}
+
+.font-icon {
+    -fx-icon-size: 24px;
+    -fx-fill: white;
 }
 
 /* FORM */
