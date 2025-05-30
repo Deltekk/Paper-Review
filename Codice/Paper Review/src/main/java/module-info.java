@@ -6,8 +6,12 @@ module com.paperreview.paperreview {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
 
+    requires javafx.graphics;
+    requires javafx.swing;
+
     opens com.paperreview.paperreview to javafx.fxml;
     exports com.paperreview.paperreview;
     exports com.paperreview.paperreview.controllers;
     opens com.paperreview.paperreview.controllers to javafx.fxml;
+
 }

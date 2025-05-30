@@ -19,6 +19,12 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>17.0.6</version>
+            <classifier>win</classifier> <!-- Cambia se non usi Windows -->
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>17.0.6</version> <!-- usa la tua versione di JavaFX -->
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -61,6 +67,14 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -80,7 +94,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.paperreview.paperreview/com.paperreview.paperreview.PaperReviewApp
+                            <mainClass>com.paperreview.paperreview.PaperReviewApp
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
@@ -88,6 +102,7 @@
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
+                            <classifier>win</classifier>
                         </configuration>
                     </execution>
                 </executions>

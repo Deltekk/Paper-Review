@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:controller="com.paperreview.paperreview.controllers.LoginControl"
+          xmlns="http://javafx.com/javafx/24"
+          xmlns:fx="http://javafx.com/fxml/1"
+          stylesheets="@loginStyle.css"
+          prefWidth="1280" prefHeight="720" maxHeight="Infinity">
+
+    <!-- Colonne proporzionali -->
+    <columnConstraints>
+        <ColumnConstraints percentWidth="33"/>
+        <ColumnConstraints percentWidth="67"/>
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints percentHeight="100"/>
+    </rowConstraints>
+
+    <!-- Sidebar sinistra -->
+    <VBox GridPane.columnIndex="0" alignment="CENTER" styleClass="sidebar">
+        <ImageView fx:id="logoImage" fitWidth="350" preserveRatio="true"/>
+    </VBox>
+
+    <!-- Contenitore login a destra -->
+    <!-- Contenitore login a destra -->
+    <VBox GridPane.columnIndex="1" spacing="15" alignment="CENTER" styleClass="login-container, bg-celeste">
+
+        <Label text="ACCEDI" styleClass="h1, text-bianco, font-bold, ombra"/>
+
+        <Label fx:id="errorLabel" textFill="red" visible="false" styleClass="text-rosso, p, font-bold"/>
+
+        <!-- Qui metti il contenitore vuoto per il form -->
+        <VBox fx:id="formContainer" maxWidth="600" minWidth="400" styleClass="form-container"/>
+
+        <Button fx:id="confirmButton" text="Conferma" maxWidth="300" styleClass="confirm-button"
+                onAction="#handleLogin"/>
+
+        <HBox spacing="20" alignment="CENTER">
+            <Label text="Non hai un account?" styleClass="p, text-bianco"/>
+            <Hyperlink text="Registrati!" styleClass="p, link-label, cursore-puntatore, text-blu-elettrico, font-bold, no-border" onAction="#handleRegister"/>
+        </HBox>
+
+        <HBox spacing="20" alignment="CENTER">
+            <Label text="Non ti ricordi la password?" styleClass="p, text-bianco"/>
+            <Hyperlink text="Recuperala!" styleClass="p, link-label, cursore-puntatore, text-blu-elettrico, font-bold, no-border" onAction="#handleRecover"/>
+        </HBox>
+    </VBox>
+
+</GridPane>

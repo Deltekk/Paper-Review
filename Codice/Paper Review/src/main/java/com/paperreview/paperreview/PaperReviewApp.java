@@ -8,26 +8,36 @@ import javafx.stage.Stage;
 import java.io.InputStream;
 
 public class PaperReviewApp extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/paperreview/paperreview/views/login/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/paperreview/paperreview/boundaries/main/main.fxml"));
         Scene scene = new Scene(loader.load());
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Paper Review - Login");
+        primaryStage.setTitle("Paper Review");
 
         // Imposta dimensione minima della finestra
-        primaryStage.setMinWidth(900);
-        primaryStage.setMinHeight(600);
+        primaryStage.setMinWidth(1280);
+        primaryStage.setMinHeight(720);
 
-        primaryStage.show();
+        // Impostiamo full screen se massimizzato
+        primaryStage.maximizedProperty().addListener((obs, wasMaximized, isNowMaximized) -> {
+            if (isNowMaximized) {
+                primaryStage.setFullScreen(true);
+            } else {
+                primaryStage.setFullScreen(false);
+            }
+        });
 
-        InputStream is = getClass().getResourceAsStream("/images/logo.png");
-        if (is == null) {
-            System.out.println("Immagine non trovata nel classpath!");
+        // Carichiamo l'icona dalla cartella resources/images (esempio: icon.png)
+        InputStream iconStream = getClass().getResourceAsStream("/images/Icona.png");
+        if (iconStream != null) {
+            primaryStage.getIcons().add(new javafx.scene.image.Image(iconStream));
         } else {
-            System.out.println("Immagine trovata correttamente.");
+            System.err.println("Icona app non trovata nel classpath!");
         }
 
+        primaryStage.show();
 
     }
 
