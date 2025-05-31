@@ -24,34 +24,34 @@
 
     <!-- Header (riga 0) -->
     <HBox fx:id="header" GridPane.rowIndex="0" spacing="15" styleClass="header" visible="false" managed="false" GridPane.vgrow="NEVER" GridPane.hgrow="ALWAYS" alignment="CENTER">
-        <Button styleClass="header-button" onAction="#handleProfile">
+        <Button styleClass="header-button" onAction="#handleBack">
             <graphic>
                 <FontIcon iconLiteral="fas-arrow-left" iconColor="white" iconSize="30" styleClass="header-button"/>
             </graphic>
         </Button>
 
-        <Button fx:id="logoButton" styleClass="header-button" onAction="#handleProfile">
+        <Button fx:id="logoButton" styleClass="header-button" onAction="#handleHome">
             <graphic>
                 <ImageView fx:id="logoImage" fitWidth="100" preserveRatio="true" />
             </graphic>
         </Button>
 
-        <Button text="Gestisci Conferenze" onAction="#handleProfile" styleClass="header-button"/>
-        <Button text="Revisioni" onAction="#handleProfile" styleClass="header-button"/>
-        <Button text="Sottomissioni" onAction="#handleProfile" styleClass="header-button"/>
-        <Button text="Editing" onAction="#handleProfile" styleClass="header-button"/>
-        <Button text="Inserisci Invito" onAction="#handleProfile" styleClass="header-button"/>
+        <Button text="Gestisci Conferenze" onAction="#handleGestisciConferenze" styleClass="header-button"/>
+        <Button text="Revisioni" onAction="#handleRevisioni" styleClass="header-button"/>
+        <Button text="Sottomissioni" onAction="#handleSottomissioni" styleClass="header-button"/>
+        <Button text="Editing" onAction="#handleEditing" styleClass="header-button"/>
+        <Button text="Inserisci Invito" onAction="#hanleInserisciInvito" styleClass="header-button"/>
 
         <!-- Spazio flessibile -->
         <Region HBox.hgrow="ALWAYS"/>
 
-        <Button styleClass="header-button" onAction="#handleProfile">
+        <Button styleClass="header-button" onAction="#handleNotificheEdInviti">
             <graphic>
                 <FontIcon iconLiteral="fas-bell" iconColor="white" iconSize="25" styleClass="header-button"/>
             </graphic>
         </Button>
 
-        <Button styleClass="header-button" onAction="#handleProfile">
+        <Button styleClass="header-button" onAction="#handleGestioneAccount">
             <graphic>
                 <FontIcon iconLiteral="fas-user" iconColor="white" iconSize="25" styleClass="header-button"/>
             </graphic>

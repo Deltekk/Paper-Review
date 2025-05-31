@@ -11,6 +11,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.image.Image;
 import java.io.IOException;
+import java.util.Stack;
 
 public class MainControl {
 
@@ -28,6 +29,9 @@ public class MainControl {
 
     @FXML
     private Button logoButton;
+
+    // Stack per tenere la cronologia delle viste
+    private Stack<String> viewHistory = new Stack<>();
 
     @FXML
     public void initialize() {
@@ -49,7 +53,7 @@ public class MainControl {
             logoImage.setImage(hoverLogo);
         });
 
-        logoButton.setOnMouseExited(event -> {logoImage.setImage(logo); System.out.println("Nando");});
+        logoButton.setOnMouseExited(event -> {logoImage.setImage(logo);});
 
         logoImage.setImage(logo);
     }
@@ -84,6 +88,12 @@ public class MainControl {
             {
                 hideHeader();
             } else {
+
+                // Aggiungi solo se diverso dall'ultimo
+                if (viewHistory.isEmpty() || !viewHistory.peek().equals(fxmlPath)) {
+                    viewHistory.push(fxmlPath);
+                }
+
                 showHeader();
             }
 
@@ -92,12 +102,55 @@ public class MainControl {
         }
     }
 
-    public void handleHome(){
-        System.out.println("Handle home");
+    public void handleBack() {
+
+        for (int i = 0; i < viewHistory.size(); i++) {
+            System.out.println(viewHistory.get(i));
+        }
+
+        if (viewHistory.size() > 1) {
+            // Rimuovo vista corrente
+            viewHistory.pop();
+
+            // Carico la vista precedente
+
+            String previousView = viewHistory.peek();
+            setView(previousView);
+
+            System.out.println("Previous view: " + previousView);
+        }
     }
 
-    public void handleProfile(){
-        System.out.println("Handle profile");
+    public void handleHome(){
+        setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
+    }
+
+    public void handleGestisciConferenze(){
+        setView("/com/paperreview/paperreview/boundaries/gestisciConferenze/homeBoundary.fxml");
+    }
+
+    public void handleRevisioni(){
+        setView("/com/paperreview/paperreview/boundaries/revisioni/revisioniBoundary.fxml");
+    }
+
+    public void handleSottomissioni(){
+        setView("/com/paperreview/paperreview/boundaries/sottomissioni/sottomissioniBoundary.fxml");
+    }
+
+    public void handleEditing(){
+        setView("/com/paperreview/paperreview/boundaries/editing/editingBoundary.fxml");
+    }
+
+    public void hanleInserisciInvito(){
+        setView("/com/paperreview/paperreview/boundaries/inserisciInvito/inserisciInvitoBoundary.fxml");
+    }
+
+    public void handleNotificheEdInviti(){
+        setView("/com/paperreview/paperreview/boundaries/notificheEdInviti/notificheEdInvitiBoundary.fxml");
+    }
+
+    public void handleGestioneAccount(){
+        setView("/com/paperreview/paperreview/boundaries/gestioneAccount/gestioneAccountBoundary.fxml");
     }
 
 }
