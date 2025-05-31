@@ -22,6 +22,11 @@
             <classifier>win</classifier> <!-- Cambia se non usi Windows -->
         </dependency>
         <dependency>
+            <groupId>fr.brouillard.oss</groupId>
+            <artifactId>cssfx</artifactId>
+            <version>11.4.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
             <version>17.0.6</version> <!-- usa la tua versione di JavaFX -->

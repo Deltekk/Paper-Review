@@ -1,5 +1,6 @@
 package com.paperreview.paperreview;
 
+import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +12,8 @@ public class PaperReviewApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        CSSFX.start();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/paperreview/paperreview/boundaries/main/main.fxml"));
         Scene scene = new Scene(loader.load());
         primaryStage.setScene(scene);

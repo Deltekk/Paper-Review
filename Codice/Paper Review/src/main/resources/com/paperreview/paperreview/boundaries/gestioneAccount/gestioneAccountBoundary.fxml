@@ -19,8 +19,8 @@
         <Label text="GESTIONE ACCOUNT" styleClass="h1, font-bold, text-blu-scuro"/>
 
         <VBox spacing="15" alignment="CENTER">
-            <Button text="Modifica Password" styleClass="confirm-button"/>
-            <Button text="Logout" styleClass="confirm-button bg-rosso"/>
+            <Button text="Modifica Password" styleClass="button, bg-verde, text-rosso" prefWidth="500"/>
+            <Button text="Logout" styleClass="button, bg-rosso, text-bianco" prefWidth="500"/>
         </VBox>
     </VBox>
 </AnchorPane>

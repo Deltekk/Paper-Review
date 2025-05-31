@@ -225,6 +225,16 @@
     -fx-fill: #085D77;
 }
 
+.button{
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;     /* bordi arrotondati */
+    -fx-padding: 10 20 10 20;      /* padding interno (top right bottom left) */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 2, 2); /* ombra */
+    -fx-cursor: hand;              /* cambio cursore al passaggio */
+    -fx-border-color: transparent; /* nessun bordo */
+}
+
 .confirm-button {
     -fx-background-color: #16F397; /* verde brillante come nell'immagine */
     -fx-text-fill: white;           /* testo bianco */

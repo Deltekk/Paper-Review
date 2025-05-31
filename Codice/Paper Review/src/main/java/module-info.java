@@ -11,6 +11,8 @@ module com.paperreview.paperreview {
 
     requires org.kordamp.ikonli.fontawesome5; // o il pack di icone che usi
 
+    requires fr.brouillard.oss.cssfx;
+
     opens com.paperreview.paperreview to javafx.fxml;
     exports com.paperreview.paperreview;
     exports com.paperreview.paperreview.controllers;
