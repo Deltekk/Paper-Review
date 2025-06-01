@@ -8,11 +8,14 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 
+import com.paperreview.paperreview.common.DBMSBoundary;
+
 public class PaperReviewApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         CSSFX.start();
+        DBMSBoundary.init();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/paperreview/paperreview/boundaries/main/main.fxml"));
         Scene scene = new Scene(loader.load());
@@ -46,5 +49,10 @@ public class PaperReviewApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void stop() {
+        DBMSBoundary.close();
     }
 }

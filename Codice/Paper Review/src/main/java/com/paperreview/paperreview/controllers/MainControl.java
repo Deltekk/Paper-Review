@@ -121,6 +121,10 @@ public class MainControl {
         }
     }
 
+    public void clearHistory() {
+        viewHistory.clear();
+    }
+
     public void handleHome(){
         setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
     }
