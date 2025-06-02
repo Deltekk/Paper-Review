@@ -5,21 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/DBMSBoundary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/ModificaPasswordControl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/BaseEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/UtenteEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/forms/ModificaPasswordModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/modificaPassword/modificaPasswordBoundary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/modificaPassword/modificaPasswordStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/BaseDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/UtenteDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/PaperReviewApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/PaperReviewApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/GestioneAccountControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/GestioneAccountControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/MainControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/MainControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/DBMSBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/DBMSBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/LoginControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/LoginControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/RegistrazioneControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/RegistrazioneControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/UtenteEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/UtenteEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/gestioneAccountBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/gestioneAccountBoundary.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/main/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/main/global.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +26,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="FxmlFile" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -57,27 +51,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.PaperReviewApp.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/coron/Documents/GitHub/Paper-Review/Codice/Paper Review",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "project.propCompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.PaperReviewApp.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/coron/Documents/GitHub/Paper-Review/Codice/Paper Review&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources" />
@@ -146,6 +140,8 @@
       <workItem from="1748771055502" duration="22000" />
       <workItem from="1748771083463" duration="13314000" />
       <workItem from="1748794698347" duration="3728000" />
+      <workItem from="1748851267427" duration="9492000" />
+      <workItem from="1748884642292" duration="2175000" />
     </task>
     <servers />
   </component>

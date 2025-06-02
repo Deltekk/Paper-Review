@@ -1,5 +1,8 @@
 package com.paperreview.paperreview.controllers;
 
+import com.paperreview.paperreview.common.DBMSBoundary;
+import com.paperreview.paperreview.common.UtenteDao;
+import com.paperreview.paperreview.entities.UtenteEntity;
 import com.paperreview.paperreview.forms.RegistrazioneFormModel;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
@@ -12,6 +15,9 @@ import com.dlsc.formsfx.view.renderer.FormRenderer;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Border;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
 public class RegistrazioneControl implements ControlledScreen {
@@ -54,7 +60,6 @@ public class RegistrazioneControl implements ControlledScreen {
 
         Border noBorder = Border.EMPTY;
 
-
         formRenderer.setBorder(noBorder);
         formContainer.setBorder(noBorder);
 
@@ -72,22 +77,43 @@ public class RegistrazioneControl implements ControlledScreen {
 
     @FXML
     private void handleRegistrazione() {
+        String nome = registrazioneFormModel.getNome();
+        String cognome = registrazioneFormModel.getCognome();
         String email = registrazioneFormModel.getEmail();
         String password = registrazioneFormModel.getPassword();
 
-        // Simulo un login fallito per esempio
-        boolean loginSuccess = false; // TODO: qui metti la tua logica reale
+        try {
+            // Ottieni la connessione
+            Connection conn = DBMSBoundary.getConnection();
 
-        if (!loginSuccess) {
-            errorLabel.setText("Email o password errati");
+            // Crea il DAO
+            UtenteDao dao = new UtenteDao(conn);
+
+            // Crea l'entità
+            UtenteEntity utente = new UtenteEntity(0, nome, cognome, email, password);
+
+            // Tenta la registrazione
+            boolean success = dao.saveIfNotExistsByEmail(utente);
+
+            System.out.println(success);
+
+            if (!success) {
+                errorLabel.setText("Email già registrata");
+                errorLabel.setVisible(true);
+                return;
+            }
+
+            System.out.println(utente.getId());
+            System.out.println(utente.getPassword());
+
+            mainControl.setView("/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            errorLabel.setText("Errore durante la registrazione");
             errorLabel.setVisible(true);
-            return;
+            // TODO: gestire errore SQL
         }
 
-        errorLabel.setVisible(false);
-        System.out.println("Eseguo login con: " + email + ":" + password);
-
-        // TODO: logica login reale
     }
 
     @FXML

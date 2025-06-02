@@ -1,5 +1,8 @@
 package com.paperreview.paperreview.controllers;
 
+import com.paperreview.paperreview.common.DBMSBoundary;
+import com.paperreview.paperreview.common.UtenteDao;
+import com.paperreview.paperreview.entities.UtenteEntity;
 import com.paperreview.paperreview.forms.LoginFormModel;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
@@ -12,6 +15,8 @@ import com.dlsc.formsfx.view.renderer.FormRenderer;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Border;
+
+import java.sql.SQLException;
 
 
 public class LoginControl implements ControlledScreen {
@@ -76,21 +81,27 @@ public class LoginControl implements ControlledScreen {
         String email = loginFormModel.getEmail();
         String password = loginFormModel.getPassword();
 
-        // Simulo un login fallito per esempio
-        boolean loginSuccess = false; // TODO: qui metti la tua logica reale
+        try {
+            UtenteDao dao = new UtenteDao(DBMSBoundary.getConnection());
+            UtenteEntity utente = dao.login(email, password);
 
-        // TODO: logica login reale
+            if (utente == null) {
+                errorLabel.setText("Email o password errati");
+                errorLabel.setVisible(true);
+                return;
+            }
 
-        if (!loginSuccess) {
-            errorLabel.setText("Email o password errati");
+            errorLabel.setVisible(false);
+            System.out.println("Login riuscito: " + utente.getEmail());
+
+            mainControl.setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            errorLabel.setText("Errore di sistema. Riprova più tardi.");
             errorLabel.setVisible(true);
         }
 
-        errorLabel.setVisible(false);
-        System.out.println("Eseguo login con: " + email + ":" + password);
-
-
-        mainControl.setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
     }
 
     @FXML

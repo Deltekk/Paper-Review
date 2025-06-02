@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBMSBoundary {
 
-    private static final String baseUrl = "jdbc:mariadb://paperreview.serverdc.ddnsfree.com:3306?useSSL=false&serverTimezone=Europe/Rome";
+    private static final String baseUrl = "jdbc:mariadb://paperreview.serverdc.ddnsfree.com:3306/paper_review?useSSL=false&serverTimezone=Europe/Rome";
     private static final String user = "root";
     private static final String pwd = "R5x1!9UQUMLbtng!1tdAA2vY7Vge@%fJH!*5gsbueV6VJg5jNkGfQPQf&qam6q2K";
 
@@ -48,5 +48,9 @@ public class DBMSBoundary {
             e.printStackTrace();
         }
     }
+
+    /* --------------------------- */
+
+
 
 }
