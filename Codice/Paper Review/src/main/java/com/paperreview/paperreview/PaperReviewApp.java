@@ -1,5 +1,6 @@
 package com.paperreview.paperreview;
 
+import com.paperreview.paperreview.common.DotenvUtil;
 import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +15,9 @@ public class PaperReviewApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        CSSFX.start();
-        DBMSBoundary.init();
+        DotenvUtil.init(); // Carichiamo le variabili d'ambiente
+        CSSFX.start(); // Inizializiamo l'hot-reload del CSS
+        DBMSBoundary.init(); // Inizializziamo il DBMS
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/paperreview/paperreview/boundaries/main/main.fxml"));
         Scene scene = new Scene(loader.load());

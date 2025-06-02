@@ -1,7 +1,7 @@
 package com.paperreview.paperreview.common;
 
 import com.paperreview.paperreview.entities.UtenteEntity;
-import org.mindrot.jbcrypt.BCrypt;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.*;
@@ -25,7 +25,7 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
 
     @Override
     protected void prepareInsert(PreparedStatement stmt, UtenteEntity u) throws SQLException {
-        String hashedPassword = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt());
+        String hashedPassword = BCrypt.withDefaults().hashToString(12, u.getPassword().toCharArray());
 
         stmt.setString(4, hashedPassword);
         u.setPassword(hashedPassword); // aggiorna l'entity
@@ -88,7 +88,7 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
                 String hashedPassword = rs.getString("password");
 
                 // Verifica la password
-                if (BCrypt.checkpw(plainPassword, hashedPassword)) {
+                if (BCrypt.verifyer().verify(plainPassword.toCharArray(), hashedPassword).verified) {
                     return new UtenteEntity(
                             rs.getInt("id_utente"),
                             rs.getString("nome"),

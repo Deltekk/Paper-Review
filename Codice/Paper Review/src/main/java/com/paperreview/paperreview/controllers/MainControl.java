@@ -1,8 +1,10 @@
 package com.paperreview.paperreview.controllers;
 
 import com.paperreview.paperreview.interfaces.ControlledScreen;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -10,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.image.Image;
+
 import java.io.IOException;
 import java.util.Stack;
 
@@ -56,6 +59,7 @@ public class MainControl {
         logoButton.setOnMouseExited(event -> {logoImage.setImage(logo);});
 
         logoImage.setImage(logo);
+
     }
 
     public void showHeader() {
@@ -63,6 +67,7 @@ public class MainControl {
         header.setManaged(true);
         headerRow.setPercentHeight(8);
         contentRow.setPercentHeight(92);
+
     }
 
     public void hideHeader() {

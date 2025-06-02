@@ -1,3 +1,13 @@
+.pane {
+    -fx-background-color: #4559F5;
+    -fx-text-fill: red;
+}
+
+.notification {
+    -fx-background-color: red;
+}
+
+
 /* Definizione dei font */
 @font-face {
     font-family: 'Zain';
@@ -329,6 +339,7 @@
     -fx-fill: white;
 }
 
+
 /* FORM */
 
 /* Contenitore principale del form */
@@ -376,7 +387,7 @@
 
 .form-container {
     border: none;
-    --border-color: transparent; /* Imposto colore trasparente */
+    -fx-border-color: transparent; /* Imposto colore trasparente */
 }
 
 .quadrettoni{
@@ -389,13 +400,13 @@
 
 formsfx-group{
     border: none;
-    --border-color: transparent; /* Imposto colore trasparente */
+    -fx-border-color: transparent; /* Imposto colore trasparente */
 }
 
 
 .no-border{
     border: none;
-    --border-color: transparent; /* Imposto colore trasparente */
+    -fx-border-color: transparent; /* Imposto colore trasparente */
 }
 
 /* Imposta il font globale per tutta l'app */

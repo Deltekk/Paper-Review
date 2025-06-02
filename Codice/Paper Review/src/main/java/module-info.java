@@ -13,7 +13,9 @@ module com.paperreview.paperreview {
 
     requires fr.brouillard.oss.cssfx;
     requires java.sql;
-    requires jbcrypt;
+    requires jakarta.mail;
+    requires io.github.cdimascio.dotenv.java;
+    requires bcrypt;
 
     opens com.paperreview.paperreview to javafx.fxml;
     exports com.paperreview.paperreview;
