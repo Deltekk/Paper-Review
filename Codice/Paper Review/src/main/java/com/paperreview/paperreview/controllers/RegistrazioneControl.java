@@ -95,16 +95,11 @@ public class RegistrazioneControl implements ControlledScreen {
             // Tenta la registrazione
             boolean success = dao.saveIfNotExistsByEmail(utente);
 
-            System.out.println(success);
-
             if (!success) {
                 errorLabel.setText("Email già registrata");
                 errorLabel.setVisible(true);
                 return;
             }
-
-            System.out.println(utente.getId());
-            System.out.println(utente.getPassword());
 
             mainControl.setView("/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml");
         } catch (SQLException e) {

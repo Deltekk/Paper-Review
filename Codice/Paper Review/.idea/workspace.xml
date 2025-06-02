@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/BaseDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/UtenteDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/DBMSBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/DBMSBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/LoginControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/LoginControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/RegistrazioneControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controllers/RegistrazioneControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/UtenteEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/UtenteEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +133,7 @@
       <workItem from="1748771083463" duration="13314000" />
       <workItem from="1748794698347" duration="3728000" />
       <workItem from="1748851267427" duration="9492000" />
-      <workItem from="1748884642292" duration="2175000" />
+      <workItem from="1748884642292" duration="3005000" />
     </task>
     <servers />
   </component>
