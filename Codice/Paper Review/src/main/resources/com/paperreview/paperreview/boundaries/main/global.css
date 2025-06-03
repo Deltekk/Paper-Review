@@ -392,10 +392,8 @@
 
 .quadrettoni{
     -fx-background-image: url('/quadrettoni.png');
-    -fx-background-size: cover;       /* Copre tutta la zona */
     -fx-background-position: center;  /* Centra l’immagine */
-    -fx-background-repeat: no-repeat; /* Non ripete l’immagine */
-    -fx-padding: 40;
+    -fx-background-repeat: repeat; /* Non ripete l’immagine */
 }
 
 formsfx-group{

@@ -1,22 +1,26 @@
-package com.paperreview.paperreview.controllers;
+package com.paperreview.paperreview.controls;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
-import com.paperreview.paperreview.forms.RecuperoPasswordFormModel;
+import com.paperreview.paperreview.common.*;
+import com.paperreview.paperreview.common.email.MailRecuperoAccount;
+import com.paperreview.paperreview.entities.UtenteEntity;
+import com.paperreview.paperreview.forms.ModificaPasswordModel;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
+import jakarta.mail.MessagingException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+import java.sql.SQLException;
 
-public class RecuperoPasswordControl implements ControlledScreen {
+public class ModificaPasswordControl implements ControlledScreen {
+
+    private MainControl mainControl;
 
     @FXML
     private VBox formContainer;
@@ -24,12 +28,8 @@ public class RecuperoPasswordControl implements ControlledScreen {
     private Label errorLabel;
     @FXML
     private Button confirmButton;
-    @FXML
-    private ImageView logoImage;
 
-    private RecuperoPasswordFormModel recuperoPasswordFormModel = new RecuperoPasswordFormModel();
-
-    private MainControl mainControl;
+    private ModificaPasswordModel modificaPasswordModel = new ModificaPasswordModel();
 
     @Override
     public void setMainController(MainControl mainControl) {
@@ -40,15 +40,7 @@ public class RecuperoPasswordControl implements ControlledScreen {
         errorLabel.setVisible(false);
         confirmButton.setDisable(true);
 
-        Image logo = new Image(getClass().getResourceAsStream("/images/logo.png"));
-
-        if (logo == null) {
-            System.err.println("Logo non trovato nel classpath!");
-        } else {
-            logoImage.setImage(logo);
-        }
-
-        Form form = recuperoPasswordFormModel.createForm();
+        Form form = modificaPasswordModel.createForm();
         FormRenderer formRenderer = new FormRenderer(form);
         formContainer.getChildren().add(formRenderer);
         formRenderer.setStyle("-fx-border-color: transparent; -fx-border-width: 0;\n");
@@ -65,25 +57,40 @@ public class RecuperoPasswordControl implements ControlledScreen {
             }
         });
 
-
         form.validProperty().addListener((obs, oldVal, newVal) -> {
             confirmButton.setDisable(!newVal);
         });
 
     }
 
-
     @FXML
-    private void handleRecuperoPassword() {
-        String email = recuperoPasswordFormModel.getEmail();
+    private void handleModificaPassword() {
+        String plainPassword = modificaPasswordModel.getPassword();
 
-        // TODO: Da implementare il send dell'email.
+        try {
+
+            UtenteDao utenteDao = new UtenteDao(DBMSBoundary.getConnection());
+
+            UtenteEntity utente = UserContext.getUtente();
+
+            String hashedPassword = PasswordUtil.hashPassword(plainPassword);
+
+            utente.setPassword(hashedPassword);
+            utenteDao.update(utente);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+            errorLabel.setVisible(true);
+            errorLabel.setText("Errore interno! Riprova tra poco!");
+            confirmButton.setText("Conferma");
+            return;
+        }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Recupero password");
+        alert.setTitle("Modifica password");
         alert.setHeaderText(null);  // Nessun header
 
-        String message = "Se " + email + " appartiene ad un account memorizzato nel sistema, ti arriverà una email con la tua password temporanea.";
+        String message = "Password cambiata correttamente";
         alert.setContentText(message);
 
         alert.getDialogPane().setPrefWidth(600);  // puoi aumentare o diminuire la larghezza
@@ -91,12 +98,7 @@ public class RecuperoPasswordControl implements ControlledScreen {
 
         alert.showAndWait();
 
-        mainControl.setView("/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml");
-
+        mainControl.setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
     }
 
-    @FXML
-    private void handleBack() {
-        mainControl.setView("/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml");
-    }
 }

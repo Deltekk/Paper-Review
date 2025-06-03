@@ -19,7 +19,7 @@ module com.paperreview.paperreview {
 
     opens com.paperreview.paperreview to javafx.fxml;
     exports com.paperreview.paperreview;
-    exports com.paperreview.paperreview.controllers;
-    opens com.paperreview.paperreview.controllers to javafx.fxml;
+    exports com.paperreview.paperreview.controls;
+    opens com.paperreview.paperreview.controls to javafx.fxml;
 
 }
