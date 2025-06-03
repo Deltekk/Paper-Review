@@ -1,7 +1,6 @@
 package com.paperreview.paperreview.common;
 
 import com.paperreview.paperreview.entities.UtenteEntity;
-import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.*;
@@ -18,6 +17,19 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
         entity.setIdUtente(id);
     }
 
+    public UtenteEntity getByEmail(String email) throws SQLException {
+        String sql = "SELECT * FROM " + tableName + " WHERE email = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapRow(rs);
+                }
+            }
+        }
+        return null; // Nessun utente trovato con quell'email
+    }
+
     @Override
     protected String getInsertQuery() {
         return "INSERT INTO " + tableName +  " (nome, cognome, email, password) VALUES (?, ?, ?, ?)";
@@ -25,7 +37,8 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
 
     @Override
     protected void prepareInsert(PreparedStatement stmt, UtenteEntity u) throws SQLException {
-        String hashedPassword = BCrypt.withDefaults().hashToString(12, u.getPassword().toCharArray());
+
+        String hashedPassword = PasswordUtil.hashPassword(u.getPassword());
 
         stmt.setString(4, hashedPassword);
         u.setPassword(hashedPassword); // aggiorna l'entity
@@ -47,6 +60,7 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
         stmt.setString(2, u.getCognome());
         stmt.setString(3, u.getEmail());
         stmt.setString(4, u.getPassword());
+        stmt.setInt(5, u.getId());
     }
 
     public boolean emailExists(String email) {
@@ -88,7 +102,7 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
                 String hashedPassword = rs.getString("password");
 
                 // Verifica la password
-                if (BCrypt.verifyer().verify(plainPassword.toCharArray(), hashedPassword).verified) {
+                if (PasswordUtil.verifyPassword(plainPassword, hashedPassword)) {
                     return new UtenteEntity(
                             rs.getInt("id_utente"),
                             rs.getString("nome"),

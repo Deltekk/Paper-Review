@@ -8,8 +8,10 @@
 
 <ScrollPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.paperreview.paperreview.controllers.HomeControl"
-            prefWidth="1280" prefHeight="720" maxHeight="Infinity" maxWidth="Infinity">
+            fx:controller="com.paperreview.paperreview.controls.HomeControl"
+            prefWidth="1280" prefHeight="720" maxHeight="Infinity" maxWidth="Infinity"
+            stylesheets="@homeStyle.css"
+            styleClass="quadrettoni">
 
     <Label text="SUCA" styleClass="h1, text-rosso, bg-blu-elettrico, font-bold, ombra"
            layoutX="20" layoutY="20"/>

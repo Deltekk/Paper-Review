@@ -1,5 +1,6 @@
-package com.paperreview.paperreview.controllers;
+package com.paperreview.paperreview.controls;
 
+import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 
@@ -21,7 +22,8 @@ public class GestioneAccountControl implements ControlledScreen {
     @FXML
     private void handleLogout() {
         System.out.println("Esegui logout");
-        // TODO: Logica di logout
+
+        UserContext.logout();
 
         mainControl.setView("/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml");
         mainControl.clearHistory();

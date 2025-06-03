@@ -1,10 +1,8 @@
-package com.paperreview.paperreview.controllers;
+package com.paperreview.paperreview.controls;
 
 import com.paperreview.paperreview.interfaces.ControlledScreen;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;

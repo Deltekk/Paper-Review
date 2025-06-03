@@ -4,10 +4,10 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/24"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.paperreview.paperreview.controllers.GestioneAccountControl"
+            fx:controller="com.paperreview.paperreview.controls.GestioneAccountControl"
             prefWidth="1280" prefHeight="720"
             maxHeight="Infinity" maxWidth="Infinity"
-            styleClass="bg-bianco">
+            styleClass="quadrettoni">
 
     <VBox alignment="CENTER"
           spacing="25"

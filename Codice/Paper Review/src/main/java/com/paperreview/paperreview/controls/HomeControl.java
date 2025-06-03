@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.controllers;
+package com.paperreview.paperreview.controls;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
 
 

@@ -1,13 +1,14 @@
 package com.paperreview.paperreview.common;
 
+import com.paperreview.paperreview.common.email.MailBase;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import java.util.Properties;
 
 public class EmailSender {
 
-    public static void sendEmail(String to, String subject, String body) throws MessagingException {
-        final String from = DotenvUtil.getEmailSender();         // tua email
+    public static void sendEmail(MailBase mail) throws MessagingException {
+        final String from = DotenvUtil.getEmailSender();                // tua email
         final String password = DotenvUtil.getEmailPassword();         // usa una password per app
 
         // Configurazione SMTP per Gmail (puoi cambiare provider)
@@ -25,9 +26,9 @@ public class EmailSender {
 
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(from));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-        message.setSubject(subject);
-        message.setText(body);
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail.getTo()));
+        message.setSubject(mail.getSubject());
+        message.setContent(mail.getBody(), "text/html;charset=utf-8");
 
         Transport.send(message);
         System.out.println("Email inviata con successo.");
