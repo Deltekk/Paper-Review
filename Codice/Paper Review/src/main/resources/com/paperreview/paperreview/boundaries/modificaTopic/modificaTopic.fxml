@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.paperreview.paperreview.controls.ModificaTopicControl"
+            prefHeight="400.0" prefWidth="600.0"
+            styleClass="quadrettoni">
+
+
+    <Label text="MODIFICA TOPIC" styleClass="h1 text-bianco font-bold ombra" />
+
+    <Label fx:id="errorLabel" textFill="red" visible="false" styleClass="text-rosso p font-bold" />
+
+    <TextField fx:id="searchField" promptText="Cerca Topic" maxWidth="400"/>
+
+    <ScrollPane prefHeight="350" maxWidth="400" styleClass="form-container">
+        <content>
+            <VBox fx:id="checkboxContainer" spacing="10" />
+        </content>
+    </ScrollPane>
+
+    <Button fx:id="confirmButton" text="Conferma" maxWidth="300"
+            styleClass="confirm-button"
+            onAction="#handleConferma"/>
+
+</AnchorPane>

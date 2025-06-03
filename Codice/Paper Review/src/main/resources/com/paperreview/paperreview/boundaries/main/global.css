@@ -267,7 +267,7 @@
     -fx-background-color: #cc3044; /* verde ancora più scuro */
 }
 
-.confirm-button {
+.green-button {
     -fx-background-color: #16F397; /* verde brillante come nell'immagine */
     -fx-text-fill: white;           /* testo bianco */
     -fx-font-size: 18px;
@@ -280,16 +280,16 @@
 }
 
 /* Effetto hover per il pulsante */
-.confirm-button:hover {
+.green-button:hover {
     -fx-background-color: #00d374; /* verde leggermente più scuro */
 }
 
 /* Effetto click */
-.confirm-button:pressed {
+.green-button:pressed {
     -fx-background-color: #00b35a; /* verde ancora più scuro */
 }
 
-.back-button {
+.blue-button {
     -fx-background-color:#4559F5; /* blu brillante come nell'immagine */
     -fx-text-fill: white;           /* testo bianco */
     -fx-font-size: 18px;
@@ -302,12 +302,12 @@
 }
 
 /* Effetto hover per il pulsante */
-.back-button:hover {
+.blue-button:hover {
     -fx-background-color: #3a4acc; /* blu leggermente più scuro */
 }
 
 /* Effetto click */
-.back-button:pressed {
+.blue-button:pressed {
     -fx-background-color: #2e3b99; /* blu ancora più scuro */
 }
 

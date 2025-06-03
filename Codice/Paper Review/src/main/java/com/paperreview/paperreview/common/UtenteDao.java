@@ -4,7 +4,6 @@ import com.paperreview.paperreview.entities.UtenteEntity;
 
 import java.sql.Connection;
 import java.sql.*;
-import java.util.List;
 
 public class UtenteDao extends BaseDao<UtenteEntity> {
 
@@ -14,7 +13,7 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
 
     @Override
     protected void setGeneratedId(UtenteEntity entity, int id) {
-        entity.setIdUtente(id);
+        entity.setId(id);
     }
 
     public UtenteEntity getByEmail(String email) throws SQLException {

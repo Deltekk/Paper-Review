@@ -87,20 +87,17 @@ public class RecuperoPasswordControl implements ControlledScreen {
             UtenteDao utenteDao = new UtenteDao(DBMSBoundary.getConnection());
 
             UtenteEntity utente = utenteDao.getByEmail(email);
-            if (utente == null) {
-                errorLabel.setVisible(true);
-                errorLabel.setText("Email non trovata nel sistema.");
-                return;
+
+            if (utente != null){
+                String passwordProvvisoria = PasswordUtil.generateRandomPassword();
+                String hashedPassword = PasswordUtil.hashPassword(passwordProvvisoria);
+
+                MailRecuperoAccount mailRecuperoAccount = new MailRecuperoAccount(email, utente.getNomeUtente(), passwordProvvisoria);
+                EmailSender.sendEmail(mailRecuperoAccount);
+
+                utente.setPassword(hashedPassword);
+                utenteDao.update(utente);
             }
-
-            String passwordProvvisoria = PasswordUtil.generateRandomPassword();
-            String hashedPassword = PasswordUtil.hashPassword(passwordProvvisoria);
-
-            MailRecuperoAccount mailRecuperoAccount = new MailRecuperoAccount(email, utente.getNomeUtente(), passwordProvvisoria);
-            EmailSender.sendEmail(mailRecuperoAccount);
-
-            utente.setPassword(hashedPassword);
-            utenteDao.update(utente);
 
         }catch(MessagingException | SQLException e){
             e.printStackTrace();

@@ -24,7 +24,7 @@ public class UtenteEntity extends BaseEntity {
 
     public String getNomeUtente() { return nome + " " + cognome; }
 
-    public void setIdUtente(int id_utente) { this.id_utente = id_utente; }
+    public void setId(int id_utente) { this.id_utente = id_utente; }
     public void setNome(String nome) { this.nome = nome; }
     public void setCognome(String cognome) { this.cognome = cognome; }
     public void setEmail(String email) { this.email = email; }

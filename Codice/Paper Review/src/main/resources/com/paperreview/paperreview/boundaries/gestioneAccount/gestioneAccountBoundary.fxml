@@ -19,7 +19,8 @@
         <Label text="GESTIONE ACCOUNT" styleClass="h1, font-bold, text-blu-scuro"/>
 
         <VBox spacing="15" alignment="CENTER">
-            <Button text="Modifica Password" styleClass="confirm-button" prefWidth="500" onAction="#handleModificaPassword"/>
+            <Button text="Modifica Password" styleClass="green-button" prefWidth="500" onAction="#handleModificaPassword"/>
+            <Button text="Visualizza Topic" styleClass="blue-button" prefWidth="500" onAction="#handleVisualizzaTopic"/>
             <Button text="Logout" styleClass="red-button" prefWidth="500" onAction="#handleLogout"/>
         </VBox>
     </VBox>

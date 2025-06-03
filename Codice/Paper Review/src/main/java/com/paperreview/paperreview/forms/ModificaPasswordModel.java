@@ -25,7 +25,8 @@ public class ModificaPasswordModel {
             .styleClass("form-field")
             .placeholder("Inserisci la tua password")
             .validate(StringLengthValidator.atLeast(8, "La password deve essere lunga almeno 8 caratteri"))
-            .validate(RegexValidator.forPattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{6,}$", "La password deve contenere almeno una maiuscola,  almeno una minuscola, almeno un numero ed almeno un carattere speciale"),                     CustomValidator.forPredicate(
+            .validate(RegexValidator.forPattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{6,}$", "La password deve contenere almeno una maiuscola,  almeno una minuscola, almeno un numero ed almeno un carattere speciale"),
+                    CustomValidator.forPredicate(
                     value -> value != null && value.equals(password.getValue()),
                     "Le password non corrispondono!"
             ))

@@ -28,4 +28,10 @@ public class GestioneAccountControl implements ControlledScreen {
         mainControl.setView("/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml");
         mainControl.clearHistory();
     }
+
+    @FXML
+    private void handleVisualizzaTopic(){
+        mainControl.setView("/com/paperreview/paperreview/boundaries/modificaTopic/modificaTopic.fxml");
+    }
+
 }
