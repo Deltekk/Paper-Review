@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.common;
+package com.paperreview.paperreview.common.dao;
 
 import com.paperreview.paperreview.entities.InvitoEntity;
 import com.paperreview.paperreview.entities.InvitoStatusEnum;

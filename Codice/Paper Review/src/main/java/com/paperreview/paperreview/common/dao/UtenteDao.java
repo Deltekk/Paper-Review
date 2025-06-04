@@ -1,5 +1,6 @@
-package com.paperreview.paperreview.common;
+package com.paperreview.paperreview.common.dao;
 
+import com.paperreview.paperreview.common.PasswordUtil;
 import com.paperreview.paperreview.entities.UtenteEntity;
 
 import java.sql.Connection;

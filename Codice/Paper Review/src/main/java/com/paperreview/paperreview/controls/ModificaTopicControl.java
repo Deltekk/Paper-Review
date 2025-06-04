@@ -3,7 +3,7 @@ package com.paperreview.paperreview.controls;
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.paperreview.paperreview.common.DBMSBoundary;
-import com.paperreview.paperreview.common.TopicDao;
+import com.paperreview.paperreview.common.dao.TopicDao;
 import com.paperreview.paperreview.entities.TopicEntity;
 import com.paperreview.paperreview.forms.TopicFormModel;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
@@ -18,7 +18,6 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import javax.swing.text.html.FormView;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;

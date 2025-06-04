@@ -1,5 +1,5 @@
 package com.paperreview.paperreview.controls;
-import com.paperreview.paperreview.common.ConferenzaDao;
+import com.paperreview.paperreview.common.dao.ConferenzaDao;
 import com.paperreview.paperreview.common.DBMSBoundary;
 import com.paperreview.paperreview.entities.ConferenzaEntity;
 import com.paperreview.paperreview.interfaces.ControlledScreen;

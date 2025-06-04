@@ -1,6 +1,6 @@
-package com.paperreview.paperreview.common;
+package com.paperreview.paperreview.common.email;
 
-import com.paperreview.paperreview.common.email.MailBase;
+import com.paperreview.paperreview.common.DotenvUtil;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import java.util.Properties;

@@ -3,6 +3,8 @@ package com.paperreview.paperreview.controls;
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.paperreview.paperreview.common.*;
+import com.paperreview.paperreview.common.dao.UtenteDao;
+import com.paperreview.paperreview.common.email.EmailSender;
 import com.paperreview.paperreview.common.email.MailRecuperoAccount;
 import com.paperreview.paperreview.entities.UtenteEntity;
 import com.paperreview.paperreview.forms.RecuperoPasswordFormModel;
