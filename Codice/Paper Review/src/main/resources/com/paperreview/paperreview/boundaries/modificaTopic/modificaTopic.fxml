@@ -6,27 +6,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.paperreview.paperreview.controls.ModificaTopicControl"
-            prefHeight="400.0" prefWidth="600.0"
-            styleClass="quadrettoni">
+<StackPane xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="com.paperreview.paperreview.controls.ModificaTopicControl"
+        stylesheets="@modificaTopicStyle.css"
+        prefWidth="400" prefHeight="600"
+        alignment="CENTER"
+        styleClass="quadrettoni">
 
+    <VBox spacing="15" alignment="CENTER" maxWidth="600" maxHeight="600" styleClass="bg-celeste">
 
-    <Label text="MODIFICA TOPIC" styleClass="h1 text-bianco font-bold ombra" />
+        <Label text="MODIFICA TOPIC" styleClass="h1, text-bianco, font-bold, ombra" />
 
-    <Label fx:id="errorLabel" textFill="red" visible="false" styleClass="text-rosso p font-bold" />
+        <Label fx:id="errorLabel" textFill="red" visible="false" styleClass="text-rosso, p, font-bold" />
 
-    <TextField fx:id="searchField" promptText="Cerca Topic" maxWidth="400"/>
+        <!-- Searchbar fissa sopra il scrollpane -->
+        <TextField fx:id="searchField" promptText="Cerca topic" styleClass="form-field, search-field, ombra" maxWidth="400" />
 
-    <ScrollPane prefHeight="350" maxWidth="400" styleClass="form-container">
-        <content>
-            <VBox fx:id="checkboxContainer" spacing="10" />
-        </content>
-    </ScrollPane>
+        <ScrollPane prefHeight="350" maxWidth="400" styleClass="form-container, ombra">
+            <content>
+                <VBox fx:id="formContainer" spacing="10" />
+            </content>
+        </ScrollPane>
 
-    <Button fx:id="confirmButton" text="Conferma" maxWidth="300"
-            styleClass="confirm-button"
-            onAction="#handleConferma"/>
+        <Button fx:id="confirmButton" text="Conferma" maxWidth="400"
+                styleClass="green-button"
+                onAction="#handleConferma"/>
 
-</AnchorPane>
+    </VBox>
+
+</StackPane>
