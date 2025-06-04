@@ -2,9 +2,12 @@ package com.paperreview.paperreview.common.dao;
 
 import com.paperreview.paperreview.common.PasswordUtil;
 import com.paperreview.paperreview.entities.UtenteEntity;
+import com.paperreview.paperreview.entities.TopicEntity;
 
 import java.sql.Connection;
 import java.sql.*;
+import java.util.Set;
+import java.util.HashSet;
 
 public class UtenteDao extends BaseDao<UtenteEntity> {
 
@@ -127,5 +130,35 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
                 rs.getString("email"),
                 rs.getString("password")
         );
+    }
+
+    // Metodo per aggiungere un Topic all'Utente
+    public void addTopicToUser(int utenteId, int topicId) throws SQLException {
+        String query = "INSERT INTO TopicUtente (ref_utente, ref_topic) VALUES (?, ?)";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, utenteId);
+            stmt.setInt(2, topicId);
+            stmt.executeUpdate();
+        }
+    }
+
+    // Metodo per ottenere tutti i Topic associati a un Utente
+    public Set<TopicEntity> getTopicsForUser(int utenteId) throws SQLException {
+        String query = "SELECT t.id_topic, t.nome FROM Topic t " +
+                "JOIN TopicUtente tu ON t.id_topic = tu.ref_topic WHERE tu.ref_utente = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, utenteId);
+            ResultSet rs = stmt.executeQuery();
+            Set<TopicEntity> topics = new HashSet<>();
+            while (rs.next()) {
+                TopicEntity topic = new TopicEntity();
+                topic.setId(rs.getInt("id_topic"));
+                topic.setNome(rs.getString("nome"));
+                topics.add(topic);
+            }
+            return topics;
+        }
     }
 }

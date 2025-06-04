@@ -1,11 +1,14 @@
 package com.paperreview.paperreview.entities;
 
+import java.util.Set;
+
 public class UtenteEntity extends BaseEntity {
     private int id_utente;
     private String nome;
     private String cognome;
     private String email;
     private String password;
+    private Set<TopicEntity> topics;
 
     public UtenteEntity(int id_utente, String nome, String cognome, String email, String password) {
         this.id_utente = id_utente;
@@ -21,6 +24,14 @@ public class UtenteEntity extends BaseEntity {
     public String getCognome() { return cognome; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
+
+    public Set<TopicEntity> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Set<TopicEntity> topics) {
+        this.topics = topics;
+    }
 
     public String getNomeUtente() { return nome + " " + cognome; }
 

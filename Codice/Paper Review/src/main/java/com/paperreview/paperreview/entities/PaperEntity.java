@@ -1,6 +1,7 @@
 package com.paperreview.paperreview.entities;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class PaperEntity extends BaseEntity {
     private int idPaper;
@@ -9,6 +10,7 @@ public class PaperEntity extends BaseEntity {
     private LocalDateTime dataSottomissione;
     private int refUtente;
     private int refConferenza;
+    private Set<TopicEntity> topics;
 
     // Costruttore
     public PaperEntity(int idPaper, String titolo, String contenuto, LocalDateTime dataSottomissione, int refUtente, int refConferenza) {
@@ -67,6 +69,14 @@ public class PaperEntity extends BaseEntity {
 
     public void setRefConferenza(int refConferenza) {
         this.refConferenza = refConferenza;
+    }
+
+    public Set<TopicEntity> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Set<TopicEntity> topics) {
+        this.topics = topics;
     }
 
     @Override

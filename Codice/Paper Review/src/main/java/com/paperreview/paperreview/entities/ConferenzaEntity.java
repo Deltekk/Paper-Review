@@ -1,6 +1,7 @@
 package com.paperreview.paperreview.entities;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class ConferenzaEntity extends BaseEntity {
     private int id_conferenza;
@@ -17,6 +18,7 @@ public class ConferenzaEntity extends BaseEntity {
     private LocalDateTime scadenzaEditing;
     private LocalDateTime scadenzaSottomissione3;
     private LocalDateTime scadenzaImpaginazione;
+    private Set<UtenteEntity> chairs;
 
     public ConferenzaEntity(int id_conferenza, String nome, String descrizione,
                             LocalDateTime dataConferenza, String location, String metodoAssegnazione,
@@ -156,13 +158,20 @@ public class ConferenzaEntity extends BaseEntity {
         this.paperPrevisti = paperPrevisti;
     }
 
+    public Set<UtenteEntity> getChairs() {
+        return chairs;
+    }
+
+    public void setChairs(Set<UtenteEntity> chairs) {
+        this.chairs = chairs;
+    }
+
     @Override
     public String toString() {
         return "ConferenzaEntity{" +
                 "id_conferenza=" + id_conferenza +
                 ", nome='" + nome + '\'' +
                 ", descrizione='" + descrizione + '\'' +
-                ", data_conferenza=" + dataConferenza +
                 ", location='" + location + '\'' +
                 ", metodo_assegnazione='" + metodoAssegnazione + '\'' +
                 ", metodo_valutazione='" + metodoValutazione + '\'' +
@@ -173,6 +182,7 @@ public class ConferenzaEntity extends BaseEntity {
                 ", scadenza_editing=" + scadenzaEditing +
                 ", scadenza_sottomissione_3=" + scadenzaSottomissione3 +
                 ", scadenza_impaginazione=" + scadenzaImpaginazione +
+                ", chairs=" + chairs +
                 '}';
     }
 
