@@ -6,6 +6,10 @@ public class ConferenzaEntity extends BaseEntity {
     private int id_conferenza;
     private String nome;
     private String descrizione;
+    private String location;
+    private String metodoAssegnazione;
+    private String metodoValutazione;
+    private int paperPrevisti;
     private LocalDateTime dataConferenza;
     private LocalDateTime scadenzaSottomissione;
     private LocalDateTime scadenzaRevisione;
@@ -15,7 +19,8 @@ public class ConferenzaEntity extends BaseEntity {
     private LocalDateTime scadenzaImpaginazione;
 
     public ConferenzaEntity(int id_conferenza, String nome, String descrizione,
-                            LocalDateTime dataConferenza,
+                            LocalDateTime dataConferenza, String location, String metodoAssegnazione,
+                            String metodoValutazione, int paperPrevisti,
                             LocalDateTime scadenzaSottomissione,
                             LocalDateTime scadenzaRevisione,
                             LocalDateTime scadenzaSottomissione2,
@@ -26,6 +31,10 @@ public class ConferenzaEntity extends BaseEntity {
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataConferenza = dataConferenza;
+        this.location = location;
+        this.metodoAssegnazione = metodoAssegnazione;
+        this.metodoValutazione = metodoValutazione;
+        this.paperPrevisti = paperPrevisti;
         this.scadenzaSottomissione = scadenzaSottomissione;
         this.scadenzaRevisione = scadenzaRevisione;
         this.scadenzaSottomissione2 = scadenzaSottomissione2;
@@ -115,6 +124,38 @@ public class ConferenzaEntity extends BaseEntity {
         this.scadenzaImpaginazione = scadenzaImpaginazione;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getMetodoAssegnazione() {
+        return metodoAssegnazione;
+    }
+
+    public void setMetodoAssegnazione(String metodoAssegnazione) {
+        this.metodoAssegnazione = metodoAssegnazione;
+    }
+
+    public String getMetodoValutazione() {
+        return metodoValutazione;
+    }
+
+    public void setMetodoValutazione(String metodoValutazione) {
+        this.metodoValutazione = metodoValutazione;
+    }
+
+    public int getPaperPrevisti() {
+        return paperPrevisti;
+    }
+
+    public void setPaperPrevisti(int paperPrevisti) {
+        this.paperPrevisti = paperPrevisti;
+    }
+
     @Override
     public String toString() {
         return "ConferenzaEntity{" +
@@ -122,6 +163,10 @@ public class ConferenzaEntity extends BaseEntity {
                 ", nome='" + nome + '\'' +
                 ", descrizione='" + descrizione + '\'' +
                 ", data_conferenza=" + dataConferenza +
+                ", location='" + location + '\'' +
+                ", metodo_assegnazione='" + metodoAssegnazione + '\'' +
+                ", metodo_valutazione='" + metodoValutazione + '\'' +
+                ", paper_previsti=" + paperPrevisti +
                 ", scadenza_sottomissione=" + scadenzaSottomissione +
                 ", scadenza_revisione=" + scadenzaRevisione +
                 ", scadenza_sottomissione_2=" + scadenzaSottomissione2 +
