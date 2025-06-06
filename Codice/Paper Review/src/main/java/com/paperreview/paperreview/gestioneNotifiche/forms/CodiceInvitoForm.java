@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.gestioneNotifiche.controls.forms;
+package com.paperreview.paperreview.gestioneNotifiche.forms;
 
 import com.dlsc.formsfx.model.structure.*;
 import com.dlsc.formsfx.model.validators.RegexValidator;

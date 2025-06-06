@@ -1,14 +1,14 @@
-package com.paperreview.paperreview.gestioneNotifiche.controls.controls;
+package com.paperreview.paperreview.gestioneNotifiche.controls;
 
 import com.paperreview.paperreview.common.DBMSBoundary;
 import com.paperreview.paperreview.common.dao.InvitoDao;
+import com.paperreview.paperreview.common.dao.NotificaDao;
 import com.paperreview.paperreview.common.dao.TopicDao;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.InvitoEntity;
+import com.paperreview.paperreview.entities.NotificaEntity;
 import com.paperreview.paperreview.gestioneRevisioni.TopicFormModel;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -45,9 +45,17 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
             InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
             List<InvitoEntity> inviti = invitoDao.getAll();
 
+            NotificaDao notificaDao = new NotificaDao(DBMSBoundary.getConnection());
+            List<NotificaEntity> notifiche = notificaDao.getAll();
+
             for (InvitoEntity invito : inviti) {
                 Node card = creaInvitoCard(invito);
                 invitiContainer.getChildren().add(card);
+            }
+
+            for (NotificaEntity notifica : notifiche) {
+                Node card = creaNotificaCard(notifica);
+                notificheContainer.getChildren().add(card);
             }
 
             // TODO: carica e mostra anche le notifiche
@@ -109,6 +117,55 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
         return box;
     }
 
+    private Node creaNotificaCard(NotificaEntity notifica) {
+        HBox box = new HBox(20); // Spazio tra gli elementi
+        box.getStyleClass().addAll("notifica-card", "bg-celeste");
+        box.setPrefWidth(1200);
+
+        /* TESTO A SINISTRA */
+        Label testo = new Label(notifica.getTesto());
+        testo.getStyleClass().addAll("font-bold", "text-bianco", "h5");
+        testo.setWrapText(true);
+        testo.setPrefWidth(500);
+
+        /* INFO AL CENTRO */
+        VBox additionalInfoBox = new VBox(10);
+        additionalInfoBox.getStyleClass().add("additional-info-box");
+        additionalInfoBox.setPrefWidth(300);
+        additionalInfoBox.setAlignment(Pos.CENTER);
+
+        HBox scadenzaBox = new HBox(10);
+        FontIcon calendarIcon = new FontIcon("fas-calendar-times");
+        calendarIcon.setIconSize(24);
+        calendarIcon.setIconColor(Color.WHITE);
+
+        Label scadenza = new Label(notifica.getData().toLocalDate().toString());
+        scadenza.getStyleClass().addAll("text-bianco", "h6");
+        scadenzaBox.getChildren().addAll(calendarIcon, scadenza);
+        additionalInfoBox.getChildren().add(scadenzaBox);
+
+        /* BOTTONI A DESTRA */
+        VBox pulsantiBox = new VBox(10);
+        pulsantiBox.setPrefWidth(300);
+
+        Button prendiVisione = new Button("Accetta");
+        prendiVisione.getStyleClass().add("blue-button");
+        prendiVisione.setPrefWidth(Double.MAX_VALUE);
+
+        pulsantiBox.getChildren().addAll(prendiVisione);
+
+        /* SPACES (FLESSIBILI) */
+        Region leftSpacer = new Region();
+        Region rightSpacer = new Region();
+        HBox.setHgrow(leftSpacer, Priority.ALWAYS);
+        HBox.setHgrow(rightSpacer, Priority.ALWAYS);
+
+        /* COMPOSIZIONE: [Testo] [Spacer] [Info] [Spacer] [Bottoni] */
+        box.getChildren().addAll(testo, leftSpacer, additionalInfoBox, rightSpacer, pulsantiBox);
+        box.setAlignment(Pos.CENTER);
+
+        return box;
+    }
 
 
 }

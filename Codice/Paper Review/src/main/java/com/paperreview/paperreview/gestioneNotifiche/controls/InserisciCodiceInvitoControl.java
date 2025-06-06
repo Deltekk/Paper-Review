@@ -1,9 +1,9 @@
-package com.paperreview.paperreview.gestioneNotifiche.controls.controls;
+package com.paperreview.paperreview.gestioneNotifiche.controls;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.paperreview.paperreview.controls.MainControl;
-import com.paperreview.paperreview.gestioneNotifiche.controls.forms.CodiceInvitoForm;
+import com.paperreview.paperreview.gestioneNotifiche.forms.CodiceInvitoForm;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
