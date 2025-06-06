@@ -1,7 +1,7 @@
-package com.paperreview.paperreview.common.DAO;
+package com.paperreview.paperreview.common.dao;
 
 import com.paperreview.paperreview.entities.InvitoEntity;
-import com.paperreview.paperreview.Entities.InvitoStatusEnum;
+import com.paperreview.paperreview.entities.InvitoStatusEnum;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.common.DAO;
+package com.paperreview.paperreview.common.dao;
 
 import com.paperreview.paperreview.common.PasswordUtil;
 import com.paperreview.paperreview.entities.UtenteEntity;
@@ -117,7 +117,7 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
             }
         }
 
-        return null; // login fallito
+        return null; // loginBoundary fallito
     }
 
 

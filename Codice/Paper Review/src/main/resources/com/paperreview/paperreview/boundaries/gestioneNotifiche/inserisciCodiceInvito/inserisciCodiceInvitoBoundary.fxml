@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.paperreview.paperreview.gestioneNotifiche.controls.controls.InserisciCodiceInvitoControl"
+           stylesheets="@inserisciCodiceInvitoStyle.css"
+           styleClass="pagina-centro, quadrettoni"
+           prefHeight="400.0" prefWidth="600.0">
+
+    <VBox GridPane.columnIndex="0" spacing="15" alignment="CENTER" maxWidth="600" maxHeight="600" styleClass="bg-celeste">
+
+        <Label text="INSERISCI CODICE INVITO" styleClass="h1, text-bianco, font-bold, ombra"/>
+
+        <Label fx:id="errorLabel" textFill="red" visible="false" styleClass="text-rosso, p, font-bold"/>
+
+        <!-- Qui metti il contenitore vuoto per il form -->
+        <VBox fx:id="formContainer" maxWidth="600" minWidth="400" styleClass="form-container"/>
+
+        <Button fx:id="confirmButton" text="Conferma" maxWidth="300" styleClass="green-button"
+                onAction="#handleConferma"/>
+
+    </VBox>
+
+</StackPane>

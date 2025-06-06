@@ -36,8 +36,8 @@ public class MainControl {
 
     @FXML
     public void initialize() {
-        // Carica la schermata di login all’avvio
-        setView("/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml");
+        // Carica la schermata di loginBoundary all’avvio
+        setView("/com/paperreview/paperreview/boundaries/gestioneAccount/loginBoundary/loginBoundary.fxml");
         Image logo = new Image(getClass().getResourceAsStream("/images/logoBianco.png"));
         Image hoverLogo = new Image(getClass().getResourceAsStream("/images/logoHover.png"));
         Image pressedLogo = new Image(getClass().getResourceAsStream("/images/logoPressed.png"));
@@ -87,7 +87,7 @@ public class MainControl {
 
             rootPane.getChildren().setAll(view);
 
-            if (fxmlPath.contains("login") || fxmlPath.contains("registrazione") || fxmlPath.contains("recupero"))
+            if (fxmlPath.contains("loginBoundary") || fxmlPath.contains("registrazioneBoundary") || fxmlPath.contains("recupero"))
             {
                 hideHeader();
             } else {
@@ -149,15 +149,15 @@ public class MainControl {
     }
 
     public void hanleInserisciInvito(){
-        setView("/com/paperreview/paperreview/boundaries/inserisciCodiceInvito/inserisciCodiceInvitoBoundary.fxml");
+        setView("/com/paperreview/paperreview/boundaries/gestioneNotifiche/inserisciCodiceInvito/inserisciCodiceInvitoBoundary.fxml");
     }
 
     public void handleNotificheEdInviti(){
-        setView("/com/paperreview/paperreview/boundaries/notificheEdInviti/notificheEdInvitiBoundary.fxml");
+        setView("/com/paperreview/paperreview/boundaries/gestioneNotifiche/visualizzaNotificheInviti/visualizzaNotificheInvitiBoundary.fxml");
     }
 
     public void handleGestioneAccount(){
-        setView("/com/paperreview/paperreview/boundaries/gestioneAccount/gestioneAccountBoundary.fxml");
+        setView("/com/paperreview/paperreview/boundaries/gestioneAccount/gestioneAccountBoundary/gestioneAccountBoundary.fxml");
     }
 
 }

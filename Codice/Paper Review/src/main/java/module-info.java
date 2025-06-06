@@ -21,9 +21,15 @@ module com.paperreview.paperreview {
     exports com.paperreview.paperreview;
     exports com.paperreview.paperreview.controls;
     opens com.paperreview.paperreview.controls to javafx.fxml;
-    exports com.paperreview.paperreview.GestioneAccount;
-    opens com.paperreview.paperreview.GestioneAccount to javafx.fxml;
-    exports com.paperreview.paperreview.GestioneRevisioni;
-    opens com.paperreview.paperreview.GestioneRevisioni to javafx.fxml;
+    exports com.paperreview.paperreview.gestioneRevisioni;
+    opens com.paperreview.paperreview.gestioneRevisioni to javafx.fxml;
+    exports com.paperreview.paperreview.gestioneAccount.controls;
+    opens com.paperreview.paperreview.gestioneAccount.controls to javafx.fxml;
+    exports com.paperreview.paperreview.gestioneAccount.forms;
+    opens com.paperreview.paperreview.gestioneAccount.forms to javafx.fxml;
+    exports com.paperreview.paperreview.gestioneNotifiche.controls.forms;
+    opens com.paperreview.paperreview.gestioneNotifiche.controls.forms to javafx.fxml;
+    exports com.paperreview.paperreview.gestioneNotifiche.controls.controls;
+    opens com.paperreview.paperreview.gestioneNotifiche.controls.controls to javafx.fxml;
 
 }

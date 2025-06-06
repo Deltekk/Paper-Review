@@ -1,0 +1,114 @@
+package com.paperreview.paperreview.gestioneNotifiche.controls.controls;
+
+import com.paperreview.paperreview.common.DBMSBoundary;
+import com.paperreview.paperreview.common.dao.InvitoDao;
+import com.paperreview.paperreview.common.dao.TopicDao;
+import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.entities.InvitoEntity;
+import com.paperreview.paperreview.gestioneRevisioni.TopicFormModel;
+import com.paperreview.paperreview.interfaces.ControlledScreen;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import org.kordamp.ikonli.javafx.FontIcon;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public class VisualizzaNotificheInvitiControl implements ControlledScreen {
+
+    @FXML private ScrollPane container;
+
+    @FXML private VBox invitiContainer;
+    @FXML private VBox notificheContainer;
+
+    private MainControl mainControl;
+
+
+
+    @Override
+    public void setMainController(MainControl mainControl) {
+        this.mainControl = mainControl;
+    }
+
+    @FXML
+    public void initialize() {
+        try {
+            InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
+            List<InvitoEntity> inviti = invitoDao.getAll();
+
+            for (InvitoEntity invito : inviti) {
+                Node card = creaInvitoCard(invito);
+                invitiContainer.getChildren().add(card);
+            }
+
+            // TODO: carica e mostra anche le notifiche
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Node creaInvitoCard(InvitoEntity invito) {
+        HBox box = new HBox(20); // Spazio tra gli elementi
+        box.getStyleClass().addAll("invito-card", "bg-celeste");
+        box.setPrefWidth(1200);
+
+        /* TESTO A SINISTRA */
+        Label testo = new Label(invito.getTesto());
+        testo.getStyleClass().addAll("font-bold", "text-bianco", "h5");
+        testo.setWrapText(true);
+        testo.setPrefWidth(500);
+
+        /* INFO AL CENTRO */
+        VBox additionalInfoBox = new VBox(10);
+        additionalInfoBox.getStyleClass().add("additional-info-box");
+        additionalInfoBox.setPrefWidth(300);
+        additionalInfoBox.setAlignment(Pos.CENTER);
+
+        HBox scadenzaBox = new HBox(10);
+        FontIcon calendarIcon = new FontIcon("fas-calendar-times");
+        calendarIcon.setIconSize(24);
+        calendarIcon.setIconColor(Color.WHITE);
+
+        Label scadenza = new Label(invito.getData().toLocalDate().toString());
+        scadenza.getStyleClass().addAll("text-bianco", "h6");
+        scadenzaBox.getChildren().addAll(calendarIcon, scadenza);
+        additionalInfoBox.getChildren().add(scadenzaBox);
+
+        /* BOTTONI A DESTRA */
+        VBox pulsantiBox = new VBox(10);
+        pulsantiBox.setPrefWidth(300);
+
+        Button accetta = new Button("Accetta");
+        Button rifiuta = new Button("Rifiuta");
+        accetta.getStyleClass().add("green-button");
+        rifiuta.getStyleClass().add("red-button");
+        accetta.setPrefWidth(Double.MAX_VALUE);
+        rifiuta.setPrefWidth(Double.MAX_VALUE);
+
+        pulsantiBox.getChildren().addAll(accetta, rifiuta);
+
+        /* SPACES (FLESSIBILI) */
+        Region leftSpacer = new Region();
+        Region rightSpacer = new Region();
+        HBox.setHgrow(leftSpacer, Priority.ALWAYS);
+        HBox.setHgrow(rightSpacer, Priority.ALWAYS);
+
+        /* COMPOSIZIONE: [Testo] [Spacer] [Info] [Spacer] [Bottoni] */
+        box.getChildren().addAll(testo, leftSpacer, additionalInfoBox, rightSpacer, pulsantiBox);
+        box.setAlignment(Pos.CENTER);
+
+        return box;
+    }
+
+
+
+}

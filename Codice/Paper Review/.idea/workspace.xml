@@ -5,16 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/LoginFormModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/ModificaPasswordModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/RecuperoPasswordFormModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/RegistrazioneFormModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneRevisioni/TopicFormModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/CodiceInvitoForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/InserisciCodiceInvitoControl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/inserisciCodiceInvito/inserisciCodiceInvitoBoundary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/inserisciCodiceInvito/inserisciCodiceInvitoStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/controls/VisualizzaNotificheInvitiControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneNotifiche/visualizzaNotificheInviti/visualizzaNotificheInvitiBoundary.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneNotifiche/visualizzaNotificheInviti/visualizzaNotificheInvitiStyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/GestioneAccountControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/GestioneAccountControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/LoginControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/LoginControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/LoginFormModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/forms/LoginFormModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/ModificaPasswordControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/ModificaPasswordControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/ModificaPasswordModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/forms/ModificaPasswordFormModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/RecuperoPasswordControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/RecuperoPasswordControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/RecuperoPasswordFormModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/forms/RecuperoPasswordFormModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/RegistrazioneControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/RegistrazioneControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/RegistrazioneFormModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/forms/RegistrazioneFormModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneRevisioni/ModificaTopicControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/ModificaTopicControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneRevisioni/TopicFormModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/TopicFormModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/BaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/BaseDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/ConferenzaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/ConferenzaDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/InvitoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/InvitoDao.java" afterDir="false" />
@@ -24,28 +29,29 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/RevisioneDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/RevisioneDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/TopicDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/TopicDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/UtenteDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/UtenteDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/GestioneAccountControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/GestioneAccountControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/email/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/email/EmailSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/CodiceInvitoForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/forms/CodiceInvitoForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/HomeControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/HomeControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/LoginControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/LoginControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/InserisciCodiceInvitoControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/controls/InserisciCodiceInvitoControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/MainControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/MainControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/ModificaPasswordControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/ModificaPasswordControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/ModificaTopicControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneRevisioni/ModificaTopicControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/RecuperoPasswordControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/RecuperoPasswordControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/RegistrazioneControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/GestioneAccount/RegistrazioneControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/BaseEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/InvitoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/InvitoEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/enumerators/InvitoStatusEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/InvitoStatusEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/forms/LoginFormModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/forms/ModificaPasswordModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/forms/RecuperoPasswordFormModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/forms/RegistrazioneFormModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/forms/TopicFormModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/InvitoStatusEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/InvitoStatusEnum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/gestioneAccountBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/gestioneAccountBoundary.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/modificaPassword/modificaPasswordBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/modificaPassword/modificaPasswordBoundary.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/modificaTopic/modificaTopic.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/modificaTopic/modificaTopic.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/recuperoPassword/recuperoPasswordBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/recuperoPassword/recuperoPasswordBoundary.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/registrazione/registrazioneBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/registrazione/registrazioneBoundary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/gestioneAccountBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/gestioneAccountBoundary/gestioneAccountBoundary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/gestioneAccountStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/gestioneAccountBoundary/gestioneAccountStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/inserisciCodiceInvito/inserisciCodiceInvitoBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneNotifiche/inserisciCodiceInvito/inserisciCodiceInvitoBoundary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/inserisciCodiceInvito/inserisciCodiceInvitoStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneNotifiche/inserisciCodiceInvito/inserisciCodiceInvitoStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/login/loginBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/loginBoundary/loginBoundary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/login/loginStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/loginBoundary/loginStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/modificaPassword/modificaPasswordBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/modificaPasswordBoundary/modificaPasswordBoundary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/modificaPassword/modificaPasswordStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/modificaPasswordBoundary/modificaPasswordStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/modificaTopic/modificaTopic.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaTopic/modificaTopic.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/modificaTopic/modificaTopicStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaTopic/modificaTopicStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/recuperoPassword/recuperoPasswordBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/recuperoPasswordBoundary/recuperoPasswordBoundary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/recuperoPassword/recuperoPasswordStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/recuperoPasswordBoundary/recuperoPasswordStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/registrazione/registrazioneBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/registrazioneBoundary/registrazioneBoundary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/registrazione/registrazioneStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneAccount/registrazioneBoundary/registrazioneStyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Grafici/SDD.asta" beforeDir="false" afterPath="$PROJECT_DIR$/../../Grafici/SDD.asta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,8 +66,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -117,11 +123,11 @@
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources" />
-      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\images" />
-      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\views\main" />
-      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\pipo" />
-      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\views\login" />
+      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries\gestioneNotifiche" />
+      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries" />
+      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries\gestioneNotifiche\inserisciCodiceInvito\inserisciCodiceInvito" />
+      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries\gestioneRevisioni" />
+      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries\gestioneAccount\" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.paperreview.paperreview" />
@@ -282,11 +288,30 @@
       <workItem from="1749110426428" duration="6061000" />
       <workItem from="1749161843535" duration="7359000" />
       <workItem from="1749169786485" duration="486000" />
+      <workItem from="1749196346722" duration="2202000" />
+      <workItem from="1749198855145" duration="914000" />
+      <workItem from="1749199781008" duration="5444000" />
+      <workItem from="1749207265552" duration="2472000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NoClassDefFoundError" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/UtenteDao.java</url>
+          <line>14</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

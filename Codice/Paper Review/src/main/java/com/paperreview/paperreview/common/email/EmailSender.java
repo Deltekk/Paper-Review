@@ -31,6 +31,6 @@ public class EmailSender {
         message.setContent(mail.getBody(), "text/html;charset=utf-8");
 
         Transport.send(message);
-        System.out.println("Email inviata con successo.");
+        System.out.println("email inviata con successo.");
     }
 }

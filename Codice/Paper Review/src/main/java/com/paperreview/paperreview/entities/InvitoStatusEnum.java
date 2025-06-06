@@ -1,9 +1,9 @@
-package com.paperreview.paperreview.Entities;
+package com.paperreview.paperreview.entities;
 
 public enum InvitoStatusEnum {
-    PENDING("Pending"),    // Invito in attesa di risposta
-    ACCEPTED("Accepted"),  // Invito accettato
-    REJECTED("Rejected");  // Invito rifiutato
+    PENDING("Inviato"),    // Invito in attesa di risposta
+    ACCEPTED("Accettato"),  // Invito accettato
+    REJECTED("Rifiutato");  // Invito rifiutato
 
     private final String status;
 

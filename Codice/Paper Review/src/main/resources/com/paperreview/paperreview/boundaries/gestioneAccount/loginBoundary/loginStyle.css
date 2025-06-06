@@ -1,0 +1,16 @@
+/* Sidebar sinistra */
+.sidebar {
+    -fx-background-image: url('/quadrettoni.png');
+    -fx-background-size: cover;       /* Copre tutta la zona */
+    -fx-background-position: center;  /* Centra l’immagine */
+    -fx-background-repeat: no-repeat; /* Non ripete l’immagine */
+    -fx-padding: 40;
+}
+
+
+/* Contenitore loginBoundary */
+.login-container {
+    -fx-padding: 40;
+}
+
+/* ... (resto delle classi CSS che avevi già) */

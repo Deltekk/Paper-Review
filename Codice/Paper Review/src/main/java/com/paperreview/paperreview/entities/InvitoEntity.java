@@ -1,7 +1,5 @@
 package com.paperreview.paperreview.entities;
 
-import com.paperreview.paperreview.Entities.InvitoStatusEnum;
-
 import java.time.LocalDateTime;
 
 public class InvitoEntity extends BaseEntity {

@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.common.DAO;
+package com.paperreview.paperreview.common.dao;
 
 import com.paperreview.paperreview.entities.BaseEntity;
 
@@ -77,7 +77,7 @@ public abstract class BaseDao <T extends BaseEntity> {
         }
     }
 
-    // Questi metodi vanno definiti nelle sottoclassi DAO
+    // Questi metodi vanno definiti nelle sottoclassi dao
     protected abstract String getInsertQuery();
     protected abstract void prepareInsert(PreparedStatement stmt, T entity) throws SQLException;
 
