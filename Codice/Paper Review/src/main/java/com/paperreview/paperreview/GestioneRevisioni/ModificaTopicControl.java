@@ -1,11 +1,11 @@
-package com.paperreview.paperreview.controls;
+package com.paperreview.paperreview.GestioneRevisioni;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.paperreview.paperreview.common.DBMSBoundary;
-import com.paperreview.paperreview.common.dao.TopicDao;
+import com.paperreview.paperreview.common.DAO.TopicDao;
+import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.TopicEntity;
-import com.paperreview.paperreview.forms.TopicFormModel;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

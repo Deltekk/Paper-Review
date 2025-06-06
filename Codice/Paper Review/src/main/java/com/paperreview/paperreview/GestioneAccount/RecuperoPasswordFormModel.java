@@ -1,9 +1,7 @@
-package com.paperreview.paperreview.forms;
+package com.paperreview.paperreview.GestioneAccount;
 
 import com.dlsc.formsfx.model.structure.*;
-import com.dlsc.formsfx.model.validators.CustomValidator;
 import com.dlsc.formsfx.model.validators.RegexValidator;
-import com.dlsc.formsfx.model.validators.StringLengthValidator;
 
 public class RecuperoPasswordFormModel {
 

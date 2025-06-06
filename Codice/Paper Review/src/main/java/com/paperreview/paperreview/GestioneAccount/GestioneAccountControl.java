@@ -1,6 +1,7 @@
-package com.paperreview.paperreview.controls;
+package com.paperreview.paperreview.GestioneAccount;
 
 import com.paperreview.paperreview.common.UserContext;
+import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 

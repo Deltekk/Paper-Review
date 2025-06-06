@@ -21,5 +21,9 @@ module com.paperreview.paperreview {
     exports com.paperreview.paperreview;
     exports com.paperreview.paperreview.controls;
     opens com.paperreview.paperreview.controls to javafx.fxml;
+    exports com.paperreview.paperreview.GestioneAccount;
+    opens com.paperreview.paperreview.GestioneAccount to javafx.fxml;
+    exports com.paperreview.paperreview.GestioneRevisioni;
+    opens com.paperreview.paperreview.GestioneRevisioni to javafx.fxml;
 
 }

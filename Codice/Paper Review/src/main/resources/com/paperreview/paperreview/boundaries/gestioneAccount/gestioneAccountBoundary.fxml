@@ -4,7 +4,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/24"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.paperreview.paperreview.controls.GestioneAccountControl"
+            fx:controller="com.paperreview.paperreview.GestioneAccount.GestioneAccountControl"
             prefWidth="1280" prefHeight="720"
             maxHeight="Infinity" maxWidth="Infinity"
             styleClass="quadrettoni">

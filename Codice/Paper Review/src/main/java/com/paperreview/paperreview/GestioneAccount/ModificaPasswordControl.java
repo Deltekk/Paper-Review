@@ -1,11 +1,11 @@
-package com.paperreview.paperreview.controls;
+package com.paperreview.paperreview.GestioneAccount;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.paperreview.paperreview.common.*;
-import com.paperreview.paperreview.common.dao.UtenteDao;
+import com.paperreview.paperreview.common.DAO.UtenteDao;
+import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.UtenteEntity;
-import com.paperreview.paperreview.forms.ModificaPasswordModel;
 import com.paperreview.paperreview.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

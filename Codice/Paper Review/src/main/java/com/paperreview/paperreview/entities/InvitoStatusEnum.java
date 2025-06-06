@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.enumerators;
+package com.paperreview.paperreview.Entities;
 
 public enum InvitoStatusEnum {
     PENDING("Pending"),    // Invito in attesa di risposta

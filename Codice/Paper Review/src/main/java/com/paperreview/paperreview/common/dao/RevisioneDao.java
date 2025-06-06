@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.common.dao;
+package com.paperreview.paperreview.common.DAO;
 
 import com.paperreview.paperreview.entities.RevisioneEntity;
 

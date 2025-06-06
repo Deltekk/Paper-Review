@@ -1,6 +1,6 @@
 package com.paperreview.paperreview.entities;
 
-import com.paperreview.paperreview.enumerators.InvitoStatusEnum;
+import com.paperreview.paperreview.Entities.InvitoStatusEnum;
 
 import java.time.LocalDateTime;
 

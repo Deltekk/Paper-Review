@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.forms;
+package com.paperreview.paperreview.GestioneAccount;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Group;

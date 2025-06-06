@@ -149,7 +149,7 @@ public class MainControl {
     }
 
     public void hanleInserisciInvito(){
-        setView("/com/paperreview/paperreview/boundaries/inserisciInvito/inserisciInvitoBoundary.fxml");
+        setView("/com/paperreview/paperreview/boundaries/inserisciCodiceInvito/inserisciCodiceInvitoBoundary.fxml");
     }
 
     public void handleNotificheEdInviti(){
