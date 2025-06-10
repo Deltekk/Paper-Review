@@ -1,4 +1,5 @@
 package com.paperreview.paperreview.controls;
+import com.paperreview.paperreview.common.CustomDateParser;
 import com.paperreview.paperreview.common.dao.ConferenzaDao;
 import com.paperreview.paperreview.common.DBMSBoundary;
 import com.paperreview.paperreview.entities.ConferenzaEntity;
@@ -13,7 +14,6 @@ import javafx.scene.paint.Color;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -71,8 +71,7 @@ public class HomeControl implements ControlledScreen {
         calendarIcon.setIconSize(16);
         calendarIcon.setIconColor(Color.WHITE); // o altro colore adatto
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Label date = new Label(c.getDataConferenza().toLocalDate().format(formatter));
+        Label date = new Label(CustomDateParser.parseDate(c.getDataConferenza()));
         date.getStyleClass().addAll("h6", "text-bianco", "ombra", "font-light");
 
         // Metti icona + label in un HBox con spacing

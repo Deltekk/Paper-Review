@@ -1,5 +1,6 @@
 package com.paperreview.paperreview.gestioneNotifiche.controls;
 
+import com.paperreview.paperreview.common.CustomDateParser;
 import com.paperreview.paperreview.common.DBMSBoundary;
 import com.paperreview.paperreview.common.dao.InvitoDao;
 import com.paperreview.paperreview.common.dao.NotificaDao;
@@ -94,7 +95,7 @@ public class VisualizzaNotificheInvitiArchiviatiControl implements ControlledScr
 
         /* TESTO A SINISTRA */
         Label testo = new Label(invito.getTesto());
-        testo.getStyleClass().addAll("font-bold", "text-bianco", "h5");
+        testo.getStyleClass().addAll("font-bold", "text-bianco", "h5", "ombra");
         testo.setWrapText(true);
         testo.setPrefWidth(500);
 
@@ -108,9 +109,10 @@ public class VisualizzaNotificheInvitiArchiviatiControl implements ControlledScr
         FontIcon calendarIcon = new FontIcon("fas-calendar-times");
         calendarIcon.setIconSize(24);
         calendarIcon.setIconColor(Color.WHITE);
+        calendarIcon.getStyleClass().add("ombra");
 
-        Label scadenza = new Label(invito.getData().toLocalDate().toString());
-        scadenza.getStyleClass().addAll("text-bianco", "h6");
+        Label scadenza = new Label(CustomDateParser.parseDate(invito.getData()));
+        scadenza.getStyleClass().addAll("text-bianco", "h6", "ombra", "font-bold");
         scadenzaBox.getChildren().addAll(calendarIcon, scadenza);
         additionalInfoBox.getChildren().add(scadenzaBox);
 
@@ -132,7 +134,7 @@ public class VisualizzaNotificheInvitiArchiviatiControl implements ControlledScr
 
         /* TESTO A SINISTRA */
         Label testo = new Label(notifica.getTesto());
-        testo.getStyleClass().addAll("font-bold", "text-bianco", "h5");
+        testo.getStyleClass().addAll("font-bold", "text-bianco", "h5", "ombra");
         testo.setWrapText(true);
         testo.setPrefWidth(500);
 
@@ -146,9 +148,10 @@ public class VisualizzaNotificheInvitiArchiviatiControl implements ControlledScr
         FontIcon calendarIcon = new FontIcon("fas-calendar-times");
         calendarIcon.setIconSize(24);
         calendarIcon.setIconColor(Color.WHITE);
+        calendarIcon.getStyleClass().add("ombra");
 
-        Label scadenza = new Label(notifica.getData().toLocalDate().toString());
-        scadenza.getStyleClass().addAll("text-bianco", "h6");
+        Label scadenza = new Label(CustomDateParser.parseDate(notifica.getData()));
+        scadenza.getStyleClass().addAll("text-bianco", "h6", "ombra", "font-bold");
         scadenzaBox.getChildren().addAll(calendarIcon, scadenza);
         additionalInfoBox.getChildren().add(scadenzaBox);
 

@@ -1,6 +1,7 @@
 package com.paperreview.paperreview.entities;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class NotificaEntity extends BaseEntity {
     private int idNotifica;
