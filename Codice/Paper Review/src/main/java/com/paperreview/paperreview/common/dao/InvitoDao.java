@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class InvitoDao extends BaseDao<InvitoEntity> {
 
@@ -70,4 +71,65 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
                 (Integer) rs.getObject("ref_destinatario")  // Gestisci il valore null per ref_destinatario
         );
     }
+
+    public String acceptInvito(String codice) {
+        String message = "";
+
+        // 1. Verifica l'esistenza dell'invito
+        InvitoEntity invito = getInvitoByCodice(codice);  // Metodo che recupera l'invito tramite codice
+
+        if (invito == null) {
+            // Se l'invito non esiste
+            message = "Inesistente";
+        } else {
+            // 2. Verifica se l'invito è ancora valido
+            if (isInvitoScaduto(invito)) {
+                // Se l'invito è scaduto
+                message = "Scaduto";
+            } else {
+                // 3. Aggiorna lo stato dell'invito
+                invito.setStatus(InvitoStatusEnum.ACCEPTED);  // Imposta lo status su "Accettato"
+                updateInvito(invito);  // Metodo che aggiorna la tabella con il nuovo status
+
+                message = "Accettato";
+            }
+        }
+
+        return message;
+    }
+
+    private InvitoEntity getInvitoByCodice(String codice) {
+        // Esegui una query per ottenere l'invito in base al codice
+        String query = "SELECT * FROM Invito WHERE codice = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, codice);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapRow(rs);  // Mappa il risultato in un InvitoEntity
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;  // Se non trova l'invito
+    }
+
+    private boolean isInvitoScaduto(InvitoEntity invito) {
+        // Controlla se l'invito è scaduto. Puoi confrontare la data con l'ora attuale
+        LocalDateTime now = LocalDateTime.now();
+        return invito.getData().isBefore(now);  // Restituisce true se la data dell'invito è passata
+    }
+
+    private void updateInvito(InvitoEntity invito) {
+        // Esegui l'update per modificare lo stato dell'invito
+        String query = "UPDATE Invito SET status = ? WHERE id_invito = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, invito.getStatus().getStatus());  // Setta lo status su "Accettato"
+            stmt.setInt(2, invito.getId());  // Usa l'id dell'invito per l'UPDATE
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
