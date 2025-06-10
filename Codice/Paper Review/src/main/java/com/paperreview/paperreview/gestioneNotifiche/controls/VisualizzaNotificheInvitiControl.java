@@ -200,7 +200,6 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
 
     @FXML
     public void prendiVisione(NotificaEntity notificaEntity, HBox boxNotifica) {
-        System.out.println(notificaEntity.toString());
 
         try{
             notificaEntity.setLetta(true);
