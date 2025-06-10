@@ -1,16 +1,49 @@
 package com.paperreview.paperreview.common.dao;
 
+import com.paperreview.paperreview.entities.InvitoEntity;
+import com.paperreview.paperreview.entities.InvitoStatusEnum;
 import com.paperreview.paperreview.entities.NotificaEntity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NotificaDao extends BaseDao<NotificaEntity> {
 
     public NotificaDao(Connection connection) {
         super(connection, "Notifica", "id_notifica");
+    }
+
+    @Override
+    public List<NotificaEntity> getAll(){
+        List<NotificaEntity> results = new ArrayList<>();
+        String query = "SELECT * FROM " + tableName + " WHERE isLetta = false";
+
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                results.add(mapRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return results;
+    }
+
+    public List<NotificaEntity> getAllArchived() {
+        List<NotificaEntity> results = new ArrayList<>();
+        String query = "SELECT * FROM " + tableName + " WHERE isLetta = true";
+
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                results.add(mapRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return results;
     }
 
     @Override

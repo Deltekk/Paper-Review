@@ -17,11 +17,12 @@
             <content>
                 <VBox spacing="20" alignment="TOP_CENTER" styleClass="trasparente">
                     <Label text="INVITI" styleClass="h2, font-bold, text-blu-scuro"/>
-                    <VBox fx:id="invitiContainer" spacing="15" styleClass="invitiContainer" />
+                    <VBox fx:id="invitiContainer" spacing="15" styleClass="invitiContainer" alignment="CENTER" />
 
                     <Label text="NOTIFICHE" styleClass="h2, font-bold, text-blu-scuro"/>
-                    <VBox fx:id="notificheContainer" spacing="10" styleClass="notificheContainer" />
+                    <VBox fx:id="notificheContainer" spacing="10" styleClass="notificheContainer" alignment="CENTER" />
 
+                    <Button text="Visualizza notifiche ed inviti archiviati" styleClass="h2, font-bold, blue-button, text-bianco" onAction="#visualizzaNotificheInvitiArchiviati"/>
 
                 </VBox>
             </content>

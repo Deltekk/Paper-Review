@@ -42,7 +42,6 @@ public class ModificaTopicControl implements ControlledScreen {
         this.mainControl = mainControl;
     }
 
-
     @FXML
     public void initialize() {
         try {

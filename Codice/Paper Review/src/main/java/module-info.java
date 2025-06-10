@@ -16,6 +16,7 @@ module com.paperreview.paperreview {
     requires jakarta.mail;
     requires io.github.cdimascio.dotenv.java;
     requires bcrypt;
+    requires org.checkerframework.checker.qual;
 
     opens com.paperreview.paperreview to javafx.fxml;
     exports com.paperreview.paperreview;

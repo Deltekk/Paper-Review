@@ -3,17 +3,56 @@ package com.paperreview.paperreview.common.dao;
 import com.paperreview.paperreview.entities.InvitoEntity;
 import com.paperreview.paperreview.entities.InvitoStatusEnum;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InvitoDao extends BaseDao<InvitoEntity> {
 
     public InvitoDao(Connection connection) {
         super(connection, "Invito", "id_invito");
     }
+
+    @Override
+    public List<InvitoEntity> getAll(){
+        List<InvitoEntity> results = new ArrayList<>();
+        String query = "SELECT * FROM " + tableName + " WHERE status = ? AND data > ? ORDER BY data";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, InvitoStatusEnum.PENDING.getStatus());
+            stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now())); // Imposta la data attuale
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs)); // Aggiungi ogni riga trovata
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return results;
+    }
+
+    public List<InvitoEntity> getAllArchived() {
+        List<InvitoEntity> results = new ArrayList<>();
+        String query = "SELECT * FROM " + tableName + " WHERE status != ? OR data < ? ORDER BY data";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, InvitoStatusEnum.PENDING.getStatus());
+            stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now())); // Imposta la data attuale
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs)); // Aggiungi ogni riga trovata
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return results;
+    }
+
 
     @Override
     protected String getInsertQuery() {

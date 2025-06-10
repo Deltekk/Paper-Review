@@ -3,28 +3,30 @@ package com.paperreview.paperreview.gestioneNotifiche.controls;
 import com.paperreview.paperreview.common.DBMSBoundary;
 import com.paperreview.paperreview.common.dao.InvitoDao;
 import com.paperreview.paperreview.common.dao.NotificaDao;
+import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.InvitoEntity;
 import com.paperreview.paperreview.entities.NotificaEntity;
-import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import org.checkerframework.checker.units.qual.N;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class VisualizzaNotificheInvitiControl implements ControlledScreen {
+public class VisualizzaNotificheInvitiArchiviatiControl implements ControlledScreen {
 
-    @FXML private ScrollPane container;
+    @FXML
+    private ScrollPane container;
 
     @FXML private VBox invitiContainer;
     @FXML private VBox notificheContainer;
@@ -40,14 +42,14 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
     public void initialize() {
         try {
             InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
-            List<InvitoEntity> inviti = invitoDao.getAll();
+            List<InvitoEntity> inviti = invitoDao.getAllArchived();
 
             NotificaDao notificaDao = new NotificaDao(DBMSBoundary.getConnection());
-            List<NotificaEntity> notifiche = notificaDao.getAll();
+            List<NotificaEntity> notifiche = notificaDao.getAllArchived();
 
             if(inviti.isEmpty())
             {
-                Label testo = new Label("Non hai ancora ricevuto dei nuovi inviti!");
+                Label testo = new Label("Non hai ancora archiviato degli inviti!");
                 testo.getStyleClass().addAll("font-bold", "text-rosso", "h5");
                 testo.setWrapText(true);
                 testo.setPrefWidth(500);
@@ -64,7 +66,7 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
 
             if(notifiche.isEmpty())
             {
-                Label testo = new Label("Non hai ancora ricevuto nuove notifiche!");
+                Label testo = new Label("Non hai ancora archiviato delle notifiche!");
                 testo.getStyleClass().addAll("font-bold", "text-rosso", "h5");
                 testo.setWrapText(true);
                 testo.setPrefWidth(500);
@@ -112,27 +114,12 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
         scadenzaBox.getChildren().addAll(calendarIcon, scadenza);
         additionalInfoBox.getChildren().add(scadenzaBox);
 
-        /* BOTTONI A DESTRA */
-        VBox pulsantiBox = new VBox(10);
-        pulsantiBox.setPrefWidth(300);
-
-        Button accetta = new Button("Accetta");
-        Button rifiuta = new Button("Rifiuta");
-        accetta.getStyleClass().add("green-button");
-        rifiuta.getStyleClass().add("red-button");
-        accetta.setPrefWidth(Double.MAX_VALUE);
-        rifiuta.setPrefWidth(Double.MAX_VALUE);
-
-        pulsantiBox.getChildren().addAll(accetta, rifiuta);
-
         /* SPACES (FLESSIBILI) */
         Region leftSpacer = new Region();
-        Region rightSpacer = new Region();
         HBox.setHgrow(leftSpacer, Priority.ALWAYS);
-        HBox.setHgrow(rightSpacer, Priority.ALWAYS);
 
         /* COMPOSIZIONE: [Testo] [Spacer] [Info] [Spacer] [Bottoni] */
-        box.getChildren().addAll(testo, leftSpacer, additionalInfoBox, rightSpacer, pulsantiBox);
+        box.getChildren().addAll(testo, leftSpacer, additionalInfoBox);
         box.setAlignment(Pos.CENTER);
 
         return box;
@@ -165,51 +152,15 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
         scadenzaBox.getChildren().addAll(calendarIcon, scadenza);
         additionalInfoBox.getChildren().add(scadenzaBox);
 
-        /* BOTTONI A DESTRA */
-        VBox pulsantiBox = new VBox(10);
-        pulsantiBox.setPrefWidth(300);
-
-        Button prendiVisione = new Button("Prendi visione");
-        prendiVisione.getStyleClass().add("green-button");
-        prendiVisione.setPrefWidth(Double.MAX_VALUE);
-        prendiVisione.setOnAction(event -> prendiVisione(notifica, box));
-
-        pulsantiBox.getChildren().addAll(prendiVisione);
-
         /* SPACES (FLESSIBILI) */
         Region leftSpacer = new Region();
-        Region rightSpacer = new Region();
         HBox.setHgrow(leftSpacer, Priority.ALWAYS);
-        HBox.setHgrow(rightSpacer, Priority.ALWAYS);
 
         /* COMPOSIZIONE: [Testo] [Spacer] [Info] [Spacer] [Bottoni] */
-        box.getChildren().addAll(testo, leftSpacer, additionalInfoBox, rightSpacer, pulsantiBox);
+        box.getChildren().addAll(testo, leftSpacer, additionalInfoBox);
         box.setAlignment(Pos.CENTER);
 
         return box;
-    }
-
-    @FXML
-    public void visualizzaNotificheInvitiArchiviati(){
-        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneNotifiche/visualizzaNotificheInvitiArchiviati/visualizzaNotificheInvitiArchiviatiBoundary.fxml");
-    }
-
-
-    @FXML
-    public void prendiVisione(NotificaEntity notificaEntity, HBox boxNotifica) {
-        System.out.println(notificaEntity.toString());
-
-        try{
-            notificaEntity.setLetta(true);
-            NotificaDao notificaDao = new NotificaDao(DBMSBoundary.getConnection());
-            notificaDao.update(notificaEntity);
-
-            notificheContainer.getChildren().remove(boxNotifica);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-            // TODO: GESTIRE BENE QUEST' ERRORE
-        }
-
     }
 
 }
