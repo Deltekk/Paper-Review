@@ -6,7 +6,7 @@ import com.paperreview.paperreview.common.DBMSBoundary;
 import com.paperreview.paperreview.common.dao.TopicDao;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.TopicEntity;
-import com.paperreview.paperreview.interfaces.ControlledScreen;
+import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

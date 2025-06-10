@@ -4,7 +4,7 @@ import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.gestioneNotifiche.forms.CodiceInvitoForm;
-import com.paperreview.paperreview.interfaces.ControlledScreen;
+import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

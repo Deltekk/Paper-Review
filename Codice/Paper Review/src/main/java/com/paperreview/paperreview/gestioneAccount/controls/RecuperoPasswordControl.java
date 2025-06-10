@@ -9,7 +9,7 @@ import com.paperreview.paperreview.common.email.EmailSender;
 import com.paperreview.paperreview.common.email.MailRecuperoAccount;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.UtenteEntity;
-import com.paperreview.paperreview.interfaces.ControlledScreen;
+import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import jakarta.mail.MessagingException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

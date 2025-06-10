@@ -2,7 +2,7 @@ package com.paperreview.paperreview.controls;
 import com.paperreview.paperreview.common.dao.ConferenzaDao;
 import com.paperreview.paperreview.common.DBMSBoundary;
 import com.paperreview.paperreview.entities.ConferenzaEntity;
-import com.paperreview.paperreview.interfaces.ControlledScreen;
+import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

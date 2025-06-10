@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.interfaces;
+package com.paperreview.paperreview.common.interfaces;
 
 import com.paperreview.paperreview.controls.MainControl;
 

@@ -7,7 +7,7 @@ import com.paperreview.paperreview.common.*;
 import com.paperreview.paperreview.common.dao.UtenteDao;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.UtenteEntity;
-import com.paperreview.paperreview.interfaces.ControlledScreen;
+import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
