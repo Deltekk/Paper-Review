@@ -1,6 +1,7 @@
 package com.paperreview.paperreview.common.dao;
 
 import com.paperreview.paperreview.entities.InvitoEntity;
+import com.paperreview.paperreview.entities.NotificaEntity;
 import com.paperreview.paperreview.entities.StatusInvito;
 
 import java.sql.*;
@@ -156,4 +157,69 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
         }
     }
 
+    public List<InvitoEntity> getAllToRead(int refDestinatario) {
+        List<InvitoEntity> results = new ArrayList<>();
+        String query = "SELECT * FROM " + tableName +
+                " WHERE ref_destinatario = ? AND status = ? AND data > ? ORDER BY data DESC";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refDestinatario);
+            stmt.setString(2, StatusInvito.Inviato.toString());
+            stmt.setTimestamp(3, Timestamp.valueOf(java.time.LocalDateTime.now()));
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    public List<InvitoEntity> getAllArchived(int refDestinatario) {
+        List<InvitoEntity> results = new ArrayList<>();
+        String query = "SELECT * FROM " + tableName +
+                " WHERE ref_destinatario = ? AND " +
+                "(" +
+                "status IN (?, ?) OR " +                 // Accettato o Rifiutato
+                "(status = ? AND data <= ?)" +           // Oppure scaduto ma ancora Inviato
+                ")" +
+                " ORDER BY data DESC";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refDestinatario);
+            stmt.setString(2, StatusInvito.Accettato.toString());
+            stmt.setString(3, StatusInvito.Rifiutato.toString());
+            stmt.setString(4, StatusInvito.Inviato.toString());
+            stmt.setTimestamp(5, Timestamp.valueOf(java.time.LocalDateTime.now()));
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    public List<InvitoEntity> getAllToReadByEmail(String email) {
+        List<InvitoEntity> results = new ArrayList<>();
+        String query = "SELECT * FROM " + tableName +
+                " WHERE email = ? AND status = ? AND data > ? ORDER BY data DESC";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, email);
+            stmt.setString(2, StatusInvito.Inviato.toString());
+            stmt.setTimestamp(3, Timestamp.valueOf(java.time.LocalDateTime.now()));
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
 }
