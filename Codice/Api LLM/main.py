@@ -7,10 +7,6 @@ import tempfile # Libreria per gestire i file temporanei (file che si creano qua
 import os # Libreria per poter cancellare il file temporaneo
 import json # Libreria per formattare la risposta dell' LLM in JSON
 
-import time
-import random
-import hashlib
-
 # Avviamo l'applicazione
 app = FastAPI()
 
