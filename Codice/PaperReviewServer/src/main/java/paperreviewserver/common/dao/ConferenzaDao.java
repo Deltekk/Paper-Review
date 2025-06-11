@@ -1,13 +1,42 @@
 package paperreviewserver.common.dao;
 
+import jdk.dynalink.linker.LinkerServices;
+
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConferenzaDao {
     private final Connection connection;
 
     public ConferenzaDao(Connection connection) {
         this.connection = connection;
+    }
+
+    public Map<Integer, String> getAllIdsAndNomi() throws SQLException {
+        Map<Integer, String> result = new HashMap<>();
+        String query = "SELECT id_conferenza, nome FROM Conferenza";
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                result.put(rs.getInt("id_conferenza"), rs.getString("nome"));
+            }
+        }
+        return result;
+    }
+
+    public Integer getGiorniPreavviso(int idConferenza) throws SQLException {
+        String q = "SELECT giorni_preavviso FROM Conferenza WHERE id_conferenza = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(q)) {
+            stmt.setInt(1, idConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("giorni_preavviso");
+                }
+            }
+        }
+        return null;
     }
 
     public LocalDateTime getScadenzaSottomissione(int idConferenza) throws SQLException {
