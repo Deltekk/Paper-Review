@@ -16,7 +16,7 @@ import java.util.List;
 public class LLMBoundary {
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    public static List<String> inviaPdf(Path pdfPath, List<TopicEntity> topics) throws IOException, InterruptedException {
+    public static List<String> assegnaParoleChiave(Path pdfPath, List<TopicEntity> listaParoleChiave) throws IOException, InterruptedException {
         DotenvUtil.init(); // inizializza .env
         String apiUrl = DotenvUtil.getTagPDFApi();
         String boundary = "----CMSBoundary";
@@ -24,7 +24,7 @@ public class LLMBoundary {
 
         // Estrai nomi dei topic e convertili in JSON stringificato
         List<String> nomi = new ArrayList<>();
-        for (TopicEntity topic : topics) {
+        for (TopicEntity topic : listaParoleChiave) {
             nomi.add(topic.getNome());
         }
         String jsonKeywords = mapper.writeValueAsString(nomi); // es: ["AI", "Robotica"]
