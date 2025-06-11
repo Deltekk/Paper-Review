@@ -1,19 +1,40 @@
 package com.paperreview.paperreview.common.dao;
 
 import com.paperreview.paperreview.entities.ConferenzaEntity;
+import com.paperreview.paperreview.entities.InvitoEntity;
+import com.paperreview.paperreview.entities.InvitoStatusEnum;
 import com.paperreview.paperreview.entities.UtenteEntity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
 
     public ConferenzaDao(Connection connection) {
         super(connection, "Conferenza", "id_conferenza");
+    }
+
+    @Override
+    public List<ConferenzaEntity> getAll(){
+        List<ConferenzaEntity> results = new ArrayList<>();
+        String query = "SELECT * FROM " + tableName + " WHERE data_conferenza > ? ORDER BY data_conferenza";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now())); // Imposta la data attuale
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs)); // Aggiungi ogni riga trovata
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return results;
     }
 
     @Override

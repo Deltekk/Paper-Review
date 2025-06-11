@@ -40,14 +40,23 @@ public class HomeControl implements ControlledScreen {
 
             conferenzeContainer.getChildren().clear();
 
-            for(int i = 0; i < 10; i++){
+            if(conferenze.isEmpty())
+            {
+                Label testo = new Label("Ancora non è stata pubblicata nessuna conferenza!");
+                testo.getStyleClass().addAll("font-bold", "text-rosso", "h5");
+                testo.setWrapText(true);
+                testo.setPrefWidth(500);
+                testo.setAlignment(Pos.CENTER);
+
+                conferenzeContainer.getChildren().add(testo);
+            }
+            else
+            {
                 for (ConferenzaEntity c : conferenze) {
                     VBox card = creaCardConferenza(c);
                     conferenzeContainer.getChildren().add(card);
                 }
             }
-
-
 
         }catch(SQLException e){
             e.printStackTrace();

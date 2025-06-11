@@ -15,7 +15,7 @@
             fitToWidth="true">
 
     <content>
-        <FlowPane fx:id="conferenzeContainer" styleClass="conferenze-container" hgap="30" vgap="30" prefWrapLength="1200">
+        <FlowPane fx:id="conferenzeContainer" styleClass="conferenze-container" hgap="30" vgap="30" prefWrapLength="1200" alignment="CENTER">
             <!-- Le card saranno aggiunte dinamicamente dal controller -->
         </FlowPane>
     </content>

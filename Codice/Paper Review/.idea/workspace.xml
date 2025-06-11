@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/VisualizzaNotificheInvitiControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/VisualizzaNotificheInvitiControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/ConferenzaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/ConferenzaDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/HomeControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/HomeControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,6 +257,7 @@
       <workItem from="1749520245502" duration="618000" />
       <workItem from="1749564066397" duration="14561000" />
       <workItem from="1749578676115" duration="7567000" />
+      <workItem from="1749630357588" duration="4643000" />
     </task>
     <servers />
   </component>
