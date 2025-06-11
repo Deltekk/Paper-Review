@@ -1,7 +1,6 @@
-package com.paperreview.paperreview.common.dao;
+package com.paperreview.paperreview.common.dbms.dao;
 
 import com.paperreview.paperreview.entities.InvitoEntity;
-import com.paperreview.paperreview.entities.NotificaEntity;
 import com.paperreview.paperreview.entities.StatusInvito;
 
 import java.sql.*;

@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 
-import com.paperreview.paperreview.common.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 
 public class PaperReviewApp extends Application {
 

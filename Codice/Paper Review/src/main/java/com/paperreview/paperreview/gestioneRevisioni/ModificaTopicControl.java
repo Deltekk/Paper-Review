@@ -2,8 +2,8 @@ package com.paperreview.paperreview.gestioneRevisioni;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
-import com.paperreview.paperreview.common.DBMSBoundary;
-import com.paperreview.paperreview.common.dao.TopicDao;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.dao.TopicDao;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.TopicEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;

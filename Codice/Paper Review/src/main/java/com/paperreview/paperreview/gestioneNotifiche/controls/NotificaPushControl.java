@@ -1,9 +1,5 @@
 package com.paperreview.paperreview.gestioneNotifiche.controls;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import org.controlsfx.control.Notifications;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 

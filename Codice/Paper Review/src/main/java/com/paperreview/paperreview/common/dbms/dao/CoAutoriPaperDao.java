@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.common.dao;
+package com.paperreview.paperreview.common.dbms.dao;
 
 import java.sql.*;
 import java.util.HashSet;

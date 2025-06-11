@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.common.dao;
+package com.paperreview.paperreview.common.dbms.dao;
 
 import com.paperreview.paperreview.entities.TopicEntity;
 

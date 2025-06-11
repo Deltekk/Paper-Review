@@ -17,6 +17,8 @@ module com.paperreview.paperreview {
     requires io.github.cdimascio.dotenv.java;
     requires bcrypt;
     requires org.checkerframework.checker.qual;
+    requires com.fasterxml.jackson.databind;
+    requires java.net.http;
 
     opens com.paperreview.paperreview to javafx.fxml;
     exports com.paperreview.paperreview;

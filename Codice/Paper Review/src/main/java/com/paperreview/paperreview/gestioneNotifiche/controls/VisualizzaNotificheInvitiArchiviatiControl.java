@@ -1,10 +1,10 @@
 package com.paperreview.paperreview.gestioneNotifiche.controls;
 
 import com.paperreview.paperreview.common.CustomDateParser;
-import com.paperreview.paperreview.common.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.UserContext;
-import com.paperreview.paperreview.common.dao.InvitoDao;
-import com.paperreview.paperreview.common.dao.NotificaDao;
+import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
+import com.paperreview.paperreview.common.dbms.dao.NotificaDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.InvitoEntity;
@@ -12,7 +12,6 @@ import com.paperreview.paperreview.entities.NotificaEntity;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;

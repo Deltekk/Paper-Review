@@ -31,4 +31,5 @@ public class DotenvUtil{
         return dotenv.get("DB_PASSWORD");
     }
 
+    public static String getTagPDFApi() { return dotenv.get("TAG_PDF_API"); }
 }

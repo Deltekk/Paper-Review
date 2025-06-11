@@ -1,9 +1,9 @@
 package com.paperreview.paperreview.gestioneNotifiche.controls;
 
 import com.paperreview.paperreview.common.CustomDateParser;
-import com.paperreview.paperreview.common.DBMSBoundary;
-import com.paperreview.paperreview.common.dao.InvitoDao;
-import com.paperreview.paperreview.common.dao.NotificaDao;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
+import com.paperreview.paperreview.common.dbms.dao.NotificaDao;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.InvitoEntity;
 import com.paperreview.paperreview.entities.NotificaEntity;
@@ -17,7 +17,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import org.checkerframework.checker.units.qual.N;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.sql.SQLException;

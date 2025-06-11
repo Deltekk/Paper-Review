@@ -1,14 +1,11 @@
-package com.paperreview.paperreview.common.dao;
+package com.paperreview.paperreview.common.dbms.dao;
 
 import com.paperreview.paperreview.entities.ConferenzaEntity;
-import com.paperreview.paperreview.entities.UtenteEntity;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
 
