@@ -1,6 +1,9 @@
 package com.paperreview.paperreview;
 
 import com.paperreview.paperreview.common.DotenvUtil;
+import com.paperreview.paperreview.common.dbms.dao.TopicDao;
+import com.paperreview.paperreview.common.llm.LLMBoundary;
+import com.paperreview.paperreview.entities.TopicEntity;
 import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +11,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.util.List;
 
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 

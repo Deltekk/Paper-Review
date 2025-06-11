@@ -14,18 +14,23 @@ import hashlib
 # Avviamo l'applicazione
 app = FastAPI()
 
+import json
+
 def estrai_array_json_grezzo(testo):
     """
-    Cerca di estrarre un array JSON valido da una stringa anche se preceduto da testo extra.
+    Estrae e carica un array JSON valido da una stringa, cercando tra la prima '[' e l'ultima ']'.
+    Restituisce None in caso di errore di parsing.
     """
     try:
-        inizio = testo.index('[') # L'inizio del testo sarà dove troviamo la prima parentesi quadra aperta
-        sottojson = testo[inizio:] # prendiamo tutto ciò che c'è dopo, perché è effettivamente il testo necessario
-        return json.loads(sottojson) # ritorniamo il testo trovato come json
-    except (ValueError, json.JSONDecodeError) as e: # se c'è stato un errore di parsing
+        inizio = testo.index('[')
+        fine = testo.rindex(']') + 1  # incluso
+        sottojson = testo[inizio:fine]
+        return json.loads(sottojson)
+    except (ValueError, json.JSONDecodeError) as e:
         print("Errore di parsing JSON:", e)
         print("Contenuto grezzo:", testo)
-        return None # non ritorniamo nulla 
+        return None
+
 
 def estrai_testo_da_pdf(percorso_pdf):
     """
@@ -39,20 +44,18 @@ def estrai_testo_da_pdf(percorso_pdf):
             testo += pagina.get_text()
     return testo # ritorniamo il testo
 
-def genera_tag_con_ollama(testo, parole_chiave, max_parole=2000, modello='llama3'):
+def genera_tag_con_ollama(testo, parole_chiave, max_parole=1500, modello='llama3'):
     """
     Genera i tag in base al testo passato come parametro
     """
     testo_troncato = testo[:max_parole * 6]  # Limitiamo il testo per evitare di eccedere il limite del modello
     prompt = (
         "Analizza il seguente testo e restituisci **ESCLUSIVAMENTE** (e **SOLO SE HA SENSO**)"
-        "una lista di massimo **4 parole chiavi** pertinenti, **scelte unicamente tra quelle elencate** di seguito. "
-        "La risposta deve essere scritta **in italiano** e deve contenere **solo** un array JSON come questo:\n"
-        "[\"ParolaChiave1\", \"ParolaChiave2\", ...]\n\n"
-        "Non fornire alcuna spiegazione, introduzione o testo aggiuntivo.\n\n"
+        "una lista di massimo **2 parole chiave** pertinenti, **scelte unicamente tra quelle elencate** di seguito. "
+        "La risposta deve essere scritta **in italiano** e deve contenere **solo** un array JSON.\n"        
         f"Parole chiave tra cui scegliere (in italiano):\n{parole_chiave}\n\n"
         f"Testo da analizzare (in italiano):\n{testo_troncato}\n\n"
-        f"Adesso ritornami le parole chiave in formato JSON in ITALIANO E SOLO IN ITALIANO!"
+        f"Adesso ritornami le parole chiave in un array di stringhe tra parentesi quadre in ITALIANO E SOLO IN ITALIANO! IL FORMATO DA SEGUIRE È QUESTO: [\"ParolaChiave1\", \"ParolaChiave2\", ...]\n\n"
     )
 
     # effetuiamo la richiesta al modello LLM 
