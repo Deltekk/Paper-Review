@@ -14,4 +14,9 @@ target/
 *.iws
 *.iml
 *.ipr
+<<<<<<< HEAD
 Codice/Paper Review/.idea/workspace.xml
+=======
+Codice/PaperReviewServer/.env.example
+Codice/PaperReviewServer/.env
+>>>>>>> bed38b2f471e4ba68905fe0b0a9b7bac8d68e007

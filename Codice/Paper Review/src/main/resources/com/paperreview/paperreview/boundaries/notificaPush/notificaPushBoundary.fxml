@@ -9,7 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <HBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml" fx:id="root" spacing="10" styleClass="notification-box" stylesheets="@notificationStyle.css" fx:controller="com.paperreview.paperreview.gestioneNotifiche.controls.NotificaPushControl">
+      xmlns:fx="http://javafx.com/fxml" fx:id="root" spacing="10" styleClass="notification-box" stylesheets="@notificaPushStyle.css" fx:controller="com.paperreview.paperreview.gestioneNotifiche.controls.NotificaPushControl">
 
     <!-- Rettangolo azzurro a sinistra -->
     <Region fx:id="sidebar" styleClass="notification-sidebar" />
