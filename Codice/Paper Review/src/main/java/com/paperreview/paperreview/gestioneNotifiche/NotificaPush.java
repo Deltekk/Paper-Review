@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.common;
+package com.paperreview.paperreview.gestioneNotifiche;
 
 import com.paperreview.paperreview.gestioneNotifiche.controls.NotificaPushControl;
 import javafx.fxml.FXMLLoader;
