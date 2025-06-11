@@ -20,13 +20,13 @@ La repo è organizzata per facilitare la navigazione tra le varie sezioni. Ecco 
 ┌── Codice/                	# ⚙️ I codici delle parti applicative del progetto
 │   ├── Api LLM/		# 🦙 L'implementazione API dell'LLM LLAMA
 │   ├── Paper Review/		# ☕ L'implementazione JavaFX dell'applicazione
-│   └── ...
+│   └── Paper Review Server/	# 🐧 L'implementazione server dell'applicazione
 ├── Documenti/         		# 📄 I documenti che sono stati prodotti
-│   ├── RAD.docx
-│   ├── SDD.docx
-│   └── ODD.docx
+│   ├── RAD.pdf
+│   ├── SDD.pdf
+│   └── ODD.pdf
 ├── Grafici/              	# 📊 I grafici che sono stati utilizzati all'interno dei documenti
-│   ├── Casi d'uso.asta
+│   ├── Diagrammi Paper Review.asta
 │   └── ...
 ├── Risorse/               	# 📦 Risorse utilizzate nel readme
 │   ├── Banner.png
