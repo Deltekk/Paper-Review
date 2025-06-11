@@ -5,12 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/NotificaPush.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/NotificaPushControl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/notification/notificationBoundary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/notification/notificationStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/PaperReviewServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/ConsoleLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/DBMSBoundary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/DotenvUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/PasswordUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/BaseDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/ConferenzaDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/InvitoDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/NotificaDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/PaperDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/ProceedingDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/RevisioneDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/TopicDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/UtenteDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/email/EmailSender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/email/MailBase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/email/MailRecuperoAccount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/entities/BaseEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/entities/ConferenzaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/entities/InvitoEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/entities/InvitoStatusEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/entities/NotificaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/entities/PaperEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/entities/ProceedingEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/entities/RevisioneEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/entities/TopicEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/entities/UtenteEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/gestioneNotifiche/NotificaScadenzaAdeguamentoContenuti.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/gestioneNotifiche/NotificaScadenzaAdeguamentoFormato.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/gestioneNotifiche/NotificaScadenzaCorrezioniEditoriali.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/gestioneNotifiche/NotificaScadenzaImpaginazione.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/gestioneNotifiche/NotificaScadenzaRevisioni.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/gestioneNotifiche/NotificaScadenzaSottomissioni.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/gestioneNotifiche/controls/ScadenzeControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/NotificaPush.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/NotificaPush.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/notification/notificationBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/notificaPush/notificaPushBoundary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/notification/notificationStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/notificaPush/notificaPushStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,35 +83,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.PaperReviewApp.executor": "Run",
-    "Maven.build-jlink.executor": "Run",
-    "Maven.paper-review [clean].executor": "Run",
-    "Maven.paper-review [compile].executor": "Run",
-    "Maven.paper-review [install].executor": "Run",
-    "Maven.paper-review [javafx:jlink].executor": "Run",
-    "Maven.paper-review [package].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Shell Script.JPackage Build.executor": "Run",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/susin/Desktop/Materie/Ingegneria Del Software/Progetto-Ing-Soft/Codice/Paper Review/src/main/resources",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.PaperReviewApp.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.build-jlink.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.paper-review [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.paper-review [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.paper-review [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.paper-review [javafx:jlink].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.paper-review [package].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Shell Script.JPackage Build.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/susin/Desktop/Materie/Ingegneria Del Software/Progetto-Ing-Soft/Codice/Paper Review/src/main/resources&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources" />
@@ -104,6 +138,7 @@
     <configuration name="PaperReviewApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.paperreview.paperreview.PaperReviewApp" />
       <module name="paper-review" />
+      <option name="VM_PARAMETERS" value="--enable-native-access=ALL-UNNAMED" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.paperreview.paperreview.*" />
@@ -261,7 +296,12 @@
       <workItem from="1749564066397" duration="14561000" />
       <workItem from="1749578676115" duration="7567000" />
       <workItem from="1749630357588" duration="5829000" />
-      <workItem from="1749640499926" duration="7610000" />
+      <workItem from="1749640499926" duration="10049000" />
+      <workItem from="1749653778916" duration="1322000" />
+      <workItem from="1749655589686" duration="417000" />
+      <workItem from="1749656217549" duration="623000" />
+      <workItem from="1749658523158" duration="176000" />
+      <workItem from="1749658805858" duration="1103000" />
     </task>
     <servers />
   </component>
@@ -277,7 +317,7 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/UtenteDao.java</url>
-          <line>14</line>
+          <line>11</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

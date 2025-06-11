@@ -14,3 +14,5 @@ target/
 *.iws
 *.iml
 *.ipr
+Codice/PaperReviewServer/.env.example
+Codice/PaperReviewServer/.env

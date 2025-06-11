@@ -15,10 +15,10 @@ public class NotificaPush {
         this.contentText = contentText;
     }
 
-    public void show() {
+    public void visualizza() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/com/paperreview/paperreview/boundaries/notification/notificationBoundary.fxml"));
+                    "/com/paperreview/paperreview/boundaries/notificaPush/notificaPushBoundary.fxml"));
 
             Node content = loader.load();
 
