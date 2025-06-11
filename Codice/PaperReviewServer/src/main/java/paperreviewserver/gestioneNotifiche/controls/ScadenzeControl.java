@@ -17,16 +17,11 @@ public class ScadenzeControl {
 
             String cronExpr = DotenvUtil.getJobScheduleCron();
 
-            // 🔎 Controllo se mancante o vuoto
-            if (cronExpr == null || cronExpr.trim().isEmpty()) {
-                ConsoleLogger.error("❌ La variabile JOB_SCHEDULE_CRON è mancante o vuota nel file .env");
-                ConsoleLogger.warning("Arresto del server.");
-                System.exit(1);
-            }
-
             // 🔎 Validazione cron sintattica
             try {
-                CronScheduleBuilder.cronSchedule(cronExpr); // valida ma non costruisce
+                TriggerBuilder.newTrigger()
+                        .withSchedule(CronScheduleBuilder.cronSchedule(cronExpr))
+                        .build();
             } catch (Exception e) {
                 ConsoleLogger.error("❌ Cron expression non valida: " + cronExpr);
                 ConsoleLogger.error("ℹ️ Dettaglio errore: " + e.getMessage());
