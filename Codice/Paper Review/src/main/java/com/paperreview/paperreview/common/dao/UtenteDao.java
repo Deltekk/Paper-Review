@@ -2,12 +2,9 @@ package com.paperreview.paperreview.common.dao;
 
 import com.paperreview.paperreview.common.PasswordUtil;
 import com.paperreview.paperreview.entities.UtenteEntity;
-import com.paperreview.paperreview.entities.TopicEntity;
 
 import java.sql.Connection;
 import java.sql.*;
-import java.util.Set;
-import java.util.HashSet;
 
 public class UtenteDao extends BaseDao<UtenteEntity> {
 
@@ -40,16 +37,12 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
 
     @Override
     protected void prepareInsert(PreparedStatement stmt, UtenteEntity u) throws SQLException {
-
         String hashedPassword = PasswordUtil.hashPassword(u.getPassword());
-
-        stmt.setString(4, hashedPassword);
-        u.setPassword(hashedPassword); // aggiorna l'entity
-
         stmt.setString(1, u.getNome());
         stmt.setString(2, u.getCognome());
         stmt.setString(3, u.getEmail());
         stmt.setString(4, hashedPassword);
+        u.setPassword(hashedPassword); // Aggiorna l'entità se necessario
     }
 
     @Override
@@ -132,33 +125,25 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
         );
     }
 
-    // Metodo per aggiungere un Topic all'Utente
-    public void addTopicToUser(int utenteId, int topicId) throws SQLException {
-        String query = "INSERT INTO TopicUtente (ref_utente, ref_topic) VALUES (?, ?)";
-
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, utenteId);
-            stmt.setInt(2, topicId);
-            stmt.executeUpdate();
+    // Aggiorna la Password
+    public boolean updatePassword(int id, String nuovaPasswordChiara) throws SQLException {
+        String hashed = PasswordUtil.hashPassword(nuovaPasswordChiara);
+        String sql = "UPDATE " + tableName + " SET password = ? WHERE id_utente = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, hashed);
+            stmt.setInt(2, id);
+            return stmt.executeUpdate() > 0;
         }
     }
 
-    // Metodo per ottenere tutti i Topic associati a un Utente
-    public Set<TopicEntity> getTopicsForUser(int utenteId) throws SQLException {
-        String query = "SELECT t.id_topic, t.nome FROM Topic t " +
-                "JOIN TopicUtente tu ON t.id_topic = tu.ref_topic WHERE tu.ref_utente = ?";
-
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, utenteId);
-            ResultSet rs = stmt.executeQuery();
-            Set<TopicEntity> topics = new HashSet<>();
-            while (rs.next()) {
-                TopicEntity topic = new TopicEntity();
-                topic.setId(rs.getInt("id_topic"));
-                topic.setNome(rs.getString("nome"));
-                topics.add(topic);
-            }
-            return topics;
+    // Aggiorna solo nome e cognome (update parziale).
+    public boolean updateNomeCognome(int id, String nome, String cognome) throws SQLException {
+        String sql = "UPDATE " + tableName + " SET nome = ?, cognome = ? WHERE id_utente = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+            stmt.setString(2, cognome);
+            stmt.setInt(3, id);
+            return stmt.executeUpdate() > 0;
         }
     }
 }

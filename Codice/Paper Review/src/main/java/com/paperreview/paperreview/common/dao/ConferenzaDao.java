@@ -1,8 +1,6 @@
 package com.paperreview.paperreview.common.dao;
 
 import com.paperreview.paperreview.entities.ConferenzaEntity;
-import com.paperreview.paperreview.entities.InvitoEntity;
-import com.paperreview.paperreview.entities.InvitoStatusEnum;
 import com.paperreview.paperreview.entities.UtenteEntity;
 
 import java.sql.*;
@@ -109,38 +107,5 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
                 rs.getObject("scadenza_sottomissione_3", java.time.LocalDateTime.class),
                 rs.getObject("scadenza_impaginazione", java.time.LocalDateTime.class)
         );
-    }
-    // Metodo per associare un utente come chair a una conferenza
-    public void addChairToConferenza(int utenteId, int conferenzaId) throws SQLException {
-        String query = "INSERT INTO Chair (ref_utente, ref_conferenza) VALUES (?, ?)";
-
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, utenteId);
-            stmt.setInt(2, conferenzaId);
-            stmt.executeUpdate();
-        }
-    }
-
-    // Metodo per ottenere tutti i chair (utenti) associati a una conferenza
-    public Set<UtenteEntity> getChairsForConferenza(int conferenzaId) throws SQLException {
-        String query = "SELECT u.id_utente, u.nome, u.cognome, u.email FROM Utente u " +
-                "JOIN Chair c ON u.id_utente = c.ref_utente WHERE c.ref_conferenza = ?";
-
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, conferenzaId);
-            ResultSet rs = stmt.executeQuery();
-            Set<UtenteEntity> chairs = new HashSet<>();
-            while (rs.next()) {
-                UtenteEntity utente = new UtenteEntity(
-                        rs.getInt("id_utente"),
-                        rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getString("email"),
-                        null // Oltre alla password, se necessario
-                );
-                chairs.add(utente);
-            }
-            return chairs;
-        }
     }
 }

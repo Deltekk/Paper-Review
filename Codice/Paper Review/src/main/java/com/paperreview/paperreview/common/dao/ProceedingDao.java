@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProceedingDao extends BaseDao<ProceedingEntity> {
 
@@ -56,5 +58,33 @@ public class ProceedingDao extends BaseDao<ProceedingEntity> {
                 rs.getInt("ref_utente"),
                 rs.getInt("ref_conferenza")
         );
+    }
+
+    public List<ProceedingEntity> getByConferenza(int refConferenza) throws SQLException {
+        String query = "SELECT * FROM " + tableName + " WHERE ref_conferenza = ?";
+        List<ProceedingEntity> results = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
+            }
+        }
+        return results;
+    }
+
+    public List<ProceedingEntity> getByUtente(int refUtente) throws SQLException {
+        String query = "SELECT * FROM " + tableName + " WHERE ref_utente = ?";
+        List<ProceedingEntity> results = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refUtente);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
+            }
+        }
+        return results;
     }
 }

@@ -1,7 +1,7 @@
 package com.paperreview.paperreview.common.dao;
 
 import com.paperreview.paperreview.entities.InvitoEntity;
-import com.paperreview.paperreview.entities.InvitoStatusEnum;
+import com.paperreview.paperreview.entities.StatusInvito;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -20,7 +20,7 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
         String query = "SELECT * FROM " + tableName + " WHERE status = ? AND data > ? ORDER BY data";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, InvitoStatusEnum.PENDING.getStatus());
+            stmt.setString(1, StatusInvito.Inviato.toString());
             stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now())); // Imposta la data attuale
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -39,7 +39,7 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
         String query = "SELECT * FROM " + tableName + " WHERE status != ? OR data < ? ORDER BY data";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, InvitoStatusEnum.PENDING.getStatus());
+            stmt.setString(1, StatusInvito.Inviato.toString());
             stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now())); // Imposta la data attuale
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -64,7 +64,7 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
     protected void prepareInsert(PreparedStatement stmt, InvitoEntity invito) throws SQLException {
         stmt.setObject(1, invito.getData());  // LocalDateTime
         stmt.setString(2, invito.getTesto());
-        stmt.setString(3, invito.getStatus().getStatus());  // Usa il metodo getStatus() dell'Enum
+        stmt.setString(3, invito.getStatus().toString());  // Usa il metodo getStatus() dell'Enum
         stmt.setString(4, invito.getEmail());
         stmt.setString(5, invito.getCodice());
         stmt.setInt(6, invito.getRefConferenza());
@@ -82,7 +82,7 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
     protected void prepareUpdate(PreparedStatement stmt, InvitoEntity invito) throws SQLException {
         stmt.setObject(1, invito.getData());  // LocalDateTime
         stmt.setString(2, invito.getTesto());
-        stmt.setString(3, invito.getStatus().getStatus());  // Usa il metodo getStatus() dell'Enum
+        stmt.setString(3, invito.getStatus().toString());  // Usa il metodo getStatus() dell'Enum
         stmt.setString(4, invito.getEmail());
         stmt.setString(5, invito.getCodice());
         stmt.setInt(6, invito.getRefConferenza());
@@ -102,7 +102,7 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
                 rs.getInt("id_invito"),
                 rs.getObject("data", java.time.LocalDateTime.class),
                 rs.getString("testo"),
-                InvitoStatusEnum.fromString(rs.getString("status")),  // Converti la stringa in un enum
+                StatusInvito.fromString(rs.getString("status")),  // Converti la stringa in un enum
                 rs.getString("email"),
                 rs.getString("codice"),
                 rs.getInt("ref_conferenza"),
@@ -111,30 +111,15 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
         );
     }
 
-    public String acceptInvito(String codice) {
-        String message = "";
-
-        // 1. Verifica l'esistenza dell'invito
-        InvitoEntity invito = getInvitoByCodice(codice);  // Metodo che recupera l'invito tramite codice
-
-        if (invito == null) {
-            // Se l'invito non esiste
-            message = "Inesistente";
-        } else {
-            // 2. Verifica se l'invito è ancora valido
-            if (isInvitoScaduto(invito)) {
-                // Se l'invito è scaduto
-                message = "Scaduto";
-            } else {
-                // 3. Aggiorna lo stato dell'invito
-                invito.setStatus(InvitoStatusEnum.ACCEPTED);  // Imposta lo status su "Accettato"
-                updateInvito(invito);  // Metodo che aggiorna la tabella con il nuovo status
-
-                message = "Accettato";
-            }
-        }
-
-        return message;
+    public String acceptOrRejectInvito(String codice, boolean accept) {
+        InvitoEntity invito = getInvitoByCodice(codice);
+        if (invito == null) return "Inesistente";
+        if (invito.getStatus() == StatusInvito.Accettato) return "Già accettato";
+        if (invito.getStatus() == StatusInvito.Rifiutato) return "Già rifiutato";
+        if (isInvitoScaduto(invito)) return "Scaduto";
+        invito.setStatus(accept ? StatusInvito.Accettato : StatusInvito.Rifiutato);
+        updateInvito(invito);
+        return accept ? "Accettato" : "Rifiutato";
     }
 
     private InvitoEntity getInvitoByCodice(String codice) {
@@ -163,7 +148,7 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
         // Esegui l'update per modificare lo stato dell'invito
         String query = "UPDATE Invito SET status = ? WHERE id_invito = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, invito.getStatus().getStatus());  // Setta lo status su "Accettato"
+            stmt.setString(1, invito.getStatus().toString());  // Setta lo status su "Accettato"
             stmt.setInt(2, invito.getId());  // Usa l'id dell'invito per l'UPDATE
             stmt.executeUpdate();
         } catch (SQLException e) {

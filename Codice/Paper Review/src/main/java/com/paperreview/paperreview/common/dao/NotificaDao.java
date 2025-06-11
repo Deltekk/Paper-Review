@@ -1,11 +1,8 @@
 package com.paperreview.paperreview.common.dao;
 
-import com.paperreview.paperreview.entities.InvitoEntity;
-import com.paperreview.paperreview.entities.InvitoStatusEnum;
 import com.paperreview.paperreview.entities.NotificaEntity;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,35 +12,53 @@ public class NotificaDao extends BaseDao<NotificaEntity> {
         super(connection, "Notifica", "id_notifica");
     }
 
-    @Override
-    public List<NotificaEntity> getAll(){
-        List<NotificaEntity> results = new ArrayList<>();
-        String query = "SELECT * FROM " + tableName + " WHERE isLetta = false";
 
-        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
-            while (rs.next()) {
-                results.add(mapRow(rs));
+    // Notifiche NON lette per uno specifico utente
+    public List<NotificaEntity> getAll(int refUtente) {
+        List<NotificaEntity> results = new ArrayList<>();
+        String query = "SELECT * FROM " + tableName + " WHERE isLetta = false AND ref_utente = ? ORDER BY data DESC";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refUtente);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return results;
     }
 
-    public List<NotificaEntity> getAllArchived() {
+    // Notifiche LETTE (archiviate) per uno specifico utente
+    public List<NotificaEntity> getAllArchived(int refUtente) {
         List<NotificaEntity> results = new ArrayList<>();
-        String query = "SELECT * FROM " + tableName + " WHERE isLetta = true";
+        String query = "SELECT * FROM " + tableName + " WHERE isLetta = true AND ref_utente = ? ORDER BY data DESC";
 
-        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
-            while (rs.next()) {
-                results.add(mapRow(rs));
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refUtente);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return results;
+    }
+
+    // Segna una notifica come letta
+    public boolean segnaComeLetta(int idNotifica) {
+        String query = "UPDATE " + tableName + " SET isLetta = true WHERE id_notifica = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idNotifica);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

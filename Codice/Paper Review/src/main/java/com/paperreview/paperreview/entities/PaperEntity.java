@@ -4,87 +4,59 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 public class PaperEntity extends BaseEntity {
-    private int idPaper;
+    private int id;
     private String titolo;
-    private String contenuto;
+    private String abstractPaper;    // può essere null
+    private byte[] file;             // BLOB per il file vero e proprio
     private LocalDateTime dataSottomissione;
     private int refUtente;
     private int refConferenza;
-    private Set<TopicEntity> topics;
+    private Set<TopicEntity> topics; // opzionale, non mappato direttamente dal DAO
 
-    // Costruttore
-    public PaperEntity(int idPaper, String titolo, String contenuto, LocalDateTime dataSottomissione, int refUtente, int refConferenza) {
-        this.idPaper = idPaper;
+    // Costruttore completo (senza topics)
+    public PaperEntity(int id, String titolo, String abstractPaper, byte[] file,
+                       LocalDateTime dataSottomissione, int refUtente, int refConferenza) {
+        this.id = id;
         this.titolo = titolo;
-        this.contenuto = contenuto;
+        this.abstractPaper = abstractPaper;
+        this.file = file;
         this.dataSottomissione = dataSottomissione;
         this.refUtente = refUtente;
         this.refConferenza = refConferenza;
     }
 
     @Override
-    public int getId() {
-        return idPaper;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setId(int idPaper) {
-        this.idPaper = idPaper;
-    }
+    public String getTitolo() { return titolo; }
+    public void setTitolo(String titolo) { this.titolo = titolo; }
 
-    public String getTitolo() {
-        return titolo;
-    }
+    public String getAbstractPaper() { return abstractPaper; }
+    public void setAbstractPaper(String abstractPaper) { this.abstractPaper = abstractPaper; }
 
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
+    public byte[] getFile() { return file; }
+    public void setFile(byte[] file) { this.file = file; }
 
-    public String getContenuto() {
-        return contenuto;
-    }
+    public LocalDateTime getDataSottomissione() { return dataSottomissione; }
+    public void setDataSottomissione(LocalDateTime dataSottomissione) { this.dataSottomissione = dataSottomissione; }
 
-    public void setContenuto(String contenuto) {
-        this.contenuto = contenuto;
-    }
+    public int getRefUtente() { return refUtente; }
+    public void setRefUtente(int refUtente) { this.refUtente = refUtente; }
 
-    public LocalDateTime getDataSottomissione() {
-        return dataSottomissione;
-    }
+    public int getRefConferenza() { return refConferenza; }
+    public void setRefConferenza(int refConferenza) { this.refConferenza = refConferenza; }
 
-    public void setDataSottomissione(LocalDateTime dataSottomissione) {
-        this.dataSottomissione = dataSottomissione;
-    }
-
-    public int getRefUtente() {
-        return refUtente;
-    }
-
-    public void setRefUtente(int refUtente) {
-        this.refUtente = refUtente;
-    }
-
-    public int getRefConferenza() {
-        return refConferenza;
-    }
-
-    public void setRefConferenza(int refConferenza) {
-        this.refConferenza = refConferenza;
-    }
-
-    public Set<TopicEntity> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(Set<TopicEntity> topics) {
-        this.topics = topics;
-    }
+    public Set<TopicEntity> getTopics() { return topics; }
+    public void setTopics(Set<TopicEntity> topics) { this.topics = topics; }
 
     @Override
     public String toString() {
         return "PaperEntity{" +
-                "idPaper=" + idPaper +
+                "id=" + id +
                 ", titolo='" + titolo + '\'' +
-                ", contenuto='" + contenuto + '\'' +
+                ", abstractPaper='" + abstractPaper + '\'' +
+                ", file=" + (file != null ? file.length + " bytes" : "null") +
                 ", dataSottomissione=" + dataSottomissione +
                 ", refUtente=" + refUtente +
                 ", refConferenza=" + refConferenza +

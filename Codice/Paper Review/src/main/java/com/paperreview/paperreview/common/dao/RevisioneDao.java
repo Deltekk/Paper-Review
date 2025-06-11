@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RevisioneDao extends BaseDao<RevisioneEntity> {
 
@@ -59,5 +61,33 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
                 rs.getInt("ref_utente"),
                 rs.getInt("ref_paper")
         );
+    }
+
+    public List<RevisioneEntity> getByPaper(int refPaper) throws SQLException {
+        String query = "SELECT * FROM " + tableName + " WHERE ref_paper = ?";
+        List<RevisioneEntity> results = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refPaper);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
+            }
+        }
+        return results;
+    }
+
+    public List<RevisioneEntity> getByUtente(int refUtente) throws SQLException {
+        String query = "SELECT * FROM " + tableName + " WHERE ref_utente = ?";
+        List<RevisioneEntity> results = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refUtente);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
+            }
+        }
+        return results;
     }
 }

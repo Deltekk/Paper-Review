@@ -1,13 +1,12 @@
 package com.paperreview.paperreview.entities;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class InvitoEntity extends BaseEntity {
     private int idInvito;
     private LocalDateTime data;
     private String testo;
-    private InvitoStatusEnum status;  // Enum per lo status dell'invito
+    private StatusInvito status;  // Enum per lo status dell'invito
     private String email;
     private String codice;
     private int refConferenza;
@@ -15,7 +14,7 @@ public class InvitoEntity extends BaseEntity {
     private Integer refDestinatario;  // Può essere null, quindi è Integer e non int
 
     // Costruttore
-    public InvitoEntity(int idInvito, LocalDateTime data, String testo, InvitoStatusEnum status,
+    public InvitoEntity(int idInvito, LocalDateTime data, String testo, StatusInvito status,
                         String email, String codice, int refConferenza, int refMittente, Integer refDestinatario) {
         this.idInvito = idInvito;
         this.data = data;
@@ -53,11 +52,11 @@ public class InvitoEntity extends BaseEntity {
         this.testo = testo;
     }
 
-    public InvitoStatusEnum getStatus() {
+    public StatusInvito getStatus() {
         return status;
     }
 
-    public void setStatus(InvitoStatusEnum status) {
+    public void setStatus(StatusInvito status) {
         this.status = status;
     }
 
