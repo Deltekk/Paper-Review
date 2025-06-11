@@ -1,0 +1,17 @@
+.notification-box {
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-padding: 5;
+}
+
+.notification-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0B7C9F !important;
+}
+
+.notification-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #333;
+}

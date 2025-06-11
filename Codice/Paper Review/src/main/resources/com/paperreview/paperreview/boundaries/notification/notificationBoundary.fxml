@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:id="root" spacing="10" styleClass="notification-box" stylesheets="@notificationStyle.css" fx:controller="com.paperreview.paperreview.gestioneNotifiche.controls.NotificaPushControl">
+
+    <!-- Rettangolo azzurro a sinistra -->
+    <Region fx:id="sidebar" styleClass="notification-sidebar" />
+
+    <ImageView fitHeight="64" fitWidth="64" pickOnBounds="true">
+        <image>
+            <Image url="@../../../../../images/IconaSoloLogo.png" />
+        </image>
+    </ImageView>
+    <VBox spacing="5">
+        <Label fx:id="titleLabel" text="TITOLO NOTIFICA PUSH" styleClass="notification-title" />
+        <Label fx:id="messageLabel" text="Testo della notifica personalizzata" wrapText="true" styleClass="notification-text" />
+    </VBox>
+
+</HBox>
