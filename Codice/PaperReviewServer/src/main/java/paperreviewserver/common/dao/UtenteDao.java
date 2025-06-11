@@ -1,7 +1,6 @@
 package paperreviewserver.common.dao;
 
 import paperreviewserver.common.PasswordUtil;
-import paperreviewserver.entities.TopicEntity;
 import paperreviewserver.entities.UtenteEntity;
 
 import java.sql.*;

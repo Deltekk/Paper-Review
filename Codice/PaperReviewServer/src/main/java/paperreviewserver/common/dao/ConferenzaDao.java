@@ -1,144 +1,84 @@
 package paperreviewserver.common.dao;
 
-import paperreviewserver.entities.ConferenzaEntity;
-import paperreviewserver.entities.UtenteEntity;
-
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
+public class ConferenzaDao {
+    private final Connection connection;
 
     public ConferenzaDao(Connection connection) {
-        super(connection, "Conferenza", "id_conferenza");
+        this.connection = connection;
     }
 
-    @Override
-    public List<ConferenzaEntity> getAll(){
-        List<ConferenzaEntity> results = new ArrayList<>();
-        String query = "SELECT * FROM " + tableName + " WHERE data_conferenza > ? ORDER BY data_conferenza";
-
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now())); // Imposta la data attuale
+    public LocalDateTime getScadenzaSottomissione(int idConferenza) throws SQLException {
+        String q = "SELECT scadenza_sottomissione FROM Conferenza WHERE id_conferenza = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(q)) {
+            stmt.setInt(1, idConferenza);
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    results.add(mapRow(rs)); // Aggiungi ogni riga trovata
-                }
+                if (rs.next() && rs.getTimestamp(1) != null)
+                    return rs.getTimestamp(1).toLocalDateTime();
+                return null;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return results;
-    }
-
-    @Override
-    protected String getInsertQuery() {
-        return "INSERT INTO " + tableName + " (nome, descrizione, data_conferenza, location, metodo_assegnazione, metodo_valutazione, paper_previsti, scadenza_sottomissione, " +
-                "scadenza_revisione, scadenza_sottomissione_2, scadenza_editing, scadenza_sottomissione_3, scadenza_impaginazione) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    }
-
-    @Override
-    protected void prepareInsert(PreparedStatement stmt, ConferenzaEntity conferenza) throws SQLException {
-        stmt.setString(1, conferenza.getNome());
-        stmt.setString(2, conferenza.getDescrizione());
-        stmt.setObject(3, conferenza.getDataConferenza());
-        stmt.setString(4, conferenza.getLocation());
-        stmt.setString(5, conferenza.getMetodoAssegnazione());
-        stmt.setString(6, conferenza.getMetodoValutazione());
-        stmt.setInt(7, conferenza.getPaperPrevisti());
-        stmt.setObject(8, conferenza.getScadenzaSottomissione());
-        stmt.setObject(9, conferenza.getScadenzaRevisione());
-        stmt.setObject(10, conferenza.getScadenzaSottomissione2());
-        stmt.setObject(11, conferenza.getScadenzaEditing());
-        stmt.setObject(12, conferenza.getScadenzaSottomissione3());
-        stmt.setObject(13, conferenza.getScadenzaImpaginazione());
-    }
-
-    @Override
-    protected String getUpdateQuery() {
-        return "UPDATE " + tableName + " SET nome = ?, descrizione = ?, data_conferenza = ?, location = ?, metodo_assegnazione = ?, metodo_valutazione = ?, paper_previsti = ?, " +
-                "scadenza_sottomissione = ?, scadenza_revisione = ?, scadenza_sottomissione_2 = ?, scadenza_editing = ?, scadenza_sottomissione_3 = ?, scadenza_impaginazione = ? " +
-                "WHERE " + idColumn + " = ?";
-    }
-
-    @Override
-    protected void prepareUpdate(PreparedStatement stmt, ConferenzaEntity conferenza) throws SQLException {
-        stmt.setString(1, conferenza.getNome());
-        stmt.setString(2, conferenza.getDescrizione());
-        stmt.setObject(3, conferenza.getDataConferenza());
-        stmt.setString(4, conferenza.getLocation());
-        stmt.setString(5, conferenza.getMetodoAssegnazione());
-        stmt.setString(6, conferenza.getMetodoValutazione());
-        stmt.setInt(7, conferenza.getPaperPrevisti());
-        stmt.setObject(8, conferenza.getScadenzaSottomissione());
-        stmt.setObject(9, conferenza.getScadenzaRevisione());
-        stmt.setObject(10, conferenza.getScadenzaSottomissione2());
-        stmt.setObject(11, conferenza.getScadenzaEditing());
-        stmt.setObject(12, conferenza.getScadenzaSottomissione3());
-        stmt.setObject(13, conferenza.getScadenzaImpaginazione());
-        stmt.setInt(14, conferenza.getId());
-    }
-
-    @Override
-    protected void setGeneratedId(ConferenzaEntity conferenza, int id) {
-        conferenza.setId(id);
-    }
-
-    @Override
-    protected ConferenzaEntity mapRow(ResultSet rs) throws SQLException {
-        return new ConferenzaEntity(
-                rs.getInt("id_conferenza"),
-                rs.getString("nome"),
-                rs.getString("descrizione"),
-                rs.getObject("data_conferenza", LocalDateTime.class),
-                rs.getString("location"),
-                rs.getString("metodo_assegnazione"),
-                rs.getString("metodo_valutazione"),
-                rs.getInt("paper_previsti"),
-                rs.getObject("scadenza_sottomissione", LocalDateTime.class),
-                rs.getObject("scadenza_revisione", LocalDateTime.class),
-                rs.getObject("scadenza_sottomissione_2", LocalDateTime.class),
-                rs.getObject("scadenza_editing", LocalDateTime.class),
-                rs.getObject("scadenza_sottomissione_3", LocalDateTime.class),
-                rs.getObject("scadenza_impaginazione", LocalDateTime.class)
-        );
-    }
-    // Metodo per associare un utente come chair a una conferenza
-    public void addChairToConferenza(int utenteId, int conferenzaId) throws SQLException {
-        String query = "INSERT INTO Chair (ref_utente, ref_conferenza) VALUES (?, ?)";
-
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, utenteId);
-            stmt.setInt(2, conferenzaId);
-            stmt.executeUpdate();
         }
     }
 
-    // Metodo per ottenere tutti i chair (utenti) associati a una conferenza
-    public Set<UtenteEntity> getChairsForConferenza(int conferenzaId) throws SQLException {
-        String query = "SELECT u.id_utente, u.nome, u.cognome, u.email FROM Utente u " +
-                "JOIN Chair c ON u.id_utente = c.ref_utente WHERE c.ref_conferenza = ?";
-
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, conferenzaId);
-            ResultSet rs = stmt.executeQuery();
-            Set<UtenteEntity> chairs = new HashSet<>();
-            while (rs.next()) {
-                UtenteEntity utente = new UtenteEntity(
-                        rs.getInt("id_utente"),
-                        rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getString("email"),
-                        null // Oltre alla password, se necessario
-                );
-                chairs.add(utente);
+    public LocalDateTime getScadenzaRevisione(int idConferenza) throws SQLException {
+        String q = "SELECT scadenza_revisione FROM Conferenza WHERE id_conferenza = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(q)) {
+            stmt.setInt(1, idConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next() && rs.getTimestamp(1) != null)
+                    return rs.getTimestamp(1).toLocalDateTime();
+                return null;
             }
-            return chairs;
+        }
+    }
+
+    public LocalDateTime getScadenzaSottomissione2(int idConferenza) throws SQLException {
+        String q = "SELECT scadenza_sottomissione_2 FROM Conferenza WHERE id_conferenza = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(q)) {
+            stmt.setInt(1, idConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next() && rs.getTimestamp(1) != null)
+                    return rs.getTimestamp(1).toLocalDateTime();
+                return null;
+            }
+        }
+    }
+
+    public LocalDateTime getScadenzaEditing(int idConferenza) throws SQLException {
+        String q = "SELECT scadenza_editing FROM Conferenza WHERE id_conferenza = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(q)) {
+            stmt.setInt(1, idConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next() && rs.getTimestamp(1) != null)
+                    return rs.getTimestamp(1).toLocalDateTime();
+                return null;
+            }
+        }
+    }
+
+    public LocalDateTime getScadenzaSottomissione3(int idConferenza) throws SQLException {
+        String q = "SELECT scadenza_sottomissione_3 FROM Conferenza WHERE id_conferenza = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(q)) {
+            stmt.setInt(1, idConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next() && rs.getTimestamp(1) != null)
+                    return rs.getTimestamp(1).toLocalDateTime();
+                return null;
+            }
+        }
+    }
+
+    public LocalDateTime getScadenzaImpaginazione(int idConferenza) throws SQLException {
+        String q = "SELECT scadenza_impaginazione FROM Conferenza WHERE id_conferenza = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(q)) {
+            stmt.setInt(1, idConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next() && rs.getTimestamp(1) != null)
+                    return rs.getTimestamp(1).toLocalDateTime();
+                return null;
+            }
         }
     }
 }
