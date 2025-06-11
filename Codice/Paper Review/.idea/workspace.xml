@@ -4,7 +4,49 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="" />
+    <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/llm/LLMBoundary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/llm/MultipartBodyPublisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/PaperReviewApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/PaperReviewApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/DBMSBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/DBMSBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/DotenvUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/DotenvUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/BaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/BaseDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/CoAutoriPaperDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/CoAutoriPaperDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/ConferenzaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/ConferenzaDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/InvitoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/InvitoDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/NotificaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/NotificaDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/PaperDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/PaperDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/ProceedingDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/ProceedingDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/RevisioneDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/RevisioneDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/RuoloConferenzaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/RuoloConferenzaDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/TopicDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/TopicDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/TopicPaperDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/TopicPaperDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/TopicUtenteDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/TopicUtenteDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/UtenteDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/UtenteDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/HomeControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/HomeControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/LoginControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/LoginControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/ModificaPasswordControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/ModificaPasswordControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/RecuperoPasswordControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/RecuperoPasswordControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/RegistrazioneControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/RegistrazioneControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/NotificaPushControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/NotificaPushControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/VisualizzaNotificheInvitiArchiviatiControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/VisualizzaNotificheInvitiArchiviatiControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/VisualizzaNotificheInvitiControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/VisualizzaNotificheInvitiControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/ModificaTopicControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/ModificaTopicControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/DBMSBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dbms/DBMSBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/BaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dbms/dao/BaseDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/ConferenzaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dbms/dao/ConferenzaDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/InvitoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dbms/dao/InvitoDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/NotificaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dbms/dao/NotificaDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/PaperDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dbms/dao/PaperDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/ProceedingDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dbms/dao/ProceedingDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/RevisioneDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dbms/dao/RevisioneDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/TopicDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dbms/dao/TopicDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dao/UtenteDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PaperReviewServer/src/main/java/paperreviewserver/common/dbms/dao/UtenteDao.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,7 +99,7 @@
     &quot;Shell Script.JPackage Build.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/susin/Desktop/Materie/Ingegneria Del Software/Progetto-Ing-Soft/Codice/Paper Review/src/main/resources&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/susin/Desktop/Materie/Ingegneria Del Software/Progetto-Ing-Soft/Codice/Paper Review/src/main/java/com/paperreview/paperreview/common&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -73,6 +115,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\java\com\paperreview\paperreview\common" />
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources" />
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review" />
     </key>
@@ -257,6 +300,8 @@
       <workItem from="1749640499926" duration="7610000" />
       <workItem from="1749662899241" duration="477000" />
       <workItem from="1749665450456" duration="11000" />
+      <workItem from="1749668044238" duration="200000" />
+      <workItem from="1749668253686" duration="672000" />
     </task>
     <servers />
   </component>
@@ -271,7 +316,7 @@
           <option name="timeStamp" value="1" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dao/UtenteDao.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/UtenteDao.java</url>
           <line>14</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>

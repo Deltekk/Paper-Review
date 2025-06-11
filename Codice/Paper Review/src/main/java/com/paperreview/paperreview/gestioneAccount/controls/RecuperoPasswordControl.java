@@ -2,9 +2,10 @@ package com.paperreview.paperreview.gestioneAccount.controls;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.gestioneAccount.forms.RecuperoPasswordFormModel;
 import com.paperreview.paperreview.common.*;
-import com.paperreview.paperreview.common.dao.UtenteDao;
+import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
 import com.paperreview.paperreview.common.email.EmailSender;
 import com.paperreview.paperreview.common.email.MailRecuperoAccount;
 import com.paperreview.paperreview.controls.MainControl;

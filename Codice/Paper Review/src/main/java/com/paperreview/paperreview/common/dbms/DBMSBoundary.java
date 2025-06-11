@@ -1,4 +1,6 @@
-package com.paperreview.paperreview.common;
+package com.paperreview.paperreview.common.dbms;
+
+import com.paperreview.paperreview.common.DotenvUtil;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,7 +1,7 @@
 package com.paperreview.paperreview.controls;
 import com.paperreview.paperreview.common.CustomDateParser;
-import com.paperreview.paperreview.common.dao.ConferenzaDao;
-import com.paperreview.paperreview.common.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.dao.ConferenzaDao;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.entities.ConferenzaEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import javafx.fxml.FXML;

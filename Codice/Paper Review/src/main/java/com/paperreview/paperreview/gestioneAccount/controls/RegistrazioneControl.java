@@ -1,8 +1,8 @@
 package com.paperreview.paperreview.gestioneAccount.controls;
 
 import com.paperreview.paperreview.gestioneAccount.forms.RegistrazioneFormModel;
-import com.paperreview.paperreview.common.DBMSBoundary;
-import com.paperreview.paperreview.common.dao.UtenteDao;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.UtenteEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;

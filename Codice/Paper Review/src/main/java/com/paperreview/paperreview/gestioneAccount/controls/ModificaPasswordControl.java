@@ -2,9 +2,10 @@ package com.paperreview.paperreview.gestioneAccount.controls;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.gestioneAccount.forms.ModificaPasswordFormModel;
 import com.paperreview.paperreview.common.*;
-import com.paperreview.paperreview.common.dao.UtenteDao;
+import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.UtenteEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
