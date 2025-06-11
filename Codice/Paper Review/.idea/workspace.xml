@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/NotificaPush.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/NotificaPush.java" afterDir="false" />
-    </list>
+    <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -259,6 +256,7 @@
       <workItem from="1749630357588" duration="5829000" />
       <workItem from="1749640499926" duration="7610000" />
       <workItem from="1749662899241" duration="477000" />
+      <workItem from="1749665450456" duration="11000" />
     </task>
     <servers />
   </component>
