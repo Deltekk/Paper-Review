@@ -55,68 +55,93 @@ public class NotificaScadenzaSottomissioni implements Job {
 
                 // 4.2.3 Controllo periodo di avviso
                 LocalDate giornoScadenza = scadenza.toLocalDate();
-                LocalDate inizioAvviso = giornoScadenza.minusDays(giorniPreavviso);
+                long giorniRimanenti = java.time.temporal.ChronoUnit.DAYS.between(oggi, giornoScadenza);
 
-                if (!oggi.isBefore(inizioAvviso) && !oggi.isAfter(giornoScadenza)) {
+                if (giorniRimanenti <= giorniPreavviso && !oggi.isAfter(giornoScadenza)) {
 
                     // 4.2.3.1 Trova gli autori che NON hanno ancora sottomesso
-                    List<Object[]> datiPapers = paperDao.getPapersIdTitoloUtenteByConferenza(idConf);
+                    List<Integer> idAutori = paperDao.getAutoriSenzaPaper(idConf);
 
-                    ConsoleLogger.info(datiPapers.toString());
+                    // 4.2.3.2 Ottieni info Autori
+                    List<Object[]> utenti = utenteDao.getUtentiInfoByIds(idAutori);
 
-                    List<PaperEntity> paperEntities = new ArrayList<>();
+                    for (Object[] utente : utenti) {
+                        if (utente == null) continue;
+                        int id = (Integer) utente[0];
+                        String nome = (String) utente[1];
+                        String cognome = (String) utente[2];
+                        String email = (String) utente[3];
+
+                        // Creo testoNotifia
+                        String testoNotifica = String.format(
+                                "Attenzione mancano %d alla scadenza della sottomissione degli articoli nella conferenza: %s",
+                                giorniRimanenti, nomeConferenza);
+
+                        ConsoleLogger.info(testoNotifica);
+                        notificaDao.inserisciNotifica(id, idConf, testoNotifica);
+
+                        // Prepara subject e body (HTML o testo semplice)
+                        String subject = "Notifica di imminente scadenza sottomissione";
+                        String body = "<p> Salve " + nome + " " + cognome +
+                                ", le notifichiamo che ancora non ha sottomesso il suo articolo nella conferenza " +
+                                nomeConferenza + ". La scadenza è prevista per giorno " + giornoScadenza +
+                                " alle 23:59. E' pregato di rimediare al più presto.</p>";
+
+                        NotificaScadenzaMail mail = new NotificaScadenzaMail(email, subject, body);
+
+                        try {
+                            EmailSender.sendEmail(mail);
+                            ConsoleLogger.success("Notifica e email inviata a " + nome + " " + cognome + " (" + email + ")");
+                        } catch (Exception e) {
+                            ConsoleLogger.error("Errore invio email a " + email + ": " + e.getMessage());
+                        }
+
+                        ConsoleLogger.success("Notifica e email inviata a "
+                                + nome + " " + cognome + " (" + email + ")");
+                    }
+
+
+                    List<Object[]> datiPapers = paperDao.getPapersSenzaFileByConferenza(idConf);
+
                     for (Object[] dati : datiPapers) {
                         Integer idPaper = (Integer) dati[0];
                         String titolo = (String) dati[1];
                         Integer refUtente = (Integer) dati[2];
-                        paperEntities.add(new PaperEntity(idPaper, titolo, refUtente));
-                    }
 
-                    // 4.2.3.2 Ottieni info per notifica/mailing
-                    List<Integer> idAutori = paperEntities.stream()
-                            .map(PaperEntity::getRefUtente)
-                            .toList();
-
-                    List<Object[]> utentiRaw = utenteDao.getUtentiInfoByIds(idAutori);
-
-                    Map<Integer, UtenteEntity> utentiMap = new HashMap<>();
-                    for (Object[] raw : utentiRaw) {
-                        int id = (Integer) raw[0];
-                        String nome = (String) raw[1];
-                        String cognome = (String) raw[2];
-                        String email = (String) raw[3];
-                        utentiMap.put(id, new UtenteEntity(id, nome, cognome, email));
-                    }
-
-                    // Ora per ogni paper/autore invia notifica personalizzata
-                    for (PaperEntity paper : paperEntities) {
-                        UtenteEntity utente = utentiMap.get(paper.getRefUtente());
+                        Object[] utente = utenteDao.getUtenteById(refUtente);
                         if (utente == null) continue;
 
+                        int id = (Integer) utente[0];
+                        String nome = (String) utente[1];
+                        String cognome = (String) utente[2];
+                        String email = (String) utente[3];
+
                         String testoNotifica = String.format(
-                                "Gentile %s %s, ricordati di sottomettere il tuo articolo %s per la conferenza %s!",
-                                utente.getNome(), utente.getCognome(), paper.getTitolo(), nomeConferenza);
+                                "Attenzione mancano %d alla scadenza della sottomissione degli articoli nella conferenza: %s",
+                                giorniRimanenti, nomeConferenza);
 
                         ConsoleLogger.info(testoNotifica);
-
-                        notificaDao.inserisciNotifica(utente.getId(), idConf, testoNotifica);
-
+                        notificaDao.inserisciNotifica(id, idConf, testoNotifica);
 
                         // Prepara subject e body (HTML o testo semplice)
-                        String subject = "Promemoria sottomissione articolo per la conferenza " + nomeConferenza;
-                        String body = "<p>" + testoNotifica + "</p>";
+                        String subject = "Notifica di imminente scadenza sottomissione";
+                        String body = "<p> Salve " + nome + " " + cognome +
+                                ", le notifichiamo che ancora non ha sottomesso il suo articolo nella conferenza " +
+                                nomeConferenza + ". La scadenza è prevista per giorno " + giornoScadenza +
+                                " alle 23:59. E' pregato di rimediare al più presto.</p>" +
+                                "<p> Nome paper mancante:" + titolo + "</p>";
 
-                        NotificaScadenzaMail mail = new NotificaScadenzaMail(utente.getEmail(), subject, body);
+                        NotificaScadenzaMail mail = new NotificaScadenzaMail(email, subject, body);
 
                         try {
                             EmailSender.sendEmail(mail);
-                            ConsoleLogger.success("Notifica e email inviata a " + utente.getNome() + " " + utente.getCognome() + " (" + utente.getEmail() + ")");
+                            ConsoleLogger.success("Notifica e email inviata a " + nome + " " + cognome + " (" + email + ")");
                         } catch (Exception e) {
-                            ConsoleLogger.error("Errore invio email a " + utente.getEmail() + ": " + e.getMessage());
+                            ConsoleLogger.error("Errore invio email a " + email + ": " + e.getMessage());
                         }
 
                         ConsoleLogger.success("Notifica e email inviata a "
-                                + utente.getNome() + " " + utente.getCognome() + " (" + utente.getEmail() + ")");
+                                + nome + " " + cognome + " (" + email + ")");
                     }
                 }
             }
