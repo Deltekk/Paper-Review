@@ -2,8 +2,10 @@ package com.paperreview.paperreview.gestioneRevisioni;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
+import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.TopicDao;
+import com.paperreview.paperreview.common.dbms.dao.TopicUtenteDao;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.TopicEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
@@ -21,6 +23,8 @@ import javafx.scene.layout.VBox;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Set;
+import java.util.HashSet;
 
 public class ModificaTopicControl implements ControlledScreen {
 
@@ -119,6 +123,23 @@ public class ModificaTopicControl implements ControlledScreen {
     @FXML
     private void handleConferma() {
 
+        // Recupera tutti i topic attuali associati all'utente
+        Set<TopicEntity> currentTopics;
+        try {
+            currentTopics = new TopicUtenteDao(DBMSBoundary.getConnection()).getTopicsForUser(UserContext.getUtente().getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            errorLabel.setText("Errore recupero topic associati");
+            errorLabel.setVisible(true);
+            return;
+        }
+
+        System.out.println("Al momento i topic dell'utente sono: ");
+
+        for (TopicEntity topic : currentTopics) {
+            System.out.println(topic.getNome());
+        }
+
         // Raccogli i topic selezionati direttamente dalle checkbox
         List<TopicEntity> selectedTopics = checkBoxes.stream()
                 .filter(CheckBox::isSelected)  // Seleziona le checkbox che sono state selezionate
@@ -126,18 +147,64 @@ public class ModificaTopicControl implements ControlledScreen {
                 .collect(Collectors.toList());
 
         if (selectedTopics.size() < 3) {
-            errorLabel.setText("Errore: devono essere selezionati almeno 3 campi");
+            errorLabel.setText("Errore: devono essere selezionati almeno 3 topic");
             errorLabel.setVisible(true);
             return;
         }
 
-        errorLabel.setVisible(false);
+        System.out.println("Invece, i topic selezionati sono: ");
 
         for (TopicEntity topic : selectedTopics) {
             System.out.println(topic.getNome());
         }
 
-        // TODO: Inserire nel DB i topic selezionati
+        errorLabel.setVisible(false);
+
+        TopicUtenteDao topicUtenteDao;
+
+        try{
+            topicUtenteDao = new TopicUtenteDao(DBMSBoundary.getConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            errorLabel.setText("Errore aggiunta topic, riprova!");
+            errorLabel.setVisible(true);
+            return;
+        }
+
+        // 1. Aggiungi i topic che non sono già associati
+        for (TopicEntity selectedTopic : selectedTopics) {
+            if (!currentTopics.contains(selectedTopic)) {
+                try {
+                    topicUtenteDao.addTopicToUser(UserContext.getUtente().getId(), selectedTopic.getId());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    errorLabel.setText("Errore aggiunta topic");
+                    errorLabel.setVisible(true);
+                    return;
+                }
+            }
+        }
+
+        // 2. Rimuovi i topic che non sono più selezionati
+        for (TopicEntity currentTopic : currentTopics) {
+            // Se non è stato trovato allora possiamo rimuoverlo
+            if(!selectedTopics.contains(currentTopic)) {
+                try {
+                    System.out.println("Sto cancellando: " + currentTopic.getNome());
+                    topicUtenteDao.removeTopicFromUser(UserContext.getUtente().getId(), currentTopic.getId());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    errorLabel.setText("Errore rimozione topic");
+                    errorLabel.setVisible(true);
+                    return;
+                }
+            }
+        }
+
+        // Stampa i topic selezionati per il debug
+        for (TopicEntity topic : selectedTopics) {
+            System.out.println("Topic selezionato: " + topic.getNome());
+        }
 
     }
 }
