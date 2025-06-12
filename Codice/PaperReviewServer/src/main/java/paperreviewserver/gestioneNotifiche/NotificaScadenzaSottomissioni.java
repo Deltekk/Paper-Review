@@ -15,6 +15,7 @@ import paperreviewserver.common.email.NotificaScadenzaMail;
 import paperreviewserver.entities.PaperEntity;
 import paperreviewserver.entities.UtenteEntity;
 
+import java.io.Console;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -55,10 +56,13 @@ public class NotificaScadenzaSottomissioni implements Job {
                 // 4.2.3 Controllo periodo di avviso
                 LocalDate giornoScadenza = scadenza.toLocalDate();
                 LocalDate inizioAvviso = giornoScadenza.minusDays(giorniPreavviso);
+
                 if (!oggi.isBefore(inizioAvviso) && !oggi.isAfter(giornoScadenza)) {
 
                     // 4.2.3.1 Trova gli autori che NON hanno ancora sottomesso
                     List<Object[]> datiPapers = paperDao.getPapersIdTitoloUtenteByConferenza(idConf);
+
+                    ConsoleLogger.info(datiPapers.toString());
 
                     List<PaperEntity> paperEntities = new ArrayList<>();
                     for (Object[] dati : datiPapers) {
@@ -93,6 +97,8 @@ public class NotificaScadenzaSottomissioni implements Job {
                                 "Gentile %s %s, ricordati di sottomettere il tuo articolo %s per la conferenza %s!",
                                 utente.getNome(), utente.getCognome(), paper.getTitolo(), nomeConferenza);
 
+                        ConsoleLogger.info(testoNotifica);
+
                         notificaDao.inserisciNotifica(utente.getId(), idConf, testoNotifica);
 
 
@@ -100,7 +106,7 @@ public class NotificaScadenzaSottomissioni implements Job {
                         String subject = "Promemoria sottomissione articolo per la conferenza " + nomeConferenza;
                         String body = "<p>" + testoNotifica + "</p>";
 
-                        MailBase mail = new NotificaScadenzaMail(utente.getEmail(), subject, body);
+                        NotificaScadenzaMail mail = new NotificaScadenzaMail(utente.getEmail(), subject, body);
 
                         try {
                             EmailSender.sendEmail(mail);
