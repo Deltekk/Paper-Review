@@ -66,13 +66,25 @@ public class ModificaTopicControl implements ControlledScreen {
             // Popola le checkbox
             populateCheckBoxes(topics);
 
+            // Recupera i topic già associati all'utente dal database
+            Set<TopicEntity> currentTopics = new TopicUtenteDao(DBMSBoundary.getConnection())
+                    .getTopicsForUser(UserContext.getUtente().getId());
+
+            // Metti la spunta nelle checkbox corrispondenti ai topic già associati
+            for (CheckBox checkBox : checkBoxes) {
+                TopicEntity topic = (TopicEntity) checkBox.getUserData();
+                if (currentTopics.contains(topic)) {
+                    checkBox.setSelected(true);
+                }
+            }
+
+
             searchField.textProperty().addListener((obs, oldVal, newVal) -> filterTopics(newVal));
 
             formRenderer.setStyle("-fx-border-color: transparent; -fx-border-width: 0;\n");
             formContainer.setStyle("-fx-border-color: transparent; -fx-border-width: 0;\n");
 
             Border noBorder = Border.EMPTY;
-
 
             formRenderer.setBorder(noBorder);
             formContainer.setBorder(noBorder);
