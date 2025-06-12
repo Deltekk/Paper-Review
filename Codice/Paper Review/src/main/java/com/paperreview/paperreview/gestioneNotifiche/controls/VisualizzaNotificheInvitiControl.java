@@ -1,6 +1,7 @@
 package com.paperreview.paperreview.gestioneNotifiche.controls;
 
 import com.paperreview.paperreview.common.CustomDateParser;
+import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
 import com.paperreview.paperreview.common.dbms.dao.NotificaDao;
@@ -40,10 +41,10 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
     public void initialize() {
         try {
             InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
-            List<InvitoEntity> inviti = invitoDao.getAll();
+            List<InvitoEntity> inviti = invitoDao.getAll(UserContext.getUtente().getId());
 
             NotificaDao notificaDao = new NotificaDao(DBMSBoundary.getConnection());
-            List<NotificaEntity> notifiche = notificaDao.getAll();
+            List<NotificaEntity> notifiche = notificaDao.getAll(UserContext.getUtente().getId());
 
             if(inviti.isEmpty())
             {

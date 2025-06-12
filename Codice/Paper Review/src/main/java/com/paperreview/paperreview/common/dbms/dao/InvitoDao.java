@@ -14,14 +14,14 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
         super(connection, "Invito", "id_invito");
     }
 
-    @Override
-    public List<InvitoEntity> getAll(){
+    public List<InvitoEntity> getAll(int refUtente){
         List<InvitoEntity> results = new ArrayList<>();
-        String query = "SELECT * FROM " + tableName + " WHERE status = ? AND data > ? ORDER BY data";
+        String query = "SELECT * FROM " + tableName + " WHERE status = ? AND data > ? AND ref_destinatario = ? ORDER BY data";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, StatusInvito.Inviato.toString());
             stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now())); // Imposta la data attuale
+            stmt.setInt(3, refUtente); // Imposta la data attuale
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     results.add(mapRow(rs)); // Aggiungi ogni riga trovata

@@ -43,7 +43,7 @@ public class VisualizzaNotificheInvitiArchiviatiControl implements ControlledScr
     public void initialize() {
         try {
             InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
-            List<InvitoEntity> inviti = invitoDao.getAllArchived();
+            List<InvitoEntity> inviti = invitoDao.getAllArchived(UserContext.getUtente().getId());
 
             NotificaDao notificaDao = new NotificaDao(DBMSBoundary.getConnection());
             List<NotificaEntity> notifiche = notificaDao.getAllArchived(UserContext.getUtente().getId());
