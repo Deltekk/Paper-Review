@@ -37,5 +37,4 @@ public class TopicEntity extends BaseEntity  {
     public int hashCode() {
         return Objects.hash(id_topic, nome);
     }
-
 }

@@ -1,6 +1,7 @@
 package com.paperreview.paperreview.entities;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class ProceedingEntity extends BaseEntity {
     private int idProceeding;
@@ -68,5 +69,20 @@ public class ProceedingEntity extends BaseEntity {
                 ", refUtente=" + refUtente +
                 ", refConferenza=" + refConferenza +
                 '}';
+    }
+
+    // Sovrascrivi il metodo equals
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ProceedingEntity that = (ProceedingEntity) obj;
+        return idProceeding == that.idProceeding && refUtente == that.refUtente && refConferenza == that.refConferenza && Objects.equals(titolo, that.titolo);
+    }
+
+    // Sovrascrivi il metodo hashCode
+    @Override
+    public int hashCode() {
+        return Objects.hash(idProceeding, titolo, refUtente, refConferenza);
     }
 }

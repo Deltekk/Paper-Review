@@ -1,5 +1,7 @@
 package com.paperreview.paperreview.entities;
 
+import java.util.Objects;
+
 public class RuoloConferenzaEntity extends BaseEntity {
     private int id;
     private Ruolo ruolo;        // Enum Ruolo: Chair, Revisore, Sottorevisore, Autore, Editor
@@ -62,5 +64,20 @@ public class RuoloConferenzaEntity extends BaseEntity {
                 ", refUtente=" + refUtente +
                 ", refConferenza=" + refConferenza +
                 '}';
+    }
+
+    // Sovrascrivi il metodo equals
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        RuoloConferenzaEntity that = (RuoloConferenzaEntity) obj;
+        return id == that.id && refUtente == that.refUtente && refConferenza == that.refConferenza;
+    }
+
+    // Sovrascrivi il metodo hashCode
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, refUtente, refConferenza);
     }
 }

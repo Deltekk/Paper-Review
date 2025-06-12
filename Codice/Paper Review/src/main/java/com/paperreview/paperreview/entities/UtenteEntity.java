@@ -1,5 +1,6 @@
 package com.paperreview.paperreview.entities;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class UtenteEntity extends BaseEntity {
@@ -46,4 +47,17 @@ public class UtenteEntity extends BaseEntity {
         return String.format("Utente: %d, %s, %s, %s, %s", getId(), getNome(), getCognome(), getEmail(), getPassword());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        UtenteEntity that = (UtenteEntity) obj;
+        return id_utente == that.id_utente && Objects.equals(email, that.email); // Email come campo univoco
+    }
+
+    // Sovrascrivi il metodo hashCode
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_utente, email); // Email come campo univoco
+    }
 }
