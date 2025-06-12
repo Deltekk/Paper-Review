@@ -91,13 +91,10 @@ public class NotificaScadenzaSottomissioni implements Job {
 
                         try {
                             EmailSender.sendEmail(mail);
-                            ConsoleLogger.success("Notifica e email inviata a " + nome + " " + cognome + " (" + email + ")");
+                            ConsoleLogger.success("Notifica e email inviata per paper mancante a " + nome + " " + cognome + " (" + email + ")");
                         } catch (Exception e) {
                             ConsoleLogger.error("Errore invio email a " + email + ": " + e.getMessage());
                         }
-
-                        ConsoleLogger.success("Notifica e email inviata a "
-                                + nome + " " + cognome + " (" + email + ")");
                     }
 
 
@@ -135,13 +132,10 @@ public class NotificaScadenzaSottomissioni implements Job {
 
                         try {
                             EmailSender.sendEmail(mail);
-                            ConsoleLogger.success("Notifica e email inviata a " + nome + " " + cognome + " (" + email + ")");
+                            ConsoleLogger.success("Notifica e email inviata per file mancante a " + nome + " " + cognome + " (" + email + ")");
                         } catch (Exception e) {
                             ConsoleLogger.error("Errore invio email a " + email + ": " + e.getMessage());
                         }
-
-                        ConsoleLogger.success("Notifica e email inviata a "
-                                + nome + " " + cognome + " (" + email + ")");
                     }
                 }
             }
