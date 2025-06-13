@@ -102,17 +102,15 @@ public class NotificaScadenzaSottomissioni implements Job {
 
                         Object[] utente = utenteDao.getUtenteById(refUtente);
                         if (utente == null) continue;
-
-                        int id = (Integer) utente[0];
-                        String nome = (String) utente[1];
-                        String cognome = (String) utente[2];
-                        String email = (String) utente[3];
+                        String nome = (String) utente[0];
+                        String cognome = (String) utente[1];
+                        String email = (String) utente[2];
 
                         String testoNotifica = String.format(
                                 "Attenzione mancano %d giorni alla scadenza della sottomissione degli articoli nella conferenza: %s",
                                 giorniRimanenti, nomeConferenza);
 
-                        notificaDao.inserisciNotifica(id, idConf, testoNotifica);
+                        notificaDao.inserisciNotifica(refUtente, idConf, testoNotifica);
                         ConsoleLogger.info(testoNotifica);
 
                         // Prepara subject e body (HTML o testo semplice)
@@ -136,7 +134,7 @@ public class NotificaScadenzaSottomissioni implements Job {
             }
             ConsoleLogger.line();
         } catch (SQLException e) {
-            ConsoleLogger.error("Errore durante il controllo notifiche: " + e.getMessage());
+            ConsoleLogger.error("Errore durante il controllo notifiche Scadenza Sottomissione: " + e.getMessage());
         }
     }
 }

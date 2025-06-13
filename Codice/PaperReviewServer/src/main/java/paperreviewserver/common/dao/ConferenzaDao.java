@@ -26,6 +26,19 @@ public class ConferenzaDao {
         return result;
     }
 
+    public Integer getRateAccettazione(int idConferenza) throws SQLException {
+        String q = "SELECT rate_accettazione FROM Conferenza WHERE id_conferenza = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(q)) {
+            stmt.setInt(1, idConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("rate_accettazione");
+                }
+            }
+        }
+        return null;
+    }
+
     public Integer getGiorniPreavviso(int idConferenza) throws SQLException {
         String q = "SELECT giorni_preavviso FROM Conferenza WHERE id_conferenza = ?";
         try (PreparedStatement stmt = connection.prepareStatement(q)) {

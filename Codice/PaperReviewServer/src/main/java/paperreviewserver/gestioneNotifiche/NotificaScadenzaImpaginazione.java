@@ -42,7 +42,7 @@ public class NotificaScadenzaImpaginazione implements Job {
                 String nomeConferenza = entry.getValue();
 
                 // 4.2.1 Scadenza Seconda Sottomissione Articoli
-                LocalDateTime scadenza = conferenzaDao.getScadenzaSottomissione2(idConferenza);
+                LocalDateTime scadenza = conferenzaDao.getScadenzaImpaginazione(idConferenza);
 
                 // 4.2.2 Giorni di Preavviso
                 Integer giorniPreavviso = conferenzaDao.getGiorniPreavviso(idConferenza);
@@ -65,9 +65,9 @@ public class NotificaScadenzaImpaginazione implements Job {
                         // Ottieni le informazioni dell'utente (autore)
                         Object[] utente = utenteDao.getUtenteById(idUtente);
                         if (utente == null) continue;
-                        String nome = (String) utente[1];
-                        String cognome = (String) utente[2];
-                        String email = (String) utente[3];
+                        String nome = (String) utente[0];
+                        String cognome = (String) utente[1];
+                        String email = (String) utente[2];
 
                         // Crea il testo della notifica
                         String testoNotifica = String.format(
@@ -99,7 +99,7 @@ public class NotificaScadenzaImpaginazione implements Job {
                 }
             }
         } catch (SQLException e) {
-            ConsoleLogger.error("Errore durante il controllo notifiche: " + e.getMessage());
+            ConsoleLogger.error("Errore durante il controllo notifiche Scadenza Impaginazione: " + e.getMessage());
         }
 
         ConsoleLogger.line();

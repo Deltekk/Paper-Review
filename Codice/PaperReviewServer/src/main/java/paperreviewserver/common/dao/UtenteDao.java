@@ -48,13 +48,12 @@ public class UtenteDao {
     }
 
     public Object[] getUtenteById(int idUtente) throws SQLException {
-        String query = "SELECT id_utente, nome, cognome, email FROM Utente WHERE id_utente = ?";
+        String query = "SELECT nome, cognome, email FROM Utente WHERE id_utente = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, idUtente);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Object[] {
-                            rs.getInt("id_utente"),
                             rs.getString("nome"),
                             rs.getString("cognome"),
                             rs.getString("email")

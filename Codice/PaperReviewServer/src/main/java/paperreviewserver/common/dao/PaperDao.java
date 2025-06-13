@@ -55,9 +55,9 @@ public class PaperDao {
 
     public List<Object[]> getPapersByDataSottomissione(int idConferenza, LocalDateTime dataLimite) throws SQLException {
         List<Object[]> rows = new ArrayList<>();
-        String query = "SELECT ref_utente, titolo " +
-                "FROM Paper " +
-                "WHERE ref_conferenza = ? AND data_sottomissione < ?";  // Filtra per data sottomissione
+        String query = "SELECT p.ref_utente, p.titolo " +
+                "FROM Paper p " +
+                "WHERE p.ref_conferenza = ? AND p.data_sottomissione < ?";  // Filtra per data sottomissione
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, idConferenza);  // Imposta il parametro per la conferenza
@@ -68,6 +68,34 @@ public class PaperDao {
                     rows.add(new Object[]{
                             rs.getInt("ref_utente"),
                             rs.getString("titolo")
+                    });
+                }
+            }
+        }
+        return rows;
+    }
+
+    public List<Object[]> getPapersByDataSottomissioneMediaVoto(int idConferenza, LocalDateTime dataLimite) throws SQLException {
+        List<Object[]> rows = new ArrayList<>();
+
+        // La query ora include il calcolo della media delle valutazioni e ordina per la media in ordine decrescente
+        String query = "SELECT p.ref_utente, p.titolo, AVG(r.valutazione) AS media_voto " +
+                "FROM Paper p " +
+                "LEFT JOIN Revisione r ON p.id_paper = r.ref_paper " +
+                "WHERE p.ref_conferenza = ? AND p.data_sottomissione < ? " +
+                "GROUP BY p.id_paper " +
+                "ORDER BY media_voto DESC";  // Ordina per la media dei voti in ordine decrescente
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idConferenza);  // Imposta il parametro per la conferenza
+            stmt.setTimestamp(2, Timestamp.valueOf(dataLimite));  // Imposta il parametro per la data limite
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    rows.add(new Object[]{
+                            rs.getInt("ref_utente"),  // ID dell'utente (autore)
+                            rs.getString("titolo"),    // Titolo del paper
+                            rs.getDouble("media_voto") // Media della valutazione
                     });
                 }
             }

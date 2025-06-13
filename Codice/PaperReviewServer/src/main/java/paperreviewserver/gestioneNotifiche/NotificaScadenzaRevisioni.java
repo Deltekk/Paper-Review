@@ -90,7 +90,7 @@ public class NotificaScadenzaRevisioni implements Job {
             }
             ConsoleLogger.line();
         } catch (SQLException e) {
-            ConsoleLogger.error("Errore durante il controllo notifiche: " + e.getMessage());
+            ConsoleLogger.error("Errore durante il controllo notifiche Scadenza Revisione: " + e.getMessage());
         }
     }
 }

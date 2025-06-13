@@ -66,21 +66,21 @@ public class NotificaScadenzaAdeguamentoContenuti implements Job {
 
                         Object[] utente = utenteDao.getUtenteById(idUtente);
                         if (utente == null) continue;
-                        String nome = (String) utente[1];
-                        String cognome = (String) utente[2];
-                        String email = (String) utente[3];
+                        String nome = (String) utente[0];
+                        String cognome = (String) utente[1];
+                        String email = (String) utente[2];
 
                         String testoNotifica = String.format(
-                                "Attenzione mancano %d giorni alla scadenza della sottomissione degli articoli nella conferenza: %s",
+                                "Attenzione mancano %d giorni alla scadenza dell'adeguamento degli articoli nella conferenza: %s",
                                 giorniRimanenti, nomeConferenza);
 
                         notificaDao.inserisciNotifica(idUtente, idConferenza, testoNotifica);
                         ConsoleLogger.info(testoNotifica);
 
                         // Prepara subject e body (HTML o testo semplice)
-                        String subject = "Notifica di imminente scadenza sottomissione";
+                        String subject = "Notifica di imminente scadenza sottomissione Adeguamento Contenuti";
                         String body = "<p> Salve " + nome + " " + cognome +
-                                ", le notifichiamo che ancora non ha sottomesso il suo articolo nella conferenza " +
+                                ", le notifichiamo che ancora non ha sottomesso adeguamento del suo articolo nella conferenza " +
                                 nomeConferenza + ". La scadenza è prevista per giorno " + giornoScadenza +
                                 " alle 23:59. E' pregato di rimediare al più presto.</p>" +
                                 "<p> Nome paper mancante:" + nomePaper + "</p>";
@@ -97,7 +97,7 @@ public class NotificaScadenzaAdeguamentoContenuti implements Job {
                 }
             }
         } catch (SQLException e) {
-            ConsoleLogger.error("Errore durante il controllo notifiche: " + e.getMessage());
+            ConsoleLogger.error("Errore durante il controllo notifiche Adeguamento Contenuti: " + e.getMessage());
         }
 
         ConsoleLogger.line();

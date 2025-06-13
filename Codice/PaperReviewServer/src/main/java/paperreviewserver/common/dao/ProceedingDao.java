@@ -46,4 +46,22 @@ public class ProceedingDao {
 
         return proceedingsNonSottomessi;
     }
+
+    public List<Integer> getEditorByConferenza(int idConferenza) throws SQLException {
+        List<Integer> editori = new ArrayList<>();
+
+        String query = "SELECT ref_utente FROM Ruolo_conferenza " +
+                "WHERE ruolo = 'Editor' AND ref_conferenza = ?";  // Filtro per 'Editor' e la conferenza specifica
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idConferenza);  // Imposta il parametro per la conferenza
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    editori.add(rs.getInt("ref_utente"));  // Aggiunge l'ID dell'editor alla lista
+                }
+            }
+        }
+
+        return editori;  // Restituisce la lista degli ID degli editori
+    }
 }
