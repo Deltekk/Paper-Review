@@ -16,7 +16,7 @@
 
     <ImageView fitHeight="64" fitWidth="64" pickOnBounds="true">
         <image>
-            <Image url="@../../../../../images/IconaSoloLogo.png" />
+            <Image url="@../../../../../../images/IconaSoloLogo.png" />
         </image>
     </ImageView>
     <VBox spacing="5">

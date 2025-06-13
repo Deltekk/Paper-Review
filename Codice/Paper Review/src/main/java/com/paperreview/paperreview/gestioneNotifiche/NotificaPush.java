@@ -18,7 +18,7 @@ public class NotificaPush {
     public void visualizza() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/com/paperreview/paperreview/boundaries/notificaPush/notificaPushBoundary.fxml"));
+                    "/com/paperreview/paperreview/boundaries/gestioneNotifiche/notificaPush/notificaPushBoundary.fxml"));
 
             Node content = loader.load();
 

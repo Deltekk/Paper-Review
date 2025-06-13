@@ -1,0 +1,22 @@
+.scrollPane{
+    -fx-background-color: transparent;
+    -fx-padding: 50;
+}
+
+.trasparente{
+    -fx-background-color: transparent;
+}
+
+.viewport{
+    -fx-background-color: transparent;
+}
+
+.revisore-card{
+    -fx-padding: 25;
+    -fx-background-radius: 25;     /* bordi arrotondati */
+}
+
+.revisoriContainer{
+    -fx-hgap: 25;
+    -fx-vgap: 25;
+}

@@ -133,7 +133,7 @@ public class MainControl {
     }
 
     public void handleGestisciConferenze(){
-        setView("/com/paperreview/paperreview/boundaries/gestisciConferenze/homeBoundary.fxml");
+        setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenzeBoundary.fxml");
     }
 
     public void handleRevisioni(){
