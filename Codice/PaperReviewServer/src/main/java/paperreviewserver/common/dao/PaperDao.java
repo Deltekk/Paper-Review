@@ -1,6 +1,7 @@
 package paperreviewserver.common.dao;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,28 @@ public class PaperDao {
                             rs.getInt("id_paper"),
                             rs.getString("titolo"),
                             rs.getInt("ref_utente")
+                    });
+                }
+            }
+        }
+        return rows;
+    }
+
+    public List<Object[]> getPapersByDataSottomissione(int idConferenza, LocalDateTime dataLimite) throws SQLException {
+        List<Object[]> rows = new ArrayList<>();
+        String query = "SELECT ref_utente, titolo " +
+                "FROM Paper " +
+                "WHERE ref_conferenza = ? AND data_sottomissione < ?";  // Filtra per data sottomissione
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idConferenza);  // Imposta il parametro per la conferenza
+            stmt.setTimestamp(2, Timestamp.valueOf(dataLimite));  // Imposta il parametro per la data limite
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    rows.add(new Object[]{
+                            rs.getInt("ref_utente"),
+                            rs.getString("titolo")
                     });
                 }
             }

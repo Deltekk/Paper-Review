@@ -1,60 +1,49 @@
 package paperreviewserver.common.dao;
 
-import paperreviewserver.entities.ProceedingEntity;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ProceedingDao extends BaseDao<ProceedingEntity> {
+public class ProceedingDao {
+    private final Connection connection;
 
     public ProceedingDao(Connection connection) {
-        super(connection, "Proceeding", "id_proceeding");
+        this.connection = connection;
     }
 
-    @Override
-    protected String getInsertQuery() {
-        return "INSERT INTO " + tableName + " (titolo, data_sottomissione, ref_utente, ref_conferenza) " +
-                "VALUES (?, ?, ?, ?)";
-    }
+    public List<Object[]> getProceedingsNonSottomessiByConferenza(int idConferenza) throws SQLException {
+        List<Object[]> proceedingsNonSottomessi = new ArrayList<>();
 
-    @Override
-    protected void prepareInsert(PreparedStatement stmt, ProceedingEntity proceeding) throws SQLException {
-        stmt.setString(1, proceeding.getTitolo());
-        stmt.setObject(2, proceeding.getDataSottomissione());
-        stmt.setInt(3, proceeding.getRefUtente());
-        stmt.setInt(4, proceeding.getRefConferenza());
-    }
+        // Query per ottenere i proceedings non sottomessi
+        String query = "SELECT p.id_proceeding, p.titolo, p.data_sottomissione, p.ref_utente, p.ref_conferenza " +
+                "FROM Proceeding p " +
+                "WHERE p.ref_conferenza = ? " +  // Filtra per conferenza
+                "AND (p.titolo IS NULL " +      // Controlla se il titolo è NULL
+                "OR p.data_sottomissione IS NULL " +  // Controlla se la data di sottomissione è NULL
+                "OR p.ref_utente IS NULL " +    // Controlla se il riferimento all'autore è NULL
+                "OR p.ref_conferenza IS NULL)"; // Controlla se il riferimento alla conferenza è NULL
 
-    @Override
-    protected String getUpdateQuery() {
-        return "UPDATE " + tableName + " SET titolo = ?, data_sottomissione = ?, ref_utente = ?, ref_conferenza = ? " +
-                "WHERE " + idColumn + " = ?";
-    }
+        // Esegui la query
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idConferenza);  // Imposta il parametro per l'ID della conferenza
 
-    @Override
-    protected void prepareUpdate(PreparedStatement stmt, ProceedingEntity proceeding) throws SQLException {
-        stmt.setString(1, proceeding.getTitolo());
-        stmt.setObject(2, proceeding.getDataSottomissione());
-        stmt.setInt(3, proceeding.getRefUtente());
-        stmt.setInt(4, proceeding.getRefConferenza());
-        stmt.setInt(5, proceeding.getId());
-    }
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    // Aggiungi i risultati nella lista
+                    proceedingsNonSottomessi.add(new Object[]{
+                            rs.getInt("id_proceeding"),
+                            rs.getString("titolo"),
+                            rs.getTimestamp("data_sottomissione"),
+                            rs.getInt("ref_utente"),
+                            rs.getInt("ref_conferenza")
+                    });
+                }
+            }
+        }
 
-    @Override
-    protected void setGeneratedId(ProceedingEntity proceeding, int id) {
-        proceeding.setId(id);
-    }
-
-    @Override
-    protected ProceedingEntity mapRow(ResultSet rs) throws SQLException {
-        return new ProceedingEntity(
-                rs.getInt("id_proceeding"),
-                rs.getString("titolo"),
-                rs.getObject("data_sottomissione", java.time.LocalDateTime.class),
-                rs.getInt("ref_utente"),
-                rs.getInt("ref_conferenza")
-        );
+        return proceedingsNonSottomessi;
     }
 }
