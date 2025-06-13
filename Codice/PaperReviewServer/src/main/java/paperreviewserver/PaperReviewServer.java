@@ -20,7 +20,6 @@ public class PaperReviewServer {
 
         DotenvUtil.init(); // Inizializiamo le variabili d'ambiente
 
-        DBMSBoundary.init();
         ScadenzeControl.inizializzaScheduler();
 
         ConsoleLogger.success("Server avviato con successo.");

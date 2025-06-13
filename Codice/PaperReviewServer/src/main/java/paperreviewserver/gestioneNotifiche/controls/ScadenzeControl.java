@@ -6,8 +6,8 @@ import paperreviewserver.common.ConsoleLogger;
 import paperreviewserver.common.DotenvUtil;
 import paperreviewserver.gestioneNotifiche.*;
 
+import java.sql.Connection;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class ScadenzeControl {
@@ -34,6 +34,7 @@ public class ScadenzeControl {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
 
+            // Pianificazione dei job con la connessione centralizzata
             List<Class<? extends Job>> jobs = Arrays.asList(
                     NotificaScadenzaAdeguamentoContenuti.class,
                     NotificaScadenzaAdeguamentoFormato.class,
@@ -43,8 +44,7 @@ public class ScadenzeControl {
                     NotificaScadenzaSottomissioni.class
             );
 
-            // Creazione dei job con l'uso della connessione centralizzata
-            int offsetInSeconds = 0; // Iniziamo con 0 secondi per il primo job
+            // Pianificazione dei job senza offset, partono tutti insieme
             for (Class<? extends Job> jobClass : jobs) {
                 String jobName = jobClass.getSimpleName();
 
@@ -52,25 +52,23 @@ public class ScadenzeControl {
                         .withIdentity(jobName, "notifiche")
                         .build();
 
-                // Impostazione del trigger con un offset di 30 secondi tra i job
+                // Pianifica i job tutti contemporaneamente con la stessa cron expression
                 Trigger trigger = TriggerBuilder.newTrigger()
                         .withIdentity("trigger-" + jobName, "notifiche")
-                        .startAt(new Date(System.currentTimeMillis() + offsetInSeconds * 1000L))  // Aggiungi offset di 30 secondi per ogni job
                         .withSchedule(CronScheduleBuilder.cronSchedule(cronExpr)) // Usa la cron espressione per la pianificazione
                         .build();
 
                 scheduler.scheduleJob(job, trigger);
 
-                ConsoleLogger.info(String.format("📅 Job %s schedulato per: %s (con offset di %d secondi)", jobName, cronExpr, offsetInSeconds));
-
-                // Aumenta l'offset di 30 secondi per il prossimo job
-                offsetInSeconds += 30;
+                ConsoleLogger.info(String.format("📅 Job %s schedulato per: %s", jobName, cronExpr));
             }
 
         } catch (SchedulerException e) {
             ConsoleLogger.error("❌ Errore durante l'inizializzazione dello scheduler: " + e.getMessage());
             System.exit(1);
+        } catch (Exception e) {
+            ConsoleLogger.error("❌ Errore generale durante l'inizializzazione dello scheduler: " + e.getMessage());
+            System.exit(1);
         }
     }
-
 }

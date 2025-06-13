@@ -10,39 +10,39 @@ public class DBMSBoundary {
     private static final String user = DotenvUtil.getDbUser();
     private static final String pwd = DotenvUtil.getDbPassword();
 
-
-    private static Connection connection;
-
-    public static void init() {
-        try {
-            connection = DriverManager.getConnection(baseUrl, user, pwd);
-            System.out.println("[DB] Connessione al DB riuscita");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.println("[DB] Errore nella connessione al DB");
-        }
-    }
-
-    public static boolean isConnected() {
-        try {
-            return connection != null && !connection.isClosed();
-        } catch (SQLException e) {
-            return false;
-        }
-    }
-
+    /**
+     * Restituisce una nuova connessione al database.
+     * Ogni connessione sarà separata per ogni operazione.
+     *
+     * @return una nuova connessione al database
+     * @throws SQLException se la connessione non può essere stabilita
+     */
     public static Connection getConnection() throws SQLException {
-        return connection;
+        try {
+            Connection connection = DriverManager.getConnection(baseUrl, user, pwd);
+            System.out.println("[DB] Connessione al DB riuscita");
+            return connection;
+        } catch (SQLException e) {
+            System.err.println("[DB] Errore nella connessione al DB");
+            throw e;
+        }
     }
 
-    public static void close() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-                System.out.println("[DB] Connessione chiusa");
+    /**
+     * Chiude la connessione al database, se è ancora aperta.
+     *
+     * @param connection la connessione da chiudere
+     */
+    public static void close(Connection connection) {
+        if (connection != null) {
+            try {
+                if (!connection.isClosed()) {
+                    connection.close();
+                    System.out.println("[DB] Connessione chiusa correttamente.");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

@@ -17,20 +17,17 @@ public class RevisioneDao {
     }
 
     public List<Integer> getRevisoriSenzaRevisione(int idConferenza) throws SQLException {
-        String query = "SELECT ref_utente " +
-                "FROM Ruolo_conferenza " +
-                "WHERE (ruolo = 'Revisore' OR ruolo = 'Sottorevisore') " +
-                " AND ref_conferenza = ? " +
-                " AND ref_utente NOT IN (" +
-                "   SELECT r.ref_utente " +
-                "   FROM Revisione r " +
-                "   JOIN Paper p ON r.ref_paper = p.id_paper " +
-                "   WHERE p.ref_conferenza = ?)";
-
+        String query = "SELECT r.ref_utente " +
+                "FROM Revisione r " +
+                "JOIN Paper p ON r.ref_paper = p.id_paper " +  // Join tra Revisione e Paper\n" +
+                "WHERE p.ref_conferenza = ? AND (r.testo IS NULL " +  // Filtra per la conferenza AND (r.testo IS NULL " +
+                "OR r.valutazione IS NULL " +
+                "OR r.data_sottomissione IS NULL " +
+                "OR r.punti_forza IS NULL OR " +
+                "r.punti_debolezza IS NULL)";
         List<Integer> revisoriSenzaRevisione = new ArrayList<Integer>();
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, idConferenza);
-            ps.setInt(2, idConferenza);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     revisoriSenzaRevisione.add(rs.getInt("ref_utente"));
