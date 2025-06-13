@@ -1,6 +1,7 @@
 package paperreviewserver;
 
 import paperreviewserver.common.ConsoleLogger;
+import paperreviewserver.common.DBMSBoundary;
 import paperreviewserver.common.DotenvUtil;
 import paperreviewserver.gestioneNotifiche.controls.ScadenzeControl;
 
@@ -19,6 +20,7 @@ public class PaperReviewServer {
 
         DotenvUtil.init(); // Inizializiamo le variabili d'ambiente
 
+        DBMSBoundary.init();
         ScadenzeControl.inizializzaScheduler();
 
         ConsoleLogger.success("Server avviato con successo.");

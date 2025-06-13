@@ -32,9 +32,6 @@ public class DBMSBoundary {
     }
 
     public static Connection getConnection() throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            init(); // prova a riconnettere
-        }
         return connection;
     }
 

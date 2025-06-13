@@ -2,7 +2,6 @@ package paperreviewserver.gestioneNotifiche;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import paperreviewserver.common.ConsoleLogger;
 import paperreviewserver.common.DBMSBoundary;
 import paperreviewserver.common.dao.ConferenzaDao;
@@ -10,12 +9,8 @@ import paperreviewserver.common.dao.PaperDao;
 import paperreviewserver.common.dao.NotificaDao;
 import paperreviewserver.common.dao.UtenteDao;
 import paperreviewserver.common.email.EmailSender;
-import paperreviewserver.common.email.MailBase;
 import paperreviewserver.common.email.NotificaScadenzaMail;
-import paperreviewserver.entities.PaperEntity;
-import paperreviewserver.entities.UtenteEntity;
 
-import java.io.Console;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -24,9 +19,9 @@ import java.util.*;
 
 public class NotificaScadenzaSottomissioni implements Job {
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
+    public void execute(JobExecutionContext context) {
         ConsoleLogger.line();
-        ConsoleLogger.job("AdeguamentoContenuti", "Avvio notifica scadenza...");
+        ConsoleLogger.job("AdeguamentoContenuti", "Avvio notifica scadenza Paper...");
 
         // Apro Connessione
         try (Connection connection = DBMSBoundary.getConnection()) {
@@ -79,6 +74,7 @@ public class NotificaScadenzaSottomissioni implements Job {
 
                         ConsoleLogger.info(testoNotifica);
                         notificaDao.inserisciNotifica(id, idConf, testoNotifica);
+                        ConsoleLogger.success("Notifica inviata per paper mancante a " + nome + " " + cognome);
 
                         // Prepara subject e body (HTML o testo semplice)
                         String subject = "Notifica di imminente scadenza sottomissione";
@@ -91,7 +87,7 @@ public class NotificaScadenzaSottomissioni implements Job {
 
                         try {
                             EmailSender.sendEmail(mail);
-                            ConsoleLogger.success("Notifica e email inviata per paper mancante a " + nome + " " + cognome + " (" + email + ")");
+                            ConsoleLogger.success("Email inviata per paper mancante a " + nome + " " + cognome + " (" + email + ")");
                         } catch (Exception e) {
                             ConsoleLogger.error("Errore invio email a " + email + ": " + e.getMessage());
                         }
@@ -101,7 +97,6 @@ public class NotificaScadenzaSottomissioni implements Job {
                     List<Object[]> datiPapers = paperDao.getPapersSenzaFileByConferenza(idConf);
 
                     for (Object[] dati : datiPapers) {
-                        Integer idPaper = (Integer) dati[0];
                         String titolo = (String) dati[1];
                         Integer refUtente = (Integer) dati[2];
 
@@ -114,11 +109,11 @@ public class NotificaScadenzaSottomissioni implements Job {
                         String email = (String) utente[3];
 
                         String testoNotifica = String.format(
-                                "Attenzione mancano %d alla scadenza della sottomissione degli articoli nella conferenza: %s",
+                                "Attenzione mancano %d giorni alla scadenza della sottomissione degli articoli nella conferenza: %s",
                                 giorniRimanenti, nomeConferenza);
 
-                        ConsoleLogger.info(testoNotifica);
                         notificaDao.inserisciNotifica(id, idConf, testoNotifica);
+                        ConsoleLogger.info(testoNotifica);
 
                         // Prepara subject e body (HTML o testo semplice)
                         String subject = "Notifica di imminente scadenza sottomissione";
@@ -139,11 +134,9 @@ public class NotificaScadenzaSottomissioni implements Job {
                     }
                 }
             }
+            ConsoleLogger.line();
         } catch (SQLException e) {
             ConsoleLogger.error("Errore durante il controllo notifiche: " + e.getMessage());
         }
-
-        ConsoleLogger.success("Notifica inviata correttamente");
-        ConsoleLogger.line();
     }
 }

@@ -14,12 +14,12 @@ public class PaperDao {
     public List<Integer> getAutoriSenzaPaper(int idConferenza) throws SQLException {
         String query = "SELECT ref_utente " +
                 "FROM Ruolo_conferenza " +
-                "WHERE ref_conferenza = ? " +
-                "AND ref_utente NOT IN (" +
-                "   SELECT ref_utente " +
-                "   FROM Paper " +
-                "   WHERE ref_conferenza = ?" +
-                ")";
+                "WHERE ruolo = 'Autore' " +
+                "AND ref_conferenza = ? " +
+                "AND ref_utente NOT IN(" +
+                "   SELECT p.ref_utente " +
+                "   FROM Paper p" +
+                "   WHERE p.ref_conferenza = ?)";
 
         List<Integer> autoriSenzaPaper = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
