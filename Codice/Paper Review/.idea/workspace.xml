@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/InvitoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/InvitoDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/VisualizzaNotificheInvitiArchiviatiControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/VisualizzaNotificheInvitiArchiviatiControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/VisualizzaNotificheInvitiControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneNotifiche/controls/VisualizzaNotificheInvitiControl.java" afterDir="false" />
+=======
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,8 +208,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
-        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
       </set>
     </attachedChunks>
   </component>
@@ -266,10 +269,15 @@
       <workItem from="1749670963669" duration="34000" />
       <workItem from="1749727891208" duration="5000" />
       <workItem from="1749738940171" duration="83000" />
+<<<<<<< Updated upstream
       <workItem from="1749742798776" duration="4254000" />
       <workItem from="1749750920336" duration="43000" />
       <workItem from="1749750970960" duration="814000" />
       <workItem from="1749753513876" duration="708000" />
+=======
+      <workItem from="1749742798776" duration="3382000" />
+      <workItem from="1749748702143" duration="737000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
