@@ -51,6 +51,25 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
         return results;
     }
 
+    public List<ConferenzaEntity> getAllIfNotAutore(int ref_autore){
+        List<ConferenzaEntity> results = new ArrayList<>();
+        String query = "SELECT * FROM " + tableName + " WHERE data_conferenza > ? AND id_conferenza IN (SELECT ref_conferenza FROM Ruolo_conferenza WHERE ruolo != 'Autore' AND ref_utente = ?) ORDER BY data_conferenza";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now())); // Imposta la data attuale
+            stmt.setInt(2, ref_autore); // Imposta la data attuale
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs)); // Aggiungi ogni riga trovata
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return results;
+    }
+
     @Override
     protected String getInsertQuery() {
         return "INSERT INTO " + tableName + " (nome, descrizione, data_conferenza, location, metodo_assegnazione, metodo_valutazione, paper_previsti, scadenza_sottomissione, " +

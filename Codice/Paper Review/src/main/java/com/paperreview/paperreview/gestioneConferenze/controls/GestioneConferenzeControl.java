@@ -150,6 +150,12 @@ public class GestioneConferenzeControl implements ControlledScreen {
         buttonAggiungiRevisore.setPrefWidth(Double.MAX_VALUE);
         buttonVisualizzaRevisori.setPrefWidth(Double.MAX_VALUE);
 
+        buttonPosticipaScadenze.setOnAction(event -> handlePosticipaScadenze(conferenza));
+        buttonvisualizzaPapers.setOnAction(event -> handleVisualizzaPapers(conferenza));
+        buttonAggiungiChair.setOnAction(event -> handleAggiungiChair(conferenza));
+        buttonAggiungiRevisore.setOnAction(event -> handleAggiungiRevisore(conferenza));
+        buttonVisualizzaRevisori.setOnAction(event -> handleVisualizzaRevisori(conferenza));
+
         buttonGrid.add(buttonPosticipaScadenze, 0, 0);
         buttonGrid.add(buttonvisualizzaPapers, 1, 0);
         buttonGrid.add(buttonAggiungiChair, 0, 1);
@@ -169,6 +175,32 @@ public class GestioneConferenzeControl implements ControlledScreen {
         // TODO: Visualizza crea conferenza
         // mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaTopic/modificaTopic.fxml");
         System.out.println("Crea conferenza");
+    }
+
+    public void handlePosticipaScadenze(ConferenzaEntity conferenza)
+    {
+        // TODO: Implementare logica
+    }
+
+    public void handleVisualizzaPapers(ConferenzaEntity conferenza)
+    {
+        // TODO: Implementare logica
+    }
+
+    public void handleAggiungiChair(ConferenzaEntity conferenza)
+    {
+        // TODO: Implementare logica
+    }
+
+    public void handleAggiungiRevisore(ConferenzaEntity conferenza)
+    {
+        // TODO: Implementare logica
+    }
+
+    public void handleVisualizzaRevisori(ConferenzaEntity conferenza)
+    {
+        UserContext.setConferenzaAttuale(conferenza);
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaRevisori/visualizzaRevisoriBoundary.fxml");
     }
 
 }

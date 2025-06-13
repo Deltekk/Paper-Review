@@ -1,13 +1,13 @@
 package com.paperreview.paperreview.controls;
 import com.paperreview.paperreview.common.CustomDateParser;
+import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.dao.ConferenzaDao;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.NotificaDao;
+import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
 import com.paperreview.paperreview.common.dbms.dao.TopicPaperDao;
-import com.paperreview.paperreview.entities.ConferenzaEntity;
+import com.paperreview.paperreview.entities.*;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.entities.NotificaEntity;
-import com.paperreview.paperreview.entities.TopicEntity;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -55,7 +55,7 @@ public class HomeControl implements ControlledScreen {
     private void caricaConferenze(){
         try{
             ConferenzaDao conferenzaDao = new ConferenzaDao(DBMSBoundary.getConnection());
-            List<ConferenzaEntity> conferenze  = conferenzaDao.getAll();
+            List<ConferenzaEntity> conferenze  = conferenzaDao.getAllIfNotAutore(UserContext.getUtente().getId());
 
             conferenzeContainer.getChildren().clear();
 
@@ -173,13 +173,26 @@ public class HomeControl implements ControlledScreen {
                     // Se l'utente ha premuto ok e non annulla...
                     // TODO: Implementare la logica di partecipazione alla conferenza
 
-                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                    alert2.setTitle("Conferma partecipazione conferenza");
-                    alert2.setHeaderText(String.format("Complimenti, stai partecipando alla conferenza %s nel ruolo di autore!", conferenzaEntity.getNome()));
-                    alert2.setContentText("Premi ok per continuare!");
-                    alert2.showAndWait();
+                    try{
+                        RuoloConferenzaDao ruoloConferenzaDao = new RuoloConferenzaDao(con);
+                        RuoloConferenzaEntity ruoloConferenzaEntity = new RuoloConferenzaEntity(0, Ruolo.Autore, UserContext.getUtente().getId(), conferenzaEntity.getId());
 
-                    conferenzeContainer.getChildren().remove(boxConferenza);
+                        ruoloConferenzaDao.save(ruoloConferenzaEntity);
+
+                        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                        alert2.setTitle("Conferma partecipazione conferenza");
+                        alert2.setHeaderText(String.format("Complimenti, stai partecipando alla conferenza %s nel ruolo di autore!", conferenzaEntity.getNome()));
+                        alert2.setContentText("Premi ok per continuare!");
+                        alert2.showAndWait();
+
+                        conferenzeContainer.getChildren().remove(boxConferenza);
+                    }catch(Exception e){
+                        throw new RuntimeException(e);
+                        // TODO: GESTIRE BENE QUEST' ERRORE
+                    }
+
+
+
                 }
             });
 
