@@ -9,6 +9,7 @@ import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.InvitoEntity;
 import com.paperreview.paperreview.entities.NotificaEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
+import com.paperreview.paperreview.entities.StatusInvito;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -119,11 +120,14 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
         pulsantiBox.setPrefWidth(300);
 
         Button accetta = new Button("Accetta");
-        Button rifiuta = new Button("Rifiuta");
         accetta.getStyleClass().add("green-button");
-        rifiuta.getStyleClass().add("red-button");
         accetta.setPrefWidth(Double.MAX_VALUE);
+        accetta.setOnAction(event -> accettaInvito(invito, box));
+
+        Button rifiuta = new Button("Rifiuta");
+        rifiuta.getStyleClass().add("red-button");
         rifiuta.setPrefWidth(Double.MAX_VALUE);
+        rifiuta.setOnAction(event -> rifiutaInvito(invito, box));
 
         pulsantiBox.getChildren().addAll(accetta, rifiuta);
 
@@ -213,5 +217,49 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
         }
 
     }
+
+    @FXML
+    public void accettaInvito(InvitoEntity invitoEntity, HBox boxInvito) {
+        try{
+
+            invitoEntity.setStatus(StatusInvito.Inviato);
+            InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
+            invitoDao.update(invitoEntity);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Accettazione invito");
+            alert.setHeaderText(String.format("Invito accettato!"));
+            alert.setContentText("Premi ok per continuare!");
+            alert.showAndWait();
+
+            invitiContainer.getChildren().remove(boxInvito);
+
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+            // TODO: GESTIRE BENE QUEST'ERRORE
+        }
+    }
+
+    @FXML
+    public void rifiutaInvito(InvitoEntity invitoEntity, HBox boxInvito) {
+        try{
+            invitoEntity.setStatus(StatusInvito.Rifiutato);
+            InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
+            invitoDao.update(invitoEntity);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Rifiuto invito");
+            alert.setHeaderText(String.format("Invito rifiutato!"));
+            alert.setContentText("Premi ok per continuare!");
+            alert.showAndWait();
+
+            invitiContainer.getChildren().remove(boxInvito);
+
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+            // TODO: GESTIRE BENE QUEST'ERRORE
+        }
+    }
+
 
 }

@@ -114,8 +114,6 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
     public String acceptOrRejectInvito(String codice, boolean accept) {
         InvitoEntity invito = getInvitoByCodice(codice);
         if (invito == null) return "Inesistente";
-        if (invito.getStatus() == StatusInvito.Accettato) return "Già accettato";
-        if (invito.getStatus() == StatusInvito.Rifiutato) return "Già rifiutato";
         if (isInvitoScaduto(invito)) return "Scaduto";
         invito.setStatus(accept ? StatusInvito.Accettato : StatusInvito.Rifiutato);
         updateInvito(invito);
