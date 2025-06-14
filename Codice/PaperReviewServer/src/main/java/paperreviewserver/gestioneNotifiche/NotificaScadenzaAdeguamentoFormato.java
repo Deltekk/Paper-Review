@@ -55,8 +55,8 @@ public class NotificaScadenzaAdeguamentoFormato implements Job {
 
                 if (giorniRimanenti <= giorniPreavviso && !oggi.isAfter(giornoScadenza)) {
                     // 4.2.3.1 Trova gli autori che NON hanno ancora caricato la nuova sottomissione
-                    LocalDateTime fineScadenza = LocalDateTime.of(giornoScadenza, LocalTime.of(23, 59, 59));
-                    List<Object[]> dati = paperDao.getPapersByDataSottomissioneMediaVoto(idConferenza,fineScadenza);
+                    LocalDateTime giornoprecscadenza = conferenzaDao.getScadenzaSottomissione2(idConferenza);
+                    List<Object[]> dati = paperDao.getPapersByDataSottomissione(idConferenza,giornoprecscadenza);
 
                     int numeroPapersDaSelezionare = (int) Math.ceil(dati.size() * (rate / 100.0));
                     for (int i = 0; i < numeroPapersDaSelezionare; i++) {
