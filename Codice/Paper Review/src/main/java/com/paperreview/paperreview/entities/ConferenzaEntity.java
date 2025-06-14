@@ -9,8 +9,8 @@ public class ConferenzaEntity extends BaseEntity {
     private String nome;
     private String descrizione;
     private String location;
-    private String metodoAssegnazione;
-    private String metodoValutazione;
+    private MetodoAssegnazione metodoAssegnazione;
+    private MetodoValutazione metodoValutazione;
     private int paperPrevisti;
     private LocalDateTime dataConferenza;
     private LocalDateTime scadenzaSottomissione;
@@ -22,8 +22,8 @@ public class ConferenzaEntity extends BaseEntity {
     private Set<UtenteEntity> chairs;
 
     public ConferenzaEntity(int id_conferenza, String nome, String descrizione,
-                            LocalDateTime dataConferenza, String location, String metodoAssegnazione,
-                            String metodoValutazione, int paperPrevisti,
+                            LocalDateTime dataConferenza, String location, MetodoAssegnazione metodoAssegnazione,
+                            MetodoValutazione metodoValutazione, int paperPrevisti,
                             LocalDateTime scadenzaSottomissione,
                             LocalDateTime scadenzaRevisione,
                             LocalDateTime scadenzaSottomissione2,
@@ -135,19 +135,19 @@ public class ConferenzaEntity extends BaseEntity {
         this.location = location;
     }
 
-    public String getMetodoAssegnazione() {
+    public MetodoAssegnazione getMetodoAssegnazione() {
         return metodoAssegnazione;
     }
 
-    public void setMetodoAssegnazione(String metodoAssegnazione) {
+    public void setMetodoAssegnazione(MetodoAssegnazione metodoAssegnazione) {
         this.metodoAssegnazione = metodoAssegnazione;
     }
 
-    public String getMetodoValutazione() {
+    public MetodoValutazione getMetodoValutazione() {
         return metodoValutazione;
     }
 
-    public void setMetodoValutazione(String metodoValutazione) {
+    public void setMetodoValutazione(MetodoValutazione metodoValutazione) {
         this.metodoValutazione = metodoValutazione;
     }
 
