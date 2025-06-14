@@ -115,7 +115,7 @@ public class VisualizzaPapersChairControl implements ControlledScreen {
         CoAutoriPaperDao coAutoriPaperDao = new CoAutoriPaperDao(DBMSBoundary.getConnection());
         Set<String> coautori = coAutoriPaperDao.getCoautoriForPaper(paper.getId());
 
-        String testoLabelAutori = autore.getNome() + ", ";
+        String testoLabelAutori = String.format("%s %s, ", autore.getNome(), autore.getCognome());
 
         int i = 0;
         for (String coautore : coautori) {
