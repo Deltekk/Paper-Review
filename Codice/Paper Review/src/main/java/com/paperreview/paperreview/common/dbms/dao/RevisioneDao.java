@@ -90,4 +90,22 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         }
         return results;
     }
+
+    public double getAverageScore(int idPaper) throws SQLException {
+        String query = "SELECT AVG(valutazione) FROM " + tableName + " WHERE ref_paper = ?";
+
+        double result = 0;
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idPaper);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    result = rs.getDouble(1);
+                }
+            }
+        }
+
+        return result;
+    }
+
 }

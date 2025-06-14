@@ -172,29 +172,35 @@ public class GestioneConferenzeControl implements ControlledScreen {
     @FXML
     public void handleCreaConferenza()
     {
-        // TODO: Visualizza crea conferenza
-        // mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaTopic/modificaTopic.fxml");
-        System.out.println("Crea conferenza");
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/creaConferenza/creaConferenzaBoundary.fxml");
     }
 
     public void handlePosticipaScadenze(ConferenzaEntity conferenza)
     {
-        // TODO: Implementare logica
+        UserContext.setConferenzaAttuale(conferenza);
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/posticipaScadenza/posticipaScadenzaBoundary.fxml");
+
     }
 
     public void handleVisualizzaPapers(ConferenzaEntity conferenza)
     {
-        // TODO: Implementare logica
+        UserContext.setConferenzaAttuale(conferenza);
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaPapersChair/visualizzaPapersChairBoundary.fxml");
+
     }
 
     public void handleAggiungiChair(ConferenzaEntity conferenza)
     {
-        // TODO: Implementare logica
+        UserContext.setConferenzaAttuale(conferenza);
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/aggiungiChair/aggiungiChairBoundary.fxml");
+
     }
 
     public void handleAggiungiRevisore(ConferenzaEntity conferenza)
     {
-        // TODO: Implementare logica
+        UserContext.setConferenzaAttuale(conferenza);
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/aggiungiRevisore/aggiungiRevisoreBoundary.fxml");
+
     }
 
     public void handleVisualizzaRevisori(ConferenzaEntity conferenza)
