@@ -196,7 +196,7 @@ public class VisualizzaPapersChairControl implements ControlledScreen {
         // Score medio e massimo
 
         double averageScore = revisioneDao.getAverageScore(paper.getId());
-        Integer maxScore = Integer.valueOf(UserContext.getConferenzaAttuale().getMetodoValutazione());
+        Integer maxScore = Integer.valueOf(UserContext.getConferenzaAttuale().getMetodoValutazione().getValoreDb());
 
         // Label
 
