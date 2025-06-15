@@ -1,6 +1,12 @@
 package com.paperreview.paperreview.entities;
 
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.dao.ConferenzaDao;
+import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
+
+import java.sql.Connection;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class InvitoEntity extends BaseEntity {
@@ -46,12 +52,30 @@ public class InvitoEntity extends BaseEntity {
     }
 
     public String getTesto() {
-        return testo;
+        try {
+            Connection conn = DBMSBoundary.getConnection();
+            ConferenzaDao conferenzaDao = new ConferenzaDao(conn);
+            UtenteDao utenteDao = new UtenteDao(conn);
+
+            ConferenzaEntity conferenza = conferenzaDao.getById(refConferenza);
+            UtenteEntity mittente = utenteDao.getById(refMittente);
+
+            String nomeConferenza = conferenza.getNome();
+            String nomeMittente = mittente.getNome() + " " + mittente.getCognome();
+            String dataFormatted = data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String scadenza = conferenza.getScadenzaSottomissione().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+            return String.format("""
+                Sei stato invitato da %s a partecipare alla conferenza "%s" in qualità di %s.
+                Data invito: %s
+                Ti invitiamo ad accettare o rifiutare l’invito entro il %s.
+                """, nomeMittente, nomeConferenza, testo, dataFormatted, scadenza);
+
+        } catch (Exception e) {
+            return "Hai ricevuto un nuovo invito a partecipare a una conferenza.";
+        }
     }
 
-    public void setTesto(String testo) {
-        this.testo = testo;
-    }
 
     public StatusInvito getStatus() {
         return status;
