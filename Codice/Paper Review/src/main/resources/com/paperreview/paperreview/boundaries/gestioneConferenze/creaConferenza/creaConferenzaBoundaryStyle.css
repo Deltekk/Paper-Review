@@ -1,0 +1,23 @@
+.pagina-centro {
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-padding: 40;
+}
+
+.bg-celeste{
+    -fx-background-radius: 20;
+    -fx-padding: 25;
+}
+
+.scrollPane{
+    -fx-background-color: transparent;
+    -fx-padding: 50;
+}
+
+.trasparente{
+    -fx-background-color: transparent;
+}
+
+.viewport{
+    -fx-background-color: transparent;
+}

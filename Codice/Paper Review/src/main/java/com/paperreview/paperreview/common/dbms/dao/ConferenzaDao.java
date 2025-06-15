@@ -85,8 +85,8 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
         stmt.setString(2, conferenza.getDescrizione());
         stmt.setObject(3, conferenza.getDataConferenza());
         stmt.setString(4, conferenza.getLocation());
-        stmt.setString(5, conferenza.getMetodoAssegnazione().name());
-        stmt.setString(6, conferenza.getMetodoValutazione().name());
+        stmt.setString(5, conferenza.getMetodoAssegnazione().getValoreDb());
+        stmt.setString(6, conferenza.getMetodoValutazione().getValoreDb());
         stmt.setInt(7, conferenza.getPaperPrevisti());
         stmt.setObject(8, conferenza.getScadenzaSottomissione());
         stmt.setObject(9, conferenza.getScadenzaRevisione());
@@ -109,8 +109,8 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
         stmt.setString(2, conferenza.getDescrizione());
         stmt.setObject(3, conferenza.getDataConferenza());
         stmt.setString(4, conferenza.getLocation());
-        stmt.setString(5, conferenza.getMetodoAssegnazione().name());
-        stmt.setString(6, conferenza.getMetodoValutazione().name());
+        stmt.setString(5, conferenza.getMetodoAssegnazione().getValoreDb());
+        stmt.setString(6, conferenza.getMetodoValutazione().getValoreDb());
         stmt.setInt(7, conferenza.getPaperPrevisti());
         stmt.setObject(8, conferenza.getScadenzaSottomissione());
         stmt.setObject(9, conferenza.getScadenzaRevisione());
@@ -134,8 +134,8 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
                 rs.getString("descrizione"),
                 rs.getObject("data_conferenza", java.time.LocalDateTime.class),
                 rs.getString("location"),
-                MetodoAssegnazione.valueOf(rs.getString("metodo_assegnazione")),
-                MetodoValutazione.valueOf(rs.getString("metodo_valutazione")),
+                MetodoAssegnazione.fromString(rs.getString("metodo_assegnazione")),
+                MetodoValutazione.fromString(rs.getString("metodo_valutazione")),
                 rs.getInt("paper_previsti"),
                 rs.getObject("scadenza_sottomissione", java.time.LocalDateTime.class),
                 rs.getObject("scadenza_revisione", java.time.LocalDateTime.class),

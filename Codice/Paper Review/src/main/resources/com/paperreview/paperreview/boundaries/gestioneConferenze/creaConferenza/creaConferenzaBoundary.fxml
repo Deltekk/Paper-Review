@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.paperreview.paperreview.gestioneConferenze.controls.CreaConferenzaControl"
+           stylesheets="@creaConferenzaBoundaryStyle.css"
+           styleClass="pagina-centro, quadrettoni"
+           prefWidth="900" prefHeight="1000">
+
+    <VBox alignment="TOP_CENTER" spacing="20" styleClass="bg-celeste" maxWidth="900">
+
+        <!-- Titolo -->
+        <Label text="CREA CONFERENZA" styleClass="h1, text-bianco, font-bold, ombra"/>
+
+        <!-- Errore -->
+        <Label fx:id="errorLabel"
+               text="Errore: i campi devono essere tutti compilati!"
+               styleClass="text-rosso, font-bold"
+               visible="false" />
+
+        <!-- Scrollable form -->
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scrollPane">
+            <content>
+                <VBox fx:id="formContainer" spacing="15" alignment="TOP_CENTER" maxWidth="900" minWidth="500"
+                      styleClass="form-container"/>
+            </content>
+        </ScrollPane>
+
+        <!-- Bottone di conferma -->
+        <Button fx:id="confirmButton"
+                text="Conferma"
+                maxWidth="900"
+                minWidth="300"
+                styleClass="green-button"
+                onAction="#handleConferma"/>
+    </VBox>
+</StackPane>

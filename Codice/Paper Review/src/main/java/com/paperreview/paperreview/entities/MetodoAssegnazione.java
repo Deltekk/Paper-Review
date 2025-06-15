@@ -1,12 +1,22 @@
 package com.paperreview.paperreview.entities;
 
 public enum MetodoAssegnazione {
-    Broadcast,
-    Topic;
+    Broadcast("Broadcast"),
+    Topic("Topic"),;
+
+    private final String valoreDb;
+
+    MetodoAssegnazione(String valoreDb) {
+        this.valoreDb = valoreDb;
+    }
+
+    public String getValoreDb() {
+        return valoreDb;
+    }
 
     public static MetodoAssegnazione fromString(String value) {
         for (MetodoAssegnazione m : MetodoAssegnazione.values()) {
-            if (m.name().equalsIgnoreCase(value.trim())) {
+            if (m.valoreDb.equalsIgnoreCase(value.trim())) {
                 return m;
             }
         }
