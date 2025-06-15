@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.sql.SQLException;
@@ -56,6 +57,7 @@ public class VisualizzaPapersChairControl implements ControlledScreen {
                 testo.setWrapText(true);
                 testo.setPrefWidth(500);
                 testo.setAlignment(Pos.CENTER);
+                testo.setTextAlignment(TextAlignment.CENTER);
 
                 paperContainer.getChildren().add(testo);
             }

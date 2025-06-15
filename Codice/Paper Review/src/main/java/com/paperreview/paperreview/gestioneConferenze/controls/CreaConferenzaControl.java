@@ -2,13 +2,13 @@ package com.paperreview.paperreview.gestioneConferenze.controls;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
+import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.ConferenzaDao;
+import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
-import com.paperreview.paperreview.entities.ConferenzaEntity;
-import com.paperreview.paperreview.entities.MetodoAssegnazione;
-import com.paperreview.paperreview.entities.MetodoValutazione;
+import com.paperreview.paperreview.entities.*;
 import com.paperreview.paperreview.gestioneConferenze.forms.CreaConferenzaFormModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -127,6 +127,7 @@ public class CreaConferenzaControl implements ControlledScreen {
             // Se tutto valido, procediamo a creare la conferenza
 
             ConferenzaDao conferenzaDao = new ConferenzaDao(DBMSBoundary.getConnection());
+            RuoloConferenzaDao ruoloConferenzaDao = new RuoloConferenzaDao(DBMSBoundary.getConnection());
 
             ConferenzaEntity conferenzaEntity = new ConferenzaEntity(
                     0,
@@ -149,6 +150,18 @@ public class CreaConferenzaControl implements ControlledScreen {
 
             conferenzaDao.save(conferenzaEntity);
 
+            RuoloConferenzaEntity ruoloConferenzaEntity = new RuoloConferenzaEntity(
+                    0,
+                    Ruolo.Chair,
+                    UserContext.getUtente().getId(),
+                    conferenzaEntity.getId()
+                    );
+
+            ruoloConferenzaDao.save(ruoloConferenzaEntity);
+
+            UserContext.setConferenzaAttuale(conferenzaEntity);
+
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaChair/invitaChair.fxml");
 
         } catch (DateTimeParseException e) {
             errorLabel.setText("Errore: Una o più date non sono nel formato corretto.");

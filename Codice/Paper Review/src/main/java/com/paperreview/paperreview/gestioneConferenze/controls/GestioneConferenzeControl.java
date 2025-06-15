@@ -192,7 +192,7 @@ public class GestioneConferenzeControl implements ControlledScreen {
     public void handleAggiungiChair(ConferenzaEntity conferenza)
     {
         UserContext.setConferenzaAttuale(conferenza);
-        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/aggiungiChair/aggiungiChairBoundary.fxml");
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaChair/invitaChairBoundary.fxml");
 
     }
 
