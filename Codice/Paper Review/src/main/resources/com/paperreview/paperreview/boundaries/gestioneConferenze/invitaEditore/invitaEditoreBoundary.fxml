@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.paperreview.paperreview.gestioneConferenze.controls.InvitaEditoriControl"
+           stylesheets="@invitaEditoriStyle.css"
+           styleClass="pagina-centro, quadrettoni"
+           prefWidth="600" prefHeight="800">
+
+    <ScrollPane fitToWidth="true" styleClass="trasparente" minHeight="500">
+
+        <content>
+
+            <VBox alignment="TOP_CENTER" spacing="20" styleClass="main-container">
+
+                <Label text="INVITA EDITORI" styleClass="h1, text-blu-scuro, font-bold, ombra"/>
+
+                <VBox alignment="TOP_CENTER" spacing="20" styleClass="bg-celeste" maxWidth="500">
+
+                    <!-- Errore -->
+                    <Label fx:id="errorLabel"
+                           text="Errore: i campi devono essere tutti compilati!"
+                           styleClass="p, text-rosso, font-bold"
+                           visible="false"
+                           wrapText="true"/>
+
+                    <VBox fx:id="formContainer" spacing="15" alignment="TOP_CENTER"
+                          maxWidth="900" minWidth="500"
+                          styleClass="form-container"/>
+
+                    <Button fx:id="addButton" text="Aggiungi alla lista"
+                            maxWidth="200" styleClass="blue-button" onAction="#handleAddButton"/>
+
+                    <Button fx:id="continuaButton" text="Continua"
+                            maxWidth="200" styleClass="green-button" onAction="#handleContinueButton"/>
+
+                </VBox>
+
+                <FlowPane fx:id="editorContainer" hgap="25" vgap="25"
+                          styleClass="chair-container" alignment="CENTER"/>
+
+            </VBox>
+
+        </content>
+
+    </ScrollPane>
+
+</StackPane>
+

@@ -5,7 +5,7 @@ import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
-import com.paperreview.paperreview.gestioneConferenze.forms.InvitaChairFormModel;
+import com.paperreview.paperreview.gestioneConferenze.forms.InvitaRevisoriFormModel;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,7 +19,7 @@ import javafx.scene.text.TextAlignment;
 import java.util.HashSet;
 import java.util.Set;
 
-public class InvitaChairControl implements ControlledScreen {
+public class InvitaRevisoriControl implements ControlledScreen {
 
     @FXML
     private VBox formContainer;
@@ -38,8 +38,7 @@ public class InvitaChairControl implements ControlledScreen {
 
     private Set<String> emails = new HashSet<>();
 
-
-    private InvitaChairFormModel invitaChairForm = new InvitaChairFormModel();
+    private InvitaRevisoriFormModel invitaRevisoriForm = new InvitaRevisoriFormModel();
 
     private MainControl mainControl;
 
@@ -48,13 +47,12 @@ public class InvitaChairControl implements ControlledScreen {
         this.mainControl = mainControl;
     }
 
-
     public void initialize() {
 
         addButton.setDisable(true);
         errorLabel.setVisible(false);
 
-        Form form = invitaChairForm.createForm();
+        Form form = invitaRevisoriForm.createForm();
         FormRenderer formRenderer = new FormRenderer(form);
         formContainer.getChildren().add(formRenderer);
         formRenderer.setStyle("-fx-border-color: transparent; -fx-border-width: 0;\n");
@@ -80,7 +78,7 @@ public class InvitaChairControl implements ControlledScreen {
 
     @FXML
     private void handleAddButton() {
-        String nuovaEmail = invitaChairForm.getEmail().trim().toLowerCase();
+        String nuovaEmail = invitaRevisoriForm.getEmail().trim().toLowerCase();
 
         // Controllo se già esiste
         if (emails.contains(nuovaEmail)) {
@@ -122,23 +120,24 @@ public class InvitaChairControl implements ControlledScreen {
 
     @FXML
     private void handleContinueButton() {
-        //  TODO: Gestire logica di chiamata al DB per salvare i chair invitati e andare avanti
-        /*  TODO - Dobbiamo:
+        /*  TODO: Gestire logica di chiamata al DB per salvare i revisori invitati e andare avanti
+            TODO: Dobbiamo:
                 - Inserire l'invito nel DB
-                - Recapitare la mail ad ogni chair
-                - Recapitare la notifica ad ogni chair (teoricamente dovrebbe essere la stessa cosa di invitarlo i guess)
-                - Bisogna anche mostrare un errore se un determinato chair fa già parte della conferenza come chair,
-                  premere ok e poi continua con il resto dei chair (qui ti consiglio di usare la classe Alert)
+                - Recapitare la mail ad ogni revisore
+                - Recapitare la notifica ad ogni revisore (teoricamente dovrebbe essere la stessa cosa di invitarlo i guess)
+                - Controllare se il numero minimo di revisori per paper è rispettato quindi non andare avanti se il chair non ha aggiunto almeno tot revisori
+                  far visualizzare un errore se è questo il caso
+                - Bisogna anche mostrare un errore se un determinato revisori fa già parte della conferenza come revisori,
+                  premere ok e poi continua con il resto dei revisori (qui ti consiglio di usare la classe Alert)
             ℹ️  Se hai bisogno di prendere l'id della conferenza corrente puoi usare UserContext.getConferenza che ti ritorna la entity e da li ti prendi l'id
                 stessa cosa vale per l'id dell'utente. Ti ricordo inoltre che qui hai l'array emails che sono tutti i cristiani che dobbiamo invitare
          */
+        //
 
-        if(UserContext.isStandaloneInteraction()){
+        if (UserContext.isStandaloneInteraction()) {
             mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenzeBoundary.fxml");
-        }
-        else{
-            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaRevisori/invitaRevisoriBoundary.fxml");
+        } else {
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaEditore/invitaEditoreBoundary.fxml");
         }
     }
-
 }

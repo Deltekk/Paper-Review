@@ -1,0 +1,45 @@
+.pagina-centro {
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-padding: 25;
+
+}
+
+.bg-celeste{
+    -fx-background-radius: 25;
+    -fx-padding: 25;
+}
+
+.scrollPane{
+    -fx-background-color: transparent;
+}
+
+.trasparente{
+    -fx-background-color: transparent;
+}
+
+.viewport{
+    -fx-background-color: transparent;
+}
+
+.text-rosso{
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
+
+.green-button, .blue-button, .red-button{
+    -fx-max-width: 440;
+    -fx-text-alignment: center;
+}
+
+.chair-card{
+    -fx-padding: 25;
+}
+
+.chair-card > .p{
+    -fx-padding: 25;
+}
+
+.bold{
+    -fx-font-weight: bold;
+}

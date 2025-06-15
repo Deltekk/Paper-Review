@@ -161,7 +161,7 @@ public class CreaConferenzaControl implements ControlledScreen {
 
             UserContext.setConferenzaAttuale(conferenzaEntity);
 
-            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaChair/invitaChair.fxml");
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaChair/invitaChairBoundary.fxml");
 
         } catch (DateTimeParseException e) {
             errorLabel.setText("Errore: Una o più date non sono nel formato corretto.");

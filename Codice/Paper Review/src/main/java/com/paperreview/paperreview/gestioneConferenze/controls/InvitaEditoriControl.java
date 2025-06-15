@@ -2,10 +2,9 @@ package com.paperreview.paperreview.gestioneConferenze.controls;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
-import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
-import com.paperreview.paperreview.gestioneConferenze.forms.InvitaChairFormModel;
+import com.paperreview.paperreview.gestioneConferenze.forms.InvitaEditoriFormModel;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,7 +18,7 @@ import javafx.scene.text.TextAlignment;
 import java.util.HashSet;
 import java.util.Set;
 
-public class InvitaChairControl implements ControlledScreen {
+public class InvitaEditoriControl implements ControlledScreen {
 
     @FXML
     private VBox formContainer;
@@ -31,15 +30,14 @@ public class InvitaChairControl implements ControlledScreen {
     private Button continueButton;
 
     @FXML
-    private FlowPane chairContainer;
+    private FlowPane editorContainer;
 
     @FXML
     private Label errorLabel;
 
     private Set<String> emails = new HashSet<>();
 
-
-    private InvitaChairFormModel invitaChairForm = new InvitaChairFormModel();
+    private InvitaEditoriFormModel invitaEditoriFormModel = new InvitaEditoriFormModel();
 
     private MainControl mainControl;
 
@@ -48,13 +46,12 @@ public class InvitaChairControl implements ControlledScreen {
         this.mainControl = mainControl;
     }
 
-
     public void initialize() {
 
         addButton.setDisable(true);
         errorLabel.setVisible(false);
 
-        Form form = invitaChairForm.createForm();
+        Form form = invitaEditoriFormModel.createForm();
         FormRenderer formRenderer = new FormRenderer(form);
         formContainer.getChildren().add(formRenderer);
         formRenderer.setStyle("-fx-border-color: transparent; -fx-border-width: 0;\n");
@@ -80,7 +77,7 @@ public class InvitaChairControl implements ControlledScreen {
 
     @FXML
     private void handleAddButton() {
-        String nuovaEmail = invitaChairForm.getEmail().trim().toLowerCase();
+        String nuovaEmail = invitaEditoriFormModel.getEmail().trim().toLowerCase();
 
         // Controllo se già esiste
         if (emails.contains(nuovaEmail)) {
@@ -111,34 +108,36 @@ public class InvitaChairControl implements ControlledScreen {
         rimuoviBtn.getStyleClass().add("red-button");
 
         rimuoviBtn.setOnAction(e -> {
-            chairContainer.getChildren().remove(card);
+            editorContainer.getChildren().remove(card);
             emails.remove(nuovaEmail);
         });
 
         card.getChildren().addAll(labelEmail, rimuoviBtn);
-        chairContainer.getChildren().add(card);
+        editorContainer.getChildren().add(card);
     }
 
 
     @FXML
     private void handleContinueButton() {
-        //  TODO: Gestire logica di chiamata al DB per salvare i chair invitati e andare avanti
-        /*  TODO - Dobbiamo:
+
+        errorLabel.setVisible(false);
+
+        /*  TODO: Gestire logica di chiamata al DB per salvare gli editori invitati e andare avanti
+            TODO: Dobbiamo:
                 - Inserire l'invito nel DB
-                - Recapitare la mail ad ogni chair
-                - Recapitare la notifica ad ogni chair (teoricamente dovrebbe essere la stessa cosa di invitarlo i guess)
-                - Bisogna anche mostrare un errore se un determinato chair fa già parte della conferenza come chair,
-                  premere ok e poi continua con il resto dei chair (qui ti consiglio di usare la classe Alert)
+                - Recapitare la mail ad ogni editore
+                - Recapitare la notifica ad ogni editore (teoricamente dovrebbe essere la stessa cosa di invitarlo i guess)
             ℹ️  Se hai bisogno di prendere l'id della conferenza corrente puoi usare UserContext.getConferenza che ti ritorna la entity e da li ti prendi l'id
                 stessa cosa vale per l'id dell'utente. Ti ricordo inoltre che qui hai l'array emails che sono tutti i cristiani che dobbiamo invitare
          */
 
-        if(UserContext.isStandaloneInteraction()){
-            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenzeBoundary.fxml");
+        if (emails.size() == 0) {
+            errorLabel.setText("Errore: Devi inserire almeno un editore!");
+            errorLabel.setVisible(true);
+            return;
         }
-        else{
-            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaRevisori/invitaRevisoriBoundary.fxml");
-        }
-    }
 
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenzeBoundary.fxml");
+
+    }
 }

@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/InvitaEditoriControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/InvitaRevisoriControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/forms/InvitaEditoriFormModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/forms/InvitaRevisoriFormModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaEditore/invitaEditoreBoundary.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaEditore/invitaEditoriStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaRevisori/invitaRevisoriBoundary.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaRevisori/invitaRevisoriStyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/GestioneConferenzeControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/GestioneConferenzeControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/CreaConferenzaControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/CreaConferenzaControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/InvitaChairControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/InvitaChairControl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,9 +29,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Class" />
         <option value="FxmlFile" />
         <option value="CSS File" />
-        <option value="Class" />
       </list>
     </option>
   </component>
@@ -271,7 +279,7 @@
       <workItem from="1749750970960" duration="814000" />
       <workItem from="1749753513876" duration="708000" />
       <workItem from="1749890399212" duration="169000" />
-      <workItem from="1749980026315" duration="27458000" />
+      <workItem from="1749980026315" duration="32080000" />
     </task>
     <servers />
   </component>
