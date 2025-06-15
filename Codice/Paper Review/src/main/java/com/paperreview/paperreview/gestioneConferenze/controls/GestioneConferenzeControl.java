@@ -172,6 +172,8 @@ public class GestioneConferenzeControl implements ControlledScreen {
     @FXML
     public void handleCreaConferenza()
     {
+        UserContext.setConferenzaAttuale(null);
+        UserContext.setStandaloneInteraction(false);
         mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/creaConferenza/creaConferenzaBoundary.fxml");
     }
 
@@ -192,6 +194,7 @@ public class GestioneConferenzeControl implements ControlledScreen {
     public void handleAggiungiChair(ConferenzaEntity conferenza)
     {
         UserContext.setConferenzaAttuale(conferenza);
+        UserContext.setStandaloneInteraction(true);
         mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaChair/invitaChairBoundary.fxml");
 
     }
@@ -199,6 +202,7 @@ public class GestioneConferenzeControl implements ControlledScreen {
     public void handleAggiungiRevisore(ConferenzaEntity conferenza)
     {
         UserContext.setConferenzaAttuale(conferenza);
+        UserContext.setStandaloneInteraction(true);
         mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/aggiungiRevisore/aggiungiRevisoreBoundary.fxml");
 
     }

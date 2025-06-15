@@ -1,13 +1,13 @@
 package com.paperreview.paperreview.common;
 
 import com.paperreview.paperreview.entities.ConferenzaEntity;
-import com.paperreview.paperreview.entities.RevisioneEntity;
 import com.paperreview.paperreview.entities.UtenteEntity;
 
 public class UserContext {
 
     private static UtenteEntity utente;
     private static ConferenzaEntity conferenzaAttuale;
+    private static boolean standaloneInteraction;
 
     public static void setUtente(UtenteEntity utente) {
         UserContext.utente = utente;
@@ -31,5 +31,13 @@ public class UserContext {
 
     public static void setConferenzaAttuale(ConferenzaEntity conferenzaAttuale) {
         UserContext.conferenzaAttuale = conferenzaAttuale;
+    }
+
+    public static boolean isStandaloneInteraction() {
+        return standaloneInteraction;
+    }
+
+    public static void setStandaloneInteraction(boolean standaloneInteraction) {
+        UserContext.standaloneInteraction = standaloneInteraction;
     }
 }

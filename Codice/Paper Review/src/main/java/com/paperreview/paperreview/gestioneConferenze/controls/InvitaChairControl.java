@@ -2,9 +2,9 @@ package com.paperreview.paperreview.gestioneConferenze.controls;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
+import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
-import com.paperreview.paperreview.gestioneConferenze.forms.CreaConferenzaFormModel;
 import com.paperreview.paperreview.gestioneConferenze.forms.InvitaChairFormModel;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -120,7 +120,19 @@ public class InvitaChairControl implements ControlledScreen {
 
     @FXML
     private void handleContinueButton() {
-        // TODO: Gestire logica di chiamata al DB per salvare i chair invitati e andare avanti
+        //  TODO: Gestire logica di chiamata al DB per salvare i chair invitati e andare avanti
+        /*  TODO - Dobbiamo:
+                - Inserire l'invito nel DB
+                - Recapitare la mail ad ogni chair
+                - Recapitare la notifica ad ogni chair (teoricamente dovrebbe essere la stessa cosa di invitarlo i guess)
+         */
+
+        if(UserContext.isStandaloneInteraction()){
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenze.fxml");
+        }
+        else{
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaRevisori/invitaRevisori.fxml");
+        }
     }
 
 }
