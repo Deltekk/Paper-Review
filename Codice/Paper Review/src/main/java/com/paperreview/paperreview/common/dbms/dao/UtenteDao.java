@@ -146,4 +146,17 @@ public class UtenteDao extends BaseDao<UtenteEntity> {
             return stmt.executeUpdate() > 0;
         }
     }
+
+    public Integer getIdByEmail(String email) throws SQLException {
+        String query = "SELECT id_utente FROM Utente WHERE email = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id_utente");
+                }
+            }
+        }
+        return null;
+    }
 }

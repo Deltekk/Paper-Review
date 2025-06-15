@@ -72,6 +72,8 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
         stmt.setObject(8, invito.getRefDestinatario());  // Integer (può essere null)
     }
 
+
+
     @Override
     protected String getUpdateQuery() {
         return "UPDATE " + tableName + " SET data = ?, testo = ?, status = ?, email = ?, codice = ?, ref_conferenza = ?, ref_mittente = ?, ref_destinatario = ? " +

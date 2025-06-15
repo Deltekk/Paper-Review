@@ -130,4 +130,29 @@ public class InvitoEntity extends BaseEntity {
     public int hashCode() {
         return Objects.hash(idInvito, refMittente, refConferenza, codice);
     }
+
+    public static String generaCodice() {
+        int length = 10;
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int idx = (int) (Math.random() * chars.length());
+            sb.append(chars.charAt(idx));
+        }
+        return sb.toString();
+    }
+
+    public static InvitoEntity creaChair(String email, int refConferenza, int refMittente, Integer refDestinatario, LocalDateTime scadenza) {
+        return new InvitoEntity(
+                0,                          // idInvito non ancora assegnato
+                scadenza,                   // data scadenza (es. scadenzaSottomissione)
+                "Chair",                    // testo fisso
+                StatusInvito.Inviato,       // status iniziale
+                email,
+                generaCodice(),             // codice generato
+                refConferenza,
+                refMittente,
+                refDestinatario
+        );
+    }
 }
