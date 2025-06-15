@@ -203,8 +203,7 @@ public class GestioneConferenzeControl implements ControlledScreen {
     {
         UserContext.setConferenzaAttuale(conferenza);
         UserContext.setStandaloneInteraction(true);
-        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/aggiungiRevisore/aggiungiRevisoreBoundary.fxml");
-
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaRevisori/invitaRevisoriBoundary.fxml");
     }
 
     public void handleVisualizzaRevisori(ConferenzaEntity conferenza)

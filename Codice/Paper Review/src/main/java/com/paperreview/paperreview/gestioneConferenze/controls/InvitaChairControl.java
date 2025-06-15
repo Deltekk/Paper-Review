@@ -131,7 +131,7 @@ public class InvitaChairControl implements ControlledScreen {
             mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenze.fxml");
         }
         else{
-            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaRevisori/invitaRevisori.fxml");
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaRevisori/invitaRevisoriBoundary.fxml");
         }
     }
 
