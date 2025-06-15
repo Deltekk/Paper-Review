@@ -205,11 +205,41 @@ INSERT INTO Topic (nome) VALUES
                              ('Etica Applicata'),
                              ('Bioetica');
 
-INSERT INTO Conferenza (nome, descrizione, data_conferenza, location, metodo_assegnazione, metodo_valutazione, paper_previsti, rate_accettazione, giorni_preavviso,scadenza_sottomissione, scadenza_revisione, scadenza_sottomissione_2, scadenza_editing, scadenza_sottomissione_3, scadenza_impaginazione) VALUES
-                                                                                                                                                                                                                                                                             ('AI Summit 2025', 'Conferenza internazionale su intelligenza artificiale e machine learning', '2026-04-15 09:00:00', 'Milano', 'Broadcast', '3', 25, 12, 4,'2025-06-17 23:59:59', '2025-06-27 23:59:59', '2025-07-09 23:59:59', '2025-07-19 23:59:59', '2025-08-01 23:59:59', '2025-08-15 23:59:59'),
-                                                                                                                                                                                                                                                                             ('Cybersecurity Conf 2025', 'Conferenza sulla sicurezza informatica con esperti del settore', '2026-5-10 10:00:00', 'Roma', 'Topic', '4', 100,25, 4,'2025-07-01 23:59:59', '2025-07-20 23:59:59', '2025-08-01 23:59:59', '2025-08-15 23:59:59', '2025-09-01 23:59:59', '2025-09-10 23:59:59'),
-                                                                                                                                                                                                                                                                             ('Banane della Moldavia 2025', 'Conferenza dedicata allo studio delle banane della Moldovia, un caso di eccellenza agricola', '2026-6-01 09:00:00', 'Chisinău', 'Topic', '2', 80, 25, '2025-08-01 23:59:59', '2025-08-15 23:59:59', '2025-09-01 23:59:59', '2025-09-15 23:59:59', '2025-10-01 23:59:59', '2025-10-10 23:59:59');
--- Paper per AI Summit 2025
+INSERT INTO Conferenza (
+    nome, descrizione, data_conferenza, location, metodo_assegnazione, metodo_valutazione,
+    paper_previsti, rate_accettazione, giorni_preavviso,
+    scadenza_sottomissione, scadenza_revisione, scadenza_sottomissione_2,
+    scadenza_editing, scadenza_sottomissione_3, scadenza_impaginazione
+) VALUES
+
+-- 1: scadenza_sottomissione = 17 giugno 2025
+('Data Science Expo 2025', 'Conferenza su tecniche avanzate di data science', '2026-07-01 09:00:00', 'Torino', 'Broadcast', '3',
+ 30, 20, 5,
+ '2025-06-17 23:59:59', '2025-06-20 23:59:59', '2025-06-23 23:59:59', '2025-06-26 23:59:59', '2025-06-29 23:59:59', '2025-07-02 23:59:59'),
+
+-- 2: scadenza_revisione = 17 giugno 2025
+('Quantum Computing Congress', 'Calcolo quantistico e algoritmi innovativi', '2026-07-15 10:00:00', 'Zurigo', 'Topic', '4',
+ 40, 10, 5,
+ '2025-06-14 23:59:59', '2025-06-17 23:59:59', '2025-06-20 23:59:59', '2025-06-23 23:59:59', '2025-06-26 23:59:59', '2025-06-29 23:59:59'),
+
+-- 3: scadenza_sottomissione_2 = 17 giugno 2025
+('Sustainable Tech Forum', 'Tecnologie sostenibili e innovazione ambientale', '2026-07-20 09:30:00', 'Oslo', 'Broadcast', '2',
+ 50, 7, 5,
+ '2025-06-11 23:59:59', '2025-06-14 23:59:59', '2025-06-17 23:59:59', '2025-06-20 23:59:59', '2025-06-23 23:59:59', '2025-06-26 23:59:59'),
+
+-- 4: scadenza_editing = 17 giugno 2025
+('Ethics and AI 2025', 'Etica, filosofia e intelligenza artificiale', '2026-07-25 11:00:00', 'Oxford', 'Topic', '3',
+ 60, 10, 5,
+ '2025-06-08 23:59:59', '2025-06-11 23:59:59', '2025-06-14 23:59:59', '2025-06-17 23:59:59', '2025-06-20 23:59:59', '2025-06-23 23:59:59'),
+
+-- 5: scadenza_sottomissione_3 = 17 giugno 2025
+('Bioinformatics World Congress', 'Bioinformatica e analisi genetica computazionale', '2026-07-30 08:30:00', 'Boston', 'Broadcast', '4',
+ 35, 14, 5,
+ '2025-06-05 23:59:59', '2025-06-08 23:59:59', '2025-06-11 23:59:59', '2025-06-14 23:59:59', '2025-06-17 23:59:59', '2025-06-20 23:59:59'),-- Paper per AI Summit 2025
+('Future of Education Forum', 'Conferenza internazionale sull\'innovazione nella didattica e tecnologie educative', '2026-08-10 10:00:00', 'Helsinki', 'Topic', '3',
+ 28, 18, 5,
+'2025-06-05 23:59:59', '2025-06-07 23:59:59', '2025-06-09 23:59:59', '2025-06-11 23:59:59', '2025-06-14 23:59:59', '2025-06-17 23:59:59');
+
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 ('Deep Learning Approaches for AI', 'Questo paper esplora l\'applicazione dei metodi di deep learning per migliorare l\'intelligenza artificiale.', NULL, '2025-05-20 14:30:00', 4, 1),
 ('AI in Healthcare: Current Trends and Future Prospects', 'Analizza i progressi recenti nell\'uso dell\'IA in ambito sanitario e le potenzialità future.', NULL, '2025-05-25 10:00:00', 2, 1),

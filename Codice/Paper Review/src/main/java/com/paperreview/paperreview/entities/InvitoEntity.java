@@ -142,11 +142,11 @@ public class InvitoEntity extends BaseEntity {
         return sb.toString();
     }
 
-    public static InvitoEntity creaChair(String email, int refConferenza, int refMittente, Integer refDestinatario, LocalDateTime scadenza) {
+    public static InvitoEntity creaInvito(String email, Ruolo ruolo, int refConferenza, int refMittente, Integer refDestinatario, LocalDateTime scadenza) {
         return new InvitoEntity(
                 0,                          // idInvito non ancora assegnato
                 scadenza,                   // data scadenza (es. scadenzaSottomissione)
-                "Chair",                    // testo fisso
+                ruolo.name(),                    // testo fisso
                 StatusInvito.Inviato,       // status iniziale
                 email,
                 generaCodice(),             // codice generato

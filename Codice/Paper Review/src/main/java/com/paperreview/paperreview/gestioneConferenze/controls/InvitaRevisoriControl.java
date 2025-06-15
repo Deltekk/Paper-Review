@@ -3,11 +3,21 @@ package com.paperreview.paperreview.gestioneConferenze.controls;
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.paperreview.paperreview.common.UserContext;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
+import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
+import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
+import com.paperreview.paperreview.common.email.EmailSender;
+import com.paperreview.paperreview.common.email.MailInvito;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.entities.ConferenzaEntity;
+import com.paperreview.paperreview.entities.InvitoEntity;
+import com.paperreview.paperreview.entities.Ruolo;
 import com.paperreview.paperreview.gestioneConferenze.forms.InvitaRevisoriFormModel;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
@@ -16,6 +26,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -120,20 +131,87 @@ public class InvitaRevisoriControl implements ControlledScreen {
 
     @FXML
     private void handleContinueButton() {
-        /*  TODO: Gestire logica di chiamata al DB per salvare i revisori invitati e andare avanti
-            TODO: Dobbiamo:
-                - Inserire l'invito nel DB
-                - Recapitare la mail ad ogni revisore
-                - Recapitare la notifica ad ogni revisore (teoricamente dovrebbe essere la stessa cosa di invitarlo i guess)
-                - Controllare se il numero minimo di revisori per paper è rispettato quindi non andare avanti se il chair non ha aggiunto almeno tot revisori
-                  far visualizzare un errore se è questo il caso
-                - Bisogna anche mostrare un errore se un determinato revisori fa già parte della conferenza come revisori,
-                  premere ok e poi continua con il resto dei revisori (qui ti consiglio di usare la classe Alert)
-            ℹ️  Se hai bisogno di prendere l'id della conferenza corrente puoi usare UserContext.getConferenza che ti ritorna la entity e da li ti prendi l'id
-                stessa cosa vale per l'id dell'utente. Ti ricordo inoltre che qui hai l'array emails che sono tutti i cristiani che dobbiamo invitare
-         */
-        //
+        ConferenzaEntity conferenza = UserContext.getConferenzaAttuale();
+        int idConferenza = conferenza.getId();
+        int idMittente = UserContext.getUtente().getId();
+        int paperPrevisti = conferenza.getPaperPrevisti();
+        int maxPaperPerRevisore = 5;
 
+        int minRevisoriRichiesti = (int) Math.ceil((double) paperPrevisti / maxPaperPerRevisore);
+
+        if (emails.size() < minRevisoriRichiesti) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText(null);
+            alert.setContentText("Errore: devi invitare almeno " + minRevisoriRichiesti + " revisori "
+                    + "(per coprire " + paperPrevisti + " articoli, al massimo " + maxPaperPerRevisore + " per revisore).");
+            alert.showAndWait();
+            return;
+        }
+
+        for (String email : emails) {
+            try {
+                InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
+                RuoloConferenzaDao ruoloConferenzaDao = new RuoloConferenzaDao(DBMSBoundary.getConnection());
+                UtenteDao utenteDao = new UtenteDao(DBMSBoundary.getConnection());
+
+                Integer idDestinatario = utenteDao.getIdByEmail(email); // può essere null
+
+                boolean giàPresente = idDestinatario != null &&
+                        !ruoloConferenzaDao.getByUtenteAndConferenza(idDestinatario, idConferenza).isEmpty();
+
+                if (giàPresente) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Utente già presente");
+                    alert.setHeaderText(null);
+                    alert.setContentText("L'utente con email \"" + email + "\" fa già parte della conferenza!");
+                    alert.showAndWait();
+                    continue;
+                }
+
+                InvitoEntity invito = InvitoEntity.creaInvito(
+                        email,
+                        Ruolo.Revisore,
+                        idConferenza,
+                        idMittente,
+                        idDestinatario,
+                        conferenza.getScadenzaSottomissione()
+                );
+                invitoDao.save(invito);
+
+                System.out.println("Invito generato per: " + email);
+
+                try {
+                    String nomeConferenza = conferenza.getNome();
+                    String ruolo = "Revisore";
+
+                    String nomeUtente = null;
+                    if (idDestinatario != null) {
+                        nomeUtente = utenteDao.getById(idDestinatario).getNome();
+                    }
+
+                    MailInvito mail = new MailInvito(
+                            email,
+                            ruolo,
+                            nomeConferenza,
+                            nomeUtente,
+                            invito.getCodice()
+                    );
+
+                    EmailSender.sendEmail(mail);
+                    System.out.println("Invito mandato via email per: " + email);
+
+                } catch (Exception ex) {
+                    System.err.println("Errore durante l'invio dell'email a " + email);
+                    ex.printStackTrace();
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace(); // logga errori DB
+            }
+        }
+
+        // Passaggio alla schermata successiva
         if (UserContext.isStandaloneInteraction()) {
             mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenzeBoundary.fxml");
         } else {

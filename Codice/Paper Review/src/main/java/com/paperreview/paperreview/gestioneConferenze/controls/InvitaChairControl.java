@@ -159,8 +159,9 @@ public class InvitaChairControl implements ControlledScreen {
                     continue;
                 }
 
-                InvitoEntity invito = InvitoEntity.creaChair(
+                InvitoEntity invito = InvitoEntity.creaInvito(
                         email,
+                        Ruolo.Chair,
                         idConferenza,
                         idMittente,
                         idDestinatario,
