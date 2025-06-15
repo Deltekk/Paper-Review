@@ -62,14 +62,10 @@ public class InvitoEntity extends BaseEntity {
 
             String nomeConferenza = conferenza.getNome();
             String nomeMittente = mittente.getNome() + " " + mittente.getCognome();
-            String dataFormatted = data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String scadenza = conferenza.getScadenzaSottomissione().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
             return String.format("""
                 Sei stato invitato da %s a partecipare alla conferenza "%s" in qualità di %s.
-                Data invito: %s
-                Ti invitiamo ad accettare o rifiutare l’invito entro il %s.
-                """, nomeMittente, nomeConferenza, testo, dataFormatted, scadenza);
+                """, nomeMittente, nomeConferenza, testo);
 
         } catch (Exception e) {
             return "Hai ricevuto un nuovo invito a partecipare a una conferenza.";

@@ -350,19 +350,19 @@ INSERT INTO Notifica (data, testo, isLetta, ref_utente, ref_conferenza) VALUES
 
 -- Inviti per AI Summit 2025
 INSERT INTO Invito (data, testo, status, email, codice, ref_conferenza, ref_mittente, ref_destinatario) VALUES
-('2025-05-10 08:00:00', 'Invito per partecipare come revisore per AI Summit 2025.', 'Inviato', 'leonardocaiezza20@gmail.com', 'AI_Summit_2025_Rev_001', 1, 1, 2),  -- Diego invia a Leonardo Giovanni Caiezza
-('2025-05-10 09:00:00', 'Invito per partecipare come autore per AI Summit 2025.', 'Inviato', 'luca.gae03@gmail.com', 'AI_Summit_2025_Author_001', 1, 1, 3),  -- Diego invia a Luca Gaetani
-('2025-05-10 10:00:00', 'Invito per partecipare come autore per AI Summit 2025.', 'Inviato', 'susino.daniele@outlook.com', 'AI_Summit_2025_Author_002', 1, 1, 4);  -- Diego invia a Daniele Orazio Susino
+('2025-05-10 08:00:00', 'Revisore', 'Inviato', 'leonardocaiezza20@gmail.com', 'AI_Summit_2025_Rev_001', 1, 1, 2),  -- Diego invia a Leonardo Giovanni Caiezza
+('2025-05-10 09:00:00', 'Editor', 'Inviato', 'luca.gae03@gmail.com', 'AI_Summit_2025_Author_001', 1, 1, 3),  -- Diego invia a Luca Gaetani
+('2025-05-10 10:00:00', 'Chair', 'Inviato', 'susino.daniele@outlook.com', 'AI_Summit_2025_Author_002', 1, 1, 4);  -- Diego invia a Daniele Orazio Susino
 
 -- Inviti per Cybersecurity Conf 2025
 INSERT INTO Invito (data, testo, status, email, codice, ref_conferenza, ref_mittente, ref_destinatario) VALUES
-('2025-06-10 08:00:00', 'Invito per partecipare come revisore per Cybersecurity Conf 2025.', 'Inviato', 'luca.gae03@gmail.com', 'Cybersecurity_Conf_2025_Rev_001', 2, 1, 3),  -- Diego invia a Luca Gaetani
-('2025-06-10 09:00:00', 'Invito per partecipare come autore per Cybersecurity Conf 2025.', 'Inviato', 'susino.daniele@outlook.com', 'Cybersecurity_Conf_2025_Author_001', 2, 1, 4);  -- Diego invia a Daniele Orazio Susino
+('2025-06-10 08:00:00', 'Revisore', 'Inviato', 'luca.gae03@gmail.com', 'Cybersecurity_Conf_2025_Rev_001', 2, 1, 3),  -- Diego invia a Luca Gaetani
+('2025-06-10 09:00:00', 'Revisore', 'Inviato', 'susino.daniele@outlook.com', 'Cybersecurity_Conf_2025_Author_001', 2, 1, 4);  -- Diego invia a Daniele Orazio Susino
 
 -- Inviti per Banane della Moldavia 2025
 INSERT INTO Invito (data, testo, status, email, codice, ref_conferenza, ref_mittente, ref_destinatario) VALUES
-('2025-06-25 08:00:00', 'Invito per partecipare come revisore per Banane della Moldavia 2025.', 'Inviato', 'leonardocaiezza20@gmail.com', 'Banane_Moldavia_2025_Rev_001', 3, 1, 2),  -- Diego invia a Leonardo Giovanni Caiezza
-('2025-06-25 09:00:00', 'Invito per partecipare come autore per Banane della Moldavia 2025.', 'Inviato', 'luca.gae03@gmail.com', 'Banane_Moldavia_2025_Author_001', 3, 1, 3);  -- Diego invia a Luca Gaetani
+('2025-06-25 08:00:00', 'Revisore', 'Inviato', 'leonardocaiezza20@gmail.com', 'Banane_Moldavia_2025_Rev_001', 3, 1, 2),  -- Diego invia a Leonardo Giovanni Caiezza
+('2025-06-25 09:00:00', 'Chair', 'Inviato', 'luca.gae03@gmail.com', 'Banane_Moldavia_2025_Author_001', 3, 1, 3);  -- Diego invia a Luca Gaetani
 
 -- TopicUtente per AI Summit 2025
 INSERT INTO TopicUtente (ref_topic, ref_utente) VALUES
