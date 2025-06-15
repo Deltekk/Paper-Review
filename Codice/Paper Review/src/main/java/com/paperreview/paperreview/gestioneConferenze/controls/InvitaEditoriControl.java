@@ -2,11 +2,24 @@ package com.paperreview.paperreview.gestioneConferenze.controls;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
+import com.paperreview.paperreview.common.UserContext;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
+import com.paperreview.paperreview.common.dbms.dao.NotificaDao;
+import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
+import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
+import com.paperreview.paperreview.common.email.EmailSender;
+import com.paperreview.paperreview.common.email.MailInvito;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.entities.ConferenzaEntity;
+import com.paperreview.paperreview.entities.InvitoEntity;
+import com.paperreview.paperreview.entities.NotificaEntity;
+import com.paperreview.paperreview.entities.Ruolo;
 import com.paperreview.paperreview.gestioneConferenze.forms.InvitaEditoriFormModel;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
@@ -15,6 +28,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -125,25 +139,79 @@ public class InvitaEditoriControl implements ControlledScreen {
 
     @FXML
     private void handleContinueButton() {
-
         errorLabel.setVisible(false);
 
-        /*  TODO: Gestire logica di chiamata al DB per salvare gli editori invitati e andare avanti
-            TODO: Dobbiamo:
-                - Inserire l'invito nel DB
-                - Recapitare la mail ad ogni editore
-                - Recapitare la notifica ad ogni editore (teoricamente dovrebbe essere la stessa cosa di invitarlo i guess)
-            ℹ️  Se hai bisogno di prendere l'id della conferenza corrente puoi usare UserContext.getConferenza che ti ritorna la entity e da li ti prendi l'id
-                stessa cosa vale per l'id dell'utente. Ti ricordo inoltre che qui hai l'array emails che sono tutti i cristiani che dobbiamo invitare
-         */
-
-        if (emails.size() == 0) {
+        if (emails.isEmpty()) {
             errorLabel.setText("Errore: Devi ancora inserire un editore!");
             errorLabel.setVisible(true);
             return;
         }
 
-        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenzeBoundary.fxml");
+        ConferenzaEntity conferenza = UserContext.getConferenzaAttuale();
+        int idConferenza = conferenza.getId();
+        int idMittente = UserContext.getUtente().getId();
 
+        try {
+            InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
+            RuoloConferenzaDao ruoloConferenzaDao = new RuoloConferenzaDao(DBMSBoundary.getConnection());
+            UtenteDao utenteDao = new UtenteDao(DBMSBoundary.getConnection());
+            NotificaDao notificaDao = new NotificaDao(DBMSBoundary.getConnection());
+
+            for (String email : emails) {
+                Integer idDestinatario = utenteDao.getIdByEmail(email); // può essere null
+
+                boolean giàPresente = idDestinatario != null &&
+                        !ruoloConferenzaDao.getByUtenteAndConferenza(idDestinatario, idConferenza).isEmpty();
+
+                if (giàPresente) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Utente già presente");
+                    alert.setHeaderText(null);
+                    alert.setContentText("L'utente con email \"" + email + "\" fa già parte della conferenza!");
+                    alert.showAndWait();
+                    continue;
+                }
+
+                InvitoEntity invito = InvitoEntity.creaInvito(
+                        email,
+                        Ruolo.Editor,
+                        idConferenza,
+                        idMittente,
+                        idDestinatario,
+                        conferenza.getScadenzaSottomissione()
+                );
+
+                invitoDao.save(invito);
+
+                try {
+                    String nomeUtente = null;
+                    if (idDestinatario != null) {
+                        nomeUtente = utenteDao.getById(idDestinatario).getNome();
+                    }
+
+                    MailInvito mail = new MailInvito(
+                            email,
+                            "Editore",
+                            conferenza.getNome(),
+                            nomeUtente,
+                            invito.getCodice()
+                    );
+
+                    EmailSender.sendEmail(mail);
+                    System.out.println("Invito mandato via email per: " + email);
+                } catch (Exception ex) {
+                    System.err.println("Errore durante l'invio dell'email a " + email);
+                    ex.printStackTrace();
+                }
+            }
+
+            // Schermata finale
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenzeBoundary.fxml");
+
+        } catch (SQLException e) {
+            errorLabel.setText("Errore durante l'invito degli editori.");
+            errorLabel.setVisible(true);
+            e.printStackTrace();
+        }
     }
 }
