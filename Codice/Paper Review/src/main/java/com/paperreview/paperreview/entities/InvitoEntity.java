@@ -51,6 +51,9 @@ public class InvitoEntity extends BaseEntity {
         this.data = data;
     }
 
+    public String getRuolo() {
+        return testo;
+    }
     public String getTesto() {
         try {
             Connection conn = DBMSBoundary.getConnection();

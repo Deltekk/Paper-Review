@@ -222,7 +222,7 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
     public void accettaInvito(InvitoEntity invitoEntity, HBox boxInvito) {
         try{
 
-            invitoEntity.setStatus(StatusInvito.Inviato);
+            invitoEntity.setStatus(StatusInvito.Accettato);
             InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
             invitoDao.update(invitoEntity);
 

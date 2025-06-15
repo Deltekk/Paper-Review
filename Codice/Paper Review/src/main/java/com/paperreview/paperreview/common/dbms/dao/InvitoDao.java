@@ -63,7 +63,7 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
     @Override
     protected void prepareInsert(PreparedStatement stmt, InvitoEntity invito) throws SQLException {
         stmt.setObject(1, invito.getData());  // LocalDateTime
-        stmt.setString(2, invito.getTesto());
+        stmt.setString(2, invito.getRuolo());
         stmt.setString(3, invito.getStatus().toString());  // Usa il metodo getStatus() dell'Enum
         stmt.setString(4, invito.getEmail());
         stmt.setString(5, invito.getCodice());
@@ -83,7 +83,7 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
     @Override
     protected void prepareUpdate(PreparedStatement stmt, InvitoEntity invito) throws SQLException {
         stmt.setObject(1, invito.getData());  // LocalDateTime
-        stmt.setString(2, invito.getTesto());
+        stmt.setString(2, invito.getRuolo());
         stmt.setString(3, invito.getStatus().toString());  // Usa il metodo getStatus() dell'Enum
         stmt.setString(4, invito.getEmail());
         stmt.setString(5, invito.getCodice());

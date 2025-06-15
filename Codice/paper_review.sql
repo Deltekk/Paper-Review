@@ -357,7 +357,7 @@ INSERT INTO Invito (data, testo, status, email, codice, ref_conferenza, ref_mitt
 -- Inviti per Cybersecurity Conf 2025
 INSERT INTO Invito (data, testo, status, email, codice, ref_conferenza, ref_mittente, ref_destinatario) VALUES
 ('2025-06-10 08:00:00', 'Revisore', 'Inviato', 'luca.gae03@gmail.com', 'Cybersecurity_Conf_2025_Rev_001', 2, 1, 3),  -- Diego invia a Luca Gaetani
-('2025-06-10 09:00:00', 'Revisore', 'Inviato', 'susino.daniele@outlook.com', 'Cybersecurity_Conf_2025_Author_001', 2, 1, 4);  -- Diego invia a Daniele Orazio Susino
+('2025-06-18 09:00:00', 'Revisore', 'Inviato', 'susino.daniele@outlook.com', 'Cybersecurity_Conf_2025_Author_001', 2, 1, 4);  -- Diego invia a Daniele Orazio Susino
 
 -- Inviti per Banane della Moldavia 2025
 INSERT INTO Invito (data, testo, status, email, codice, ref_conferenza, ref_mittente, ref_destinatario) VALUES
