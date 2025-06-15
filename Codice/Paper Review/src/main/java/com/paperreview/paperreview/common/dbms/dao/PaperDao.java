@@ -92,4 +92,33 @@ public class PaperDao extends BaseDao<PaperEntity> {
         }
         return results;
     }
+
+    @Override
+    public PaperEntity getById(int id) {
+        try {
+            String query = "SELECT * FROM " + tableName + " WHERE id_paper = ?";
+            PaperEntity paper = null;
+            try (PreparedStatement stmt = connection.prepareStatement(query)) {
+                stmt.setInt(1, id);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        paper = mapRow(rs);
+                    }
+                }
+            }
+            return paper;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null; // oppure puoi gestire meglio l'errore
+        }
+    }
+
+    public boolean removeById(int id) throws SQLException {
+        String query = "DELETE FROM " + tableName + " WHERE " + idColumn + " = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0;  // Restituisce true se il paper è stato rimosso con successo
+        }
+    }
 }
