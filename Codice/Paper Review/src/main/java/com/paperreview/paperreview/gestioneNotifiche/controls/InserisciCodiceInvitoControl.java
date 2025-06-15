@@ -2,7 +2,10 @@ package com.paperreview.paperreview.gestioneNotifiche.controls;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
 import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.entities.StatusInvito;
 import com.paperreview.paperreview.gestioneNotifiche.forms.CodiceInvitoForm;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
@@ -61,7 +64,8 @@ public class InserisciCodiceInvitoControl implements ControlledScreen {
 
     @FXML
     public void handleConferma(){
-        //TODO: Gestire logica di update dell'invito, controllare anche se l'invito è valido.
+        // InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
+        // String result = invitoDao.acceptOrRejectInvito("Codice", true);
         System.out.println("Conferma");
 
     }
