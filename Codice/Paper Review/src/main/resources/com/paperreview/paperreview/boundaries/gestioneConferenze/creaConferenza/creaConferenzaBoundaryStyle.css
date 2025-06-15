@@ -1,7 +1,6 @@
 .pagina-centro {
     -fx-alignment: center;
     -fx-background-color: transparent;
-    -fx-padding: 40;
 }
 
 .bg-celeste{
@@ -11,7 +10,7 @@
 
 .scrollPane{
     -fx-background-color: transparent;
-    -fx-padding: 50;
+    -fx-pref-height: 700;
 }
 
 .trasparente{
@@ -20,4 +19,10 @@
 
 .viewport{
     -fx-background-color: transparent;
+}
+
+.text-rosso{
+    -fx-wrap-text: true;
+    -fx-pref-height: 300;
+    -fx-text-alignment: center;
 }

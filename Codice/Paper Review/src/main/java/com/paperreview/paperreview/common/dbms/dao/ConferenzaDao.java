@@ -74,10 +74,12 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
 
     @Override
     protected String getInsertQuery() {
-        return "INSERT INTO " + tableName + " (nome, descrizione, data_conferenza, location, metodo_assegnazione, metodo_valutazione, paper_previsti, scadenza_sottomissione, " +
-                "scadenza_revisione, scadenza_sottomissione_2, scadenza_editing, scadenza_sottomissione_3, scadenza_impaginazione) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return "INSERT INTO " + tableName + " (nome, descrizione, data_conferenza, location, metodo_assegnazione, metodo_valutazione, paper_previsti, " +
+                "rate_accettazione, giorni_preavviso, scadenza_sottomissione, scadenza_revisione, scadenza_sottomissione_2, scadenza_editing, " +
+                "scadenza_sottomissione_3, scadenza_impaginazione) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
+
 
     @Override
     protected void prepareInsert(PreparedStatement stmt, ConferenzaEntity conferenza) throws SQLException {
@@ -88,20 +90,38 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
         stmt.setString(5, conferenza.getMetodoAssegnazione().getValoreDb());
         stmt.setString(6, conferenza.getMetodoValutazione().getValoreDb());
         stmt.setInt(7, conferenza.getPaperPrevisti());
-        stmt.setObject(8, conferenza.getScadenzaSottomissione());
-        stmt.setObject(9, conferenza.getScadenzaRevisione());
-        stmt.setObject(10, conferenza.getScadenzaSottomissione2());
-        stmt.setObject(11, conferenza.getScadenzaEditing());
-        stmt.setObject(12, conferenza.getScadenzaSottomissione3());
-        stmt.setObject(13, conferenza.getScadenzaImpaginazione());
+        stmt.setInt(8, conferenza.getRateAccettazione());
+        stmt.setInt(9, conferenza.getGiorniPreavviso());
+        stmt.setObject(10, conferenza.getScadenzaSottomissione());
+        stmt.setObject(11, conferenza.getScadenzaRevisione());
+        stmt.setObject(12, conferenza.getScadenzaSottomissione2());
+        stmt.setObject(13, conferenza.getScadenzaEditing());
+        stmt.setObject(14, conferenza.getScadenzaSottomissione3());
+        stmt.setObject(15, conferenza.getScadenzaImpaginazione());
     }
+
 
     @Override
     protected String getUpdateQuery() {
-        return "UPDATE " + tableName + " SET nome = ?, descrizione = ?, data_conferenza = ?, location = ?, metodo_assegnazione = ?, metodo_valutazione = ?, paper_previsti = ?, " +
-                "scadenza_sottomissione = ?, scadenza_revisione = ?, scadenza_sottomissione_2 = ?, scadenza_editing = ?, scadenza_sottomissione_3 = ?, scadenza_impaginazione = ? " +
-                "WHERE " + idColumn + " = ?";
+        return "UPDATE " + tableName + " SET "
+                + "nome = ?, "
+                + "descrizione = ?, "
+                + "data_conferenza = ?, "
+                + "location = ?, "
+                + "metodo_assegnazione = ?, "
+                + "metodo_valutazione = ?, "
+                + "rate_accettazione = ?, "      // nuovo
+                + "paper_previsti = ?, "
+                + "giorni_preavviso = ?, "       // nuovo
+                + "scadenza_sottomissione = ?, "
+                + "scadenza_revisione = ?, "
+                + "scadenza_sottomissione_2 = ?, "
+                + "scadenza_editing = ?, "
+                + "scadenza_sottomissione_3 = ?, "
+                + "scadenza_impaginazione = ? "
+                + "WHERE " + idColumn + " = ?";
     }
+
 
     @Override
     protected void prepareUpdate(PreparedStatement stmt, ConferenzaEntity conferenza) throws SQLException {
@@ -111,14 +131,16 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
         stmt.setString(4, conferenza.getLocation());
         stmt.setString(5, conferenza.getMetodoAssegnazione().getValoreDb());
         stmt.setString(6, conferenza.getMetodoValutazione().getValoreDb());
-        stmt.setInt(7, conferenza.getPaperPrevisti());
-        stmt.setObject(8, conferenza.getScadenzaSottomissione());
-        stmt.setObject(9, conferenza.getScadenzaRevisione());
-        stmt.setObject(10, conferenza.getScadenzaSottomissione2());
-        stmt.setObject(11, conferenza.getScadenzaEditing());
-        stmt.setObject(12, conferenza.getScadenzaSottomissione3());
-        stmt.setObject(13, conferenza.getScadenzaImpaginazione());
-        stmt.setInt(14, conferenza.getId());
+        stmt.setInt(7, conferenza.getRateAccettazione());
+        stmt.setInt(8, conferenza.getPaperPrevisti());
+        stmt.setInt(9, conferenza.getGiorniPreavviso());
+        stmt.setObject(10, conferenza.getScadenzaSottomissione());
+        stmt.setObject(11, conferenza.getScadenzaRevisione());
+        stmt.setObject(12, conferenza.getScadenzaSottomissione2());
+        stmt.setObject(13, conferenza.getScadenzaEditing());
+        stmt.setObject(14, conferenza.getScadenzaSottomissione3());
+        stmt.setObject(15, conferenza.getScadenzaImpaginazione());
+        stmt.setInt(16, conferenza.getId());
     }
 
     @Override
@@ -136,7 +158,9 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
                 rs.getString("location"),
                 MetodoAssegnazione.fromString(rs.getString("metodo_assegnazione")),
                 MetodoValutazione.fromString(rs.getString("metodo_valutazione")),
+                rs.getInt("rate_accettazione"),                     // aggiunto
                 rs.getInt("paper_previsti"),
+                rs.getInt("giorni_preavviso"),                      // aggiunto
                 rs.getObject("scadenza_sottomissione", java.time.LocalDateTime.class),
                 rs.getObject("scadenza_revisione", java.time.LocalDateTime.class),
                 rs.getObject("scadenza_sottomissione_2", java.time.LocalDateTime.class),
@@ -145,4 +169,5 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
                 rs.getObject("scadenza_impaginazione", java.time.LocalDateTime.class)
         );
     }
+
 }

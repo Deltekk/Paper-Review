@@ -8,11 +8,13 @@ public class ConferenzaEntity extends BaseEntity {
     private int id_conferenza;
     private String nome;
     private String descrizione;
+    private LocalDateTime dataConferenza;
     private String location;
     private MetodoAssegnazione metodoAssegnazione;
     private MetodoValutazione metodoValutazione;
+    private int rateAccettazione;
     private int paperPrevisti;
-    private LocalDateTime dataConferenza;
+    private int giorniPreavviso;
     private LocalDateTime scadenzaSottomissione;
     private LocalDateTime scadenzaRevisione;
     private LocalDateTime scadenzaSottomissione2;
@@ -23,7 +25,10 @@ public class ConferenzaEntity extends BaseEntity {
 
     public ConferenzaEntity(int id_conferenza, String nome, String descrizione,
                             LocalDateTime dataConferenza, String location, MetodoAssegnazione metodoAssegnazione,
-                            MetodoValutazione metodoValutazione, int paperPrevisti,
+                            MetodoValutazione metodoValutazione,
+                            int rateAccettazione,
+                            int paperPrevisti,
+                            int giorniPreavviso,
                             LocalDateTime scadenzaSottomissione,
                             LocalDateTime scadenzaRevisione,
                             LocalDateTime scadenzaSottomissione2,
@@ -37,7 +42,9 @@ public class ConferenzaEntity extends BaseEntity {
         this.location = location;
         this.metodoAssegnazione = metodoAssegnazione;
         this.metodoValutazione = metodoValutazione;
+        this.rateAccettazione = rateAccettazione;
         this.paperPrevisti = paperPrevisti;
+        this.giorniPreavviso = giorniPreavviso;
         this.scadenzaSottomissione = scadenzaSottomissione;
         this.scadenzaRevisione = scadenzaRevisione;
         this.scadenzaSottomissione2 = scadenzaSottomissione2;
@@ -159,6 +166,22 @@ public class ConferenzaEntity extends BaseEntity {
         this.paperPrevisti = paperPrevisti;
     }
 
+    public int getRateAccettazione() {
+        return rateAccettazione;
+    }
+
+    public void setRateAccettazione(int rateAccettazione) {
+        this.rateAccettazione = rateAccettazione;
+    }
+
+    public int getGiorniPreavviso() {
+        return giorniPreavviso;
+    }
+
+    public void setGiorniPreavviso(int giorniPreavviso) {
+        this.giorniPreavviso = giorniPreavviso;
+    }
+
     public Set<UtenteEntity> getChairs() {
         return chairs;
     }
@@ -173,19 +196,23 @@ public class ConferenzaEntity extends BaseEntity {
                 "id_conferenza=" + id_conferenza +
                 ", nome='" + nome + '\'' +
                 ", descrizione='" + descrizione + '\'' +
+                ", dataConferenza=" + dataConferenza +
                 ", location='" + location + '\'' +
-                ", metodo_assegnazione='" + metodoAssegnazione + '\'' +
-                ", metodo_valutazione='" + metodoValutazione + '\'' +
-                ", paper_previsti=" + paperPrevisti +
-                ", scadenza_sottomissione=" + scadenzaSottomissione +
-                ", scadenza_revisione=" + scadenzaRevisione +
-                ", scadenza_sottomissione_2=" + scadenzaSottomissione2 +
-                ", scadenza_editing=" + scadenzaEditing +
-                ", scadenza_sottomissione_3=" + scadenzaSottomissione3 +
-                ", scadenza_impaginazione=" + scadenzaImpaginazione +
+                ", metodoAssegnazione=" + metodoAssegnazione +
+                ", metodoValutazione=" + metodoValutazione +
+                ", rateAccettazione=" + rateAccettazione +
+                ", paperPrevisti=" + paperPrevisti +
+                ", giorniPreavviso=" + giorniPreavviso +
+                ", scadenzaSottomissione=" + scadenzaSottomissione +
+                ", scadenzaRevisione=" + scadenzaRevisione +
+                ", scadenzaSottomissione2=" + scadenzaSottomissione2 +
+                ", scadenzaEditing=" + scadenzaEditing +
+                ", scadenzaSottomissione3=" + scadenzaSottomissione3 +
+                ", scadenzaImpaginazione=" + scadenzaImpaginazione +
                 ", chairs=" + chairs +
                 '}';
     }
+
 
     // Sovrascrivi il metodo equals
     @Override
@@ -193,7 +220,10 @@ public class ConferenzaEntity extends BaseEntity {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         ConferenzaEntity that = (ConferenzaEntity) obj;
-        return id_conferenza == that.id_conferenza && Objects.equals(nome, that.nome);
+        return id_conferenza == that.id_conferenza &&
+                Objects.equals(nome, that.nome) &&
+                Objects.equals(dataConferenza, that.dataConferenza);
+
     }
 
     // Sovrascrivi il metodo hashCode

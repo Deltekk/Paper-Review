@@ -11,23 +11,24 @@
            fx:controller="com.paperreview.paperreview.gestioneConferenze.controls.CreaConferenzaControl"
            stylesheets="@creaConferenzaBoundaryStyle.css"
            styleClass="pagina-centro, quadrettoni"
-           prefWidth="900" prefHeight="1000">
+           prefWidth="900" prefHeight="600">
 
-    <VBox alignment="TOP_CENTER" spacing="20" styleClass="bg-celeste" maxWidth="900">
+    <VBox alignment="TOP_CENTER" spacing="20" styleClass="bg-celeste" maxWidth="900" maxHeight="800">
 
         <!-- Titolo -->
         <Label text="CREA CONFERENZA" styleClass="h1, text-bianco, font-bold, ombra"/>
 
         <!-- Errore -->
         <Label fx:id="errorLabel"
-               text="Errore: i campi devono essere tutti compilati!"
-               styleClass="text-rosso, font-bold"
-               visible="false" />
+           text="Errore: i campi devono essere tutti compilati!"
+           styleClass="p, text-rosso, font-bold"
+           visible="false"
+            wrapText="true"/>
 
         <!-- Scrollable form -->
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scrollPane">
             <content>
-                <VBox fx:id="formContainer" spacing="15" alignment="TOP_CENTER" maxWidth="900" minWidth="500"
+                <VBox fx:id="formContainer" spacing="15" alignment="TOP_CENTER" maxWidth="900" minWidth="500" maxHeight="600"
                       styleClass="form-container"/>
             </content>
         </ScrollPane>

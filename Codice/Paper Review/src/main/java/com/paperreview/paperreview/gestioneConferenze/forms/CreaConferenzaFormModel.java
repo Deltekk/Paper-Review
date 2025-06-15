@@ -25,6 +25,12 @@ public class CreaConferenzaFormModel {
         .styleClass("form-field")
         .required("Il titolo non può essere vuoto!");
 
+    private StringField descrizione = Field.ofStringType("")
+            .label("Descrizione")
+            .placeholder("Inserisci la descrizione della conferenza")
+            .styleClass("form-field")
+            .required("La descrizione non può essere vuota!");
+
     private StringField luogo = Field.ofStringType("")
             .label("Luogo")
             .placeholder("Inserisci il luogo della conferenza")
@@ -51,8 +57,8 @@ public class CreaConferenzaFormModel {
             .required("Il metodo di assegnazione non può essere vuoto!");
 
     private IntegerField rateAccettazione = Field.ofIntegerType(25)
-            .label("Metodo assegnazione")
-            .placeholder("Inserisci il metodo di assegnazione dei paper")
+            .label("Rate accettazione")
+            .placeholder("Inserisci il rate di accettazione dei paper")
             .styleClass("form-field")
             .validate(IntegerRangeValidator.atLeast(1, "Il rate di accettazione deve essere positivo!"))
             .required("Il rate di accettazione non può essere vuoto!");
@@ -64,44 +70,61 @@ public class CreaConferenzaFormModel {
             .validate(IntegerRangeValidator.atLeast(1, "I giorni di preavviso delle notifiche devono essere positivi!"))
             .required("Il rate di accettazione non può essere vuoto!");
 
-    private StringField dataDiInizioSottomissione = Field.ofStringType("")
-            .label("Data di inizio sottomissione")
-            .placeholder("Inserisci la data di inizio sottomissione")
+    private StringField dataConferenza = Field.ofStringType("")
+            .label("Data della conferenza")
+            .placeholder("Inserisci la data della conferenza")
             .styleClass("form-field")
-            .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di inizio sottomissione deve essere nel formato gg/mm/aaaa"))
+            .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4}) - ([01][0-9]|2[0-3]):([0-5][0-9])$", "La data di inizio sottomissione deve essere nel formato gg/mm/aaaa - hh:mm"))
             .required("La data di inizio sottomissione non può essere vuota!");
 
-    private StringField dataDiFineSottomissione = Field.ofStringType("")
+    private StringField scadenzaSottomissione = Field.ofStringType("")
             .label("Data di fine sottomissione")
             .placeholder("Inserisci la data di fine sottomissione")
             .styleClass("form-field")
             .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine sottomissione deve essere nel formato gg/mm/aaaa"))
             .required("La data di fine sottomissione non può essere vuota!");
 
-    private StringField dataDiFineRevisione = Field.ofStringType("")
+    private StringField scadenzaRevisione = Field.ofStringType("")
             .label("Data di fine revisione")
             .placeholder("Inserisci la data di fine revisione")
             .styleClass("form-field")
             .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine revisione deve essere nel formato gg/mm/aaaa"))
             .required("La data di fine revisione non può essere vuota!");
 
-    private StringField dataDiFineEditing = Field.ofStringType("")
+    private StringField scadenzaAdeguamentoContenuti = Field.ofStringType("")
+            .label("Data di fine adeguamento contenuti")
+            .placeholder("Inserisci la data di fine adeguamento contenuti")
+            .styleClass("form-field")
+            .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine adeguamento contenuti deve essere nel formato gg/mm/aaaa"))
+            .required("La data di fine adeguamento contenuti non può essere vuota!");
+
+    private StringField scadenzaEditing = Field.ofStringType("")
             .label("Data di fine editing")
             .placeholder("Inserisci la data di fine editing")
             .styleClass("form-field")
             .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine editing deve essere nel formato gg/mm/aaaa"))
             .required("La data di fine editing non può essere vuota!");
 
-    private StringField dataConferenza = Field.ofStringType("")
-            .label("Data della conferenza")
-            .placeholder("Inserisci la data della conferenza")
+    private StringField scadenzaAdeguamentoFormato = Field.ofStringType("")
+            .label("Data di fine adeguamento formato")
+            .placeholder("Inserisci la data di fine adeguamento formato")
             .styleClass("form-field")
-            .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di inizio sottomissione deve essere nel formato gg/mm/aaaa"))
-            .required("La data di inizio sottomissione non può essere vuota!");
+            .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine adeguamento formato deve essere nel formato gg/mm/aaaa"))
+            .required("La data di fine adeguamento formato non può essere vuota!");
 
+    private StringField scadenzaImpaginazione = Field.ofStringType("")
+            .label("Data di fine impaginazione")
+            .placeholder("Inserisci la data di fine impaginazione")
+            .styleClass("form-field")
+            .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine impaginazione formato deve essere nel formato gg/mm/aaaa"))
+            .required("La data di fine impaginazione non può essere vuota!");
 
     public String getTitolo() {
         return titolo.getValue();
+    }
+
+    public String getDescrizione() {
+        return descrizione.getValue();
     }
 
     public String getLuogo() {
@@ -128,28 +151,36 @@ public class CreaConferenzaFormModel {
         return giorniPreavviso.getValue();
     }
 
-    public String getDataDiInizioSottomissione() {
-        return dataDiInizioSottomissione.getValue();
-    }
-
-    public String getDataDiFineSottomissione() {
-        return dataDiFineSottomissione.getValue();
-    }
-
-    public String getDataDiFineRevisione() {
-        return dataDiFineRevisione.getValue();
-    }
-
-    public String getDataDiFineEditing() {
-        return dataDiFineEditing.getValue();
-    }
-
     public String getDataConferenza() {
         return dataConferenza.getValue();
     }
 
+    public String getScadenzaSottomissione() {
+        return scadenzaSottomissione.getValue();
+    }
+
+    public String getScadenzaRevisione() {
+        return scadenzaRevisione.getValue();
+    }
+
+    public String getDataScadenzaAdeguamentoContenuti() {
+        return scadenzaAdeguamentoContenuti.getValue();
+    }
+
+    public String getScadenzaEditing() {
+        return scadenzaEditing.getValue();
+    }
+
+    public String getDataScadenzaAdeguamentoFormato() {
+        return scadenzaAdeguamentoFormato.getValue();
+    }
+
+    public String getScadenzaImpaginazione() {
+        return scadenzaImpaginazione.getValue();
+    }
+
     public Form createForm() {
-        return Form.of( Group.of(titolo, luogo, quantitaPaper, rangeScore, metodoAssegnazione, rateAccettazione, giorniPreavviso, dataDiInizioSottomissione, dataDiFineSottomissione, dataDiFineRevisione, dataDiFineEditing, dataConferenza) );
+        return Form.of( Group.of(titolo, descrizione, luogo, quantitaPaper, rangeScore, metodoAssegnazione, rateAccettazione, giorniPreavviso, scadenzaSottomissione, scadenzaRevisione, scadenzaAdeguamentoContenuti, scadenzaEditing, scadenzaAdeguamentoFormato, scadenzaImpaginazione, dataConferenza) );
     }
 
 }
