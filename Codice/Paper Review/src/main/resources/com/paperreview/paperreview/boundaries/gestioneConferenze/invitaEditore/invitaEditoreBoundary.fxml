@@ -17,7 +17,7 @@
 
             <VBox alignment="TOP_CENTER" spacing="20" styleClass="main-container">
 
-                <Label text="INVITA EDITORI" styleClass="h1, text-blu-scuro, font-bold, ombra"/>
+                <Label text="INVITA EDITORE" styleClass="h1, text-blu-scuro, font-bold, ombra"/>
 
                 <VBox alignment="TOP_CENTER" spacing="20" styleClass="bg-celeste" maxWidth="500">
 

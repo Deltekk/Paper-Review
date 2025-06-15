@@ -86,6 +86,12 @@ public class InvitaEditoriControl implements ControlledScreen {
             return;
         }
 
+        if (emails.size() > 1){
+            errorLabel.setText("Errore: Puoi inserire un solo editore!");
+            errorLabel.setVisible(true);
+            return;
+        }
+
         // Aggiunta email
         emails.add(nuovaEmail);
         errorLabel.setVisible(false); // nascondi eventuale errore
@@ -132,7 +138,7 @@ public class InvitaEditoriControl implements ControlledScreen {
          */
 
         if (emails.size() == 0) {
-            errorLabel.setText("Errore: Devi inserire almeno un editore!");
+            errorLabel.setText("Errore: Devi ancora inserire un editore!");
             errorLabel.setVisible(true);
             return;
         }
