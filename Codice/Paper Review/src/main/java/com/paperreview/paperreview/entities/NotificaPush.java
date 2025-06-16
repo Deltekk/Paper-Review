@@ -1,6 +1,5 @@
-package com.paperreview.paperreview.gestioneNotifiche;
+package com.paperreview.paperreview.entities;
 
-import com.paperreview.paperreview.gestioneNotifiche.controls.NotificaPushControl;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.controlsfx.control.Notifications;
@@ -22,7 +21,7 @@ public class NotificaPush {
 
             Node content = loader.load();
 
-            NotificaPushControl controller = loader.getController();
+            com.paperreview.paperreview.gestioneNotifiche.controls.NotificaPushControl controller = loader.getController();
             controller.setTitle(titleText);
             controller.setMessage(contentText);
 

@@ -3,6 +3,7 @@ package com.paperreview.paperreview.gestioneAccount.controls;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
+import com.paperreview.paperreview.gestioneNotifiche.controls.NotificaPushControl;
 import javafx.fxml.FXML;
 
 public class GestioneAccountControl implements ControlledScreen {
@@ -28,6 +29,8 @@ public class GestioneAccountControl implements ControlledScreen {
 
         mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneAccount/loginBoundary/loginBoundary.fxml");
         mainControl.clearHistory();
+
+        NotificaPushControl.fermaNotifichePush();
     }
 
     @FXML

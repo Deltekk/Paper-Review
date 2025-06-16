@@ -24,8 +24,6 @@ module com.paperreview.paperreview {
     exports com.paperreview.paperreview;
     exports com.paperreview.paperreview.controls;
     opens com.paperreview.paperreview.controls to javafx.fxml;
-    exports com.paperreview.paperreview.gestioneRevisioni;
-    opens com.paperreview.paperreview.gestioneRevisioni to javafx.fxml;
     exports com.paperreview.paperreview.gestioneAccount.controls;
     opens com.paperreview.paperreview.gestioneAccount.controls to javafx.fxml;
     exports com.paperreview.paperreview.gestioneAccount.forms;
@@ -41,4 +39,8 @@ module com.paperreview.paperreview {
 
     exports com.paperreview.paperreview.presentazioneArticolo.controls to javafx.fxml;
     opens com.paperreview.paperreview.presentazioneArticolo.controls to javafx.fxml;
+    exports com.paperreview.paperreview.gestioneRevisioni.controls;
+    opens com.paperreview.paperreview.gestioneRevisioni.controls to javafx.fxml;
+    exports com.paperreview.paperreview.gestioneRevisioni.forms;
+    opens com.paperreview.paperreview.gestioneRevisioni.forms to javafx.fxml;
 }

@@ -3,6 +3,9 @@ package com.paperreview.paperreview.common.email;
 import com.paperreview.paperreview.common.DotenvUtil;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public class EmailSender {
@@ -36,10 +39,18 @@ public class EmailSender {
         });
 
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(from));
+
+        try{
+            message.setFrom(new InternetAddress(from, "Paper Review", StandardCharsets.UTF_8.name()));
+        } catch (UnsupportedEncodingException e) {
+            message.setFrom(new InternetAddress(from));
+        }
+
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail.getTo()));
         message.setSubject(mail.getSubject());
         message.setContent(mail.getBody(), "text/html;charset=utf-8");
+
+        props.put("mail.smtp.from", from);
 
         Transport.send(message);
         System.out.println("email inviata con successo.");

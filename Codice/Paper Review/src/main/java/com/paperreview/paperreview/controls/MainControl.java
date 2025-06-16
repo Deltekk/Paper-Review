@@ -34,10 +34,6 @@ public class MainControl {
     // Stack per tenere la cronologia delle viste
     private Stack<String> viewHistory = new Stack<>();
 
-    public StackPane getRootPane() {
-        return rootPane;
-    }
-
     @FXML
     public void initialize() {
         // Carica la schermata di loginBoundary all’avvio
@@ -86,11 +82,6 @@ public class MainControl {
             Object controller = loader.getController();
             if (controller instanceof ControlledScreen controlledScreen) {
                 controlledScreen.setMainController(this);
-
-                // Se è la HomeControl, avvia le notifiche
-                if (controlledScreen instanceof HomeControl homeControl) {
-                    homeControl.avviaNotifichePush();
-                }
             }
 
             rootPane.getChildren().setAll(view);
