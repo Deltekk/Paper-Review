@@ -1,3 +1,4 @@
+DROP DATABASE paper_review;
 CREATE DATABASE paper_review;
 USE paper_review;
 

@@ -155,8 +155,8 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
   1
 );
 INSERT INTO CoAutoriPaper (email, ref_paper) VALUES
-('maria.popescu@meteo.md', 2),
-('andrei.rusu@agridata.md', 2);
+('maria.popescu@meteo.md', 1),
+('andrei.rusu@agridata.md', 1);
 
 
 
@@ -211,7 +211,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
 
 -- 3: Sustainable Tech Forum
 -- Giovanni Castelli: Chair
-INSERT INTO Ruolo_conferenza (rolo, ref_utente, ref_conferenza) VALUES ('Chair', 4, 3);
+INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 4, 3);
 -- Daniele Susino: Chair (coppia)
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 5, 3);
 -- Diego Corona: Revisore
@@ -505,8 +505,3 @@ INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (7, 10);
 INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (2, 11);
 INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (4, 11);
 INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (5, 11);
-
--- Paper 12
-INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (1, 12);
-INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (3, 12);
-INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (6, 12);
