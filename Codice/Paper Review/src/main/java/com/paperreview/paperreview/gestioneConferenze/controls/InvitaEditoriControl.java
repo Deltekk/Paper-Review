@@ -9,13 +9,11 @@ import com.paperreview.paperreview.common.dbms.dao.NotificaDao;
 import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
 import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
 import com.paperreview.paperreview.common.email.EmailSender;
+import com.paperreview.paperreview.common.email.MailEditorInvito;
 import com.paperreview.paperreview.common.email.MailInvito;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
-import com.paperreview.paperreview.entities.ConferenzaEntity;
-import com.paperreview.paperreview.entities.InvitoEntity;
-import com.paperreview.paperreview.entities.NotificaEntity;
-import com.paperreview.paperreview.entities.Ruolo;
+import com.paperreview.paperreview.entities.*;
 import com.paperreview.paperreview.gestioneConferenze.forms.InvitaEditoriFormModel;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -152,16 +150,23 @@ public class InvitaEditoriControl implements ControlledScreen {
         int idMittente = UserContext.getUtente().getId();
 
         try {
-            InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
             RuoloConferenzaDao ruoloConferenzaDao = new RuoloConferenzaDao(DBMSBoundary.getConnection());
             UtenteDao utenteDao = new UtenteDao(DBMSBoundary.getConnection());
-            NotificaDao notificaDao = new NotificaDao(DBMSBoundary.getConnection());
 
             for (String email : emails) {
-                Integer idDestinatario = utenteDao.getIdByEmail(email); // può essere null
+                Integer idDestinatario = utenteDao.getIdByEmail(email);
 
-                boolean giàPresente = idDestinatario != null &&
-                        !ruoloConferenzaDao.getByUtenteAndConferenza(idDestinatario, idConferenza).isEmpty();
+                if (idDestinatario == null) {
+                    // Se l'utente non è registrato, mostra errore (oppure crea flusso alternativo, se previsto)
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Utente non registrato");
+                    alert.setHeaderText(null);
+                    alert.setContentText("L'utente con email \"" + email + "\" non è registrato.");
+                    alert.showAndWait();
+                    continue;
+                }
+
+                boolean giàPresente = !ruoloConferenzaDao.getByUtenteAndConferenza(idDestinatario, idConferenza).isEmpty();
 
                 if (giàPresente) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -172,33 +177,19 @@ public class InvitaEditoriControl implements ControlledScreen {
                     continue;
                 }
 
-                InvitoEntity invito = InvitoEntity.creaInvito(
-                        email,
-                        Ruolo.Editor,
-                        idConferenza,
-                        idMittente,
-                        idDestinatario,
-                        conferenza.getScadenzaSottomissione()
-                );
+                RuoloConferenzaEntity ruolo = new RuoloConferenzaEntity(0, Ruolo.Editor, idDestinatario, idConferenza);
+                ruoloConferenzaDao.save(ruolo);
 
-                invitoDao.save(invito);
-
+                // Invio email informativa
                 try {
-                    String nomeUtente = null;
-                    if (idDestinatario != null) {
-                        nomeUtente = utenteDao.getById(idDestinatario).getNome();
-                    }
-
-                    MailInvito mail = new MailInvito(
+                    String nomeUtente = utenteDao.getById(idDestinatario).getNome();
+                    MailEditorInvito mail = new MailEditorInvito(
                             email,
-                            "Editore",
                             conferenza.getNome(),
-                            nomeUtente,
-                            invito.getCodice()
+                            nomeUtente
                     );
-
                     EmailSender.sendEmail(mail);
-                    System.out.println("Invito mandato via email per: " + email);
+                    System.out.println("Email informativa inviata a: " + email);
                 } catch (Exception ex) {
                     System.err.println("Errore durante l'invio dell'email a " + email);
                     ex.printStackTrace();
@@ -209,7 +200,7 @@ public class InvitaEditoriControl implements ControlledScreen {
             mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenzeBoundary.fxml");
 
         } catch (SQLException e) {
-            errorLabel.setText("Errore durante l'invito degli editori.");
+            errorLabel.setText("Errore durante l'aggiunta degli editori.");
             errorLabel.setVisible(true);
             e.printStackTrace();
         }
