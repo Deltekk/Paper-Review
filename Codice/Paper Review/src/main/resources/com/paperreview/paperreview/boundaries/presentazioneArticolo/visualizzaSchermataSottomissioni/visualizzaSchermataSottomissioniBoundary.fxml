@@ -8,17 +8,16 @@
 
 <ScrollPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.paperreview.paperreview.controls.HomeControl"
+            fx:controller="com.paperreview.paperreview.presentazioneArticolo.controls.VisualizzaSchermataSottomissioniControl"
             prefWidth="1280" prefHeight="720" maxHeight="Infinity" maxWidth="Infinity"
-            stylesheets="@homeStyle.css"
+            stylesheets="@visualizzaSchermataSottomissioniStyle.css"
             styleClass="quadrettoni"
             fitToWidth="true">
 
     <content>
 
         <VBox alignment="CENTER" styleClass="padded">
-            <Label text="CONFERENZE DAL MONDO" styleClass="h1, text-blu-scuro, font-bold, centra" textAlignment="CENTER" alignment="CENTER"/>
-            <Label text="Pubblica, partecipa, brilla" styleClass="p, text-blu-scuro, font-bold, centra" textAlignment="CENTER" alignment="CENTER"/>
+            <Label text="SOTTOMISSIONI" styleClass="h1, text-blu-scuro, font-bold, centra" textAlignment="CENTER" alignment="CENTER"/>
             <FlowPane fx:id="conferenzeContainer" styleClass="conferenze-container" hgap="30" vgap="30" prefWrapLength="1200" alignment="CENTER">
                 <!-- Le card saranno aggiunte dinamicamente dal controller -->
             </FlowPane>

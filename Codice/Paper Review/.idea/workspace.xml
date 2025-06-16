@@ -5,10 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/PosticipaScadenzeControl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/posticipaScadenza/posticipaScadenzaBoundary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/posticipaScadenza/posticipaScadenzaStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaSchermataSottomissioniControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaSchermataSottomissioni/visualizzaSchermataSottomissioniBoundary.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaSchermataSottomissioni/visualizzaSchermataSottomissioniStyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/ConferenzaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/ConferenzaDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/RuoloConferenzaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/dbms/dao/RuoloConferenzaDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/MainControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/MainControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/InvitoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/InvitoEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/forms/LoginFormModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/forms/LoginFormModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/GestioneConferenzeControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/GestioneConferenzeControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/InvitaChairControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/InvitaChairControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaChair/invitaChairBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/invitaChair/invitaChairBoundary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/home/homeStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/home/homeStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Grafici/Mockup/Sottomissioni.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../../Grafici/Mockup/Sottomissioni.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,9 +34,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="FxmlFile" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -272,7 +284,7 @@
       <workItem from="1749750970960" duration="814000" />
       <workItem from="1749753513876" duration="708000" />
       <workItem from="1749890399212" duration="169000" />
-      <workItem from="1749980026315" duration="35411000" />
+      <workItem from="1749980026315" duration="43859000" />
     </task>
     <servers />
   </component>

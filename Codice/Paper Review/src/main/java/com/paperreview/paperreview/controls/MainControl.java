@@ -141,7 +141,7 @@ public class MainControl {
     }
 
     public void handleSottomissioni(){
-        setView("/com/paperreview/paperreview/boundaries/sottomissioni/sottomissioniBoundary.fxml");
+        setView("/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaSchermataSottomissioni/visualizzaSchermataSottomissioniBoundary.fxml");
     }
 
     public void handleEditing(){

@@ -115,4 +115,21 @@ public class RuoloConferenzaDao extends BaseDao<RuoloConferenzaEntity> {
         }
         return idUtenti;
     }
+
+    public RuoloConferenzaEntity getByRuoloUtenteAndConferenza(Ruolo ruolo, int refUtente, int refConferenza) throws SQLException {
+        String query = "SELECT * FROM " + tableName + " WHERE ruolo = ? AND ref_utente = ? AND ref_conferenza = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, ruolo.toString()); // oppure .getValoreDb() se usi valori custom
+            stmt.setInt(2, refUtente);
+            stmt.setInt(3, refConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapRow(rs);
+                }
+            }
+        }
+        return null;
+    }
+
+
 }

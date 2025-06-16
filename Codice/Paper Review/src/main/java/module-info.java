@@ -38,4 +38,7 @@ module com.paperreview.paperreview {
     // Export the package containing your controller to javafx.fxml module
     exports com.paperreview.paperreview.gestioneConferenze.controls to javafx.fxml;
     opens com.paperreview.paperreview.gestioneConferenze.controls to javafx.fxml;
+
+    exports com.paperreview.paperreview.presentazioneArticolo.controls to javafx.fxml;
+    opens com.paperreview.paperreview.presentazioneArticolo.controls to javafx.fxml;
 }

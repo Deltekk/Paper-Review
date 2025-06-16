@@ -44,6 +44,9 @@ public class InvitaChairControl implements ControlledScreen {
     private Button continueButton;
 
     @FXML
+    private Label optionalLabel;
+
+    @FXML
     private FlowPane chairContainer;
 
     @FXML
@@ -66,6 +69,9 @@ public class InvitaChairControl implements ControlledScreen {
 
         addButton.setDisable(true);
         errorLabel.setVisible(false);
+
+        if(UserContext.isStandaloneInteraction())
+            optionalLabel.setVisible(false);
 
         Form form = invitaChairForm.createForm();
         FormRenderer formRenderer = new FormRenderer(form);

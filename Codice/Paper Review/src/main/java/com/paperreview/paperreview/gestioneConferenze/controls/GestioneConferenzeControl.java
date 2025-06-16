@@ -33,6 +33,10 @@ public class GestioneConferenzeControl implements ControlledScreen {
 
     public void initialize() {
         try{
+
+            UserContext.setConferenzaAttuale(null);
+            UserContext.setStandaloneInteraction(false);
+
             ConferenzaDao conferenzaDao = new ConferenzaDao(DBMSBoundary.getConnection());
             List<ConferenzaEntity> conferenze = conferenzaDao.getAll(UserContext.getUtente().getId());
 
@@ -133,7 +137,7 @@ public class GestioneConferenzeControl implements ControlledScreen {
         buttonGrid.setMaxWidth(500);
 
         Button buttonPosticipaScadenze = new Button("Posticipa Scadenze");
-        Button buttonvisualizzaPapers = new Button("Visualizza papers");
+        Button buttonvisualizzaPapers = new Button("Visualizza Papers");
         Button buttonAggiungiChair = new Button("Aggiungi Chair");
         Button buttonAggiungiRevisore = new Button("Aggiungi Revisore");
         Button buttonVisualizzaRevisori = new Button("Visualizza Revisori");
