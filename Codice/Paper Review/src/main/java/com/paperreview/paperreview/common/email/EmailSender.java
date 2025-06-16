@@ -7,7 +7,18 @@ import java.util.Properties;
 
 public class EmailSender {
 
-    public static void sendEmail(MailBase mail) throws MessagingException {
+    public static void sendEmail(MailBase mail) {
+        new Thread(() -> {
+            try {
+                sendAsync(mail);
+            } catch (MessagingException e) {
+                System.err.println("Errore durante l'invio dell'email: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    public static void sendAsync(MailBase mail) throws MessagingException {
         final String from = DotenvUtil.getEmailSender();                // tua email
         final String password = DotenvUtil.getEmailPassword();         // usa una password per app
 

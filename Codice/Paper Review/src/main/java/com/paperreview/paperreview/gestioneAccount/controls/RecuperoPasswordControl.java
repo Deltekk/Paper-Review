@@ -103,7 +103,7 @@ public class RecuperoPasswordControl implements ControlledScreen {
                 utenteDao.update(utente);
             }
 
-        }catch(MessagingException | SQLException e){
+        }catch(SQLException e){
             e.printStackTrace();
             errorLabel.setVisible(true);
             errorLabel.setText("Errore interno! Riprova tra poco!");

@@ -58,6 +58,8 @@ public class MainControl {
 
         logoImage.setImage(logo);
 
+        // 🔔 Avvia il polling delle notifiche push
+        com.paperreview.paperreview.gestioneNotifiche.controls.NotificaPushControl.avviaNotificheSeNonAttive(rootPane);
     }
 
     public void showHeader() {
