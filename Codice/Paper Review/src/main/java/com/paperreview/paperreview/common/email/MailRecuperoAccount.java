@@ -30,7 +30,7 @@ public class MailRecuperoAccount extends MailBase {
                     <!-- Box blu -->
                     <div style="background-color: #0B7C9F; border-radius: 10px; padding: 30px; color: white; font-size: 18px; line-height: 1.4; margin-bottom: 60px; border: 3px solid #0a6e8b;">
                         <p style="margin: 0 0 15px 0;">Salve %s, le notifichiamo che è stato richiesto un reset della password per il suo account di Paper-Review.</p>
-                        <p style="margin: 0 0 15px 0;"> La sua password è <span style="font-weight: 900;">%s</span>.</p>
+                        <p style="margin: 0 0 15px 0;"> La sua password è <span style="font-weight: 900;">%s</span></p>
                         <p style="margin: 0 0 15px 0;">Le consigliamo di cambiarla una volta che effettuerà il prossimo accesso.</p>
                     </div>
             
