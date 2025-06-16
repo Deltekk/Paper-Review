@@ -115,7 +115,7 @@ INSERT INTO Conferenza (
  40, 10, 5,
  '2025-06-14 23:59:59', '2025-06-20 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59', '2025-09-26 23:59:59', '2025-10-29 23:59:59'),
 -- 3: scadenza_sottomissione_2 = 17 giugno 2025
-('Sustainable Tech Forum', 'Tecnologie sostenibili e innovazione ambientale', '2026-07-20 09:30:00', 'Oslo', 'Broadcast', '2',
+('Sustainable Tech Forum', 'Tecnologie sostenibili e innovazione ambientale', '2026-07-20 09:30:00', 'Oslo', 'Broadcast', '3',
  50, 7, 5,
  '2025-06-11 23:59:59', '2025-06-14 23:59:59', '2025-06-20 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59', '2025-09-26 23:59:59'),
 -- 4: scadenza_editing = 17 giugno 2025
@@ -199,11 +199,11 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
 INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
 (
   'Il lavoro affronta un tema centrale nella computazione quantistica attuale, con una buona trattazione teorica e una sezione sperimentale solida. Le simulazioni sono ben eseguite.',
-  4,
+  2,
   '2025-06-17 15:00:00',
   'Ottima chiarezza espositiva, uso coerente di Qiskit, riferimento a lavori recenti.',
   'Manca una valutazione energetica comparativa tra hardware differenti.',
-  'Paper ben strutturato, suggerisco accettazione con piccole modifiche.',
+  'Plagio',
   5,
   1
 );
@@ -238,11 +238,11 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
 INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
 (
   'Studio interessante e attuale, con solide basi sperimentali. Ottima esposizione grafica dei risultati.',
-  4,
+  2,
   '2025-06-14 16:00:00',
   'Applicazione pratica chiara, validazione su casi reali, struttura ben organizzata.',
   'La parte relativa alla manutenzione dei sensori è troppo sintetica.',
-  'Accettare con lievi modifiche editoriali.',
+  '',
   1,
   1
 );
@@ -262,11 +262,11 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
 INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
 (
   'Il confronto è interessante, ma mancano informazioni dettagliate su costi e reperibilità.',
-  3,
+  -1,
   '2025-06-14 19:00:00',
   'Ben organizzato, chiara esposizione.',
   'Limitata comparazione sulla durabilità.',
-  'Revisione utile, accettabile con ampliamenti.',
+  '',
   6,
   2
 );
@@ -299,11 +299,11 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
 INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
 (
   'Argomento di grande attualità, presentato con rigore. La parte sperimentale potrebbe essere ampliata.',
-  4,
+  2,
   '2025-06-11 15:30:00',
   'Buona struttura logica, casi reali interessanti.',
   'Assenza di una sezione quantitativa.',
-  'Accettato con modifiche minori.',
+  '',
   1,
   1
 );
@@ -320,11 +320,11 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
 INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
 (
   'Discussione filosofica ben articolata. Qualche concetto richiede maggiore definizione.',
-  3,
+  -2,
   '2025-06-11 16:40:00',
   'Prospettiva originale, riferimenti ben scelti.',
   'Terminologia talvolta ambigua.',
-  'Accettabile con chiarimenti.',
+  '',
   6,
   2
 );
@@ -356,11 +356,11 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
 INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
 (
   'Studio ben articolato sulle tecniche di normalizzazione. Ottima analisi comparativa, ma alcune sezioni risultano troppo sintetiche.',
-  4,
+  2,
   '2025-06-08 10:00:00',
   'Approccio sistematico, buoni grafici di supporto.',
   'Poco approfondita la parte sulla compatibilità con RNA-seq.',
-  'Accettato con modifiche formali.',
+  '',
   5,
   5
 );
@@ -380,11 +380,11 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
 INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
 (
   'La trattazione è solida. Mancano però alcuni test di generalizzazione su popolazioni diverse.',
-  4,
+  2,
   '2025-06-08 13:10:00',
   'Codifica interessante, discussione accurata.',
   'Assenza di confronto su altri dataset clinici.',
-  'Consiglio l’accettazione.',
+  '',
   4,
   6
 );
@@ -418,11 +418,11 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
 INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
 (
   'Studio robusto e ben implementato, ma la sezione sui risultati necessita maggiore dettaglio.',
-  4,
+  1,
   '2025-06-07 10:45:00',
   'Buona integrazione con sistemi real-time, benchmark accurato.',
   'Grafici poco leggibili, mancano intervalli di confidenza.',
-  'Accettare con suggerimenti visivi.',
+  '',
   2,
   7
 );
@@ -441,11 +441,11 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
 INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
 (
   'La metodologia è interessante e utile. Sarebbe utile confrontarla con tecniche classiche di riduzione dimensionale.',
-  4,
+  0,
   '2025-06-07 12:00:00',
   'Strategia dinamica ben formulata, testata su scenari realistici.',
   'Analisi dei risultati un po’ limitata.',
-  'Buon contributo, accettare con miglioramenti.',
+  '',
   2,
   8
 );
