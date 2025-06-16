@@ -17,8 +17,8 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
 
     @Override
     protected String getInsertQuery() {
-        return "INSERT INTO " + tableName + " (testo, valutazione, data_sottomissione, ref_utente, ref_paper) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        return "INSERT INTO " + tableName + " (testo, valutazione, data_sottomissione, ref_utente, ref_paper, commento_chair) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
     }
 
     @Override
@@ -28,11 +28,12 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         stmt.setObject(3, revisione.getDataSottomissione());
         stmt.setInt(4, revisione.getRefUtente());
         stmt.setInt(5, revisione.getRefPaper());
+        stmt.setString(6, revisione.getCommentoChair());
     }
 
     @Override
     protected String getUpdateQuery() {
-        return "UPDATE " + tableName + " SET testo = ?, valutazione = ?, data_sottomissione = ?, ref_utente = ?, ref_paper = ? " +
+        return "UPDATE " + tableName + " SET testo = ?, valutazione = ?, data_sottomissione = ?, ref_utente = ?, ref_paper = ?, commento_chair = ? " +
                 "WHERE " + idColumn + " = ?";
     }
 
@@ -43,7 +44,8 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         stmt.setObject(3, revisione.getDataSottomissione());
         stmt.setInt(4, revisione.getRefUtente());
         stmt.setInt(5, revisione.getRefPaper());
-        stmt.setInt(6, revisione.getId());
+        stmt.setString(6, revisione.getCommentoChair());
+        stmt.setInt(7, revisione.getId());
     }
 
     @Override
@@ -59,7 +61,8 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
                 rs.getInt("valutazione"),
                 rs.getObject("data_sottomissione", java.time.LocalDateTime.class),
                 rs.getInt("ref_utente"),
-                rs.getInt("ref_paper")
+                rs.getInt("ref_paper"),
+                rs.getString("commento_chair")  // <- nuovo campo
         );
     }
 
@@ -108,4 +111,11 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         return result;
     }
 
+    public void removeAllByPaper(int paperId) throws SQLException {
+        String query = "DELETE FROM Revisione WHERE ref_paper = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, paperId);
+            stmt.executeUpdate();
+        }
+    }
 }

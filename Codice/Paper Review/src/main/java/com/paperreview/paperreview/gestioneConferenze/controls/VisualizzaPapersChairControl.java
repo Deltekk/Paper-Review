@@ -2,10 +2,7 @@ package com.paperreview.paperreview.gestioneConferenze.controls;
 
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
-import com.paperreview.paperreview.common.dbms.dao.CoAutoriPaperDao;
-import com.paperreview.paperreview.common.dbms.dao.PaperDao;
-import com.paperreview.paperreview.common.dbms.dao.RevisioneDao;
-import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
+import com.paperreview.paperreview.common.dbms.dao.*;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.ConferenzaEntity;
@@ -13,19 +10,30 @@ import com.paperreview.paperreview.entities.PaperEntity;
 import com.paperreview.paperreview.entities.RevisioneEntity;
 import com.paperreview.paperreview.entities.UtenteEntity;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import javax.swing.text.html.Option;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class VisualizzaPapersChairControl implements ControlledScreen {
@@ -262,19 +270,93 @@ public class VisualizzaPapersChairControl implements ControlledScreen {
         return card;
     }
 
-    public void handlePromuoviPaper(PaperEntity paper)
-    {
-        // TODO: HandlePromuoviPaper
+    public void handlePromuoviPaper(PaperEntity paper) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma promozione paper");
+        alert.setHeaderText("Sei sicuro di voler promuovere questo paper?");
+        alert.setContentText("Il paper verrà contrassegnato come promosso e bypasserà la valutazione standard.");
 
-        // Visto che non stiamo gestendo lo score in modo giusto, pensavo che potremmo mettere un valore negativo
-        // allo score in modo tale che sappiamo che sia promosso
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                Connection conn = DBMSBoundary.getConnection();
+                RevisioneDao revisioneDao = new RevisioneDao(conn);
 
+                List<RevisioneEntity> revisioni = revisioneDao.getByPaper(paper.getId());
+
+                if (!revisioni.isEmpty()) {
+                    // Modifica la prima revisione esistente
+                    RevisioneEntity revisione = revisioni.get(0);
+                    revisione.setValutazione(-100);
+                    revisione.setCommentoChair("Promosso manualmente");
+                    revisioneDao.update(revisione);
+                } else {
+                    // Crea una nuova revisione "promossa"
+                    RevisioneEntity revisionePromossa = new RevisioneEntity();
+                    revisionePromossa.setValutazione(-100);
+                    revisionePromossa.setCommentoChair("Promosso manualmente");
+                    revisionePromossa.setDataSottomissione(java.time.LocalDateTime.now());
+                    revisionePromossa.setRefUtente(UserContext.getUtente().getId());
+                    revisionePromossa.setRefPaper(paper.getId());
+
+                    revisioneDao.save(revisionePromossa);
+                }
+
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Successo");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Il paper è stato promosso con successo.");
+                successAlert.showAndWait();
+
+                mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaPapersChair/visualizzaPapersChairBoundary.fxml");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Errore");
+                errorAlert.setHeaderText("Errore durante la promozione del paper");
+                errorAlert.setContentText(e.getMessage());
+                errorAlert.showAndWait();
+            }
+        }
     }
 
-    public void handleScaricaPaper(PaperEntity paper)
-    {
-        // TODO: HandleScaricaPaper
-        // Teoricamente qui dovremmo mettere la funzione che prende e scarica il file
+    public void handleScaricaPaper(PaperEntity paper) {
+        try {
+            // Recupera il file BLOB dal PaperEntity
+            byte[] fileData = paper.getFile();
+            String nomeFile = paper.getTitolo().replaceAll("[^a-zA-Z0-9-_\\.]", "_") + ".pdf"; // Fallback se non hai il nome originale
+
+            // Mostra dialogo di salvataggio
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Salva il paper");
+            fileChooser.setInitialFileName(nomeFile);
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+            File fileToSave = fileChooser.showSaveDialog(paperContainer.getScene().getWindow());
+
+            if (fileToSave != null) {
+                try (FileOutputStream fos = new FileOutputStream(fileToSave)) {
+                    fos.write(fileData);
+                }
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Successo");
+                alert.setHeaderText(null);
+                alert.setContentText("Il paper è stato scaricato con successo.");
+                alert.showAndWait();
+
+                // Ricarica la schermata "Visualizza Papers - Chair"
+                mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaPapersChair/visualizzaPapersChairBoundary.fxml");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Errore");
+            errorAlert.setHeaderText("Errore durante il download del paper");
+            errorAlert.setContentText(e.getMessage());
+            errorAlert.showAndWait();
+        }
     }
 
     public void handleRevisioneEmergenza(PaperEntity paper)
@@ -282,18 +364,82 @@ public class VisualizzaPapersChairControl implements ControlledScreen {
         // TODO: HandleRevisioneEmergenza
     }
 
-    public void handleVisualizzaDettagli(PaperEntity paper)
-    {
-        // TODO: HandleVisualizza Dettagli, immagino come abbiamo fatto prima lascio il commento
-        // UserContext.setConferenzaAttuale(conferenza);
-        // mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/aggiungiRevisore/aggiungiRevisoreBoundary.fxml");
+    public void handleVisualizzaDettagli(PaperEntity paper) {
+        try {
+            Connection conn = DBMSBoundary.getConnection();
+            RevisioneDao revisioneDao = new RevisioneDao(conn);
 
+            // Recupera tutte le revisioni associate al paper
+            List<RevisioneEntity> revisioni = revisioneDao.getByPaper(paper.getId());
+
+            // Salva nel contesto il paper e le sue revisioni
+            UserContext.setPaperAttuale(paper);
+            UserContext.setRevisioniCorrenti(revisioni);
+
+            // Carica la nuova schermata
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaDettagliPaper/visualizzaDettagliPaperBoundary.fxml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Errore");
+            errorAlert.setHeaderText("Errore durante il caricamento dei dettagli");
+            errorAlert.setContentText(e.getMessage());
+            errorAlert.showAndWait();
+        }
     }
 
-    public void handleRimuoviPaper(PaperEntity paper)
-    {
-        // TODO: HandleRimuuoviPaper
-        // Idealmente almeno un alert per sicurezza
+    public void handleRimuoviPaper(PaperEntity paper) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma rimozione paper");
+        alert.setHeaderText("Sei sicuro di voler rimuovere questo paper?");
+        alert.setContentText("Questa azione è irreversibile.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                Connection conn = DBMSBoundary.getConnection();
+                PaperDao paperDao = new PaperDao(conn);
+                TopicPaperDao topicPaperDao = new TopicPaperDao(conn);
+                CoAutoriPaperDao coAutoriDao = new CoAutoriPaperDao(conn);
+                RevisioneDao revisioneDao = new RevisioneDao(conn);
+
+                // Rimuovi associazioni con topic
+                topicPaperDao.removeAllTopicsFromPaper(paper.getId());
+
+                // Rimuovi coautori
+                coAutoriDao.removeAllCoautoriFromPaper(paper.getId());
+
+                // Rimuovi Revisioni
+                revisioneDao.removeAllByPaper(paper.getId());
+
+                // Rimuovi il paper
+                boolean success = paperDao.removeById(paper.getId());
+
+                if (success) {
+                    // Torna alla schermata Visualizza Papers - Chair
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setTitle("Successo");
+                    successAlert.setHeaderText(null);
+                    successAlert.setContentText("Il paper è stato rimosso con successo.");
+                    successAlert.showAndWait();
+                    mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaPapersChair/visualizzaPapersChairBoundary.fxml");
+                } else {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Errore");
+                    errorAlert.setHeaderText("Impossibile rimuovere il paper.");
+                    errorAlert.setContentText("Si è verificato un problema durante la rimozione.");
+                    errorAlert.showAndWait();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Errore");
+                errorAlert.setHeaderText("Errore durante la rimozione");
+                errorAlert.setContentText(e.getMessage());
+                errorAlert.showAndWait();
+            }
+        }
     }
-    
 }

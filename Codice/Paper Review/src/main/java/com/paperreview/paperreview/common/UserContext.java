@@ -1,7 +1,11 @@
 package com.paperreview.paperreview.common;
 
 import com.paperreview.paperreview.entities.ConferenzaEntity;
+import com.paperreview.paperreview.entities.PaperEntity;
+import com.paperreview.paperreview.entities.RevisioneEntity;
 import com.paperreview.paperreview.entities.UtenteEntity;
+
+import java.util.List;
 
 public class UserContext {
 
@@ -39,5 +43,24 @@ public class UserContext {
 
     public static void setStandaloneInteraction(boolean standaloneInteraction) {
         UserContext.standaloneInteraction = standaloneInteraction;
+    }
+
+    private static PaperEntity paperAttuale;
+    private static List<RevisioneEntity> revisioniCorrenti;
+
+    public static PaperEntity getPaperAttuale() {
+        return paperAttuale;
+    }
+
+    public static void setPaperAttuale(PaperEntity paper) {
+        paperAttuale = paper;
+    }
+
+    public static List<RevisioneEntity> getRevisioniCorrenti() {
+        return revisioniCorrenti;
+    }
+
+    public static void setRevisioniCorrenti(List<RevisioneEntity> revisioni) {
+        revisioniCorrenti = revisioni;
     }
 }

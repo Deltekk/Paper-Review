@@ -10,16 +10,21 @@ public class RevisioneEntity extends BaseEntity {
     private LocalDateTime dataSottomissione;
     private int refUtente;
     private int refPaper;
+    private String commentoChair; // <- nuovo campo
 
-    // Costruttore
-    public RevisioneEntity(int idRevisione, String testo, int valutazione, LocalDateTime dataSottomissione, int refUtente, int refPaper) {
+    // Costruttore completo
+    public RevisioneEntity(int idRevisione, String testo, int valutazione, LocalDateTime dataSottomissione, int refUtente, int refPaper, String commentoChair) {
         this.idRevisione = idRevisione;
         this.testo = testo;
         this.valutazione = valutazione;
         this.dataSottomissione = dataSottomissione;
         this.refUtente = refUtente;
         this.refPaper = refPaper;
+        this.commentoChair = commentoChair;
     }
+
+    // Costruttore base senza ID (es. per insert preliminare)
+    public RevisioneEntity() {}
 
     @Override
     public int getId() {
@@ -70,6 +75,14 @@ public class RevisioneEntity extends BaseEntity {
         this.refPaper = refPaper;
     }
 
+    public String getCommentoChair() {
+        return commentoChair;
+    }
+
+    public void setCommentoChair(String commentoChair) {
+        this.commentoChair = commentoChair;
+    }
+
     @Override
     public String toString() {
         return "RevisioneEntity{" +
@@ -79,19 +92,20 @@ public class RevisioneEntity extends BaseEntity {
                 ", dataSottomissione=" + dataSottomissione +
                 ", refUtente=" + refUtente +
                 ", refPaper=" + refPaper +
+                ", commentoChair='" + commentoChair + '\'' +
                 '}';
     }
 
-    // Sovrascrivi il metodo equals
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         RevisioneEntity that = (RevisioneEntity) obj;
-        return idRevisione == that.idRevisione && refUtente == that.refUtente && refPaper == that.refPaper;
+        return idRevisione == that.idRevisione &&
+                refUtente == that.refUtente &&
+                refPaper == that.refPaper;
     }
 
-    // Sovrascrivi il metodo hashCode
     @Override
     public int hashCode() {
         return Objects.hash(idRevisione, refUtente, refPaper);
