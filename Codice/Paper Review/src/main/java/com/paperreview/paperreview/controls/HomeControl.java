@@ -8,6 +8,7 @@ import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
 import com.paperreview.paperreview.common.dbms.dao.TopicPaperDao;
 import com.paperreview.paperreview.entities.*;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
+import com.paperreview.paperreview.gestioneNotifiche.controls.NotificaPushControl;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -50,6 +51,10 @@ public class HomeControl implements ControlledScreen {
 
     public void initialize() {
         caricaConferenze();
+    }
+
+    public void avviaNotifichePush() {
+        NotificaPushControl.avviaNotificheSeNonAttive(mainControl.getRootPane());
     }
 
     private void caricaConferenze(){

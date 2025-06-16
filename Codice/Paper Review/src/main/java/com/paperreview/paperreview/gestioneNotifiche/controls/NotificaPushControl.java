@@ -47,6 +47,7 @@ public class NotificaPushControl {
 
         scheduler.scheduleAtFixedRate(() -> {
             try {
+                if (UserContext.getUtente() == null) return;
                 int idUtente = UserContext.getUtente().getId();
                 NotificaDao notificaDao = new NotificaDao(DBMSBoundary.getConnection());
                 InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
@@ -82,7 +83,7 @@ public class NotificaPushControl {
     private static void mostraOverlay(Pane parentPane, String titolo, String messaggio) {
         try {
             FXMLLoader loader = new FXMLLoader(NotificaPushControl.class.getResource(
-                    "/com/paperreview/paperreview/boundaries/notifiche/notificaPush.fxml"));
+                    "/com/paperreview/paperreview/boundaries/gestioneNotifiche/notificaPush/notificaPushBoundary.fxml"));
             Parent popup = loader.load();
 
             NotificaPushControl control = loader.getController();
