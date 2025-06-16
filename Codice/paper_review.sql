@@ -134,11 +134,11 @@ INSERT INTO Conferenza (
 -- 1: Le Banane in Moldavia
 -- Diego Corona: Chair
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 1, 1);
--- Giulia Greco: Chair (stessa coppia)
+-- Giulia Greco: Chair
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 6, 1);
 -- Giovanni Castelli: Autore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 5, 1);
--- Daniele Susino: Autore (coppia)
+-- Daniele Susino: Autore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 4, 1);
 -- Luca Gaetani: Revisore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Revisore', 3, 1);
@@ -165,14 +165,14 @@ INSERT INTO CoAutoriPaper (email, ref_paper) VALUES
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 2, 2);
 -- Giovanni Castelli: Revisore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Revisore', 5, 2);
--- Daniele Susino: Sottorevisore (coppia)
+-- Daniele Susino: Sottorevisore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Sottorevisore', 4, 2);
--- Diego Corona: Editor
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 1, 2);
--- Giulia Greco: Editor (coppia)
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 6, 2);
+-- Diego Corona: Autore
+INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 1, 2);
+-- Giulia Greco: Autore
+INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 6, 2);
 -- Luca Gaetani: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 3, 2);
+INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 3, 2);
 
 -- Paper 1: revisionato
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
@@ -212,11 +212,11 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
 -- 3: Sustainable Tech Forum
 -- Giovanni Castelli: Chair
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 4, 3);
--- Daniele Susino: Chair (coppia)
+-- Daniele Susino: Chair
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 5, 3);
 -- Diego Corona: Revisore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Revisore', 1, 3);
--- Giulia Greco: Sottorevisore (coppia)
+-- Giulia Greco: Sottorevisore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Sottorevisore', 6, 3);
 -- Luca Gaetani: Editor
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 3, 3);
@@ -275,13 +275,11 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
 -- 4: Ethics and AI 2025
 -- Daniele Susino: Chair
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 4, 4);
--- Giovanni Castelli: Chair (coppia)
+-- Giovanni Castelli: Chair
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 5, 4);
 -- Leonardo Caiezza: Revisore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Revisore', 2, 4);
--- Giulia Greco: Editor
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 6, 4);
--- Diego Corona: Editor (coppia)
+-- Diego Corona: Editor
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 1, 4);
 -- Luca Gaetani: Autore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 3, 4);
@@ -334,13 +332,13 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 3, 5);
 -- Giovanni Castelli: Revisore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Revisore', 5, 5);
--- Daniele Susino: Sottorevisore (coppia)
+-- Daniele Susino: Sottorevisore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Sottorevisore', 4, 5);
 -- Leonardo Caiezza: Editor
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 2, 5);
 -- Giulia Greco: Autore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 6, 5);
--- Diego Corona: Autore (coppia)
+-- Diego Corona: Autore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 1, 5);
 -- Paper 1: Diego Corona
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
@@ -394,11 +392,11 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
 -- 6: Data Science Expo 2025
 -- Giovanni Castelli: Chair
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 5, 6);
--- Daniele Susino: Chair (coppia)
+-- Daniele Susino: Chair
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 4, 6);
 -- Giulia Greco: Autore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 6, 6);
--- Diego Corona: Autore (coppia)
+-- Diego Corona: Autore
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 1, 6);
 -- Luca Gaetani: Editor
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 3, 6);
