@@ -5,11 +5,10 @@ import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
 import com.paperreview.paperreview.common.dbms.dao.NotificaDao;
+import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
 import com.paperreview.paperreview.controls.MainControl;
-import com.paperreview.paperreview.entities.InvitoEntity;
-import com.paperreview.paperreview.entities.NotificaEntity;
+import com.paperreview.paperreview.entities.*;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.entities.StatusInvito;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -224,7 +223,13 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
 
             invitoEntity.setStatus(StatusInvito.Accettato);
             InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
+            RuoloConferenzaDao ruoloConferenzaDao = new RuoloConferenzaDao(DBMSBoundary.getConnection());
             invitoDao.update(invitoEntity);
+
+            Ruolo ruolo = Ruolo.fromString(invitoEntity.getRuolo());
+
+            RuoloConferenzaEntity ruoloConferenzaEntity = new RuoloConferenzaEntity(ruolo, invitoEntity.getRefDestinatario(), invitoEntity.getRefConferenza());
+            ruoloConferenzaDao.save(ruoloConferenzaEntity);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Accettazione invito");

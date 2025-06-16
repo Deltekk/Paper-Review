@@ -155,14 +155,9 @@ public class InvitoEntity extends BaseEntity {
     }
 
     public static String generaCodice() {
-        int length = 10;
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            int idx = (int) (Math.random() * chars.length());
-            sb.append(chars.charAt(idx));
-        }
-        return sb.toString();
+        int primoBlocco = (int) (Math.random() * 900) + 100; // genera numero tra 100 e 999
+        int secondoBlocco = (int) (Math.random() * 900) + 100; // genera numero tra 100 e 999
+        return String.format("%03d-%03d", primoBlocco, secondoBlocco);
     }
 
     public static InvitoEntity creaInvito(String email, Ruolo ruolo, int refConferenza, int refMittente, Integer refDestinatario, LocalDateTime scadenza) {

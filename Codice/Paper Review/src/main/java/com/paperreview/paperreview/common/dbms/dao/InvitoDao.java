@@ -122,7 +122,7 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
         return accept ? "Accettato" : "Rifiutato";
     }
 
-    private InvitoEntity getInvitoByCodice(String codice) {
+    public InvitoEntity getInvitoByCodice(String codice) {
         // Esegui una query per ottenere l'invito in base al codice
         String query = "SELECT * FROM Invito WHERE codice = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
