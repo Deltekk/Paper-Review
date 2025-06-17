@@ -25,6 +25,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,34 +54,47 @@ public class HomeControl implements ControlledScreen {
         caricaConferenze();
     }
 
-    private void caricaConferenze(){
-        try{
+    private void caricaConferenze() {
+        try {
             ConferenzaDao conferenzaDao = new ConferenzaDao(DBMSBoundary.getConnection());
-            List<ConferenzaEntity> conferenze  = conferenzaDao.getAllIfNotAutore(UserContext.getUtente().getId());
+            RuoloConferenzaDao ruoloConferenzaDao = new RuoloConferenzaDao(DBMSBoundary.getConnection());
+
+            List<ConferenzaEntity> tutteLeConferenze = conferenzaDao.getAll();
+            List<ConferenzaEntity> conferenzeNonDaAutore = new ArrayList<>();
+
+            int idUtente = UserContext.getUtente().getId();
+
+            // Filtra le conferenze dove NON è già autore
+            for (ConferenzaEntity conferenza : tutteLeConferenze) {
+                RuoloConferenzaEntity ruolo = ruoloConferenzaDao.getByRuoloUtenteAndConferenza(
+                        Ruolo.Autore,
+                        idUtente,
+                        conferenza.getId()
+                );
+                if (ruolo == null) {
+                    conferenzeNonDaAutore.add(conferenza);
+                }
+            }
 
             conferenzeContainer.getChildren().clear();
 
-            if(conferenze.isEmpty())
-            {
-                Label testo = new Label("Ancora non è stata pubblicata nessuna conferenza!");
+            if (conferenzeNonDaAutore.isEmpty()) {
+                Label testo = new Label("Non ci sono conferenze a cui puoi ancora partecipare come autore.");
                 testo.getStyleClass().addAll("font-bold", "text-rosso", "h5");
                 testo.setWrapText(true);
                 testo.setPrefWidth(500);
                 testo.setAlignment(Pos.CENTER);
 
                 conferenzeContainer.getChildren().add(testo);
-            }
-            else
-            {
-                for (ConferenzaEntity c : conferenze) {
+            } else {
+                for (ConferenzaEntity c : conferenzeNonDaAutore) {
                     VBox card = creaCardConferenza(c);
                     conferenzeContainer.getChildren().add(card);
                 }
             }
 
-        }catch(SQLException e){
-            e.printStackTrace();
-            // TODO: Gestire errore come scritto nel flusso
+        } catch (SQLException e) {
+            mostraErrore("Errore nel recupero delle conferenze:\n" + e.getMessage());
         }
     }
 
@@ -152,56 +166,66 @@ public class HomeControl implements ControlledScreen {
 
     @FXML
     public void partecipa(ConferenzaEntity conferenzaEntity, VBox boxConferenza) {
-
-        try{
+        try {
             Connection con = DBMSBoundary.getConnection();
+            RuoloConferenzaDao ruoloConferenzaDao = new RuoloConferenzaDao(con);
 
-            // Carica l'icona utilizzando getResourceAsStream()
+            int idUtente = UserContext.getUtente().getId();
+            int idConferenza = conferenzaEntity.getId();
 
+            // Controllo se è già autore in questa conferenza
+            RuoloConferenzaEntity ruoloEsistente =
+                    ruoloConferenzaDao.getByRuoloUtenteAndConferenza(Ruolo.Autore, idUtente, idConferenza);
+
+            if (ruoloEsistente != null) {
+                Alert alertPresente = new Alert(Alert.AlertType.WARNING);
+                alertPresente.setTitle("Partecipazione già registrata");
+                alertPresente.setHeaderText("Sei già autore in questa conferenza");
+                alertPresente.setContentText("Non puoi partecipare più volte con lo stesso ruolo.");
+                alertPresente.showAndWait();
+                return;
+            }
+
+            // Finestra di conferma
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Conferma partecipazione conferenza");
             alert.setHeaderText(String.format("Vuoi partecipare alla conferenza %s nel ruolo di autore?", conferenzaEntity.getNome()));
             alert.setContentText("Premi OK per confermare, oppure Annulla per annullare.");
 
-            // Aggiungi le opzioni OK e Annulla
             ButtonType buttonTypeOK = ButtonType.OK;
             ButtonType buttonTypeCancel = ButtonType.CANCEL;
             alert.getButtonTypes().setAll(buttonTypeOK, buttonTypeCancel);
 
-            // Mostra il popup e gestisci la risposta dell'utente
             alert.showAndWait().ifPresent(response -> {
                 if (response == buttonTypeOK) {
-                    // Se l'utente ha premuto ok e non annulla...
-                    // TODO: Implementare la logica di partecipazione alla conferenza
-
-                    try{
-                        RuoloConferenzaDao ruoloConferenzaDao = new RuoloConferenzaDao(con);
-                        RuoloConferenzaEntity ruoloConferenzaEntity = new RuoloConferenzaEntity(0, Ruolo.Autore, UserContext.getUtente().getId(), conferenzaEntity.getId());
-
+                    try {
+                        RuoloConferenzaEntity ruoloConferenzaEntity = new RuoloConferenzaEntity(
+                                0, Ruolo.Autore, idUtente, idConferenza
+                        );
                         ruoloConferenzaDao.save(ruoloConferenzaEntity);
 
                         Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                         alert2.setTitle("Conferma partecipazione conferenza");
                         alert2.setHeaderText(String.format("Complimenti, stai partecipando alla conferenza %s nel ruolo di autore!", conferenzaEntity.getNome()));
-                        alert2.setContentText("Premi ok per continuare!");
+                        alert2.setContentText("Premi OK per continuare.");
                         alert2.showAndWait();
 
                         conferenzeContainer.getChildren().remove(boxConferenza);
-                    }catch(Exception e){
-                        throw new RuntimeException(e);
-                        // TODO: GESTIRE BENE QUEST' ERRORE
+                    } catch (Exception e) {
+                        mostraErrore("Errore durante la registrazione:\n" + e.getMessage());
                     }
-
-
-
                 }
             });
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-            // TODO: GESTIRE BENE QUEST' ERRORE
+            mostraErrore("Errore nella connessione al database:\n" + e.getMessage());
         }
-
     }
-
+    private void mostraErrore(String messaggio) {
+        Alert errore = new Alert(Alert.AlertType.ERROR);
+        errore.setTitle("Errore");
+        errore.setHeaderText("Si è verificato un errore");
+        errore.setContentText(messaggio);
+        errore.showAndWait();
+    }
 }
