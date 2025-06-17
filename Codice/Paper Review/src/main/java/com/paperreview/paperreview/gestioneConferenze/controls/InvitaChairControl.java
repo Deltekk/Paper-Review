@@ -102,7 +102,7 @@ public class InvitaChairControl implements ControlledScreen {
         String nuovaEmail = invitaChairForm.getEmail().trim().toLowerCase();
 
         // Controllo se già esiste
-        if (emails.contains(nuovaEmail)) {
+        if (emails.contains(nuovaEmail) || nuovaEmail.equals(UserContext.getUtente().getEmail())) {
             errorLabel.setText("Errore: Hai già inserito quest’email!");
             errorLabel.setVisible(true);
             return;
