@@ -166,8 +166,9 @@ public class InvitaEditoriControl implements ControlledScreen {
                     alert.showAndWait();
                     continue;
                 }
+                boolean giàPresente = idDestinatario != null &&
+                        (ruoloConferenzaDao.getByRuoloUtenteAndConferenza(Ruolo.Editor,idDestinatario, idConferenza) != null);
 
-                boolean giàPresente = !ruoloConferenzaDao.getByUtenteAndConferenza(idDestinatario, idConferenza).isEmpty();
 
                 if (giàPresente) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);

@@ -164,7 +164,7 @@ public class InvitaRevisoriControl implements ControlledScreen {
                 Integer idDestinatario = utenteDao.getIdByEmail(email); // può essere null
 
                 boolean giàPresente = idDestinatario != null &&
-                        !ruoloConferenzaDao.getByUtenteAndConferenza(idDestinatario, idConferenza).isEmpty();
+                        (ruoloConferenzaDao.getByRuoloUtenteAndConferenza(Ruolo.Revisore,idDestinatario, idConferenza) != null);
 
                 if (giàPresente) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
