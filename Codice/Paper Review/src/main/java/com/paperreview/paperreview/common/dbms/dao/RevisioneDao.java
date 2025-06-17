@@ -2,10 +2,7 @@ package com.paperreview.paperreview.common.dbms.dao;
 
 import com.paperreview.paperreview.entities.RevisioneEntity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,34 +14,39 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
 
     @Override
     protected String getInsertQuery() {
-        return "INSERT INTO " + tableName + " (testo, valutazione, data_sottomissione, ref_utente, ref_paper, commento_chair) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        return "INSERT INTO " + tableName + " (ref_utente, ref_paper) VALUES (?, ?)";
     }
 
     @Override
     protected void prepareInsert(PreparedStatement stmt, RevisioneEntity revisione) throws SQLException {
-        stmt.setString(1, revisione.getTesto());
-        stmt.setInt(2, revisione.getValutazione());
-        stmt.setObject(3, revisione.getDataSottomissione());
-        stmt.setInt(4, revisione.getRefUtente());
-        stmt.setInt(5, revisione.getRefPaper());
-        stmt.setString(6, revisione.getCommentoChair());
+        stmt.setInt(1, revisione.getRefUtente());
+        stmt.setInt(2, revisione.getRefPaper());
     }
 
     @Override
     protected String getUpdateQuery() {
-        return "UPDATE " + tableName + " SET testo = ?, valutazione = ?, data_sottomissione = ?, ref_utente = ?, ref_paper = ?, commento_chair = ? " +
+        return "UPDATE " + tableName + " SET " +
+                "testo = ?, " +
+                "valutazione = ?, " +
+                "data_sottomissione = ?, " +
+                "commento_chair = ?, " +
+                "punti_forza = ?, " +
+                "punti_debolezza = ? " +
                 "WHERE " + idColumn + " = ?";
     }
 
     @Override
     protected void prepareUpdate(PreparedStatement stmt, RevisioneEntity revisione) throws SQLException {
         stmt.setString(1, revisione.getTesto());
-        stmt.setInt(2, revisione.getValutazione());
+        if (revisione.getValutazione() != 0) {
+            stmt.setInt(2, revisione.getValutazione());
+        } else {
+            stmt.setNull(2, Types.INTEGER);
+        }
         stmt.setObject(3, revisione.getDataSottomissione());
-        stmt.setInt(4, revisione.getRefUtente());
-        stmt.setInt(5, revisione.getRefPaper());
-        stmt.setString(6, revisione.getCommentoChair());
+        stmt.setString(4, revisione.getCommentoChair());
+        stmt.setString(5, revisione.getPuntiForza());
+        stmt.setString(6, revisione.getPuntiDebolezza());
         stmt.setInt(7, revisione.getId());
     }
 
@@ -58,11 +60,13 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         return new RevisioneEntity(
                 rs.getInt("id_revisione"),
                 rs.getString("testo"),
-                rs.getInt("valutazione"),
+                rs.getObject("valutazione") != null ? rs.getInt("valutazione") : null,
                 rs.getObject("data_sottomissione", java.time.LocalDateTime.class),
+                rs.getString("punti_forza"),
+                rs.getString("punti_debolezza"),
+                rs.getString("commento_chair"),
                 rs.getInt("ref_utente"),
-                rs.getInt("ref_paper"),
-                rs.getString("commento_chair")  // <- nuovo campo
+                rs.getInt("ref_paper")
         );
     }
 
@@ -96,23 +100,19 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
 
     public double getAverageScore(int idPaper) throws SQLException {
         String query = "SELECT AVG(valutazione) FROM " + tableName + " WHERE ref_paper = ?";
-
-        double result = 0;
-
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, idPaper);
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    result = rs.getDouble(1);
+                if (rs.next()) {
+                    return rs.getDouble(1);
                 }
             }
         }
-
-        return result;
+        return 0.0;
     }
 
     public void removeAllByPaper(int paperId) throws SQLException {
-        String query = "DELETE FROM Revisione WHERE ref_paper = ?";
+        String query = "DELETE FROM " + tableName + " WHERE ref_paper = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, paperId);
             stmt.executeUpdate();

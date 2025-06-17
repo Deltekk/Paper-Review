@@ -5,27 +5,41 @@ import java.util.Objects;
 
 public class RevisioneEntity extends BaseEntity {
     private int idRevisione;
+
+    // Campi opzionali (possono essere null)
     private String testo;
-    private int valutazione;
+    private Integer valutazione;
     private LocalDateTime dataSottomissione;
+    private String puntiForza;
+    private String puntiDebolezza;
+    private String commentoChair;
+
+    // Campi obbligatori
     private int refUtente;
     private int refPaper;
-    private String commentoChair; // <- nuovo campo
 
-    private String puntiForza, puntiDebolezza;
+    // 🔹 Costruttore base: solo campi obbligatori (refUtente e refPaper)
+    public RevisioneEntity(int refUtente, int refPaper) {
+        this.refUtente = refUtente;
+        this.refPaper = refPaper;
+    }
 
-    // Costruttore completo
-    public RevisioneEntity(int idRevisione, String testo, int valutazione, LocalDateTime dataSottomissione, int refUtente, int refPaper, String commentoChair) {
+    // 🔸 Costruttore completo: tutti i campi
+    public RevisioneEntity(int idRevisione, String testo, Integer valutazione, LocalDateTime dataSottomissione,
+                           String puntiForza, String puntiDebolezza, String commentoChair,
+                           int refUtente, int refPaper) {
         this.idRevisione = idRevisione;
         this.testo = testo;
         this.valutazione = valutazione;
         this.dataSottomissione = dataSottomissione;
+        this.puntiForza = puntiForza;
+        this.puntiDebolezza = puntiDebolezza;
+        this.commentoChair = commentoChair;
         this.refUtente = refUtente;
         this.refPaper = refPaper;
-        this.commentoChair = commentoChair;
     }
 
-    // Costruttore base senza ID (es. per insert preliminare)
+    // Costruttore vuoto
     public RevisioneEntity() {}
 
     @Override
@@ -45,11 +59,11 @@ public class RevisioneEntity extends BaseEntity {
         this.testo = testo;
     }
 
-    public int getValutazione() {
+    public Integer getValutazione() {
         return valutazione;
     }
 
-    public void setValutazione(int valutazione) {
+    public void setValutazione(Integer valutazione) {
         this.valutazione = valutazione;
     }
 
@@ -59,30 +73,6 @@ public class RevisioneEntity extends BaseEntity {
 
     public void setDataSottomissione(LocalDateTime dataSottomissione) {
         this.dataSottomissione = dataSottomissione;
-    }
-
-    public int getRefUtente() {
-        return refUtente;
-    }
-
-    public void setRefUtente(int refUtente) {
-        this.refUtente = refUtente;
-    }
-
-    public int getRefPaper() {
-        return refPaper;
-    }
-
-    public void setRefPaper(int refPaper) {
-        this.refPaper = refPaper;
-    }
-
-    public String getCommentoChair() {
-        return commentoChair;
-    }
-
-    public void setCommentoChair(String commentoChair) {
-        this.commentoChair = commentoChair;
     }
 
     public String getPuntiForza() {
@@ -101,6 +91,30 @@ public class RevisioneEntity extends BaseEntity {
         this.puntiDebolezza = puntiDebolezza;
     }
 
+    public String getCommentoChair() {
+        return commentoChair;
+    }
+
+    public void setCommentoChair(String commentoChair) {
+        this.commentoChair = commentoChair;
+    }
+
+    public int getRefUtente() {
+        return refUtente;
+    }
+
+    public void setRefUtente(int refUtente) {
+        this.refUtente = refUtente;
+    }
+
+    public int getRefPaper() {
+        return refPaper;
+    }
+
+    public void setRefPaper(int refPaper) {
+        this.refPaper = refPaper;
+    }
+
     @Override
     public String toString() {
         return "RevisioneEntity{" +
@@ -108,17 +122,19 @@ public class RevisioneEntity extends BaseEntity {
                 ", testo='" + testo + '\'' +
                 ", valutazione=" + valutazione +
                 ", dataSottomissione=" + dataSottomissione +
+                ", puntiForza='" + puntiForza + '\'' +
+                ", puntiDebolezza='" + puntiDebolezza + '\'' +
+                ", commentoChair='" + commentoChair + '\'' +
                 ", refUtente=" + refUtente +
                 ", refPaper=" + refPaper +
-                ", commentoChair='" + commentoChair + '\'' +
                 '}';
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        RevisioneEntity that = (RevisioneEntity) obj;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RevisioneEntity)) return false;
+        RevisioneEntity that = (RevisioneEntity) o;
         return idRevisione == that.idRevisione &&
                 refUtente == that.refUtente &&
                 refPaper == that.refPaper;

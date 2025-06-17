@@ -211,17 +211,6 @@ public class InvitaChairControl implements ControlledScreen {
             }
         }
 
-        //  TODO: Gestire logica di chiamata al DB per salvare i chair invitati e andare avanti
-        /*  TODO - Dobbiamo:
-                - Inserire l'invito nel DB
-                - Recapitare la mail ad ogni chair
-                - Recapitare la notifica ad ogni chair (teoricamente dovrebbe essere la stessa cosa di invitarlo i guess)
-                - Bisogna anche mostrare un errore se un determinato chair fa già parte della conferenza come chair,
-                  premere ok e poi continua con il resto dei chair (qui ti consiglio di usare la classe Alert)
-            ℹ️  Se hai bisogno di prendere l'id della conferenza corrente puoi usare UserContext.getConferenza che ti ritorna la entity e da li ti prendi l'id
-                stessa cosa vale per l'id dell'utente. Ti ricordo inoltre che qui hai l'array emails che sono tutti i cristiani che dobbiamo invitare
-         */
-
         if(UserContext.isStandaloneInteraction()){
             mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenzeBoundary.fxml");
         }
