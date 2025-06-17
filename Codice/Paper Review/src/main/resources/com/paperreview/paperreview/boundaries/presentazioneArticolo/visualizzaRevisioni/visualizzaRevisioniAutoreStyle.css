@@ -1,0 +1,32 @@
+.scrollPane{
+    -fx-background-color: transparent;
+    -fx-padding: 50;
+}
+
+.trasparente{
+    -fx-background-color: transparent;
+}
+
+.viewport{
+    -fx-background-color: transparent;
+}
+
+.revisione-card{
+    -fx-padding: 25;
+    -fx-background-radius: 25;     /* bordi arrotondati */
+}
+
+.green-button{
+    -fx-pref-width: 360;
+    -fx-alignment: center;
+}
+
+.grid-button-single{
+    -fx-pref-width: 360;
+    -fx-alignment: center;
+}
+
+.grid-button-double{
+    -fx-pref-width: 720;
+    -fx-alignment: center;
+}

@@ -5,12 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaSottomissioniControl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaSottomissioni/visualizzaSottomissioniBoundary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaSottomissioni/visualizzaSottomissioniStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaRevisioniAutoreControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaRevisioni/visualizzaRevisioniAutoreBoundary.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaRevisioni/visualizzaRevisioniAutoreStyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/CustomDateParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/CustomDateParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaSchermataSottomissioniControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaSchermataSottomissioniControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/UserContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/common/UserContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/VisualizzaPapersChairControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/VisualizzaPapersChairControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaSottomissioniControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaSottomissioniControl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +25,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="FxmlFile" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -277,7 +278,7 @@
       <workItem from="1749980026315" duration="43859000" />
       <workItem from="1750062565569" duration="25099000" />
       <workItem from="1750108141360" duration="14672000" />
-      <workItem from="1750159792479" duration="8857000" />
+      <workItem from="1750159792479" duration="11477000" />
     </task>
     <servers />
   </component>

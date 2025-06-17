@@ -13,6 +13,9 @@ public class UserContext {
     private static ConferenzaEntity conferenzaAttuale;
     private static boolean standaloneInteraction;
 
+    private static PaperEntity paperAttuale;
+    private static RevisioneEntity revisioneCorrente;
+
     public static void setUtente(UtenteEntity utente) {
         UserContext.utente = utente;
     }
@@ -45,9 +48,6 @@ public class UserContext {
         UserContext.standaloneInteraction = standaloneInteraction;
     }
 
-    private static PaperEntity paperAttuale;
-    private static List<RevisioneEntity> revisioniCorrenti;
-
     public static PaperEntity getPaperAttuale() {
         return paperAttuale;
     }
@@ -56,11 +56,11 @@ public class UserContext {
         paperAttuale = paper;
     }
 
-    public static List<RevisioneEntity> getRevisioniCorrenti() {
-        return revisioniCorrenti;
+    public static RevisioneEntity getRevisioneCorrente() {
+        return revisioneCorrente;
     }
 
-    public static void setRevisioniCorrenti(List<RevisioneEntity> revisioni) {
-        revisioniCorrenti = revisioni;
+    public static void setRevisioneCorrente(RevisioneEntity revisioni) {
+        revisioneCorrente = revisioni;
     }
 }

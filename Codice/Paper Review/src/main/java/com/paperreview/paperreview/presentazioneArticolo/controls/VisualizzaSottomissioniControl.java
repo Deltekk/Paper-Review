@@ -4,7 +4,6 @@ import com.paperreview.paperreview.common.CustomDateParser;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.PaperDao;
-import com.paperreview.paperreview.common.dbms.dao.TopicDao;
 import com.paperreview.paperreview.common.dbms.dao.TopicPaperDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
@@ -26,7 +25,6 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.sql.Connection;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -209,7 +207,7 @@ public class VisualizzaSottomissioniControl implements ControlledScreen {
     public void handleVisualizzaRevisioni(PaperEntity paper)
     {
         UserContext.setPaperAttuale(paper);
-        mainControl.setView("/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaRevisioni/visualizzaRevisioniBoundary.fxml");
+        mainControl.setView("/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaRevisioni/visualizzaRevisioniAutoreBoundary.fxml");
     }
 
 }
