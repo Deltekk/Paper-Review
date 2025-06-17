@@ -43,4 +43,7 @@ module com.paperreview.paperreview {
     opens com.paperreview.paperreview.gestioneRevisioni.controls to javafx.fxml;
     exports com.paperreview.paperreview.gestioneRevisioni.forms;
     opens com.paperreview.paperreview.gestioneRevisioni.forms to javafx.fxml;
+
+    exports com.paperreview.paperreview.gestionePaperDefinitivi.controls;
+    opens com.paperreview.paperreview.gestionePaperDefinitivi.controls to javafx.fxml;
 }

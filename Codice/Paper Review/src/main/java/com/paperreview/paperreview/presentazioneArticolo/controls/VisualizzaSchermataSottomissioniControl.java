@@ -22,7 +22,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -45,12 +44,12 @@ public class VisualizzaSchermataSottomissioniControl implements ControlledScreen
             UserContext.setStandaloneInteraction(false);
 
             ConferenzaDao conferenzaDao = new ConferenzaDao(DBMSBoundary.getConnection());
-            List<ConferenzaEntity> conferenze = conferenzaDao.getAllWhereAutore(UserContext.getUtente().getId());
+            List<ConferenzaEntity> conferenze = conferenzaDao.getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Autore);
 
             if(conferenze.isEmpty())
             {
-                Label testo = new Label("Non hai ancora creato delle conferenze!");
-                testo.getStyleClass().addAll("font-bold", "text-rosso", "h5");
+                Label testo = new Label("Non hai ancora partecipato a delle conferenze!");
+                testo.getStyleClass().addAll("font-bold", "text-rosso", "h5", "centra");
                 testo.setWrapText(true);
                 testo.setPrefWidth(500);
                 testo.setAlignment(Pos.CENTER);
@@ -142,6 +141,7 @@ public class VisualizzaSchermataSottomissioniControl implements ControlledScreen
 
     public void handleRitirati(ConferenzaEntity conferenza,  VBox boxConferenza)
     {
+        UserContext.setConferenzaAttuale(null);
 
         // Controlla se la data di scadenza per la sottomissione è già passata
         if (LocalDate.now().isAfter(conferenza.getScadenzaSottomissione().toLocalDate())) {

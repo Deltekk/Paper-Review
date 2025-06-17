@@ -144,7 +144,7 @@ public class MainControl {
     }
 
     public void handleEditing(){
-        setView("/com/paperreview/paperreview/boundaries/editing/editingBoundary.fxml");
+        setView("/com/paperreview/paperreview/boundaries/gestionePaperDefinitivi/editing/editingBoundary.fxml");
     }
 
     public void hanleInserisciInvito(){

@@ -182,6 +182,7 @@ public class SottomettiArticoloControl implements ControlledScreen {
 
         // ⚠️⚠️⚠️️ DIEGO USA QUESTA -----> LLMBoundary.assegnaParoleChiave(Path pdfPath, List<TopicEntity> listaParoleChiave);
         // ⚠️⚠️⚠️️ hai già allTopics per le topicEntity, glie le devi passare perché si aspetta quelle.
+        // ⚠️⚠️⚠️ se hai bisogno della conferenza attuale prendila da UserContext.getConferenzaAttuale()
 
         System.out.println("Genera Topics");
     }

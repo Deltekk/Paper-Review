@@ -3,6 +3,7 @@ package com.paperreview.paperreview.common.dbms.dao;
 import com.paperreview.paperreview.entities.ConferenzaEntity;
 import com.paperreview.paperreview.entities.MetodoAssegnazione;
 import com.paperreview.paperreview.entities.MetodoValutazione;
+import com.paperreview.paperreview.entities.Ruolo;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -72,12 +73,13 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
         return results;
     }
 
-    public List<ConferenzaEntity> getAllWhereAutore(int ref_autore){
+    public List<ConferenzaEntity> getAllByIdAndRuolo(int ref_utente, Ruolo ruolo){
         List<ConferenzaEntity> results = new ArrayList<>();
-        String query = "SELECT * FROM " + tableName + " WHERE data_conferenza > ? AND id_conferenza IN (SELECT ref_conferenza FROM Ruolo_conferenza WHERE ruolo = 'Autore' AND ref_utente = ?) ORDER BY data_conferenza";
+        String query = "SELECT * FROM " + tableName + " WHERE data_conferenza > ? AND id_conferenza IN (SELECT ref_conferenza FROM Ruolo_conferenza WHERE ruolo = ? AND ref_utente = ?) ORDER BY data_conferenza";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now())); // Imposta la data attuale
-            stmt.setInt(2, ref_autore); // Imposta la data attuale
+            stmt.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setString(2, ruolo.toString());
+            stmt.setInt(3, ref_utente);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     results.add(mapRow(rs)); // Aggiungi ogni riga trovata
@@ -89,6 +91,8 @@ public class ConferenzaDao extends BaseDao<ConferenzaEntity> {
 
         return results;
     }
+
+
 
     @Override
     protected String getInsertQuery() {

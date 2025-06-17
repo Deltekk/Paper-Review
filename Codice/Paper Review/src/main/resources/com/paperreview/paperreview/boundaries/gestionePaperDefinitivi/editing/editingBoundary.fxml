@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.paperreview.paperreview.gestionePaperDefinitivi.controls.EditingControl"
+            prefWidth="1280" prefHeight="720" maxHeight="Infinity" maxWidth="Infinity"
+            stylesheets="@editingStyle.css"
+            styleClass="quadrettoni"
+            fitToWidth="true">
+
+    <content>
+
+        <VBox alignment="CENTER" styleClass="padded">
+            <Label text="EDITING" styleClass="h1, text-blu-scuro, font-bold, centra" textAlignment="CENTER" alignment="CENTER"/>
+            <FlowPane fx:id="conferenzeContainer" styleClass="conferenze-container" hgap="30" vgap="30" prefWrapLength="1200" alignment="CENTER">
+                <!-- Le card saranno aggiunte dinamicamente dal controller -->
+            </FlowPane>
+        </VBox>
+
+    </content>
+
+</ScrollPane>
+
