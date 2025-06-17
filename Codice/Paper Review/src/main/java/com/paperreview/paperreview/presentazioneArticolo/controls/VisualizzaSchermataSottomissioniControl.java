@@ -129,6 +129,20 @@ public class VisualizzaSchermataSottomissioniControl implements ControlledScreen
 
     public void handleSottometti(ConferenzaEntity conferenza)
     {
+
+        // Controlla se siamo in periodo di sottomissione
+        if(LocalDate.now().isAfter(conferenza.getScadenzaSottomissione().toLocalDate())) {
+            Alert expiredAlert = new Alert(Alert.AlertType.WARNING);
+            expiredAlert.setTitle("Operazione non consentita");
+            expiredAlert.setHeaderText("Data di sottomissione superata!");
+            expiredAlert.setContentText(String.format(
+                    "Non è più possibile pubblicare nuovi papers, la scadenza era prevista per giorno \"%s\".",
+                    conferenza.getScadenzaSottomissione()
+            ));
+            expiredAlert.showAndWait();
+            return;
+        }
+
         UserContext.setConferenzaAttuale(conferenza);
         mainControl.setView("/com/paperreview/paperreview/boundaries/presentazioneArticolo/sottomettiArticolo/sottomettiArticoloBoundary.fxml");
     }
