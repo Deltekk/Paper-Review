@@ -8,8 +8,8 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.paperreview.paperreview.presentazioneArticolo.controls.VisualizzaRevisioniAutoreControl"
-            stylesheets="@visualizzaRevisioniAutoreStyle.css"
+            fx:controller="com.paperreview.paperreview.gestioneRevisioni.controls.VisualizzaRevisioniControl"
+            stylesheets="@visualizzaRevisioniStyle.css"
             prefHeight="400.0" prefWidth="600.0">
 
     <VBox spacing="20" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" styleClass="quadrettoni" alignment="TOP_CENTER">

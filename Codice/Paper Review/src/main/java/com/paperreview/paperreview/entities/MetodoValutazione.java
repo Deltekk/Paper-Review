@@ -15,6 +15,10 @@ public enum MetodoValutazione {
         return valoreDb;
     }
 
+    public int getLimite() {
+        return Integer.parseInt(valoreDb);
+    }
+
     public static MetodoValutazione fromString(String value) {
         for (MetodoValutazione m : MetodoValutazione.values()) {
             if (m.valoreDb.equals(value.trim())) {

@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.presentazioneArticolo.controls;
+package com.paperreview.paperreview.gestioneRevisioni.controls;
 
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
@@ -21,7 +21,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import java.sql.Connection;
 import java.util.List;
 
-public class VisualizzaRevisioniAutoreControl implements ControlledScreen {
+public class VisualizzaRevisioniControl implements ControlledScreen {
 
     @FXML
     private VBox revisioniContainer;
@@ -128,7 +128,7 @@ public class VisualizzaRevisioniAutoreControl implements ControlledScreen {
     public void handleVisualizzaDettagli(RevisioneEntity revisione)
     {
         UserContext.setRevisioneCorrente(revisione);
-        mainControl.setView("/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaRevisione/visualizzaRevisioneBoundary.fxml");
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaRevisione/visualizzaRevisioneBoundary.fxml");
     }
 
 }

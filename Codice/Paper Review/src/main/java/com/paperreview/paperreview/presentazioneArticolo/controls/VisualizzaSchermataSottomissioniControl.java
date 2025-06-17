@@ -105,7 +105,7 @@ public class VisualizzaSchermataSottomissioniControl implements ControlledScreen
         /* BOTTONI */
 
         Button sottometti = new Button("Sottometti");
-        Button visualizzaSottomissioni = new Button("Visualizza sottomissioni");
+        Button visualizzaSottomissioni = new Button("Visualizza Sottomissioni");
         Button ritirati = new Button("Ritirati");
 
         sottometti.getStyleClass().addAll("green-button");

@@ -12,6 +12,8 @@ public class RevisioneEntity extends BaseEntity {
     private int refPaper;
     private String commentoChair; // <- nuovo campo
 
+    private String puntiForza, puntiDebolezza;
+
     // Costruttore completo
     public RevisioneEntity(int idRevisione, String testo, int valutazione, LocalDateTime dataSottomissione, int refUtente, int refPaper, String commentoChair) {
         this.idRevisione = idRevisione;
@@ -81,6 +83,22 @@ public class RevisioneEntity extends BaseEntity {
 
     public void setCommentoChair(String commentoChair) {
         this.commentoChair = commentoChair;
+    }
+
+    public String getPuntiForza() {
+        return puntiForza;
+    }
+
+    public void setPuntiForza(String puntiForza) {
+        this.puntiForza = puntiForza;
+    }
+
+    public String getPuntiDebolezza() {
+        return puntiDebolezza;
+    }
+
+    public void setPuntiDebolezza(String puntiDebolezza) {
+        this.puntiDebolezza = puntiDebolezza;
     }
 
     @Override

@@ -401,11 +401,59 @@ formsfx-group{
     -fx-border-color: transparent; /* Imposto colore trasparente */
 }
 
-
 .no-border{
     border: none;
     -fx-border-color: transparent; /* Imposto colore trasparente */
 }
+
+.read-only-label{
+    -fx-wrap-text: true;
+    -fx-background-color: #fAfAfA;
+    -fx-background-radius: 12;
+    -fx-label-padding: 5;
+    -fx-pref-width: Infinity;
+    -fx-max-width: Infinity;
+}
+
+.simple-control > .label{
+    -fx-wrap-text: true;
+}
+
+.slider {
+    -fx-control-inner-background: #e0f7fa;
+    -fx-show-tick-labels: true;
+    -fx-show-tick-marks: true;
+    -fx-opacity: 1.0; /* Rimuove trasparenza */
+}
+
+.slider:disabled{
+    -fx-opacity: 1.0; /* Rimuove trasparenza */
+    -fx-show-tick-labels: true;
+    -fx-show-tick-marks: true;
+}
+
+.slider .track {
+    -fx-background-color: #ffffff44;
+    -fx-background-radius: 5;
+    -fx-padding: 4;
+}
+
+.slider .thumb {
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 3, 0.0, 0, 1);
+}
+
+.slider:disabled .thumb {
+    -fx-opacity: 0.5;
+}
+
+/* Colore dell'asse */
+.slider .axis {
+    -fx-tick-label-fill: white;
+    -fx-tick-mark-stroke: white;
+    -fx-font-weight: 700;
+}
+
 
 /* Imposta il font globale per tutta l'app */
 .root {

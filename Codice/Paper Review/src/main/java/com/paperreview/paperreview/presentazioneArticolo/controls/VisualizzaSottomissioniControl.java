@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -31,8 +32,7 @@ import java.util.stream.Collectors;
 
 public class VisualizzaSottomissioniControl implements ControlledScreen {
 
-    @FXML
-    private VBox papersContainer;
+    @FXML private VBox papersContainer;
 
     @FXML private Label conferenzaLabel;
 
@@ -207,7 +207,7 @@ public class VisualizzaSottomissioniControl implements ControlledScreen {
     public void handleVisualizzaRevisioni(PaperEntity paper)
     {
         UserContext.setPaperAttuale(paper);
-        mainControl.setView("/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaRevisioni/visualizzaRevisioniAutoreBoundary.fxml");
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaRevisioni/visualizzaRevisioniBoundary.fxml");
     }
 
 }
