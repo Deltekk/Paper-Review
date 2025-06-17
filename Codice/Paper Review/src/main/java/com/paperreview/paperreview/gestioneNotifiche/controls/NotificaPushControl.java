@@ -6,16 +6,11 @@ import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
 import com.paperreview.paperreview.common.dbms.dao.NotificaDao;
 import com.paperreview.paperreview.entities.InvitoEntity;
 import com.paperreview.paperreview.entities.NotificaEntity;
-import javafx.animation.FadeTransition;
+import com.paperreview.paperreview.entities.NotificaPush;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.util.Duration;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -39,11 +34,12 @@ public class NotificaPushControl {
 
     private static boolean timerAvviato = false;
     private static final Set<Integer> notificati = new HashSet<>();
-    private static final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    private static ScheduledExecutorService scheduler;
 
-    public static void avviaNotificheSeNonAttive(Pane rootPane) {
+    public static void avviaNotifichePush() {
         if (timerAvviato) return;
         timerAvviato = true;
+        scheduler = Executors.newSingleThreadScheduledExecutor();
 
         scheduler.scheduleAtFixedRate(() -> {
             try {
@@ -70,7 +66,7 @@ public class NotificaPushControl {
 
                 Platform.runLater(() -> {
                     for (String messaggio : daMostrare) {
-                        mostraOverlay(rootPane, "Notifica", messaggio);
+                        new NotificaPush("Hai una nuova notifica!", messaggio).visualizza();
                     }
                 });
 
@@ -80,33 +76,13 @@ public class NotificaPushControl {
         }, 0, 15, TimeUnit.SECONDS);
     }
 
-    private static void mostraOverlay(Pane parentPane, String titolo, String messaggio) {
-        try {
-            FXMLLoader loader = new FXMLLoader(NotificaPushControl.class.getResource(
-                    "/com/paperreview/paperreview/boundaries/gestioneNotifiche/notificaPush/notificaPushBoundary.fxml"));
-            Parent popup = loader.load();
+    public static void fermaNotifichePush() {
+        if (!timerAvviato) return;
 
-            NotificaPushControl control = loader.getController();
-            control.setTitle(titolo);
-            control.setMessage(messaggio);
-
-            popup.setOpacity(0);
-            parentPane.getChildren().add(popup);
-
-            FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), popup);
-            fadeIn.setFromValue(0);
-            fadeIn.setToValue(1);
-            fadeIn.play();
-
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.runLater(() -> parentPane.getChildren().remove(popup));
-                }
-            }, 4000);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        scheduler.shutdownNow(); // Ferma immediatamente il task periodico
+        scheduler = null;
+        timerAvviato = false;
     }
+
+
 }

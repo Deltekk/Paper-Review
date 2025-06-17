@@ -21,7 +21,7 @@ public class RegistrazioneFormModel {
 
     // email con validazione built-in e regex personalizzata
     private StringField email = Field.ofStringType("")
-            .label("email")
+            .label("Email")
             .placeholder("Inserisci la tua email")
             .styleClass("form-field")
             .validate(

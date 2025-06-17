@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.gestioneRevisioni;
+package com.paperreview.paperreview.gestioneRevisioni.controls;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
@@ -9,6 +9,7 @@ import com.paperreview.paperreview.common.dbms.dao.TopicUtenteDao;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.TopicEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
+import com.paperreview.paperreview.gestioneRevisioni.forms.TopicFormModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,7 +25,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Set;
-import java.util.HashSet;
 
 public class ModificaTopicControl implements ControlledScreen {
 

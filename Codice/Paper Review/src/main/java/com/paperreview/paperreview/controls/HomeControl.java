@@ -53,10 +53,6 @@ public class HomeControl implements ControlledScreen {
         caricaConferenze();
     }
 
-    public void avviaNotifichePush() {
-        NotificaPushControl.avviaNotificheSeNonAttive(mainControl.getRootPane());
-    }
-
     private void caricaConferenze(){
         try{
             ConferenzaDao conferenzaDao = new ConferenzaDao(DBMSBoundary.getConnection());

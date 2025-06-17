@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.gestioneRevisioni;
+package com.paperreview.paperreview.gestioneRevisioni.forms;
 
 import com.dlsc.formsfx.model.structure.*;
 import com.dlsc.formsfx.model.validators.CustomValidator;

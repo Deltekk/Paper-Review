@@ -7,6 +7,7 @@ import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.UtenteEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
+import com.paperreview.paperreview.gestioneNotifiche.controls.NotificaPushControl;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -100,6 +101,8 @@ public class LoginControl implements ControlledScreen {
             System.out.println("Login riuscito: " + utente.toString());
 
             mainControl.setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
+
+            NotificaPushControl.avviaNotifichePush();
 
         } catch (SQLException e) {
             e.printStackTrace();

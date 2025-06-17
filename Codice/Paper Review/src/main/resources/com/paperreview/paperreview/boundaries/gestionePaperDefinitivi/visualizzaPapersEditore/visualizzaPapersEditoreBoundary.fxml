@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.paperreview.paperreview.gestionePaperDefinitivi.controls.VisualizzaPapersEditoreControl"
+            stylesheets="@visualizzaPapersEditoreStyle.css"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox spacing="20" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" styleClass="quadrettoni" alignment="TOP_CENTER">
+        <ScrollPane fitToWidth="true" styleClass="scrollPane">
+            <content>
+                <VBox spacing="20" alignment="CENTER" styleClass="trasparente">
+
+                    <Label text="VISUALIZZA PAPERS" styleClass="h1, text-blu-scuro, font-bold"/>
+                    <Label fx:id="conferenzaLabel" styleClass="p, text-blu-scuro, font-bold"/>
+
+                    <VBox fx:id="papersContainer" spacing="10" styleClass="papersContainer" alignment="CENTER" />
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </VBox>
+
+</AnchorPane>
