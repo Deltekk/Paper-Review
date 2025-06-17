@@ -3,20 +3,27 @@ package com.paperreview.paperreview.gestionePaperDefinitivi.controls;
 import com.paperreview.paperreview.common.CustomDateParser;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.dao.ConferenzaDao;
 import com.paperreview.paperreview.common.dbms.dao.PaperDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.entities.ConferenzaEntity;
 import com.paperreview.paperreview.entities.PaperEntity;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class VisualizzaPapersEditoreControl implements ControlledScreen {
@@ -110,9 +117,61 @@ public class VisualizzaPapersEditoreControl implements ControlledScreen {
         return card;
     }
 
-    public void handleScaricaPaper(PaperEntity paper)
-    {
-        // TODO: implementare scarica paper
+    public void handleScaricaPaper(PaperEntity paper) {
+        if (paper == null) {
+            mostraErrore("Errore: nessun paper selezionato.");
+            return;
+        }
+
+        try {
+            // 5. Data attuale
+            LocalDateTime now = LocalDateTime.now();
+
+            // 6–7. Date di inizio e fine scaricamento
+            ConferenzaDao conferenzaDao = new ConferenzaDao(DBMSBoundary.getConnection());
+            ConferenzaEntity conferenza = conferenzaDao.getById(paper.getRefConferenza());
+
+            if (conferenza == null) {
+                mostraErrore("Errore: conferenza non trovata.");
+                return;
+            }
+
+            LocalDateTime inizioScaricamento = conferenza.getScadenzaSottomissione2();
+            LocalDateTime fineScaricamento = conferenza.getScadenzaEditing();
+
+            // 8–10: Controlli
+            if (now.isBefore(inizioScaricamento)) {
+                mostraErrore("Errore: non è ancora possibile scaricare il paper");
+                return;
+            }
+
+            if (now.isAfter(fineScaricamento)) {
+                mostraErrore("Errore: non puoi più scaricare il paper");
+                return;
+            }
+
+            // 9.1–9.2: Scaricamento del paper
+            byte[] file = paper.getFile(); // già presente nell'entità PaperEntity
+            String nomeFile = paper.getTitolo().replaceAll("[^a-zA-Z0-9_\\-]", "_") + ".pdf";
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Salva paper come");
+            fileChooser.setInitialFileName(nomeFile);
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF file", "*.pdf"));
+
+            File fileScelto = fileChooser.showSaveDialog(null); // puoi passare lo stage se ne hai uno
+
+            if (fileScelto != null) {
+                try (FileOutputStream out = new FileOutputStream(fileScelto)) {
+                    out.write(file);
+                    mostraConferma("Download completato con successo!", () -> {});
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostraErrore("Errore durante il download del paper.");
+        }
     }
 
     public void handleInviaFeedback(PaperEntity paper)
@@ -122,4 +181,20 @@ public class VisualizzaPapersEditoreControl implements ControlledScreen {
 
     }
 
+    private void mostraErrore(String messaggio) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Errore");
+        alert.setHeaderText(null);
+        alert.setContentText(messaggio);
+        alert.showAndWait();
+    }
+
+    private void mostraConferma(String messaggio, Runnable azioneDopoOk) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Conferma");
+        alert.setHeaderText(null);
+        alert.setContentText(messaggio);
+        alert.showAndWait();
+        azioneDopoOk.run();
+    }
 }
