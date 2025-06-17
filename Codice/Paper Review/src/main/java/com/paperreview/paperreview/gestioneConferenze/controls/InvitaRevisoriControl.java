@@ -91,18 +91,25 @@ public class InvitaRevisoriControl implements ControlledScreen {
     private void handleAddButton() {
         String nuovaEmail = invitaRevisoriForm.getEmail().trim().toLowerCase();
 
-        // Controllo se già esiste
-        if (emails.contains(nuovaEmail)) {
-            errorLabel.setText("Errore: Hai già inserito quest’email!");
+        // Controllo email vuota
+        if (nuovaEmail.isEmpty()) {
+            errorLabel.setText("Errore: Inserisci un'email valida!");
             errorLabel.setVisible(true);
             return;
         }
 
-        // Aggiunta email
-        emails.add(nuovaEmail);
-        errorLabel.setVisible(false); // nascondi eventuale errore
+        // Controllo se l'email è già presente
+        if (emails.contains(nuovaEmail)) {
+            errorLabel.setText("Errore: Hai già inserito quest'email!");
+            errorLabel.setVisible(true);
+            return;
+        }
 
-        // Crea card visuale
+        // Aggiunta dell'email alla lista
+        emails.add(nuovaEmail);
+        errorLabel.setVisible(false); // Nascondi eventuali errori precedenti
+
+        // Creazione della card visuale
         VBox card = new VBox();
         card.getStyleClass().addAll("chair-card", "bg-celeste");
         card.setSpacing(5);
@@ -127,7 +134,6 @@ public class InvitaRevisoriControl implements ControlledScreen {
         card.getChildren().addAll(labelEmail, rimuoviBtn);
         chairContainer.getChildren().add(card);
     }
-
 
     @FXML
     private void handleContinueButton() {

@@ -91,24 +91,25 @@ public class InvitaEditoriControl implements ControlledScreen {
     private void handleAddButton() {
         String nuovaEmail = invitaEditoriFormModel.getEmail().trim().toLowerCase();
 
-        // Controllo se già esiste
-        if (emails.contains(nuovaEmail)) {
-            errorLabel.setText("Errore: Hai già inserito quest’email!");
+        // Controllo email vuota
+        if (nuovaEmail.isEmpty()) {
+            errorLabel.setText("Errore: Inserisci un'email valida!");
             errorLabel.setVisible(true);
             return;
         }
 
-        if (emails.size() > 1){
-            errorLabel.setText("Errore: Puoi inserire un solo editore!");
+        // Controllo limite di un solo editore
+        if (emails.size() >= 1) {
+            errorLabel.setText("Errore: Puoi inserire un solo editore! Rimuovi prima quello già presente.");
             errorLabel.setVisible(true);
             return;
         }
 
-        // Aggiunta email
+        // Aggiunta dell'email
         emails.add(nuovaEmail);
-        errorLabel.setVisible(false); // nascondi eventuale errore
+        errorLabel.setVisible(false); // Nasconde eventuali errori precedenti
 
-        // Crea card visuale
+        // Creazione della card visuale
         VBox card = new VBox();
         card.getStyleClass().addAll("chair-card", "bg-celeste");
         card.setSpacing(5);
