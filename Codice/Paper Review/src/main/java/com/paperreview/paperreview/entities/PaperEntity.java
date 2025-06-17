@@ -25,6 +25,15 @@ public class PaperEntity extends BaseEntity {
         this.refUtente = refUtente;
         this.refConferenza = refConferenza;
     }
+    public PaperEntity(String titolo, String abstractPaper, byte[] file,
+                       LocalDateTime dataSottomissione, int refUtente, int refConferenza){
+        this.titolo = titolo;
+        this.abstractPaper = abstractPaper;
+        this.file = file;
+        this.dataSottomissione = dataSottomissione;
+        this.refUtente = refUtente;
+        this.refConferenza = refConferenza;
+    }
 
     @Override
     public int getId() { return id; }

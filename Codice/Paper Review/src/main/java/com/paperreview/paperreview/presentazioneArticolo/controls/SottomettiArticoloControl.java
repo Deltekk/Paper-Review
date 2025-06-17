@@ -4,23 +4,32 @@ import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.dao.CoAutoriPaperDao;
+import com.paperreview.paperreview.common.dbms.dao.PaperDao;
 import com.paperreview.paperreview.common.dbms.dao.TopicDao;
+import com.paperreview.paperreview.common.dbms.dao.TopicPaperDao;
+import com.paperreview.paperreview.common.email.EmailSender;
+import com.paperreview.paperreview.common.email.MailSottomissione;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.common.llm.LLMBoundary;
 import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.entities.PaperEntity;
 import com.paperreview.paperreview.entities.TopicEntity;
 import com.paperreview.paperreview.presentazioneArticolo.forms.SottomettiArticoloFormModel;
 import com.paperreview.paperreview.presentazioneArticolo.forms.SottomettiArticoloTopicFormModel;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
+import java.awt.print.Paper;
+import java.io.File;
+import java.nio.file.Files;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +56,6 @@ public class SottomettiArticoloControl implements ControlledScreen {
     public void initialize() {
         try {
             errorLabel.setVisible(false);
-            UserContext.setConferenzaAttuale(null);
             UserContext.setStandaloneInteraction(false);
 
             // 1. Form iniziale (autori, titolo, ecc.)
@@ -60,7 +68,7 @@ public class SottomettiArticoloControl implements ControlledScreen {
 
             form1.validProperty().addListener((obs, oldVal, newVal) -> {
                 form1Valid = newVal;
-                confirmButton.setDisable(!form1Valid || !form2Valid);
+                aggiornaStatoConferma();
             });
 
             // 2. Carica e mostra i topic con checkbox
@@ -70,7 +78,7 @@ public class SottomettiArticoloControl implements ControlledScreen {
             populateCheckBoxes(allTopics);
 
             form2Valid = false; // inizialmente invalid
-            confirmButton.setDisable(true);
+            aggiornaStatoConferma();
 
             // 3. Filtro
             searchField.textProperty().addListener((obs, oldVal, newVal) -> filterTopics(newVal));
@@ -110,7 +118,7 @@ public class SottomettiArticoloControl implements ControlledScreen {
     private void validateTopics() {
         long selectedCount = checkBoxes.stream().filter(CheckBox::isSelected).count();
         form2Valid = selectedCount >= 1;
-        confirmButton.setDisable(!form1Valid || !form2Valid);
+        aggiornaStatoConferma();
     }
 
     private void coautoreListener(ObservableValue<? extends Number> obs, Number oldVal, Number newVal) {
@@ -124,7 +132,7 @@ public class SottomettiArticoloControl implements ControlledScreen {
         form1Container.getChildren().setAll(updatedRenderer);
         updatedForm.validProperty().addListener((o, ov, nv) -> {
             form1Valid = nv;
-            confirmButton.setDisable(!form1Valid || !form2Valid);
+            aggiornaStatoConferma();
         });
         sottomettiArticoloForm.getNumeroCoautoriField().valueProperty().addListener(this::coautoreListener);
 
@@ -147,67 +155,172 @@ public class SottomettiArticoloControl implements ControlledScreen {
         });
     }
 
-    @FXML private void handleCaricaPDF() {
+    private File selectedPdfFile;
 
-        /*
-            TODO:
-                - Aprire una finestra per fare selezionare il PDF all'autore
-                - Immagazzinare la path in una variabile per poterlo utilizzare nell'assegnazione automatica con la LLM.
-                - Aggiornare la paperLabel (che trovi in basso) con il nome del file
-                - Disabilitare il pulsante conferma se il pdf non è stato ancora inserito o c'è stato un errore, da controllare anche nei listener dei form.
-                - MI RACCOMANDO DIEGO FAI I TEST DI TUTTO
-         */
-
-        System.out.println("Carica PDF");
-
-        // TODO: Modificare questa linea con il nome del file!
-        paperLabel.setText("Paper selezionato: \"NOME PAPER!\"");
-
+    private void aggiornaStatoConferma() {
+        boolean ready = form1Valid && form2Valid && (selectedPdfFile != null);
+        confirmButton.setDisable(!ready);
     }
 
-    @FXML private void handleGeneraTopics() {
+    @FXML
+    private void handleCaricaPDF() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleziona il PDF del paper");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("File PDF", "*.pdf")
+        );
 
+        File file = fileChooser.showOpenDialog(paperLabel.getScene().getWindow());
+
+        if (file != null && file.exists() && file.getName().toLowerCase().endsWith(".pdf")) {
+            selectedPdfFile = file;
+            paperLabel.setText("Paper selezionato: \"" + file.getName() + "\"");
+        } else {
+            selectedPdfFile = null;
+            paperLabel.setText("Nessun file PDF valido selezionato.");
+        }
+
+        aggiornaStatoConferma();  // aggiorna il confirmButton in base a tutti i criteri
+    }
+
+    @FXML
+    private void handleGeneraTopics() {
         errorLabel.setVisible(false);
 
-        // TODO: Fare controllo se è stato inserito il paper
+        if (selectedPdfFile == null) {
+            errorLabel.setText("Errore: Per generare i topics in automatico devi inserire il paper!");
+            errorLabel.setVisible(true);
+            return;
+        }
+
+        // Mostra "Generazione in corso..." e disabilita pulsante
+        errorLabel.setText("Generazione in corso...");
         errorLabel.setVisible(true);
-        errorLabel.setText("Errore: Per generare i topics in automatico devi inserire il paper!");
+        confirmButton.setDisable(true);
 
-        /*
-            TODO:
-                - Prendere il paper inserito e mandarlo all'API tramite LLM Boundary, LA CLASSE E' GIA FATTA DIEGO
-                - Gestire il caso nella quale la LLM non risponda bene, (tira un Exception) immagino semplicemente usando un popup che avverta l'utente dell'avvenuto errore.
-                - Aggiornare le checkbox ed assicurarsi che funzionino (DIEGO FAI I TEST, NON PUSHARE A CAZZO DI CANE)
-        */
+        // Esegui in background per non bloccare l'interfaccia
+        Task<List<String>> task = new Task<>() {
+            @Override
+            protected List<String> call() throws Exception {
+                return LLMBoundary.assegnaParoleChiave(selectedPdfFile.toPath(), allTopics);
+            }
+        };
 
-        // ⚠️⚠️⚠️️ DIEGO USA QUESTA -----> LLMBoundary.assegnaParoleChiave(Path pdfPath, List<TopicEntity> listaParoleChiave);
-        // ⚠️⚠️⚠️️ hai già allTopics per le topicEntity, glie le devi passare perché si aspetta quelle.
-        // ⚠️⚠️⚠️ se hai bisogno della conferenza attuale prendila da UserContext.getConferenzaAttuale()
+        task.setOnSucceeded(event -> {
+            List<String> nomiTopicSelezionati = task.getValue();
 
-        System.out.println("Genera Topics");
+            // Seleziona i checkbox corrispondenti
+            for (CheckBox cb : checkBoxes) {
+                TopicEntity topic = (TopicEntity) cb.getUserData();
+                // Se il topic è suggerito oppure già selezionato → lascialo selezionato
+                boolean giàSelezionato = cb.isSelected();
+                boolean suggerito = nomiTopicSelezionati.contains(topic.getNome());
+                cb.setSelected(giàSelezionato || suggerito);
+            }
+
+            validateTopics(); // aggiorna form2Valid
+            aggiornaStatoConferma(); // riattiva il pulsante se tutto valido
+
+            // Mostra popup con i topic trovati
+            String messaggio = String.join("\n• ", nomiTopicSelezionati);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Topic generati");
+            alert.setHeaderText("Questi sono i topic rilevati dal paper:");
+            alert.setContentText("• " + messaggio);
+            alert.showAndWait();
+
+            errorLabel.setVisible(false);
+            System.out.println("Topics generati: " + nomiTopicSelezionati);
+        });
+
+        task.setOnFailed(event -> {
+            errorLabel.setText("Errore durante la generazione automatica dei topics.");
+            errorLabel.setVisible(true);
+            aggiornaStatoConferma();
+
+            Throwable ex = task.getException();
+            System.err.println("Errore LLM: " + ex.getMessage());
+            ex.printStackTrace();
+        });
+
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
     }
 
-    @FXML private void handleConferma() {
+
+    @FXML
+    private void handleConferma() {
         errorLabel.setVisible(false);
 
+        // 🔒 Controllo: almeno un topic selezionato
         List<TopicEntity> selectedTopics = checkBoxes.stream()
                 .filter(CheckBox::isSelected)
                 .map(cb -> (TopicEntity) cb.getUserData())
                 .toList();
 
-        if (selectedTopics.size() < 1) {
+        if (selectedTopics.isEmpty()) {
             errorLabel.setText("Errore: devi selezionare almeno 1 topic!");
             errorLabel.setVisible(true);
             return;
         }
 
-        System.out.println("Hai selezionato i seguenti topic:");
-        for (TopicEntity topic : selectedTopics) {
-            System.out.println(" - " + topic.getNome());
+        // 🔒 Controllo: PDF caricato
+        if (selectedPdfFile == null) {
+            errorLabel.setText("Errore: devi caricare un file PDF valido!");
+            errorLabel.setVisible(true);
+            return;
         }
 
-        // TODO: salva articolo e topic associati
+        try {
+            // ✅ 1. Salva dati del form
+            sottomettiArticoloForm.salvaValoriCorrenti();
+            String titolo = sottomettiArticoloForm.getTitolo();
+            String abstractPaper = sottomettiArticoloForm.getAbstract();
+            List<String> coautori =sottomettiArticoloForm.getListaEmailCoautori();
 
-        mainControl.setView("/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaSchermataSottomissioni/visualizzaSchermataSottomissioniBoundary.fxml");
+            // ✅ 2. Costruisci PaperEntity
+            PaperEntity paper = new PaperEntity(titolo, abstractPaper,
+                    Files.readAllBytes(selectedPdfFile.toPath()), LocalDateTime.now(),
+                    UserContext.getUtente().getId(), UserContext.getConferenzaAttuale().getId());
+
+            // ✅ 3. Salva il paper nel DB
+            PaperDao paperDao = new PaperDao(DBMSBoundary.getConnection());
+            paperDao.save(paper); // ID generato automaticamente
+
+            int paperId = paper.getId();
+
+            // ✅ 4. Salva i coautori
+            CoAutoriPaperDao coAutoriDao = new CoAutoriPaperDao(DBMSBoundary.getConnection());
+            String titoloPaper = titolo;
+            String emailAutore = UserContext.getUtente().getEmail(); // oppure getUsername()
+            String nomeConferenza = UserContext.getConferenzaAttuale().getNome();
+
+            for (String email : coautori) {
+                coAutoriDao.addCoautoreToPaper(email, paperId);
+                EmailSender.sendEmail(new MailSottomissione(email, nomeConferenza, titoloPaper, emailAutore));
+            }
+
+            // ✅ 5. Salva i topic selezionati
+            TopicPaperDao topicPaperDao = new TopicPaperDao(DBMSBoundary.getConnection());
+            for (TopicEntity topic : selectedTopics) {
+                topicPaperDao.addTopicToPaper(topic.getId(), paperId);
+            }
+
+            // ✅ 6. Mostra conferma visiva
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Sottomissione completata");
+            alert.setHeaderText("Articolo sottomesso con successo!");
+            alert.setContentText("Riceverai aggiornamenti nella sezione delle tue sottomissioni.");
+            alert.showAndWait();
+
+            // ✅ 7. Vai alla schermata successiva
+            mainControl.setView("/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaSchermataSottomissioni/visualizzaSchermataSottomissioniBoundary.fxml");
+
+        } catch (Exception e) {
+            errorLabel.setText("Errore durante la sottomissione dell'articolo");
+            errorLabel.setVisible(true);
+            e.printStackTrace();
+        }
     }
 }

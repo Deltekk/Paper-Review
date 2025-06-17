@@ -113,4 +113,11 @@ public class SottomettiArticoloFormModel {
     public Integer getNumeroCoautori() {
         return numeroCoautoriField.getValue();
     }
+
+    public List<String> getListaEmailCoautori() {
+        return getEmailCoautoriFields().stream()
+                .map(field -> field.getValue())
+                .filter(email -> email != null && !email.isBlank())
+                .toList();
+    }
 }
