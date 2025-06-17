@@ -136,7 +136,7 @@ public class MainControl {
     }
 
     public void handleRevisioni(){
-        setView("/com/paperreview/paperreview/boundaries/revisioni/revisioniBoundary.fxml");
+        setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaSchermataRevisioni/visualizzaSchermataRevisioniBoundary.fxml");
     }
 
     public void handleSottomissioni(){

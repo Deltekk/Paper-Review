@@ -5,19 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/controls/VisualizzaRevisioneControl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/forms/VisualizzaRevisioneFormModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaRevisione/visualizzaRevisioneBoundary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaRevisione/visualizzaRevisioneStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/controls/PrenotazioneBroadcastControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/controls/VisualizzaSchermataRevisioniControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/prenotazioneBroadcast/prenotazioneBroadcastBoundary.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/prenotazioneBroadcast/prenotazioneBroadcastStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaSchermataRevisioni/visualizzaSchermataRevisioniBoundary.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaSchermataRevisioni/visualizzaSchermataRevisioniStyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/MetodoValutazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/MetodoValutazione.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/RevisioneEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/entities/RevisioneEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaRevisioniAutoreControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/controls/VisualizzaRevisioniControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaSchermataSottomissioniControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaSchermataSottomissioniControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaSottomissioniControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/presentazioneArticolo/controls/VisualizzaSottomissioniControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/main/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/main/global.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaRevisioni/visualizzaRevisioniAutoreBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaRevisioni/visualizzaRevisioniBoundary.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaRevisioni/visualizzaRevisioniAutoreStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaRevisioni/visualizzaRevisioniStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/MainControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/controls/MainControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenzeBoundary.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/gestioneConferenze/gestioneConferenzeBoundary.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,9 +27,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="FxmlFile" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -56,37 +52,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.PaperReviewApp.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.build-jlink.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.paper-review [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.paper-review [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.paper-review [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.paper-review [javafx:jlink].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.paper-review [package].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Shell Script.JPackage Build.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/susin/Desktop/Materie/Ingegneria Del Software/Progetto-Ing-Soft/Codice/Paper Review/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaRevisori&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.PaperReviewApp.executor": "Run",
+    "Maven.build-jlink.executor": "Run",
+    "Maven.paper-review [clean].executor": "Run",
+    "Maven.paper-review [compile].executor": "Run",
+    "Maven.paper-review [install].executor": "Run",
+    "Maven.paper-review [javafx:jlink].executor": "Run",
+    "Maven.paper-review [package].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Shell Script.JPackage Build.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/susin/Desktop/Materie/Ingegneria Del Software/Progetto-Ing-Soft/Codice/Paper Review/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaSchermataRevisioni",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries\gestioneRevisioni\visualizzaSchermataRevisioni" />
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries\gestioneConferenze\visualizzaRevisori" />
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources" />
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review" />
@@ -284,7 +281,7 @@
       <workItem from="1749980026315" duration="43859000" />
       <workItem from="1750062565569" duration="25099000" />
       <workItem from="1750108141360" duration="14672000" />
-      <workItem from="1750159792479" duration="22307000" />
+      <workItem from="1750159792479" duration="28608000" />
     </task>
     <servers />
   </component>

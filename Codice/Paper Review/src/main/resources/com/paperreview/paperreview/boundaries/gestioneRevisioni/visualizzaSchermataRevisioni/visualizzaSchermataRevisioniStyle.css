@@ -1,0 +1,26 @@
+.quadrettoni > .viewport {
+    -fx-background-color: transparent;
+}
+
+.conferenze-container{
+    -fx-padding: 50;
+    -fx-alignment: center;
+}
+
+.conference-card {
+    -fx-background-color: #44C8F4;
+    -fx-background-radius: 20;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+    -fx-pref-width: 300px;
+    -fx-pref-height: 400px;
+    -fx-alignment: top-left;
+}
+
+.text-bianco{
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 2, 2); /* ombra */
+}
+
+.padded{
+    -fx-padding: 25;
+}
