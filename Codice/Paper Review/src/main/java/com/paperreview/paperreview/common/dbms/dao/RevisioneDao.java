@@ -1,5 +1,6 @@
 package com.paperreview.paperreview.common.dbms.dao;
 
+import com.paperreview.paperreview.entities.PaperEntity;
 import com.paperreview.paperreview.entities.RevisioneEntity;
 
 import java.sql.*;
@@ -89,6 +90,21 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         List<RevisioneEntity> results = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, refUtente);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
+            }
+        }
+        return results;
+    }
+
+    public List<RevisioneEntity> getByUtenteAndConferenza(int refUtente, int refConferenza) throws SQLException {
+        String query = "SELECT * FROM " + tableName + " WHERE ref_utente = ? AND ref_conferenza = ?";
+        List<RevisioneEntity> results = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refUtente);
+            stmt.setInt(2, refConferenza);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     results.add(mapRow(rs));

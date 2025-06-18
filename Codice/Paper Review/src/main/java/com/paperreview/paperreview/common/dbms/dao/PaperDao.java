@@ -113,6 +113,21 @@ public class PaperDao extends BaseDao<PaperEntity> {
         }
     }
 
+    public List<PaperEntity> getPapersByRevisoreAndConferenza(int refUtente, int refConferenza) throws SQLException {
+        String query = "SELECT P.* FROM " + tableName + " P JOIN Revisione R on P.id_paper = R.ref_paper WHERE R.ref_utente = ? AND P.ref_conferenza = ?";
+        List<PaperEntity> results = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refUtente);
+            stmt.setInt(2, refConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
+            }
+        }
+        return results;
+    }
+
     public boolean removeById(int id) throws SQLException {
         String query = "DELETE FROM " + tableName + " WHERE " + idColumn + " = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {

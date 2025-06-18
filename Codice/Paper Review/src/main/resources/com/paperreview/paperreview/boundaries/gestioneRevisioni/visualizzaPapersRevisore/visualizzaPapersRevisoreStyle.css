@@ -1,0 +1,46 @@
+.scrollPane{
+    -fx-background-color: transparent;
+    -fx-padding: 50;
+}
+
+.trasparente{
+    -fx-background-color: transparent;
+}
+
+.viewport{
+    -fx-background-color: transparent;
+}
+
+.paper-card{
+    -fx-padding: 25;
+    -fx-background-radius: 25;     /* bordi arrotondati */
+
+}
+
+.green-button{
+    -fx-pref-width: 360;
+    -fx-alignment: center;
+}
+
+.grid-button-single{
+    -fx-pref-width: 360;
+    -fx-max-width: 360;
+    -fx-min-width: 360;
+    -fx-alignment: center;
+}
+
+.grid-button-double{
+    -fx-pref-width: 840;
+    -fx-alignment: center;
+}
+
+
+
+.text-container{
+    -fx-spacing: 40;
+}
+
+.text-rosso{
+    -fx-text-fill: #FF4059;
+    -fx-font-weight: bold;
+}

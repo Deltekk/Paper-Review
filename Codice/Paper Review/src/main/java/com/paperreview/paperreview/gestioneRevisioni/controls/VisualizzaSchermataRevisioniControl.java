@@ -150,7 +150,7 @@ public class VisualizzaSchermataRevisioniControl implements ControlledScreen {
         }
 
         UserContext.setConferenzaAttuale(conferenza);
-        mainControl.setView("/com/paperreview/paperreview/boundaries/presentazioneArticolo/sottomettiArticolo/sottomettiArticoloBoundary.fxml");
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaPapersRevisore/visualizzaPapersRevisoreBoundary.fxml");
     }
 
     public void handlePartecipaBroadcast(ConferenzaEntity conferenza)
