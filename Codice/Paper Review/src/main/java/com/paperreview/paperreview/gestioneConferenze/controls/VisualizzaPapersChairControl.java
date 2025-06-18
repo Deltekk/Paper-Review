@@ -356,7 +356,11 @@ public class VisualizzaPapersChairControl implements ControlledScreen {
 
     public void handleRevisioneEmergenza(PaperEntity paper)
     {
-        // TODO: HandleRevisioneEmergenza
+
+        // TODO: Controllare se siamo in periodo di revisione, se no impedire la revisione d'emergenza con un popup
+
+        UserContext.setPaperAttuale(paper);
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/revisionaPaperEmergenza/revisionaPaperEmergenzaBoundary.fxml");
     }
 
     public void handleVisualizzaDettagli(PaperEntity paper) {
