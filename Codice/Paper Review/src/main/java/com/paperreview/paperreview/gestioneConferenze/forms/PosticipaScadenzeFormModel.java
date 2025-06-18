@@ -6,6 +6,9 @@ import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.structure.StringField;
 import com.dlsc.formsfx.model.validators.RegexValidator;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class PosticipaScadenzeFormModel {
 
     private StringField scadenzaSottomissione;
@@ -22,47 +25,52 @@ public class PosticipaScadenzeFormModel {
 
     public PosticipaScadenzeFormModel(String sottomissione, String revisione, String adegContenuti,
                                       String editing, String adegFormato, String impaginazione) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate oggi = LocalDate.now();
+
+        LocalDate dateSottomissione = LocalDate.parse(sottomissione, formatter);
+        LocalDate dateRevisione = LocalDate.parse(revisione, formatter);
+        LocalDate dateAdeguamentoContenuti = LocalDate.parse(adegContenuti, formatter);
+        LocalDate dateEditing = LocalDate.parse(editing, formatter);
+        LocalDate dateAdeguamentoFormato = LocalDate.parse(adegFormato, formatter);
+        LocalDate dateImpaginazione = LocalDate.parse(impaginazione, formatter);
+
         this.scadenzaSottomissione = Field.ofStringType(sottomissione)
                 .label("Data di fine sottomissione")
-                .placeholder("Inserisci la data di fine sottomissione")
-                .styleClass("form-field")
-                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine sottomissione deve essere nel formato gg/mm/aaaa"))
-                .required("La data di fine sottomissione non può essere vuota!");
+                .editable(dateSottomissione.isAfter(oggi))
+                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "Formato: gg/mm/aaaa"))
+                .required("Campo obbligatorio");
 
         this.scadenzaRevisione = Field.ofStringType(revisione)
-                .label("Data di fine revisione")
-                .placeholder("Inserisci la data di fine revisione")
-                .styleClass("form-field")
-                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine revisione deve essere nel formato gg/mm/aaaa"))
-                .required("La data di fine revisione non può essere vuota!");
+                .label("Data di scadenza revisione")
+                .editable(dateRevisione.isAfter(oggi))
+                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "Formato: gg/mm/aaaa"))
+                .required("Campo obbligatorio");
 
         this.scadenzaAdeguamentoContenuti = Field.ofStringType(adegContenuti)
-                .label("Data di fine adeguamento contenuti")
-                .placeholder("Inserisci la data di fine adeguamento contenuti")
-                .styleClass("form-field")
-                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine adeguamento contenuti deve essere nel formato gg/mm/aaaa"))
-                .required("La data di fine adeguamento contenuti non può essere vuota!");
+                .label("Data di adeguamento contenuti")
+                .editable(dateAdeguamentoContenuti.isAfter(oggi))
+                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "Formato: gg/mm/aaaa"))
+                .required("Campo obbligatorio");
 
         this.scadenzaEditing = Field.ofStringType(editing)
                 .label("Data di fine editing")
-                .placeholder("Inserisci la data di fine editing")
-                .styleClass("form-field")
-                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine editing deve essere nel formato gg/mm/aaaa"))
-                .required("La data di fine editing non può essere vuota!");
+                .editable(dateEditing.isAfter(oggi))
+                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "Formato: gg/mm/aaaa"))
+                .required("Campo obbligatorio");
 
         this.scadenzaAdeguamentoFormato = Field.ofStringType(adegFormato)
-                .label("Data di fine adeguamento formato")
-                .placeholder("Inserisci la data di fine adeguamento formato")
-                .styleClass("form-field")
-                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine adeguamento formato deve essere nel formato gg/mm/aaaa"))
-                .required("La data di fine adeguamento formato non può essere vuota!");
+                .label("Data di adeguamento formato")
+                .editable(dateAdeguamentoFormato.isAfter(oggi))
+                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "Formato: gg/mm/aaaa"))
+                .required("Campo obbligatorio");
 
         this.scadenzaImpaginazione = Field.ofStringType(impaginazione)
-                .label("Data di fine impaginazione")
-                .placeholder("Inserisci la data di fine impaginazione")
-                .styleClass("form-field")
-                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "La data di fine impaginazione formato deve essere nel formato gg/mm/aaaa"))
-                .required("La data di fine impaginazione non può essere vuota!");
+                .label("Data di impaginazione")
+                .editable(dateImpaginazione.isAfter(oggi))
+                .validate(RegexValidator.forPattern("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$", "Formato: gg/mm/aaaa"))
+                .required("Campo obbligatorio");
     }
 
 
