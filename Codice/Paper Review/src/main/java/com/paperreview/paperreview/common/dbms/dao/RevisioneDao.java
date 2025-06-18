@@ -148,4 +148,30 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
             stmt.executeUpdate();
         }
     }
+
+    public int countRevisioniByUtenteAndConferenza(int idUtente, int idConferenza) throws SQLException {
+        String query = """
+        SELECT COUNT(*) 
+        FROM Revisione R
+        JOIN Paper P ON R.ref_paper = P.id_paper
+        WHERE R.ref_utente = ? AND P.ref_conferenza = ?
+    """;
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idUtente);
+            stmt.setInt(2, idConferenza);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
+    }
+
+    public int countRevisioniByPaper(int idPaper) throws SQLException {
+        String query = "SELECT COUNT(*) FROM Revisione WHERE ref_paper = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idPaper);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
+    }
 }

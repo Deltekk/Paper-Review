@@ -2,15 +2,10 @@ package com.paperreview.paperreview.gestioneRevisioni.controls;
 
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
-import com.paperreview.paperreview.common.dbms.dao.CoAutoriPaperDao;
-import com.paperreview.paperreview.common.dbms.dao.PaperDao;
-import com.paperreview.paperreview.common.dbms.dao.TopicPaperDao;
-import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
+import com.paperreview.paperreview.common.dbms.dao.*;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
-import com.paperreview.paperreview.entities.PaperEntity;
-import com.paperreview.paperreview.entities.TopicEntity;
-import com.paperreview.paperreview.entities.UtenteEntity;
+import com.paperreview.paperreview.entities.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,6 +20,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -154,12 +150,78 @@ public class PrenotazioneBroadcastControl implements ControlledScreen {
     }
 
     public void handlePrenotaPaper(PaperEntity paper) {
+        ConferenzaEntity conferenza = UserContext.getConferenzaAttuale();
 
-        /*
-            TODO: Gestire prenotazioni, idealmente un revisore non dovrebbe superare il massimo numero di paper per revisore, in quel caso i guess gli diamo un errore
-                  Inoltre non si può prenotare se già si sono prenotate altre persone, lo gestiamo così perché ti sei dimenticato di fare la tabella del broadcast 🫠
-         */
+        // Blocco prenotazioni oltre 2 giorni dalla scadenza sottomissione
+        if (LocalDate.now().isAfter(conferenza.getScadenzaSottomissione().plusDays(2).toLocalDate())) {
+            Alert expiredAlert = new Alert(Alert.AlertType.WARNING);
+            expiredAlert.setTitle("Operazione non consentita");
+            expiredAlert.setHeaderText("Data di broadcast superata!");
+            expiredAlert.setContentText(String.format(
+                    "Non è più possibile partecipare al broadcast, la scadenza era prevista per giorno \"%s\".",
+                    conferenza.getScadenzaSottomissione().plusDays(2).toLocalDate()
+            ));
+            expiredAlert.showAndWait();
+            return;
+        }
 
-        System.out.println("Prenota paper: " + paper.getId());
+        try {
+            int idUtente = UserContext.getUtente().getId();
+            int idConferenza = conferenza.getId();
+            int idPaper = paper.getId();
+
+            RevisioneDao revisioneDao = new RevisioneDao(DBMSBoundary.getConnection());
+
+            // Verifica se l'utente ha già raggiunto il limite
+            int countUtente = revisioneDao.countRevisioniByUtenteAndConferenza(idUtente, idConferenza);
+            if (countUtente >= 4) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Limite raggiunto");
+                alert.setHeaderText("Hai già 4 paper assegnati in revisione per questa conferenza.");
+                alert.setContentText("Non puoi prenotare ulteriori paper.");
+                alert.showAndWait();
+                return;
+            }
+
+            // Verifica se il paper ha già 4 revisori
+            int countPaper = revisioneDao.countRevisioniByPaper(idPaper);
+            if (countPaper >= 4) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Paper già coperto");
+                alert.setHeaderText("Questo paper ha già 4 revisori assegnati.");
+                alert.setContentText("Non puoi prenotarlo.");
+                alert.showAndWait();
+                return;
+            }
+
+            // Inserimento revisione (con campi opzionali a null)
+            RevisioneEntity revisione = new RevisioneEntity(
+                    0,            // id_revisione (autogenerato)
+                    null,         // testo
+                    null,         // valutazione
+                    null,         // data_sottomissione
+                    null,         // punti_forza
+                    null,         // punti_debolezza
+                    null,         // commento_chair
+                    idUtente,
+                    idPaper
+            );
+
+            revisioneDao.save(revisione);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Successo");
+            alert.setHeaderText("Paper prenotato con successo!");
+            alert.setContentText("Hai prenotato il paper per la revisione.");
+            alert.showAndWait();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Errore durante la prenotazione del paper.");
+            alert.setContentText("Dettagli: " + e.getMessage());
+            alert.showAndWait();
+        }
     }
 }
