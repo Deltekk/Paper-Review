@@ -43,22 +43,6 @@ CREATE TABLE Notifica (
                           FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza)
 );
 
--- Tabella Invito
-CREATE TABLE Invito (
-                        id_invito INT AUTO_INCREMENT PRIMARY KEY,
-                        data DATETIME NOT NULL,
-                        testo TEXT NOT NULL,
-                        status ENUM('Inviato', 'Accettato', 'Rifiutato') NOT NULL,
-                        email VARCHAR(100) NOT NULL,
-                        codice VARCHAR(100) NOT NULL UNIQUE,
-                        ref_conferenza INT NOT NULL,
-                        ref_mittente INT NOT NULL,
-                        ref_destinatario INT,
-                        FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza),
-                        FOREIGN KEY (ref_mittente) REFERENCES Utente(id_utente),
-                        FOREIGN KEY (ref_destinatario) REFERENCES Utente(id_utente)
-);
-
 -- Tabella Topic
 CREATE TABLE Topic (
                        id_topic INT AUTO_INCREMENT PRIMARY KEY,
@@ -78,6 +62,24 @@ CREATE TABLE Paper (
                        FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza)
 );
 
+-- Tabella Invito
+CREATE TABLE Invito (
+                        id_invito INT AUTO_INCREMENT PRIMARY KEY,
+                        data DATETIME NOT NULL,
+                        testo TEXT NOT NULL,
+                        status ENUM('Inviato', 'Accettato', 'Rifiutato') NOT NULL,
+                        email VARCHAR(100) NOT NULL,
+                        codice VARCHAR(100) NOT NULL UNIQUE,
+                        ref_conferenza INT NOT NULL,
+                        ref_mittente INT NOT NULL,
+                        ref_destinatario INT,
+                        ref_paper INT,
+                        FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza),
+                        FOREIGN KEY (ref_mittente) REFERENCES Utente(id_utente),
+                        FOREIGN KEY (ref_destinatario) REFERENCES Utente(id_utente),
+                        FOREIGN KEY (ref_paper) REFERENCES Paper(id_paper)
+);
+
 -- Tabella Revisione
 CREATE TABLE Revisione (
                            id_revisione INT AUTO_INCREMENT PRIMARY KEY,
@@ -89,8 +91,10 @@ CREATE TABLE Revisione (
                            commento_chair TEXT,
                            ref_utente INT NOT NULL,
                            ref_paper INT NOT NULL,
+                           ref_sottorevisore INT,
                            FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente),
-                           FOREIGN KEY (ref_paper) REFERENCES Paper(id_paper)
+                           FOREIGN KEY (ref_paper) REFERENCES Paper(id_paper),
+                           FOREIGN KEY (ref_sottorevisore) REFERENCES  Utente(id_utente)
 );
 
 -- Tabella Proceeding

@@ -6,7 +6,6 @@ import java.util.Objects;
 public class RevisioneEntity extends BaseEntity {
     private int idRevisione;
 
-    // Campi opzionali (possono essere null)
     private String testo;
     private Integer valutazione;
     private LocalDateTime dataSottomissione;
@@ -14,20 +13,14 @@ public class RevisioneEntity extends BaseEntity {
     private String puntiDebolezza;
     private String commentoChair;
 
-    // Campi obbligatori
     private int refUtente;
     private int refPaper;
+    private Integer refSottorevisore;
 
-    // 🔹 Costruttore base: solo campi obbligatori (refUtente e refPaper)
-    public RevisioneEntity(int refUtente, int refPaper) {
-        this.refUtente = refUtente;
-        this.refPaper = refPaper;
-    }
-
-    // 🔸 Costruttore completo: tutti i campi
+    // Costruttore completo con ID
     public RevisioneEntity(int idRevisione, String testo, Integer valutazione, LocalDateTime dataSottomissione,
                            String puntiForza, String puntiDebolezza, String commentoChair,
-                           int refUtente, int refPaper) {
+                           int refUtente, int refPaper, Integer refSottorevisore) {
         this.idRevisione = idRevisione;
         this.testo = testo;
         this.valutazione = valutazione;
@@ -37,9 +30,23 @@ public class RevisioneEntity extends BaseEntity {
         this.commentoChair = commentoChair;
         this.refUtente = refUtente;
         this.refPaper = refPaper;
+        this.refSottorevisore = refSottorevisore;
     }
 
-    // Costruttore vuoto
+    // Costruttore senza ID (es. per insert)
+    public RevisioneEntity(String testo, Integer valutazione, LocalDateTime dataSottomissione,
+                           String puntiForza, String puntiDebolezza, String commentoChair,
+                           int refUtente, int refPaper, Integer refSottorevisore) {
+        this(0, testo, valutazione, dataSottomissione, puntiForza, puntiDebolezza, commentoChair,
+                refUtente, refPaper, refSottorevisore);
+    }
+
+    // Costruttore solo con campi obbligatori
+    public RevisioneEntity(int refUtente, int refPaper) {
+        this.refUtente = refUtente;
+        this.refPaper = refPaper;
+    }
+
     public RevisioneEntity() {}
 
     @Override
@@ -115,6 +122,14 @@ public class RevisioneEntity extends BaseEntity {
         this.refPaper = refPaper;
     }
 
+    public Integer getRefSottorevisore() {
+        return refSottorevisore;
+    }
+
+    public void setRefSottorevisore(Integer refSottorevisore) {
+        this.refSottorevisore = refSottorevisore;
+    }
+
     @Override
     public String toString() {
         return "RevisioneEntity{" +
@@ -127,14 +142,14 @@ public class RevisioneEntity extends BaseEntity {
                 ", commentoChair='" + commentoChair + '\'' +
                 ", refUtente=" + refUtente +
                 ", refPaper=" + refPaper +
+                ", refSottorevisore=" + refSottorevisore +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof RevisioneEntity)) return false;
-        RevisioneEntity that = (RevisioneEntity) o;
+        if (!(o instanceof RevisioneEntity that)) return false;
         return idRevisione == that.idRevisione &&
                 refUtente == that.refUtente &&
                 refPaper == that.refPaper;

@@ -5,12 +5,10 @@ import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
+import com.paperreview.paperreview.common.dbms.dao.RevisioneDao;
 import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
 import com.paperreview.paperreview.controls.MainControl;
-import com.paperreview.paperreview.entities.InvitoEntity;
-import com.paperreview.paperreview.entities.Ruolo;
-import com.paperreview.paperreview.entities.RuoloConferenzaEntity;
-import com.paperreview.paperreview.entities.StatusInvito;
+import com.paperreview.paperreview.entities.*;
 import com.paperreview.paperreview.gestioneNotifiche.forms.CodiceInvitoForm;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
@@ -19,6 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
+import java.util.List;
 
 public class InserisciCodiceInvitoControl implements ControlledScreen {
 
@@ -97,18 +97,34 @@ public class InserisciCodiceInvitoControl implements ControlledScreen {
                     return;
                 }
                 case "Accettato" -> {
-                    // 6 - Stato modificato dal DAO
-                    // 7 - Mostra messaggio
                     InvitoEntity invito = invitoDao.getInvitoByCodice(codice);
-                    if(invito == null) throw  new RuntimeException("Errore: invito non trovato!");
+                    if (invito == null) throw new RuntimeException("Errore: invito non trovato!");
+
                     Ruolo ruolo = Ruolo.fromString(invito.getRuolo());
                     int idUtente = UserContext.getUtente().getId();
+
+                    // 6.1 - Aggiunta del ruolo conferenza
                     RuoloConferenzaEntity ruoloConferenzaEntity = new RuoloConferenzaEntity(ruolo, idUtente, invito.getRefConferenza());
                     ruoloConferenzaDao.save(ruoloConferenzaEntity);
+
+                    // 6.2 - Se il ruolo è Sottorevisore, aggiorna la revisione del paper
+                    if (ruolo == Ruolo.Sottorevisore && invito.getRefPaper() != null) {
+                        RevisioneDao revisioneDao = new RevisioneDao(DBMSBoundary.getConnection());
+
+                        List<RevisioneEntity> revisioni = revisioneDao.getByPaper(invito.getRefPaper());
+                        if (!revisioni.isEmpty()) {
+                            // Per ora si assume che ce ne sia una sola, o si usa la prima
+                            RevisioneEntity revisione = revisioni.get(0);
+                            revisione.setRefSottorevisore(idUtente);
+                            revisioneDao.update(revisione);
+                        }
+                    }
+
+                    // 7 - Mostra messaggio e cambia schermata
                     errorLabel.setText("INVITO ACCETTATO!");
-                    // 8 - Rende il bottone "OK" cliccabile oppure naviga direttamente
                     mainControl.setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
                 }
+
                 default -> errorLabel.setText("Errore imprevisto durante l'elaborazione.");
             }
         } catch (Exception e) {

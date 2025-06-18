@@ -5,6 +5,7 @@ import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
 import com.paperreview.paperreview.common.dbms.dao.NotificaDao;
+import com.paperreview.paperreview.common.dbms.dao.RevisioneDao;
 import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.*;
@@ -219,29 +220,47 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
 
     @FXML
     public void accettaInvito(InvitoEntity invitoEntity, HBox boxInvito) {
-        try{
-
+        try {
             invitoEntity.setStatus(StatusInvito.Accettato);
+
             InvitoDao invitoDao = new InvitoDao(DBMSBoundary.getConnection());
             RuoloConferenzaDao ruoloConferenzaDao = new RuoloConferenzaDao(DBMSBoundary.getConnection());
+            RevisioneDao revisioneDao = new RevisioneDao(DBMSBoundary.getConnection());
+
+            // 1 - Aggiorna lo stato dell'invito
             invitoDao.update(invitoEntity);
 
+            // 2 - Registra il ruolo nella conferenza
             Ruolo ruolo = Ruolo.fromString(invitoEntity.getRuolo());
+            int idUtente = invitoEntity.getRefDestinatario();
 
-            RuoloConferenzaEntity ruoloConferenzaEntity = new RuoloConferenzaEntity(ruolo, invitoEntity.getRefDestinatario(), invitoEntity.getRefConferenza());
+            RuoloConferenzaEntity ruoloConferenzaEntity =
+                    new RuoloConferenzaEntity(ruolo, idUtente, invitoEntity.getRefConferenza());
             ruoloConferenzaDao.save(ruoloConferenzaEntity);
 
+            // 3 - Se è un Sottorevisore, collega alla revisione del paper
+            if (ruolo == Ruolo.Sottorevisore && invitoEntity.getRefPaper() != null) {
+                List<RevisioneEntity> revisioni = revisioneDao.getByPaper(invitoEntity.getRefPaper());
+                if (!revisioni.isEmpty()) {
+                    // Assumiamo una sola revisione per il paper
+                    RevisioneEntity revisione = revisioni.get(0);
+                    revisione.setRefSottorevisore(idUtente);
+                    revisioneDao.update(revisione);
+                }
+            }
+
+            // 4 - Mostra messaggio di conferma
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Accettazione invito");
-            alert.setHeaderText(String.format("Invito accettato!"));
-            alert.setContentText("Premi ok per continuare!");
+            alert.setHeaderText("Invito accettato!");
+            alert.setContentText("Premi OK per continuare.");
             alert.showAndWait();
 
+            // 5 - Rimuovi la box dalla schermata
             invitiContainer.getChildren().remove(boxInvito);
 
-        }catch(SQLException e){
-            throw new RuntimeException(e);
-            // TODO: GESTIRE BENE QUEST'ERRORE
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore durante l'accettazione dell'invito", e);
         }
     }
 

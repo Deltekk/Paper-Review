@@ -6,23 +6,24 @@ import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
 
 import java.sql.Connection;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class InvitoEntity extends BaseEntity {
     private int idInvito;
     private LocalDateTime data;
     private String testo;
-    private StatusInvito status;  // Enum per lo status dell'invito
+    private StatusInvito status;
     private String email;
     private String codice;
     private int refConferenza;
     private int refMittente;
-    private Integer refDestinatario;  // Può essere null, quindi è Integer e non int
+    private Integer refDestinatario;
+    private Integer refPaper;
 
-    // Costruttore
+    // Costruttore completo con ID
     public InvitoEntity(int idInvito, LocalDateTime data, String testo, StatusInvito status,
-                        String email, String codice, int refConferenza, int refMittente, Integer refDestinatario) {
+                        String email, String codice, int refConferenza, int refMittente,
+                        Integer refDestinatario, Integer refPaper) {
         this.idInvito = idInvito;
         this.data = data;
         this.testo = testo;
@@ -32,6 +33,53 @@ public class InvitoEntity extends BaseEntity {
         this.refConferenza = refConferenza;
         this.refMittente = refMittente;
         this.refDestinatario = refDestinatario;
+        this.refPaper = refPaper;
+    }
+
+    // Costruttore senza ID
+    public InvitoEntity(LocalDateTime data, String testo, StatusInvito status,
+                        String email, String codice, int refConferenza, int refMittente,
+                        Integer refDestinatario, Integer refPaper) {
+        this(0, data, testo, status, email, codice, refConferenza, refMittente, refDestinatario, refPaper);
+    }
+
+    // Costruttore base senza refPaper
+    public InvitoEntity(int idInvito, LocalDateTime data, String testo, StatusInvito status,
+                        String email, String codice, int refConferenza, int refMittente,
+                        Integer refDestinatario) {
+        this(idInvito, data, testo, status, email, codice, refConferenza, refMittente, refDestinatario, null);
+    }
+
+    // Costruttore statico per inviti standard
+    public static InvitoEntity creaInvito(String email, Ruolo ruolo, int refConferenza, int refMittente,
+                                          Integer refDestinatario, LocalDateTime scadenza) {
+        return new InvitoEntity(
+                scadenza,
+                ruolo.name(),
+                StatusInvito.Inviato,
+                email,
+                generaCodice(),
+                refConferenza,
+                refMittente,
+                refDestinatario,
+                null
+        );
+    }
+
+    // Costruttore statico per inviti con paper
+    public static InvitoEntity creaInvitoConPaper(String email, Ruolo ruolo, int refConferenza, int refMittente,
+                                                  Integer refDestinatario, Integer refPaper, LocalDateTime scadenza) {
+        return new InvitoEntity(
+                scadenza,
+                ruolo.name(),
+                StatusInvito.Inviato,
+                email,
+                generaCodice(),
+                refConferenza,
+                refMittente,
+                refDestinatario,
+                refPaper
+        );
     }
 
     @Override
@@ -54,6 +102,7 @@ public class InvitoEntity extends BaseEntity {
     public String getRuolo() {
         return testo;
     }
+
     public String getTesto() {
         try {
             Connection conn = DBMSBoundary.getConnection();
@@ -63,18 +112,14 @@ public class InvitoEntity extends BaseEntity {
             ConferenzaEntity conferenza = conferenzaDao.getById(refConferenza);
             UtenteEntity mittente = utenteDao.getById(refMittente);
 
-            String nomeConferenza = conferenza.getNome();
-            String nomeMittente = mittente.getNome() + " " + mittente.getCognome();
-
             return String.format("""
-                Sei stato invitato da %s a partecipare alla conferenza "%s" in qualità di %s.
-                """, nomeMittente, nomeConferenza, testo);
+                Sei stato invitato da %s %s a partecipare alla conferenza "%s" in qualità di %s.
+                """, mittente.getNome(), mittente.getCognome(), conferenza.getNome(), testo);
 
         } catch (Exception e) {
             return "Hai ricevuto un nuovo invito a partecipare a una conferenza.";
         }
     }
-
 
     public StatusInvito getStatus() {
         return status;
@@ -124,66 +169,48 @@ public class InvitoEntity extends BaseEntity {
         this.refDestinatario = refDestinatario;
     }
 
-    @Override
-    public String toString() {
-        return "InvitoEntity{" +
-                "idInvito=" + idInvito +
-                ", data=" + data +
-                ", testo='" + testo + '\'' +
-                ", status=" + status +
-                ", email='" + email + '\'' +
-                ", codice='" + codice + '\'' +
-                ", refConferenza=" + refConferenza +
-                ", refMittente=" + refMittente +
-                ", refDestinatario=" + refDestinatario +
-                '}';
+    public Integer getRefPaper() {
+        return refPaper;
     }
 
-    // Sovrascrivi il metodo equals
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        InvitoEntity that = (InvitoEntity) obj;
-        return idInvito == that.idInvito && refMittente == that.refMittente && refConferenza == that.refConferenza && Objects.equals(codice, that.codice);
-    }
-
-    // Sovrascrivi il metodo hashCode
-    @Override
-    public int hashCode() {
-        return Objects.hash(idInvito, refMittente, refConferenza, codice);
+    public void setRefPaper(Integer refPaper) {
+        this.refPaper = refPaper;
     }
 
     public static String generaCodice() {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < 3; i++) {
-            int idx = (int)(Math.random() * chars.length());
-            sb.append(chars.charAt(idx));
-        }
-
+        for (int i = 0; i < 3; i++) sb.append(chars.charAt((int)(Math.random() * chars.length())));
         sb.append('-');
-
-        for (int i = 0; i < 3; i++) {
-            int idx = (int)(Math.random() * chars.length());
-            sb.append(chars.charAt(idx));
-        }
-
+        for (int i = 0; i < 3; i++) sb.append(chars.charAt((int)(Math.random() * chars.length())));
         return sb.toString();
     }
 
-    public static InvitoEntity creaInvito(String email, Ruolo ruolo, int refConferenza, int refMittente, Integer refDestinatario, LocalDateTime scadenza) {
-        return new InvitoEntity(
-                0,                          // idInvito non ancora assegnato
-                scadenza,                   // data scadenza (es. scadenzaSottomissione)
-                ruolo.name(),                    // testo fisso
-                StatusInvito.Inviato,       // status iniziale
-                email,
-                generaCodice(),             // codice generato
-                refConferenza,
-                refMittente,
-                refDestinatario
-        );
+    @Override
+    public String toString() {
+        return "InvitoEntity{" +
+                "id=" + idInvito +
+                ", email='" + email + '\'' +
+                ", ruolo='" + testo + '\'' +
+                ", codice='" + codice + '\'' +
+                ", status=" + status +
+                ", conferenza=" + refConferenza +
+                ", mittente=" + refMittente +
+                ", destinatario=" + refDestinatario +
+                ", paper=" + refPaper +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof InvitoEntity that)) return false;
+        return idInvito == that.idInvito && refMittente == that.refMittente &&
+                refConferenza == that.refConferenza && Objects.equals(codice, that.codice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idInvito, refConferenza, refMittente, codice);
     }
 }

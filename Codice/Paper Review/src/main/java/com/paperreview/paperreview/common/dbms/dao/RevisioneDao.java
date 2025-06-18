@@ -1,6 +1,5 @@
 package com.paperreview.paperreview.common.dbms.dao;
 
-import com.paperreview.paperreview.entities.PaperEntity;
 import com.paperreview.paperreview.entities.RevisioneEntity;
 
 import java.sql.*;
@@ -15,40 +14,47 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
 
     @Override
     protected String getInsertQuery() {
-        return "INSERT INTO " + tableName + " (ref_utente, ref_paper) VALUES (?, ?)";
+        return "INSERT INTO " + tableName + " (ref_utente, ref_paper, ref_sottorevisore) VALUES (?, ?, ?)";
     }
 
     @Override
     protected void prepareInsert(PreparedStatement stmt, RevisioneEntity revisione) throws SQLException {
         stmt.setInt(1, revisione.getRefUtente());
         stmt.setInt(2, revisione.getRefPaper());
+        if (revisione.getRefSottorevisore() != null) {
+            stmt.setInt(3, revisione.getRefSottorevisore());
+        } else {
+            stmt.setNull(3, Types.INTEGER);
+        }
     }
 
     @Override
     protected String getUpdateQuery() {
         return "UPDATE " + tableName + " SET " +
-                "testo = ?, " +
-                "valutazione = ?, " +
-                "data_sottomissione = ?, " +
-                "commento_chair = ?, " +
-                "punti_forza = ?, " +
-                "punti_debolezza = ? " +
-                "WHERE " + idColumn + " = ?";
+                "testo = ?, valutazione = ?, data_sottomissione = ?, " +
+                "commento_chair = ?, punti_forza = ?, punti_debolezza = ?, " +
+                "ref_sottorevisore = ? WHERE " + idColumn + " = ?";
     }
 
     @Override
     protected void prepareUpdate(PreparedStatement stmt, RevisioneEntity revisione) throws SQLException {
         stmt.setString(1, revisione.getTesto());
-        if (revisione.getValutazione() != 0) {
+        if (revisione.getValutazione() != null)
             stmt.setInt(2, revisione.getValutazione());
-        } else {
+        else
             stmt.setNull(2, Types.INTEGER);
-        }
+
         stmt.setObject(3, revisione.getDataSottomissione());
         stmt.setString(4, revisione.getCommentoChair());
         stmt.setString(5, revisione.getPuntiForza());
         stmt.setString(6, revisione.getPuntiDebolezza());
-        stmt.setInt(7, revisione.getId());
+
+        if (revisione.getRefSottorevisore() != null)
+            stmt.setInt(7, revisione.getRefSottorevisore());
+        else
+            stmt.setNull(7, Types.INTEGER);
+
+        stmt.setInt(8, revisione.getId());
     }
 
     @Override
@@ -67,7 +73,8 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
                 rs.getString("punti_debolezza"),
                 rs.getString("commento_chair"),
                 rs.getInt("ref_utente"),
-                rs.getInt("ref_paper")
+                rs.getInt("ref_paper"),
+                (Integer) rs.getObject("ref_sottorevisore")
         );
     }
 
@@ -77,9 +84,7 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, refPaper);
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    results.add(mapRow(rs));
-                }
+                while (rs.next()) results.add(mapRow(rs));
             }
         }
         return results;
@@ -91,38 +96,36 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, refUtente);
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    results.add(mapRow(rs));
-                }
+                while (rs.next()) results.add(mapRow(rs));
             }
         }
         return results;
     }
 
     public List<RevisioneEntity> getByConferenza(int refConferenza) throws SQLException {
-        String query = "SELECT R.* FROM " + tableName + " Revisione R JOIN Paper P on R.ref_paper = P.id_paper WHERE P.ref_conferenza = ?";
+        String query = "SELECT R.* FROM " + tableName + " R JOIN Paper P ON R.ref_paper = P.id_paper WHERE P.ref_conferenza = ?";
         List<RevisioneEntity> results = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, refConferenza);
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    results.add(mapRow(rs));
-                }
+                while (rs.next()) results.add(mapRow(rs));
             }
         }
         return results;
     }
 
     public List<RevisioneEntity> getByUtenteAndConferenza(int refUtente, int refConferenza) throws SQLException {
-        String query = "SELECT * FROM " + tableName + " WHERE ref_utente = ? AND ref_conferenza = ?";
+        String query = """
+        SELECT R.* FROM Revisione R
+        JOIN Paper P ON R.ref_paper = P.id_paper
+        WHERE R.ref_utente = ? AND P.ref_conferenza = ?
+        """;
         List<RevisioneEntity> results = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, refUtente);
             stmt.setInt(2, refConferenza);
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    results.add(mapRow(rs));
-                }
+                while (rs.next()) results.add(mapRow(rs));
             }
         }
         return results;
@@ -133,9 +136,7 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, idPaper);
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getDouble(1);
-                }
+                if (rs.next()) return rs.getDouble(1);
             }
         }
         return 0.0;
@@ -151,11 +152,10 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
 
     public int countRevisioniByUtenteAndConferenza(int idUtente, int idConferenza) throws SQLException {
         String query = """
-        SELECT COUNT(*) 
-        FROM Revisione R
+        SELECT COUNT(*) FROM Revisione R
         JOIN Paper P ON R.ref_paper = P.id_paper
         WHERE R.ref_utente = ? AND P.ref_conferenza = ?
-    """;
+        """;
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, idUtente);
             stmt.setInt(2, idConferenza);
@@ -166,7 +166,7 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
     }
 
     public int countRevisioniByPaper(int idPaper) throws SQLException {
-        String query = "SELECT COUNT(*) FROM Revisione WHERE ref_paper = ?";
+        String query = "SELECT COUNT(*) FROM " + tableName + " WHERE ref_paper = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, idPaper);
             ResultSet rs = stmt.executeQuery();

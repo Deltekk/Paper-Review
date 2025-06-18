@@ -43,8 +43,7 @@ public class PrenotazioneBroadcastControl implements ControlledScreen {
             conferenceTitleLabel.setText(String.format("Conferenza: \"%s\"", UserContext.getConferenzaAttuale().getNome()));
 
             PaperDao paperDao = new PaperDao(connection);
-            List<PaperEntity> papersRevisore = paperDao.getPapersByRevisoreAndConferenza(
-                    UserContext.getUtente().getId(),
+            List<PaperEntity> papersRevisore = paperDao.getPapersByConferenza(
                     UserContext.getConferenzaAttuale().getId()
             );
 
@@ -218,7 +217,8 @@ public class PrenotazioneBroadcastControl implements ControlledScreen {
                     null,         // punti_debolezza
                     null,         // commento_chair
                     idUtente,
-                    idPaper
+                    idPaper,
+                    null
             );
 
             revisioneDao.save(revisione);
