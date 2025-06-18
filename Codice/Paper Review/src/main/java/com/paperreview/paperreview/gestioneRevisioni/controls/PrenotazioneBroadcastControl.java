@@ -172,6 +172,20 @@ public class PrenotazioneBroadcastControl implements ControlledScreen {
 
             RevisioneDao revisioneDao = new RevisioneDao(DBMSBoundary.getConnection());
 
+            // Verifica se già prenotato
+            List<RevisioneEntity> revisioniUtente = revisioneDao.getByUtente(idUtente);
+            boolean giaPrenotato = revisioniUtente.stream()
+                    .anyMatch(r -> r.getRefPaper() == idPaper);
+
+            if (giaPrenotato) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Prenotazione esistente");
+                alert.setHeaderText("Hai già prenotato questo paper.");
+                alert.setContentText("Non puoi prenotare lo stesso paper più di una volta.");
+                alert.showAndWait();
+                return;
+            }
+
             // Verifica se l'utente ha già raggiunto il limite
             int countUtente = revisioneDao.countRevisioniByUtenteAndConferenza(idUtente, idConferenza);
             if (countUtente >= 4) {

@@ -113,7 +113,7 @@ INSERT INTO Conferenza (
 -- 2: scadenza_revisione = 17 giugno 2025
 ('Quantum Computing Congress', 'Calcolo quantistico e algoritmi innovativi', '2026-07-15 10:00:00', 'Zurigo', 'Topic', '4',
  40, 10, 5,
- '2025-06-14 23:59:59', '2025-06-20 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59', '2025-09-26 23:59:59', '2025-10-29 23:59:59'),
+ '2025-06-18 23:59:59', '2025-06-25 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59', '2025-09-26 23:59:59', '2025-10-29 23:59:59'),
 -- 3: scadenza_sottomissione_2 = 17 giugno 2025
 ('Sustainable Tech Forum', 'Tecnologie sostenibili e innovazione ambientale', '2026-07-20 09:30:00', 'Oslo', 'Broadcast', '3',
  50, 7, 5,
@@ -131,19 +131,59 @@ INSERT INTO Conferenza (
  28, 18, 5,
 '2025-06-05 23:59:59', '2025-06-07 23:59:59', '2025-06-09 23:59:59', '2025-06-11 23:59:59', '2025-06-14 23:59:59', '2025-06-20 23:59:59');
 
--- 1: Le Banane in Moldavia
--- Diego Corona: Chair
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 1, 1);
--- Giulia Greco: Chair
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 6, 1);
--- Giovanni Castelli: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 5, 1);
--- Daniele Susino: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 4, 1);
--- Luca Gaetani: Revisore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Revisore', 3, 1);
--- Leonardo Caiezza: Editor
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 2, 1);
+INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES
+-- Diego Corona (id_utente = 1)
+('Chair', 1, 1), ('Revisore', 1, 1), ('Sottorevisore', 1, 1), ('Autore', 1, 1), ('Editor', 1, 1),
+('Chair', 1, 2), ('Revisore', 1, 2), ('Sottorevisore', 1, 2), ('Autore', 1, 2), ('Editor', 1, 2),
+('Chair', 1, 3), ('Revisore', 1, 3), ('Sottorevisore', 1, 3), ('Autore', 1, 3), ('Editor', 1, 3),
+('Chair', 1, 4), ('Revisore', 1, 4), ('Sottorevisore', 1, 4), ('Autore', 1, 4), ('Editor', 1, 4),
+('Chair', 1, 5), ('Revisore', 1, 5), ('Sottorevisore', 1, 5), ('Autore', 1, 5), ('Editor', 1, 5),
+('Chair', 1, 6), ('Revisore', 1, 6), ('Sottorevisore', 1, 6), ('Autore', 1, 6), ('Editor', 1, 6),
+
+-- Leonardo Giovanni Caiezza (id_utente = 2)
+('Chair', 2, 1), ('Revisore', 2, 1), ('Sottorevisore', 2, 1), ('Autore', 2, 1), ('Editor', 2, 1),
+('Chair', 2, 2), ('Revisore', 2, 2), ('Sottorevisore', 2, 2), ('Autore', 2, 2), ('Editor', 2, 2),
+('Chair', 2, 3), ('Revisore', 2, 3), ('Sottorevisore', 2, 3), ('Autore', 2, 3), ('Editor', 2, 3),
+('Chair', 2, 4), ('Revisore', 2, 4), ('Sottorevisore', 2, 4), ('Autore', 2, 4), ('Editor', 2, 4),
+('Chair', 2, 5), ('Revisore', 2, 5), ('Sottorevisore', 2, 5), ('Autore', 2, 5), ('Editor', 2, 5),
+('Chair', 2, 6), ('Revisore', 2, 6), ('Sottorevisore', 2, 6), ('Autore', 2, 6), ('Editor', 2, 6),
+
+-- Luca Gaetani (id_utente = 3)
+('Chair', 3, 1), ('Revisore', 3, 1), ('Sottorevisore', 3, 1), ('Autore', 3, 1), ('Editor', 3, 1),
+('Chair', 3, 2), ('Revisore', 3, 2), ('Sottorevisore', 3, 2), ('Autore', 3, 2), ('Editor', 3, 2),
+('Chair', 3, 3), ('Revisore', 3, 3), ('Sottorevisore', 3, 3), ('Autore', 3, 3), ('Editor', 3, 3),
+('Chair', 3, 4), ('Revisore', 3, 4), ('Sottorevisore', 3, 4), ('Autore', 3, 4), ('Editor', 3, 4),
+('Chair', 3, 5), ('Revisore', 3, 5), ('Sottorevisore', 3, 5), ('Autore', 3, 5), ('Editor', 3, 5),
+('Chair', 3, 6), ('Revisore', 3, 6), ('Sottorevisore', 3, 6), ('Autore', 3, 6), ('Editor', 3, 6),
+
+-- Daniele Orazio Susino (id_utente = 4)
+('Chair', 4, 1), ('Revisore', 4, 1), ('Sottorevisore', 4, 1), ('Autore', 4, 1), ('Editor', 4, 1),
+('Chair', 4, 2), ('Revisore', 4, 2), ('Sottorevisore', 4, 2), ('Autore', 4, 2), ('Editor', 4, 2),
+('Chair', 4, 3), ('Revisore', 4, 3), ('Sottorevisore', 4, 3), ('Autore', 4, 3), ('Editor', 4, 3),
+('Chair', 4, 4), ('Revisore', 4, 4), ('Sottorevisore', 4, 4), ('Autore', 4, 4), ('Editor', 4, 4),
+('Chair', 4, 5), ('Revisore', 4, 5), ('Sottorevisore', 4, 5), ('Autore', 4, 5), ('Editor', 4, 5),
+('Chair', 4, 6), ('Revisore', 4, 6), ('Sottorevisore', 4, 6), ('Autore', 4, 6), ('Editor', 4, 6),
+
+-- Giovanni Castelli (id_utente = 5)
+('Chair', 5, 1), ('Revisore', 5, 1), ('Sottorevisore', 5, 1), ('Autore', 5, 1), ('Editor', 5, 1),
+('Chair', 5, 2), ('Revisore', 5, 2), ('Sottorevisore', 5, 2), ('Autore', 5, 2), ('Editor', 5, 2),
+('Chair', 5, 3), ('Revisore', 5, 3), ('Sottorevisore', 5, 3), ('Autore', 5, 3), ('Editor', 5, 3),
+('Chair', 5, 4), ('Revisore', 5, 4), ('Sottorevisore', 5, 4), ('Autore', 5, 4), ('Editor', 5, 4),
+('Chair', 5, 5), ('Revisore', 5, 5), ('Sottorevisore', 5, 5), ('Autore', 5, 5), ('Editor', 5, 5),
+('Chair', 5, 6), ('Revisore', 5, 6), ('Sottorevisore', 5, 6), ('Autore', 5, 6), ('Editor', 5, 6),
+
+-- Giulia Greco (id_utente = 6)
+('Chair', 6, 1), ('Revisore', 6, 1), ('Sottorevisore', 6, 1), ('Autore', 6, 1), ('Editor', 6, 1),
+('Chair', 6, 2), ('Revisore', 6, 2), ('Sottorevisore', 6, 2), ('Autore', 6, 2), ('Editor', 6, 2),
+('Chair', 6, 3), ('Revisore', 6, 3), ('Sottorevisore', 6, 3), ('Autore', 6, 3), ('Editor', 6, 3),
+('Chair', 6, 4), ('Revisore', 6, 4), ('Sottorevisore', 6, 4), ('Autore', 6, 4), ('Editor', 6, 4),
+('Chair', 6, 5), ('Revisore', 6, 5), ('Sottorevisore', 6, 5), ('Autore', 6, 5), ('Editor', 6, 5),
+('Chair', 6, 6), ('Revisore', 6, 6), ('Sottorevisore', 6, 6), ('Autore', 6, 6), ('Editor', 6, 6);
+
+
+
+
+
 
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
@@ -157,22 +197,6 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
 INSERT INTO CoAutoriPaper (email, ref_paper) VALUES
 ('maria.popescu@meteo.md', 1),
 ('andrei.rusu@agridata.md', 1);
-
-
-
--- 2: Quantum Computing Congress
--- Leonardo Caiezza: Chair
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 2, 2);
--- Giovanni Castelli: Revisore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Revisore', 5, 2);
--- Daniele Susino: Sottorevisore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Sottorevisore', 4, 2);
--- Diego Corona: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 1, 2);
--- Giulia Greco: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 6, 2);
--- Luca Gaetani: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 3, 2);
 
 -- Paper 1: revisionato
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
@@ -207,21 +231,6 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   5,
   2
 );
-
-
--- 3: Sustainable Tech Forum
--- Giovanni Castelli: Chair
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 4, 3);
--- Daniele Susino: Chair
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 5, 3);
--- Diego Corona: Revisore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Revisore', 1, 3);
--- Giulia Greco: Sottorevisore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Sottorevisore', 6, 3);
--- Luca Gaetani: Editor
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 3, 3);
--- Leonardo Caiezza: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 2, 3);
 
 -- Paper 1
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
@@ -271,19 +280,6 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   4
 );
 
-
--- 4: Ethics and AI 2025
--- Daniele Susino: Chair
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 4, 4);
--- Giovanni Castelli: Chair
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 5, 4);
--- Leonardo Caiezza: Revisore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Revisore', 2, 4);
--- Diego Corona: Editor
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 1, 4);
--- Luca Gaetani: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 3, 4);
-
 -- Paper 1
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
@@ -327,19 +323,6 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   6
 );
 
--- 5: Bioinformatics World Congress
--- Luca Gaetani: Chair
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 3, 5);
--- Giovanni Castelli: Revisore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Revisore', 5, 5);
--- Daniele Susino: Sottorevisore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Sottorevisore', 4, 5);
--- Leonardo Caiezza: Editor
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 2, 5);
--- Giulia Greco: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 6, 5);
--- Diego Corona: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 1, 5);
 -- Paper 1: Diego Corona
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
@@ -390,18 +373,6 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
 
 
 -- 6: Data Science Expo 2025
--- Giovanni Castelli: Chair
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 5, 6);
--- Daniele Susino: Chair
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Chair', 4, 6);
--- Giulia Greco: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 6, 6);
--- Diego Corona: Autore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Autore', 1, 6);
--- Luca Gaetani: Editor
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Editor', 3, 6);
--- Leonardo Caiezza: Revisore
-INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES ('Revisore', 2, 6);
 -- Paper 1 - Diego Corona
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
