@@ -302,9 +302,6 @@ public class VisualizzaPapersChairControl implements ControlledScreen {
                 successAlert.setHeaderText(null);
                 successAlert.setContentText("Il paper è stato promosso con successo.");
                 successAlert.showAndWait();
-
-                mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaPapersChair/visualizzaPapersChairBoundary.fxml");
-
             } catch (Exception e) {
                 e.printStackTrace();
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -339,10 +336,6 @@ public class VisualizzaPapersChairControl implements ControlledScreen {
                 alert.setHeaderText(null);
                 alert.setContentText("Il paper è stato scaricato con successo.");
                 alert.showAndWait();
-
-                // Ricarica la schermata "Visualizza Papers - Chair"
-                mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaPapersChair/visualizzaPapersChairBoundary.fxml");
-
             }
         } catch (Exception e) {
             e.printStackTrace();

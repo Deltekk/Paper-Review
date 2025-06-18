@@ -6,18 +6,30 @@ import java.util.Objects;
 public class ProceedingEntity extends BaseEntity {
     private int idProceeding;
     private String titolo;
+    private byte[] file; // nuovo campo
     private LocalDateTime dataSottomissione;
     private int refUtente;
     private int refConferenza;
 
-    // Costruttore
-    public ProceedingEntity(int idProceeding, String titolo, LocalDateTime dataSottomissione, int refUtente, int refConferenza) {
+    // Costruttore completo (tutti i campi)
+    public ProceedingEntity(int idProceeding, String titolo, byte[] file, LocalDateTime dataSottomissione, int refUtente, int refConferenza) {
         this.idProceeding = idProceeding;
         this.titolo = titolo;
+        this.file = file;
         this.dataSottomissione = dataSottomissione;
         this.refUtente = refUtente;
         this.refConferenza = refConferenza;
     }
+
+    // Costruttore con solo campi obbligatori (file e data possono essere null)
+    public ProceedingEntity(String titolo, int refUtente, int refConferenza) {
+        this.titolo = titolo;
+        this.refUtente = refUtente;
+        this.refConferenza = refConferenza;
+        this.file = null;
+        this.dataSottomissione = null;
+    }
+
 
     @Override
     public int getId() {
@@ -34,6 +46,14 @@ public class ProceedingEntity extends BaseEntity {
 
     public void setTitolo(String titolo) {
         this.titolo = titolo;
+    }
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
     }
 
     public LocalDateTime getDataSottomissione() {
@@ -71,16 +91,17 @@ public class ProceedingEntity extends BaseEntity {
                 '}';
     }
 
-    // Sovrascrivi il metodo equals
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         ProceedingEntity that = (ProceedingEntity) obj;
-        return idProceeding == that.idProceeding && refUtente == that.refUtente && refConferenza == that.refConferenza && Objects.equals(titolo, that.titolo);
+        return idProceeding == that.idProceeding &&
+                refUtente == that.refUtente &&
+                refConferenza == that.refConferenza &&
+                Objects.equals(titolo, that.titolo);
     }
 
-    // Sovrascrivi il metodo hashCode
     @Override
     public int hashCode() {
         return Objects.hash(idProceeding, titolo, refUtente, refConferenza);

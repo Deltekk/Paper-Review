@@ -97,6 +97,7 @@ CREATE TABLE Revisione (
 CREATE TABLE Proceeding (
                             id_proceeding INT AUTO_INCREMENT PRIMARY KEY,
                             titolo VARCHAR(200) NOT NULL,
+                            file LONGBLOB,
                             data_sottomissione DATETIME,
                             ref_utente INT NOT NULL,
                             ref_conferenza INT NOT NULL,

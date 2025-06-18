@@ -5,13 +5,11 @@ import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.ConferenzaDao;
 import com.paperreview.paperreview.common.dbms.dao.PaperDao;
+import com.paperreview.paperreview.common.dbms.dao.ProceedingDao;
 import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
-import com.paperreview.paperreview.entities.ConferenzaEntity;
-import com.paperreview.paperreview.entities.PaperEntity;
-import com.paperreview.paperreview.entities.Ruolo;
-import com.paperreview.paperreview.entities.RuoloConferenzaEntity;
+import com.paperreview.paperreview.entities.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,7 +24,10 @@ import javafx.stage.FileChooser;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -222,10 +223,16 @@ public class EditingControl implements ControlledScreen {
             Alert expiredAlert = new Alert(Alert.AlertType.WARNING);
             expiredAlert.setTitle("Operazione non consentita");
             expiredAlert.setHeaderText("Data di adeguamento formato da raggiungere!");
-            expiredAlert.setContentText(String.format(
+            String messaggio = String.format(
                     "Ancora non è possibile caricare i proceedings, riprova dopo giorno \"%s\".",
-                    conferenza.getScadenzaSottomissione3()
-            ));
+                    conferenza.getScadenzaSottomissione3().toLocalDate()
+            );
+
+            // Forza il testo a capo
+            Label label = new Label(messaggio);
+            label.setWrapText(true);
+            label.setMaxWidth(400); // Imposta una larghezza massima adeguata
+            expiredAlert.getDialogPane().setContent(label);
             expiredAlert.showAndWait();
             return;
         }
@@ -242,11 +249,42 @@ public class EditingControl implements ControlledScreen {
             expiredAlert.showAndWait();
             return;
         }
+        // Apertura file chooser per selezionare PDF
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleziona il file PDF dei proceedings");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF files", "*.pdf"));
+        File selectedFile = fileChooser.showOpenDialog(card.getScene().getWindow());
 
-        // TODO: Caricare i proceeding come file e fare tutti i controlli del caso,
-        //       dovrebbero pure spuntare degli alert per avere conferma dall'utente
-        //       eventualmente sarebbe carino che una volta che i proeedings sono stati caricati l'editore non veda più la conferenza nella lista.
-        //       la card da cancellare è stata già passata come parametro
+        if (selectedFile == null) return; // annullato
+
+        try (FileInputStream fis = new FileInputStream(selectedFile)) {
+            byte[] fileBytes = fis.readAllBytes();
+
+            ProceedingEntity proceeding = new ProceedingEntity(
+                    selectedFile.getName(),
+                    UserContext.getUtente().getId(),
+                    conferenza.getId()
+            );
+            proceeding.setFile(fileBytes);
+            proceeding.setDataSottomissione(LocalDateTime.now());
+
+            ProceedingDao proceedingDao = new ProceedingDao(DBMSBoundary.getConnection());
+            proceedingDao.save(proceeding);
+
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Caricamento completato");
+            successAlert.setHeaderText("Proceedings caricati con successo!");
+            successAlert.setContentText("Il file \"" + selectedFile.getName() + "\" è stato salvato.");
+            successAlert.showAndWait();
+
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Errore");
+            errorAlert.setHeaderText("Errore durante il caricamento dei proceedings");
+            errorAlert.setContentText("Dettagli: " + e.getMessage());
+            errorAlert.showAndWait();
+        }
     }
 
     private void mostraErrore(String messaggio) {

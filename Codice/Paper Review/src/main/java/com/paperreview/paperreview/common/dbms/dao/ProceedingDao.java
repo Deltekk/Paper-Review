@@ -2,10 +2,8 @@ package com.paperreview.paperreview.common.dbms.dao;
 
 import com.paperreview.paperreview.entities.ProceedingEntity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,31 +15,55 @@ public class ProceedingDao extends BaseDao<ProceedingEntity> {
 
     @Override
     protected String getInsertQuery() {
-        return "INSERT INTO " + tableName + " (titolo, data_sottomissione, ref_utente, ref_conferenza) " +
-                "VALUES (?, ?, ?, ?)";
+        return "INSERT INTO " + tableName + " (titolo, file, data_sottomissione, ref_utente, ref_conferenza) " +
+                "VALUES (?, ?, ?, ?, ?)";
     }
 
     @Override
     protected void prepareInsert(PreparedStatement stmt, ProceedingEntity proceeding) throws SQLException {
         stmt.setString(1, proceeding.getTitolo());
-        stmt.setObject(2, proceeding.getDataSottomissione());
-        stmt.setInt(3, proceeding.getRefUtente());
-        stmt.setInt(4, proceeding.getRefConferenza());
+
+        if (proceeding.getFile() != null) {
+            stmt.setBytes(2, proceeding.getFile());
+        } else {
+            stmt.setNull(2, Types.BLOB);
+        }
+
+        if (proceeding.getDataSottomissione() != null) {
+            stmt.setObject(3, proceeding.getDataSottomissione());
+        } else {
+            stmt.setNull(3, Types.TIMESTAMP);
+        }
+
+        stmt.setInt(4, proceeding.getRefUtente());
+        stmt.setInt(5, proceeding.getRefConferenza());
     }
 
     @Override
     protected String getUpdateQuery() {
-        return "UPDATE " + tableName + " SET titolo = ?, data_sottomissione = ?, ref_utente = ?, ref_conferenza = ? " +
+        return "UPDATE " + tableName + " SET titolo = ?, file = ?, data_sottomissione = ?, ref_utente = ?, ref_conferenza = ? " +
                 "WHERE " + idColumn + " = ?";
     }
 
     @Override
     protected void prepareUpdate(PreparedStatement stmt, ProceedingEntity proceeding) throws SQLException {
         stmt.setString(1, proceeding.getTitolo());
-        stmt.setObject(2, proceeding.getDataSottomissione());
-        stmt.setInt(3, proceeding.getRefUtente());
-        stmt.setInt(4, proceeding.getRefConferenza());
-        stmt.setInt(5, proceeding.getId());
+
+        if (proceeding.getFile() != null) {
+            stmt.setBytes(2, proceeding.getFile());
+        } else {
+            stmt.setNull(2, Types.BLOB);
+        }
+
+        if (proceeding.getDataSottomissione() != null) {
+            stmt.setObject(3, proceeding.getDataSottomissione());
+        } else {
+            stmt.setNull(3, Types.TIMESTAMP);
+        }
+
+        stmt.setInt(4, proceeding.getRefUtente());
+        stmt.setInt(5, proceeding.getRefConferenza());
+        stmt.setInt(6, proceeding.getId());
     }
 
     @Override
@@ -51,13 +73,28 @@ public class ProceedingDao extends BaseDao<ProceedingEntity> {
 
     @Override
     protected ProceedingEntity mapRow(ResultSet rs) throws SQLException {
-        return new ProceedingEntity(
-                rs.getInt("id_proceeding"),
-                rs.getString("titolo"),
-                rs.getObject("data_sottomissione", java.time.LocalDateTime.class),
-                rs.getInt("ref_utente"),
-                rs.getInt("ref_conferenza")
-        );
+        int id = rs.getInt("id_proceeding");
+        String titolo = rs.getString("titolo");
+        byte[] file = rs.getBytes("file");
+        LocalDateTime data = rs.getObject("data_sottomissione", LocalDateTime.class);
+        int refUtente = rs.getInt("ref_utente");
+        int refConferenza = rs.getInt("ref_conferenza");
+
+        return new ProceedingEntity(id, titolo, file, data, refUtente, refConferenza);
+    }
+
+    public List<ProceedingEntity> getByUtente(int refUtente) throws SQLException {
+        String query = "SELECT * FROM " + tableName + " WHERE ref_utente = ?";
+        List<ProceedingEntity> results = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refUtente);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
+            }
+        }
+        return results;
     }
 
     public List<ProceedingEntity> getByConferenza(int refConferenza) throws SQLException {
@@ -74,17 +111,17 @@ public class ProceedingDao extends BaseDao<ProceedingEntity> {
         return results;
     }
 
-    public List<ProceedingEntity> getByUtente(int refUtente) throws SQLException {
-        String query = "SELECT * FROM " + tableName + " WHERE ref_utente = ?";
-        List<ProceedingEntity> results = new ArrayList<>();
+    public List<byte[]> getFileConferenza(int refConferenza) throws SQLException {
+        String query = "SELECT file FROM " + tableName + " WHERE ref_conferenza = ?";
+        List<byte[]> files = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, refUtente);
+            stmt.setInt(1, refConferenza);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    results.add(mapRow(rs));
+                    files.add(rs.getBytes("file"));
                 }
             }
         }
-        return results;
+        return files;
     }
 }

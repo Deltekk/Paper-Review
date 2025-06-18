@@ -205,7 +205,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   'Manca una valutazione energetica comparativa tra hardware differenti.',
   'Plagio',
   5,
-  1
+  2
 );
 
 
@@ -244,7 +244,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   'La parte relativa alla manutenzione dei sensori è troppo sintetica.',
   '',
   1,
-  1
+  3
 );
 
 -- Paper 2
@@ -268,7 +268,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   'Limitata comparazione sulla durabilità.',
   '',
   6,
-  2
+  4
 );
 
 
@@ -303,7 +303,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   'Assenza di una sezione quantitativa.',
   '',
   1,
-  1
+  5
 );
 -- Paper 2
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
@@ -324,7 +324,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   'Terminologia talvolta ambigua.',
   '',
   6,
-  2
+  6
 );
 
 -- 5: Bioinformatics World Congress
@@ -360,7 +360,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   'Poco approfondita la parte sulla compatibilità con RNA-seq.',
   '',
   5,
-  5
+  7
 );
 
 -- Paper 2: Giulia Greco
@@ -384,7 +384,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   'Assenza di confronto su altri dataset clinici.',
   '',
   4,
-  6
+  8
 );
 
 
@@ -422,7 +422,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   'Grafici poco leggibili, mancano intervalli di confidenza.',
   '',
   2,
-  7
+  9
 );
 
 -- Paper 2 - Giulia Greco
@@ -445,7 +445,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   'Analisi dei risultati un po’ limitata.',
   '',
   2,
-  8
+  10
 );
 
 
