@@ -108,13 +108,16 @@ public class InserisciCodiceInvitoControl implements ControlledScreen {
                     ruoloConferenzaDao.save(ruoloConferenzaEntity);
 
                     // 6.2 - Se il ruolo è Sottorevisore, aggiorna la revisione del paper
+                    // 6.2 - Se il ruolo è Sottorevisore, aggiorna la revisione del paper
                     if (ruolo == Ruolo.Sottorevisore && invito.getRefPaper() != null) {
                         RevisioneDao revisioneDao = new RevisioneDao(DBMSBoundary.getConnection());
 
-                        List<RevisioneEntity> revisioni = revisioneDao.getByPaper(invito.getRefPaper());
-                        if (!revisioni.isEmpty()) {
-                            // Per ora si assume che ce ne sia una sola, o si usa la prima
-                            RevisioneEntity revisione = revisioni.get(0);
+                        RevisioneEntity revisione = revisioneDao.getByUtenteAndPaper(
+                                invito.getRefMittente(),
+                                invito.getRefPaper()
+                        );
+
+                        if (revisione != null) {
                             revisione.setRefSottorevisore(idUtente);
                             revisioneDao.update(revisione);
                         }

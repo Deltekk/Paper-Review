@@ -174,4 +174,18 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         }
         return 0;
     }
+
+    public RevisioneEntity getByUtenteAndPaper(int refUtente, int refPaper) throws SQLException {
+        String query = "SELECT * FROM " + tableName + " WHERE ref_utente = ? AND ref_paper = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refUtente);
+            stmt.setInt(2, refPaper);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapRow(rs);
+                }
+            }
+        }
+        return null;
+    }
 }

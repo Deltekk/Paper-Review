@@ -240,14 +240,19 @@ public class VisualizzaNotificheInvitiControl implements ControlledScreen {
 
             // 3 - Se è un Sottorevisore, collega alla revisione del paper
             if (ruolo == Ruolo.Sottorevisore && invitoEntity.getRefPaper() != null) {
-                List<RevisioneEntity> revisioni = revisioneDao.getByPaper(invitoEntity.getRefPaper());
-                if (!revisioni.isEmpty()) {
-                    // Assumiamo una sola revisione per il paper
-                    RevisioneEntity revisione = revisioni.get(0);
+                RevisioneDao revisioneDao = new RevisioneDao(DBMSBoundary.getConnection());
+
+                RevisioneEntity revisione = revisioneDao.getByUtenteAndPaper(
+                        invitoEntity.getRefMittente(),
+                        invitoEntity.getRefPaper()
+                );
+
+                if (revisione != null) {
                     revisione.setRefSottorevisore(idUtente);
                     revisioneDao.update(revisione);
                 }
             }
+
 
             // 4 - Mostra messaggio di conferma
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
