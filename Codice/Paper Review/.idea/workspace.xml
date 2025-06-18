@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/controls/RevisionaPaperControl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/forms/RevisionaPaperFormModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/revisionaPaper/revisionaPaperBoundary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/revisionaPaper/revisionaPaperStyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/controls/PrenotazioneBroadcastControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/controls/PrenotazioneBroadcastControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/prenotazioneBroadcast/prenotazioneBroadcastBoundary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/prenotazioneBroadcast/prenotazioneBroadcastBoundary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/prenotazioneBroadcast/prenotazioneBroadcastStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/prenotazioneBroadcast/prenotazioneBroadcastStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,9 +22,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="FxmlFile" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -279,7 +278,7 @@
       <workItem from="1750108141360" duration="14672000" />
       <workItem from="1750159792479" duration="31801000" />
       <workItem from="1750204311104" duration="66000" />
-      <workItem from="1750244007056" duration="14379000" />
+      <workItem from="1750244007056" duration="16129000" />
     </task>
     <servers />
   </component>
