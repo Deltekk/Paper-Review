@@ -137,7 +137,7 @@ public class VisualizzaPapersEditoreControl implements ControlledScreen {
             }
 
             LocalDateTime inizioScaricamento = conferenza.getScadenzaSottomissione2();
-            LocalDateTime fineScaricamento = conferenza.getScadenzaEditing();
+            LocalDateTime fineScaricamento = conferenza.getScadenzaImpaginazione();
 
             // 8–10: Controlli
             if (now.isBefore(inizioScaricamento)) {
