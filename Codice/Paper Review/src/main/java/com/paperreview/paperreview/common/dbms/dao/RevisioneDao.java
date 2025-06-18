@@ -99,6 +99,20 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         return results;
     }
 
+    public List<RevisioneEntity> getByConferenza(int refConferenza) throws SQLException {
+        String query = "SELECT R.* FROM " + tableName + " Revisione R JOIN Paper P on R.ref_paper = P.id_paper WHERE P.ref_conferenza = ?";
+        List<RevisioneEntity> results = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, refConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapRow(rs));
+                }
+            }
+        }
+        return results;
+    }
+
     public List<RevisioneEntity> getByUtenteAndConferenza(int refUtente, int refConferenza) throws SQLException {
         String query = "SELECT * FROM " + tableName + " WHERE ref_utente = ? AND ref_conferenza = ?";
         List<RevisioneEntity> results = new ArrayList<>();
