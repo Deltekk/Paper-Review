@@ -368,7 +368,7 @@ public class VisualizzaPapersChairControl implements ControlledScreen {
             UserContext.setPaperAttuale(paper);
 
             // Carica la nuova schermata
-            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaDettagliPaper/visualizzaDettagliPaperBoundary.fxml");
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaDettagliPaperChair/visualizzaDettagliPaperChairBoundary.fxml");
 
         } catch (Exception e) {
             e.printStackTrace();
