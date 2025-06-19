@@ -415,7 +415,7 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
                         .toList();
 
                 String testoNotifica = String.format(
-                        "⚠️ Il revisore %s %s ha segnalato un conflitto di interesse per l’articolo \"%s\" (ID %d) nella conferenza %s.",
+                        "⚠ Il revisore %s %s ha segnalato un conflitto di interesse per l’articolo \"%s\" (ID %d) nella conferenza %s.",
                         revisore.getNome(), revisore.getCognome(), paper.getTitolo(), idPaper, conferenza.getNome()
                 );
 
@@ -516,7 +516,7 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
                         .toList();
 
                 String testoNotifica = String.format(
-                        "⚠️ Il revisore %s %s ha segnalato un plagio per l’articolo \"%s\" (ID %d) nella conferenza %s.",
+                        "⚠ Il revisore %s %s ha segnalato un plagio per l’articolo \"%s\" (ID %d) nella conferenza %s.",
                         revisore.getNome(), revisore.getCognome(), paper.getTitolo(), idPaper, conferenza.getNome()
                 );
 
