@@ -125,16 +125,45 @@ public class VisualizzaSchermataRevisioniControl implements ControlledScreen {
 
     public void handleVisualizzaPapers(ConferenzaEntity conferenza)
     {
-        // Controlla se siamo in periodo di sottomissione
-        if(LocalDate.now().isBefore(conferenza.getScadenzaSottomissione().toLocalDate())) {
+        // 1. Controllo: periodo di sottomissione ancora in corso (blocco sempre valido)
+        if (LocalDate.now().isBefore(conferenza.getScadenzaSottomissione().toLocalDate())) {
             Alert expiredAlert = new Alert(Alert.AlertType.WARNING);
             expiredAlert.setTitle("Operazione non consentita");
-            expiredAlert.setHeaderText("Data di sottomissione da raggiungere!");
+            expiredAlert.setHeaderText("Periodo di sottomissione ancora attivo!");
             expiredAlert.setContentText(String.format(
-                    "Ancora non è possibile visualizzare i papers, riprova dopo giorno \"%s\".",
+                    "Non è ancora possibile visualizzare i papers. La sottomissione termina il giorno \"%s\".",
                     conferenza.getScadenzaSottomissione()
             ));
             expiredAlert.showAndWait();
+            return;
+        }
+
+        // 2. Controllo: se è Broadcast, devono passare almeno 2 giorni dalla scadenza di sottomissione
+        if (conferenza.getMetodoAssegnazione() == MetodoAssegnazione.Broadcast &&
+                LocalDate.now().isBefore(conferenza.getScadenzaSottomissione().toLocalDate().plusDays(2))) {
+
+            Alert waitAlert = new Alert(Alert.AlertType.WARNING);
+            waitAlert.setTitle("Operazione non consentita");
+            waitAlert.setHeaderText("Attendi chiusura selezione Broadcast");
+            waitAlert.setContentText(String.format(
+                    "La selezione dei papers è disponibile, la visualizzazione paper è disponibile solo dopo 2 giorni dalla fine della sottomissione (%s).",
+                    conferenza.getScadenzaSottomissione().toLocalDate().plusDays(2)
+            ));
+            waitAlert.showAndWait();
+            return;
+        }
+
+        LocalDate scadenzaRevisione = conferenza.getScadenzaRevisione().toLocalDate();
+        // 3. Scadenza revisione superata
+        if (LocalDate.now().isAfter(scadenzaRevisione)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Operazione non consentita");
+            alert.setHeaderText("Periodo di revisione scaduto!");
+            alert.setContentText(String.format(
+                    "Il periodo utile per la revisione è terminato il \"%s\".",
+                    scadenzaRevisione
+            ));
+            alert.showAndWait();
             return;
         }
 

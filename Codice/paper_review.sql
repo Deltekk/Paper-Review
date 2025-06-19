@@ -113,7 +113,7 @@ INSERT INTO Conferenza (
 -- 2: scadenza_revisione = 17 giugno 2025
 ('Quantum Computing Congress', 'Calcolo quantistico e algoritmi innovativi', '2026-07-15 10:00:00', 'Zurigo', 'Broadcast', '4',
  4, 10, 5,
- '2025-06-18 23:59:59', '2025-06-25 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59', '2025-09-26 23:59:59', '2025-10-29 23:59:59'),
+ '2025-06-19 23:59:59', '2025-06-25 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59', '2025-09-26 23:59:59', '2025-10-29 23:59:59'),
 -- 3: scadenza_sottomissione_2 = 17 giugno 2025
 ('Sustainable Tech Forum', 'Tecnologie sostenibili e innovazione ambientale', '2026-07-20 09:30:00', 'Oslo', 'Broadcast', '3',
  5, 7, 5,
@@ -184,7 +184,7 @@ INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES
 
 
 
-
+-- Paper 1
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
   'Modellazione Predittiva del Clima per la Coltivazione della Banana in Moldavia',
@@ -198,7 +198,7 @@ INSERT INTO CoAutoriPaper (email, ref_paper) VALUES
 ('maria.popescu@meteo.md', 1),
 ('andrei.rusu@agridata.md', 1);
 
--- Paper 1: revisionato
+-- Paper 2
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
   'Qubit Entanglement Optimization in Noisy Intermediate-Scale Quantum Devices',
@@ -209,7 +209,7 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
   2
 );
 
--- Paper 2: non revisionato
+-- Paper 3
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
   'Benchmarking of Quantum Algorithms for Combinatorial Optimization',
@@ -220,43 +220,7 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
   2
 );
 
-INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
-(
-  'Il lavoro affronta un tema centrale nella computazione quantistica attuale, con una buona trattazione teorica e una sezione sperimentale solida. Le simulazioni sono ben eseguite.',
-  2,
-  '2025-06-17 15:00:00',
-  'Ottima chiarezza espositiva, uso coerente di Qiskit, riferimento a lavori recenti.',
-  'Manca una valutazione energetica comparativa tra hardware differenti.',
-  'Plagio',
-  5,
-  2
-);
-
--- Paper 1
-INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
-(
-  'Ottimizzazione Energetica negli Edifici Intelligenti tramite IoT e Machine Learning',
-  'Questo studio esplora tecniche di ottimizzazione dei consumi energetici in ambienti intelligenti, mediante sensori IoT e modelli predittivi basati su machine learning. I risultati mostrano una riduzione media del 28% nel consumo energetico su scala urbana.',
-  NULL,
-  '2025-06-10 10:30:00',
-  2,
-  3
-);
-
--- Diego Corona (revisore)
-INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
-(
-  'Studio interessante e attuale, con solide basi sperimentali. Ottima esposizione grafica dei risultati.',
-  2,
-  '2025-06-14 16:00:00',
-  'Applicazione pratica chiara, validazione su casi reali, struttura ben organizzata.',
-  'La parte relativa alla manutenzione dei sensori è troppo sintetica.',
-  '',
-  1,
-  3
-);
-
--- Paper 2
+-- Paper 4
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
   'Analisi Comparativa di Materiali Sostenibili per l’Edilizia Urbana',
@@ -267,7 +231,7 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
   3
 );
 
--- Giulia Greco (sottorevisore)
+-- Giulia Greco
 INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
 (
   'Il confronto è interessante, ma mancano informazioni dettagliate su costi e reperibilità.',
@@ -280,7 +244,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   4
 );
 
--- Paper 1
+-- Paper 5
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
   'Bias Etici nei Sistemi di Raccomandazione Basati su AI',
@@ -301,7 +265,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   1,
   5
 );
--- Paper 2
+-- Paper 6
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
   'L’Illusione del Libero Arbitrio nelle Decisioni Automatizzate',
@@ -323,7 +287,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   6
 );
 
--- Paper 1: Diego Corona
+-- Paper 7
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
   'Metodi di Normalizzazione nei Dataset Genomici ad Alta Variabilità',
@@ -346,7 +310,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   7
 );
 
--- Paper 2: Giulia Greco
+-- Paper 8
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
   'Applicazione di Reti Neurali Convoluzionali per la Classificazione di Mutazioni Patogene',
@@ -357,7 +321,7 @@ INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_c
   5
 );
 
--- Daniele Susino (Sottorevisore)
+-- Daniele Susino
 INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper) VALUES
 (
   'La trattazione è solida. Mancano però alcuni test di generalizzazione su popolazioni diverse.',
@@ -370,10 +334,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   8
 );
 
-
-
--- 6: Data Science Expo 2025
--- Paper 1 - Diego Corona
+-- Paper 9
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
   'Analisi Predittiva su Flussi di Dati in Tempo Reale tramite Apache Flink',
@@ -396,7 +357,7 @@ INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punt
   9
 );
 
--- Paper 2 - Giulia Greco
+-- Paper 10
 INSERT INTO Paper (titolo, abstract, file, data_sottomissione, ref_utente, ref_conferenza) VALUES
 (
   'Feature Selection Dinamica in Modelli di Machine Learning su Dataset Eterogenei',
@@ -470,7 +431,101 @@ INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (3, 10);
 INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (5, 10);
 INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (7, 10);
 
--- Paper 11
-INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (2, 11);
-INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (4, 11);
-INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES (5, 11);
+
+INSERT INTO Conferenza (
+    nome, descrizione, data_conferenza, location, metodo_assegnazione, metodo_valutazione,
+    paper_previsti, rate_accettazione, giorni_preavviso,
+    scadenza_sottomissione, scadenza_revisione, scadenza_sottomissione_2,
+    scadenza_editing, scadenza_sottomissione_3, scadenza_impaginazione
+) VALUES (
+             'CyberSecurity & Privacy Summit',
+             'Discussione sulle sfide emergenti in ambito sicurezza informatica, crittografia e privacy digitale',
+             '2026-08-05 09:30:00',
+             'Tallinn',
+             'Topic',
+             '4',
+             4, 15, 5,
+             '2025-06-15 23:59:59',  -- scadenza_sottomissione
+             '2025-06-22 23:59:59',  -- scadenza_revisione (richiesta)
+             '2025-07-20 23:59:59',
+             '2025-08-23 23:59:59',
+             '2025-09-26 23:59:59',
+             '2025-10-29 23:59:59'
+         );
+
+-- Diego Corona
+INSERT INTO Ruolo_conferenza (ref_utente, ref_conferenza, ruolo) VALUES
+                                                                     (1, 7, 'Chair'),
+                                                                     (1, 7, 'Revisore'),
+                                                                     (1, 7, 'Autore');
+
+-- Leonardo Giovanni Caiezza
+INSERT INTO Ruolo_conferenza (ref_utente, ref_conferenza, ruolo) VALUES
+                                                                     (2, 7, 'Chair'),
+                                                                     (2, 7, 'Revisore'),
+                                                                     (2, 7, 'Autore'),
+                                                                     (2, 7, 'Editor');  -- solo lui come Editor
+
+-- Luca Gaetani
+INSERT INTO Ruolo_conferenza (ref_utente, ref_conferenza, ruolo) VALUES
+                                                                     (3, 7, 'Chair'),
+                                                                     (3, 7, 'Revisore'),
+                                                                     (3, 7, 'Autore');
+
+-- Daniele Orazio Susino
+INSERT INTO Ruolo_conferenza (ref_utente, ref_conferenza, ruolo) VALUES
+                                                                     (4, 7, 'Chair'),
+                                                                     (4, 7, 'Revisore'),
+                                                                     (4, 7, 'Autore');
+
+-- Paper 11: Autore Diego (id_utente = 1)
+INSERT INTO Paper (titolo, abstract, data_sottomissione, ref_utente, ref_conferenza)
+VALUES ('Quantum Security Analysis', 'Studio sull\'applicazione della sicurezza quantistica nei sistemi distribuiti.', NOW(), 1, 7);
+
+-- Paper 12: Autore Leonardo (id_utente = 2)
+INSERT INTO Paper (titolo, abstract, data_sottomissione, ref_utente, ref_conferenza)
+VALUES ('AI Ethics in Practice', 'Analisi dei dilemmi etici nell\'uso dell\'intelligenza artificiale nella società moderna.', NOW(), 2, 7);
+
+-- Paper 13: Autore Luca (id_utente = 3)
+INSERT INTO Paper (titolo, abstract, data_sottomissione, ref_utente, ref_conferenza)
+VALUES ('Data Privacy Frameworks', 'Confronto tra i principali framework normativi per la protezione dei dati personali.', NOW(), 3, 7);
+
+-- Paper 14: Autore Daniele (id_utente = 4)
+INSERT INTO Paper (titolo, abstract, data_sottomissione, ref_utente, ref_conferenza)
+VALUES ('Biometric Authentication Risks', 'Valutazione delle vulnerabilità nei sistemi di autenticazione biometrica.', NOW(), 4, 7);
+
+-- Revisione 1: Paper di Diego (id_paper = 1), revisore Leonardo (id_utente = 2)
+INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper, ref_sottorevisore)
+VALUES (NULL, NULL, null, NULL, NULL, NULL, 2, 11, NULL);
+
+-- Revisione 2: Paper di Leonardo (id_paper = 2), revisore Luca (id_utente = 3)
+INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper, ref_sottorevisore)
+VALUES (NULL, NULL, null, NULL, NULL, NULL, 3, 12, NULL);
+
+-- Revisione 3: Paper di Luca (id_paper = 3), revisore Daniele (id_utente = 4)
+INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper, ref_sottorevisore)
+VALUES (NULL, NULL, null, NULL, NULL, NULL, 4, 13, NULL);
+
+-- Revisione 4: Paper di Daniele (id_paper = 4), revisore Diego (id_utente = 1)
+INSERT INTO Revisione (testo, valutazione, data_sottomissione, punti_forza, punti_debolezza, commento_chair, ref_utente, ref_paper, ref_sottorevisore)
+VALUES (NULL, NULL, null, NULL, NULL, NULL, 1, 14, NULL);
+
+INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES
+                                                  (18, 11),
+                                                  (11, 11),
+                                                  (2, 11);
+
+INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES
+                                                  (9, 12),
+                                                  (27, 12),
+                                                  (54, 12);
+
+INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES
+                                                  (32, 13),
+                                                  (2, 13),
+                                                  (29, 13);
+
+INSERT INTO TopicPaper (ref_topic, ref_paper) VALUES
+                                                  (9, 14),
+                                                  (55, 14),
+                                                  (14, 14);
