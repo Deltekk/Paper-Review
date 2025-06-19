@@ -1,10 +1,8 @@
-package paperreviewserver.common.dao;
+package paperreviewserver.common.dbms.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UtenteDao {
     private final Connection connection;

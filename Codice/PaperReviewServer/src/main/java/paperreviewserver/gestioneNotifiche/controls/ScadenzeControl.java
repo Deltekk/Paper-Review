@@ -41,7 +41,8 @@ public class ScadenzeControl {
                     NotificaScadenzaCorrezioniEditoriali.class,
                     NotificaScadenzaImpaginazione.class,
                     NotificaScadenzaRevisioni.class,
-                    NotificaScadenzaSottomissioni.class
+                    NotificaScadenzaSottomissioni.class,
+                    AssegnaPaperAutomaticamente.class
             );
 
             // Pianificazione dei job senza offset, partono tutti insieme

@@ -1,7 +1,6 @@
 package paperreviewserver;
 
 import paperreviewserver.common.ConsoleLogger;
-import paperreviewserver.common.DBMSBoundary;
 import paperreviewserver.common.DotenvUtil;
 import paperreviewserver.gestioneNotifiche.controls.ScadenzeControl;
 

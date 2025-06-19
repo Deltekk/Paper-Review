@@ -3,8 +3,8 @@ package paperreviewserver.gestioneNotifiche;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import paperreviewserver.common.ConsoleLogger;
-import paperreviewserver.common.DBMSBoundary;
-import paperreviewserver.common.dao.*;
+import paperreviewserver.common.dbms.DBMSBoundary;
+import paperreviewserver.common.dbms.dao.*;
 import paperreviewserver.common.email.EmailSender;
 import paperreviewserver.common.email.NotificaScadenzaMail;
 
