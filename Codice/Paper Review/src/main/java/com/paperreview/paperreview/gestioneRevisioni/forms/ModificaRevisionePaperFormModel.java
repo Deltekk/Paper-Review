@@ -9,6 +9,7 @@ public class ModificaRevisionePaperFormModel {
     private StringField revisione;
     private StringField puntiDiForza;
     private StringField puntiDiDebolezza;
+    private Integer valutazione;
 
     public ModificaRevisionePaperFormModel(RevisioneEntity revisioneEntity) {
         this.revisione = Field.ofStringType(revisioneEntity.getTesto())
@@ -45,6 +46,7 @@ public class ModificaRevisionePaperFormModel {
     public String getPuntiDiDebolezza() {
         return puntiDiDebolezza.getValue();
     }
+    public Integer getValue() { return valutazione; }
 
     public Form createForm() {
         return Form.of(Group.of(revisione, puntiDiForza, puntiDiDebolezza));

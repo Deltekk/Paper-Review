@@ -153,11 +153,10 @@ public class ModificaRevisionePaperControl implements ControlledScreen {
                 return;
             }
 
-            String testo = revisione.getTesto();
-            String puntiForza = revisione.getPuntiForza();
-            String puntiDebolezza = revisione.getPuntiDebolezza();
-            String commentoChair = revisione.getCommentoChair();
-            int valutazione = (int) scoreSlider.getValue();
+            String testo = modificaRevisionePaperFormModel.getRevisione();
+            String puntiForza = modificaRevisionePaperFormModel.getPuntiDiForza();
+            String puntiDebolezza = modificaRevisionePaperFormModel.getPuntiDiDebolezza();
+            int valutazione = (int) modificaRevisionePaperFormModel.getValue();
 
             if (testo == null || testo.isBlank() ||
                     puntiForza == null || puntiForza.isBlank() ||
@@ -190,7 +189,6 @@ public class ModificaRevisionePaperControl implements ControlledScreen {
             revisione.setDataSottomissione(LocalDateTime.now());
             revisione.setPuntiForza(puntiForza);
             revisione.setPuntiDebolezza(puntiDebolezza);
-            revisione.setCommentoChair(commentoChair);
 
             dao.update(revisione);
 
