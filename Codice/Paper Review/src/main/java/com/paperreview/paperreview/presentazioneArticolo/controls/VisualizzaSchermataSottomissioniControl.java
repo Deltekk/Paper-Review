@@ -152,7 +152,7 @@ public class VisualizzaSchermataSottomissioniControl implements ControlledScreen
 
     public void handleVisualizzaSottomissioni(ConferenzaEntity conferenza)
     {
-        LocalDateTime s = UserContext.getConferenzaAttuale().getScadenzaRevisione();
+        LocalDateTime s = conferenza.getScadenzaRevisione();
         if (LocalDate.now().isBefore(s.toLocalDate())) {
             Alert warningAlert = new Alert(Alert.AlertType.WARNING);
             warningAlert.setTitle("Fase di revisione ancora non terminata");
