@@ -12,7 +12,9 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -23,6 +25,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class VisualizzaDettagliPaperControl implements ControlledScreen {
@@ -166,6 +169,16 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
     }
 
     public void handlePlagio(RevisioneEntity revisione) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma Eliminazione Paper");
+        alert.setHeaderText("Vuoi davvero eliminare questo paper per sospetto plagio?");
+        alert.setContentText("L'azione notificherà tutti gli utenti coinvolti e non sarà reversibile.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isEmpty() || result.get() != ButtonType.OK) {
+            return; // l'utente ha annullato
+        }
+
         int idChairAttuale = UserContext.getUtente().getId();
 
         try {
@@ -284,8 +297,8 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
             EmailSender emailSender = new EmailSender();
             emailSender.sendEmail(mail);
 
-            // Messaggio di conferma su console
-            System.out.println("Plagio segnalato: paper eliminato e notifiche inviate.");
+            // Aggiornamento Pagina
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaPapersChair/visualizzaPapersChairBoundary.fxml");
 
         } catch (SQLException e) {
             e.printStackTrace();
