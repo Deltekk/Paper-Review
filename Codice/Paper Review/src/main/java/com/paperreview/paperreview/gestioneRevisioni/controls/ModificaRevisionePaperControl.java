@@ -88,10 +88,16 @@ public class ModificaRevisionePaperControl implements ControlledScreen {
                 }
             });
 
-            form.validProperty().addListener((obs, oldVal, newVal) -> {
-                confirmButton.setDisable(!newVal);
-            });
+            // Disabilita il pulsante solo se il form è invalido o non è stato modificato
+            confirmButton.setDisable(!form.isValid() || !form.changedProperty().get());
 
+            // Aggiorna ogni volta che cambia validità o modifiche
+            form.validProperty().addListener((obs, oldVal, newVal) -> {
+                confirmButton.setDisable(!newVal || !form.changedProperty().get());
+            });
+            form.changedProperty().addListener((obs, oldVal, newVal) -> {
+                confirmButton.setDisable(!form.isValid() || !newVal);
+            });
         } catch (SQLException e) {
             // TODO: gestire questo errore.
             throw new RuntimeException(e);
