@@ -141,7 +141,7 @@ public class InvitaRevisoriControl implements ControlledScreen {
         int idConferenza = conferenza.getId();
         int idMittente = UserContext.getUtente().getId();
         int paperPrevisti = conferenza.getPaperPrevisti();
-        int maxPaperPerRevisore = 5;
+        int maxPaperPerRevisore = 4;
 
         int minRevisoriRichiesti = (int) Math.ceil((double) paperPrevisti / maxPaperPerRevisore);
 
