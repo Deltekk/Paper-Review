@@ -225,17 +225,16 @@ public class ModificaArticoloControl implements ControlledScreen {
         LocalDateTime impaginazione = conferenza.getScadenzaImpaginazione();
 
         boolean inPeriodoSottomissione =
-                (now.isAfter(s1) && now.isBefore(s2)) ||
-                        (now.isAfter(s2) && now.isBefore(s3)) ||
-                        (now.isAfter(s3) && now.isBefore(impaginazione));
+                (now.isBefore(conferenza.getScadenzaSottomissione())) ||
+                        (now.isAfter(conferenza.getScadenzaRevisione()) && now.isBefore(conferenza.getScadenzaSottomissione2())) ||
+                        (now.isAfter(conferenza.getScadenzaEditing()) && now.isBefore(conferenza.getScadenzaSottomissione3()));
 
         if (!inPeriodoSottomissione) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Periodo non valido");
             alert.setHeaderText("Non è possibile modificare la sottomissione in questo momento.");
             alert.setContentText(String.format(
-                    "La modifica è consentita solo nei periodi tra le date di sottomissione e impaginazione.\n\n" +
-                            "Scadenza attuale impaginazione: %s", impaginazione.toLocalDate()));
+                    "La modifica è consentita solo nei periodi tra le date di sottomissione.\n\n"));
             alert.showAndWait();
             return;
         }

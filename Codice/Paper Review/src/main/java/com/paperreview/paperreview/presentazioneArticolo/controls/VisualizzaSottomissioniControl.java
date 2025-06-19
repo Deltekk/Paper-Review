@@ -157,8 +157,6 @@ public class VisualizzaSottomissioniControl implements ControlledScreen {
     {
         ConferenzaEntity conferenza = UserContext.getConferenzaAttuale();
 
-        // Se siamo alla prima sottomissione passa tranquillamente avanti
-
         // Controlla se siamo in periodo di revisione
         if(CustomDateParser.isBetweenSecondInclusive(LocalDate.now(), conferenza.getScadenzaSottomissione(), conferenza.getScadenzaRevisione())) {
             Alert expiredAlert = new Alert(Alert.AlertType.WARNING);
