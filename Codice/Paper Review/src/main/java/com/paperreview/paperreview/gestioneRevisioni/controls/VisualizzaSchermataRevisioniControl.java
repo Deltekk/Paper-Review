@@ -49,13 +49,13 @@ public class VisualizzaSchermataRevisioniControl implements ControlledScreen {
             LocalDate oggi = LocalDate.now();
 
             List<ConferenzaEntity> conferenze = conferenzaDao
-                    .getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Editor)
+                    .getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Revisore)
                     .stream()
                     .filter(c -> {
                         LocalDate sottomissione1 = c.getScadenzaSottomissione().toLocalDate();
                         LocalDate revisione = c.getScadenzaRevisione().toLocalDate();
 
-                        return !oggi.isBefore(sottomissione1) && revisione.isBefore(revisione);
+                        return !oggi.isBefore(sottomissione1) && oggi.isBefore(revisione);
                     })
                     .collect(Collectors.toList());
 

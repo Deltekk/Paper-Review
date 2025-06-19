@@ -54,7 +54,7 @@ public class VisualizzaSchermataSottomissioniControl implements ControlledScreen
             LocalDate oggi = LocalDate.now();
 
             List<ConferenzaEntity> conferenze = conferenzaDao
-                    .getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Editor)
+                    .getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Autore)
                     .stream()
                     .filter(c -> {
                         LocalDate sottomissione1 = c.getScadenzaSottomissione().toLocalDate();
