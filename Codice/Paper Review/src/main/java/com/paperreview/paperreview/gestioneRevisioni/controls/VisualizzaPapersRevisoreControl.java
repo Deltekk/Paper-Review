@@ -445,14 +445,14 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
                 }
 
                 // Trova ed elimina la revisione del revisore (o del sottorevisore)
-                List<RevisioneEntity> revisioni = revisioneDao.getByPaper(idPaper);
+                /* List<RevisioneEntity> revisioni = revisioneDao.getByPaper(idPaper);
                 for (RevisioneEntity revisione : revisioni) {
                     if ((revisione.getRefUtente() == idUtente) ||
                             (revisione.getRefSottorevisore() != null && revisione.getRefSottorevisore() == idUtente)) {
                         revisioneDao.removeById(revisione.getId());  // rimuove la revisione dal DB
                         break;
                     }
-                }
+                }*/
 
                 Alert successo = new Alert(Alert.AlertType.INFORMATION);
                 successo.setTitle("Conflitto segnalato");

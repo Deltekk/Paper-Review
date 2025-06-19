@@ -165,7 +165,116 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
     }
 
     public void handleConflitto(RevisioneEntity revisione) {
-        System.out.println("Conflitto segnalato per revisione: " + revisione.getId());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conflitto di Interesse");
+        alert.setHeaderText("Vuoi davvero eliminare questa revisione per conflitto di interesse?");
+        alert.setContentText("L'azione notificherà il revisore coinvolto e tutti gli altri Chair.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isEmpty() || result.get() != ButtonType.OK) {
+            return;
+        }
+
+        int idChairAttuale = UserContext.getUtente().getId();
+
+        try {
+            // DAO
+            Connection conn = DBMSBoundary.getConnection();
+            RevisioneDao revisioneDao = new RevisioneDao(conn);
+            PaperDao paperDao = new PaperDao(conn);
+            NotificaDao notificaDao = new NotificaDao(conn);
+            RuoloConferenzaDao ruoloDao = new RuoloConferenzaDao(conn);
+            UtenteDao utenteDao = new UtenteDao(conn);
+            ConferenzaDao conferenzaDao = new ConferenzaDao(conn);
+
+            // Recupera info paper e conferenza
+            PaperEntity paper = paperDao.getById(revisione.getRefPaper());
+            if (paper == null) {
+                System.err.println("Errore: paper non trovato");
+                return;
+            }
+
+            int idPaper = paper.getId();
+            int idConferenza = paper.getRefConferenza();
+            ConferenzaEntity conferenza = conferenzaDao.getById(idConferenza);
+            String nomePaper = paper.getTitolo();
+            UtenteEntity utenteChair = UserContext.getUtente();
+
+            // Recupera revisore
+            UtenteEntity revisore = utenteDao.getById(revisione.getRefUtente());
+            if (revisore == null) {
+                System.err.println("Errore: revisore non trovato");
+                return;
+            }
+
+            // Messaggio notifica completo
+            String notifica = String.format(
+                    "Il Chair %s %s ha eliminato la revisione del revisore %s %s per conflitto di interesse sul paper \"%s\" nella conferenza \"%s\".",
+                    utenteChair.getNome(), utenteChair.getCognome(),
+                    revisore.getNome(), revisore.getCognome(),
+                    nomePaper, conferenza.getNome()
+            );
+
+            // Elimina revisione
+            revisioneDao.removeById(revisione.getId());
+
+            // Notifica altri Chair
+            Set<Integer> idsChair = ruoloDao.getIdUtentiByRuoloAndConferenza(Ruolo.Chair, idConferenza);
+            for (Integer idChair : idsChair) {
+                if (idChair.equals(idChairAttuale)) continue;
+
+                UtenteEntity altroChair = utenteDao.getById(idChair);
+                notificaDao.save(new NotificaEntity(
+                        0,
+                        LocalDateTime.now(),
+                        notifica,
+                        false,
+                        altroChair.getId(),
+                        idConferenza
+                ));
+
+                MailSegnalazione mailChair = new MailSegnalazione(
+                        altroChair.getEmail(),
+                        utenteChair.getNome(),
+                        utenteChair.getCognome(),
+                        conferenza.getNome(),
+                        "Conflitto di interesse (revisione eliminata)",
+                        nomePaper
+                );
+                new EmailSender().sendEmail(mailChair);
+            }
+
+            // Notifica revisore stesso
+            notificaDao.save(new NotificaEntity(
+                    0,
+                    LocalDateTime.now(),
+                    notifica,
+                    false,
+                    revisore.getId(),
+                    idConferenza
+            ));
+
+            MailSegnalazione mailRev = new MailSegnalazione(
+                    revisore.getEmail(),
+                    utenteChair.getNome(),
+                    utenteChair.getCognome(),
+                    conferenza.getNome(),
+                    "Conflitto di interesse (revisione eliminata)",
+                    nomePaper
+            );
+            new EmailSender().sendEmail(mailRev);
+
+            // Aggiorna schermata
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/visualizzaPapersChair/visualizzaPapersChairBoundary.fxml");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert err = new Alert(Alert.AlertType.ERROR);
+            err.setTitle("Errore");
+            err.setHeaderText("Errore durante la gestione del conflitto");
+            err.setContentText("Si è verificato un errore durante l'eliminazione della revisione.");
+            err.showAndWait();
+        }
     }
 
     public void handlePlagio(RevisioneEntity revisione) {
