@@ -24,6 +24,7 @@ import javafx.scene.text.TextAlignment;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class VisualizzaSchermataSottomissioniControl implements ControlledScreen {
@@ -151,6 +152,16 @@ public class VisualizzaSchermataSottomissioniControl implements ControlledScreen
 
     public void handleVisualizzaSottomissioni(ConferenzaEntity conferenza)
     {
+        LocalDateTime s = UserContext.getConferenzaAttuale().getScadenzaRevisione();
+        if (LocalDate.now().isBefore(s.toLocalDate())) {
+            Alert warningAlert = new Alert(Alert.AlertType.WARNING);
+            warningAlert.setTitle("Fase di revisione ancora non terminata");
+            warningAlert.setHeaderText("Visualizzazione non ancora consentita.");
+            warningAlert.setContentText("La visualizzazione sarà disponibile solo dopo la fine della revisione " + s);
+            warningAlert.showAndWait();
+            return;
+        }
+
         UserContext.setConferenzaAttuale(conferenza);
         mainControl.setView("/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaSottomissioni/visualizzaSottomissioniBoundary.fxml");
     }
