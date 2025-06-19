@@ -8,6 +8,7 @@ import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.MainControl;
 import com.paperreview.paperreview.entities.ConferenzaEntity;
+import com.paperreview.paperreview.entities.PaperEntity;
 import com.paperreview.paperreview.entities.Ruolo;
 import com.paperreview.paperreview.entities.RuoloConferenzaEntity;
 import javafx.fxml.FXML;
@@ -21,11 +22,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import net.bytebuddy.asm.Advice;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VisualizzaSchermataSottomissioniControl implements ControlledScreen {
 
@@ -46,7 +49,30 @@ public class VisualizzaSchermataSottomissioniControl implements ControlledScreen
             UserContext.setStandaloneInteraction(false);
 
             ConferenzaDao conferenzaDao = new ConferenzaDao(DBMSBoundary.getConnection());
-            List<ConferenzaEntity> conferenze = conferenzaDao.getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Autore);
+            //List<ConferenzaEntity> conferenze = conferenzaDao.getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Autore);
+
+            LocalDate oggi = LocalDate.now();
+
+            List<ConferenzaEntity> conferenze = conferenzaDao
+                    .getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Editor)
+                    .stream()
+                    .filter(c -> {
+                        LocalDate sottomissione1 = c.getScadenzaSottomissione().toLocalDate();
+                        LocalDate revisione = c.getScadenzaRevisione().toLocalDate();
+                        LocalDate sottomissione2 = c.getScadenzaSottomissione2().toLocalDate();
+                        LocalDate editing = c.getScadenzaEditing().toLocalDate();
+                        LocalDate sottomissione3 = c.getScadenzaSottomissione3().toLocalDate();
+
+                        boolean presottomissione1 = oggi.isBefore(sottomissione1);
+                        boolean traRevisioneeSottomissione2 =
+                                (!oggi.isBefore(revisione)) && oggi.isBefore(sottomissione2);
+
+                        boolean traEditingeSottomissione3 =
+                                (!oggi.isBefore(editing)) && oggi.isBefore(sottomissione3);
+
+                        return presottomissione1 || traRevisioneeSottomissione2 || traEditingeSottomissione3;
+                    })
+                    .collect(Collectors.toList());
 
             if(conferenze.isEmpty())
             {
