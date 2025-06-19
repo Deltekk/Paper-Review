@@ -47,6 +47,9 @@ public class RevisionaPaperControl implements ControlledScreen {
         labelConferenza.setText(String.format("Conferenza: \"%s\"", UserContext.getConferenzaAttuale().getNome()));
         labelPaper.setText(String.format("Paper: \"%s\"", UserContext.getPaperAttuale().getTitolo()));
 
+        labelConferenza.setWrapText(true);
+        labelPaper.setWrapText(true);
+
         labelConferenza.setVisible(true);
         labelPaper.setVisible(true);
 

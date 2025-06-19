@@ -128,7 +128,7 @@ public class MainControl {
     }
 
     public void handleHome(){
-        setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
+        setView("/com/paperreview/paperreview/boundaries/gestioneNotifiche/home/homeBoundary.fxml");
     }
 
     public void handleGestisciConferenze(){

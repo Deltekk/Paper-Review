@@ -6,6 +6,7 @@
 
 .bg-celeste{
     -fx-background-radius: 20;
+    -fx-padding: 25;
 }
 
 .read-only-textarea .text-area {
@@ -26,4 +27,20 @@
     -fx-text-alignment: center;
     -fx-alignment: center;
     -fx-padding: 10;
+}
+
+.scrollPane, .trasparente{
+    -fx-background-color: transparent;
+}
+
+.scrollPane > Content{
+    -fx-background-color: transparent;
+}
+
+.viewport{
+    -fx-background-color: transparent;
+}
+
+.form-container{
+    -fx-background-color: transparent;
 }

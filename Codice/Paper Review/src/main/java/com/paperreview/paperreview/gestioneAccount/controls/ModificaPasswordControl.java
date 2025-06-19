@@ -99,7 +99,7 @@ public class ModificaPasswordControl implements ControlledScreen {
 
         alert.showAndWait();
 
-        mainControl.setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneNotifiche/home/homeBoundary.fxml");
     }
 
 }

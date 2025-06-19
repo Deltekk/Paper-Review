@@ -100,7 +100,7 @@ public class LoginControl implements ControlledScreen {
             UserContext.login(utente);
             System.out.println("Login riuscito: " + utente.toString());
 
-            mainControl.setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneNotifiche/home/homeBoundary.fxml");
 
             NotificaPushControl.avviaNotifichePush();
 

@@ -30,7 +30,7 @@
 
 .scrollPane, .trasparente{
     -fx-background-color: transparent;
-    -fx-padding: 25;
+    -fx-padding: 15;
 }
 
 .scrollPane > Content{
@@ -39,4 +39,8 @@
 
 .viewport{
     -fx-background-color: transparent;
+}
+
+.paperContainer{
+    -fx-padding: 50;
 }

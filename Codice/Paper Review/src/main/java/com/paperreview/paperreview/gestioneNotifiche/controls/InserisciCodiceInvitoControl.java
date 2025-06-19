@@ -123,7 +123,7 @@ public class InserisciCodiceInvitoControl implements ControlledScreen {
 
                     // 7 - Mostra messaggio e cambia schermata
                     errorLabel.setText("INVITO ACCETTATO!");
-                    mainControl.setView("/com/paperreview/paperreview/boundaries/home/homeBoundary.fxml");
+                    mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneNotifiche/home/homeBoundary.fxml");
                 }
 
                 default -> errorLabel.setText("Errore imprevisto durante l'elaborazione.");
