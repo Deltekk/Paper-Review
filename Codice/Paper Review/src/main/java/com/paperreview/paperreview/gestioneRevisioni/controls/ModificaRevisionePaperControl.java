@@ -156,7 +156,7 @@ public class ModificaRevisionePaperControl implements ControlledScreen {
             String testo = modificaRevisionePaperFormModel.getRevisione();
             String puntiForza = modificaRevisionePaperFormModel.getPuntiDiForza();
             String puntiDebolezza = modificaRevisionePaperFormModel.getPuntiDiDebolezza();
-            int valutazione = (int) modificaRevisionePaperFormModel.getValue();
+            int valutazione = (int) scoreSlider.getValue();
 
             if (testo == null || testo.isBlank() ||
                     puntiForza == null || puntiForza.isBlank() ||
