@@ -8,9 +8,8 @@ import com.paperreview.paperreview.common.dbms.dao.*;
 import com.paperreview.paperreview.common.email.EmailSender;
 import com.paperreview.paperreview.common.email.MailEditorFeedback;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.gestioneNotifiche.MainControl;
 import com.paperreview.paperreview.entities.*;
-import com.paperreview.paperreview.gestioneNotifiche.forms.CodiceInvitoForm;
 import com.paperreview.paperreview.gestionePaperDefinitivi.forms.InviaFeedbackFormModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -19,7 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
 
 import java.time.LocalDateTime;
 

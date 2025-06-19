@@ -1,4 +1,4 @@
-package com.paperreview.paperreview.controls;
+package com.paperreview.paperreview.gestioneNotifiche;
 
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import javafx.fxml.FXML;

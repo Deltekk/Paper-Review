@@ -10,11 +10,10 @@ import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
 import com.paperreview.paperreview.common.email.EmailSender;
 import com.paperreview.paperreview.common.email.MailInvito;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.gestioneNotifiche.MainControl;
 import com.paperreview.paperreview.entities.ConferenzaEntity;
 import com.paperreview.paperreview.entities.InvitoEntity;
 import com.paperreview.paperreview.entities.Ruolo;
-import com.paperreview.paperreview.entities.StatusInvito;
 import com.paperreview.paperreview.gestioneConferenze.forms.InvitaChairFormModel;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -28,7 +27,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 

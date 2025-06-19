@@ -7,7 +7,7 @@ import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
 import com.paperreview.paperreview.common.dbms.dao.RevisioneDao;
 import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
-import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.gestioneNotifiche.MainControl;
 import com.paperreview.paperreview.entities.*;
 import com.paperreview.paperreview.gestioneNotifiche.forms.CodiceInvitoForm;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
@@ -17,8 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
-import java.util.List;
 
 public class InserisciCodiceInvitoControl implements ControlledScreen {
 

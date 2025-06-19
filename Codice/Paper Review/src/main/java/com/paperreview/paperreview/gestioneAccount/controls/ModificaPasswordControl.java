@@ -6,7 +6,7 @@ import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.gestioneAccount.forms.ModificaPasswordFormModel;
 import com.paperreview.paperreview.common.*;
 import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
-import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.gestioneNotifiche.MainControl;
 import com.paperreview.paperreview.entities.UtenteEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import javafx.fxml.FXML;

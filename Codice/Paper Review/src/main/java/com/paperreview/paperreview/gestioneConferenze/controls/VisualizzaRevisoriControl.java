@@ -5,7 +5,7 @@ import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
 import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.gestioneNotifiche.MainControl;
 import com.paperreview.paperreview.entities.ConferenzaEntity;
 import com.paperreview.paperreview.entities.Ruolo;
 import com.paperreview.paperreview.entities.UtenteEntity;
@@ -15,7 +15,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.kordamp.ikonli.javafx.FontIcon;
 

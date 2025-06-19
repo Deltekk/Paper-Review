@@ -4,7 +4,7 @@ import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.*;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.gestioneNotifiche.MainControl;
 import com.paperreview.paperreview.entities.PaperEntity;
 import com.paperreview.paperreview.entities.RevisioneEntity;
 import com.paperreview.paperreview.entities.UtenteEntity;
@@ -20,7 +20,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
-import net.bytebuddy.asm.Advice;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;

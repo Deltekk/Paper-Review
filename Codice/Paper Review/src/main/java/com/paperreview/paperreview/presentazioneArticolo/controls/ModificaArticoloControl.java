@@ -12,7 +12,7 @@ import com.paperreview.paperreview.common.email.EmailSender;
 import com.paperreview.paperreview.common.email.MailSottomissione;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.common.llm.LLMBoundary;
-import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.gestioneNotifiche.MainControl;
 import com.paperreview.paperreview.entities.ConferenzaEntity;
 import com.paperreview.paperreview.entities.PaperEntity;
 import com.paperreview.paperreview.entities.TopicEntity;
@@ -30,7 +30,6 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ModificaArticoloControl implements ControlledScreen {

@@ -12,7 +12,7 @@
 
 <GridPane xmlns="http://javafx.com/javafx/24"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.paperreview.paperreview.controls.MainControl"
+          fx:controller="com.paperreview.paperreview.gestioneNotifiche.MainControl"
           stylesheets="@global.css"
           styleClass="quadrettoni">
 

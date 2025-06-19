@@ -3,7 +3,7 @@ package com.paperreview.paperreview.gestioneRevisioni.controls;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.gestioneNotifiche.MainControl;
 import com.paperreview.paperreview.entities.MetodoValutazione;
 import com.paperreview.paperreview.entities.RevisioneEntity;
 import com.paperreview.paperreview.gestioneRevisioni.forms.VisualizzaRevisioneFormModel;

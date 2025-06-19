@@ -6,7 +6,7 @@ import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.RevisioneDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.gestioneNotifiche.MainControl;
 import com.paperreview.paperreview.entities.MetodoValutazione;
 import com.paperreview.paperreview.entities.RevisioneEntity;
 import com.paperreview.paperreview.gestioneRevisioni.forms.ModificaRevisionePaperFormModel;

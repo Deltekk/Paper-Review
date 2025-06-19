@@ -1,25 +1,21 @@
 package com.paperreview.paperreview.gestionePaperDefinitivi.controls;
 
-import com.paperreview.paperreview.common.CustomDateParser;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.ConferenzaDao;
 import com.paperreview.paperreview.common.dbms.dao.PaperDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.gestioneNotifiche.MainControl;
 import com.paperreview.paperreview.entities.ConferenzaEntity;
 import com.paperreview.paperreview.entities.PaperEntity;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
 import java.io.FileOutputStream;
