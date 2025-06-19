@@ -254,9 +254,9 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
             String puntiDebolezza = revisioneEsistente.getPuntiDebolezza();
             Integer valutazione = revisioneEsistente.getValutazione();
 
-            if (revisioneEsistente != null || testo != null || !testo.isBlank() ||
-                    puntiForza != null || !puntiForza.isBlank() ||
-                    puntiDebolezza != null || !puntiDebolezza.isBlank() ||
+            if (revisioneEsistente != null || testo != null ||
+                    puntiForza != null ||
+                    puntiDebolezza != null ||
                     valutazione != null) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Revisione già esistente");
@@ -315,9 +315,9 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
             String puntiDebolezza = revisioneEsistente.getPuntiDebolezza();
             Integer valutazione = revisioneEsistente.getValutazione();
 
-            if (revisioneEsistente == null || testo == null || testo.isBlank() ||
-                    puntiForza == null || puntiForza.isBlank() ||
-                    puntiDebolezza == null || puntiDebolezza.isBlank() ||
+            if (revisioneEsistente == null || testo == null  ||
+                    puntiForza == null ||
+                    puntiDebolezza == null  ||
                     valutazione == null) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Revisione non esistente");
