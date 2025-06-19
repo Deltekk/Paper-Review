@@ -13,10 +13,7 @@ import com.paperreview.paperreview.gestioneRevisioni.forms.TopicFormModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -217,6 +214,12 @@ public class ModificaTopicControl implements ControlledScreen {
         for (TopicEntity topic : selectedTopics) {
             System.out.println("Topic selezionato: " + topic.getNome());
         }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Topic aggiornati!");
+        alert.setHeaderText("I tuoi topic sono stati aggiornati!");
+        alert.setContentText(String.format("Se vuoi, puoi iniziare a fare le revisioni!"));
+        alert.showAndWait();
 
     }
 }

@@ -159,7 +159,7 @@ public class MainControl {
             {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Operazione non consentita");
-                alert.setHeaderText("Per fare da revisore, devi prima impostare i tuoi topic!");
+                alert.setHeaderText("Per fare da revisore devi prima impostare i tuoi topic!");
                 alert.setContentText(String.format("Verrai reindirizzato alla pagina di modifica dei tuoi topic."));
                 alert.showAndWait();
 
