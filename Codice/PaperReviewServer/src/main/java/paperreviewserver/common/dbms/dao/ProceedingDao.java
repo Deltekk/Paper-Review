@@ -1,4 +1,4 @@
-package paperreviewserver.common.dao;
+package paperreviewserver.common.dbms.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,6 +1,4 @@
-package paperreviewserver.common.dao;
-
-import jdk.dynalink.linker.LinkerServices;
+package paperreviewserver.common.dbms.dao;
 
 import java.sql.*;
 import java.time.LocalDateTime;
