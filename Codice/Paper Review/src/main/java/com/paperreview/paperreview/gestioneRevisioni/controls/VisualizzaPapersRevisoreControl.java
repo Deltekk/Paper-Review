@@ -3,11 +3,11 @@ package com.paperreview.paperreview.gestioneRevisioni.controls;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.*;
+import com.paperreview.paperreview.common.email.EmailSender;
+import com.paperreview.paperreview.common.email.MailSegnalazione;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
-import com.paperreview.paperreview.entities.PaperEntity;
-import com.paperreview.paperreview.entities.RevisioneEntity;
-import com.paperreview.paperreview.entities.UtenteEntity;
+import com.paperreview.paperreview.entities.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -249,56 +250,239 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
     }
 
     public void handleInvitaSottoRevisore(PaperEntity paper) {
+        ConferenzaEntity conferenza = UserContext.getConferenzaAttuale();
 
-        // TODO: Permettere solo se la data odierna è minore della data di fine revisione
+        // ✅ Controlla se la data odierna è minore della scadenza revisione
+        if (LocalDateTime.now().isAfter(conferenza.getScadenzaRevisione())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Operazione non consentita");
+            alert.setHeaderText("Scadenza revisione superata");
+            alert.setContentText("Non è più possibile invitare un sotto-revisore perché la scadenza per le revisioni è già passata.");
+            alert.showAndWait();
+            return;
+        }
 
+        // ✅ Salva il paper e apri schermata invito
         UserContext.setPaperAttuale(paper);
         mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/invitaSottoRevisore/invitaSottoRevisoreBoundary.fxml");
-
     }
 
+
     public void handleVisualizzaRevisioni(PaperEntity paper) {
+        try {
+            RevisioneDao revisioneDao = new RevisioneDao(DBMSBoundary.getConnection());
+            int idUtente = UserContext.getUtente().getId();
 
-        // TODO: Permettere solo se il revisore ha già pubblicato la propria revisione (o relativo sottorevisore)
+            // Ottieni tutte le revisioni per quel paper
+            List<RevisioneEntity> revisioni = revisioneDao.getByPaper(paper.getId());
 
-        UserContext.setPaperAttuale(paper);
-        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaRevisioni/visualizzaRevisioniBoundary.fxml");
+            boolean haSottomesso = revisioni.stream().anyMatch(rev ->
+                    ((rev.getRefUtente() == idUtente ||
+                            (rev.getRefSottorevisore() != null && rev.getRefSottorevisore() == idUtente))
+                            && rev.getDataSottomissione() != null)
+            );
+
+            if (!haSottomesso) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Accesso negato");
+                alert.setHeaderText("Revisione non ancora sottomessa");
+                alert.setContentText("Puoi visualizzare le altre revisioni solo dopo aver pubblicato la tua.");
+                alert.showAndWait();
+                return;
+            }
+
+            // OK: salva paper e apri schermata
+            UserContext.setPaperAttuale(paper);
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaRevisioni/visualizzaRevisioniBoundary.fxml");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Errore nel caricamento delle revisioni");
+            alert.setContentText("Si è verificato un errore durante il controllo delle revisioni.");
+            alert.showAndWait();
+        }
     }
 
     public void handleSegnalaConflitto(PaperEntity paper) {
+        Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+        conferma.setTitle("Conflitto di interesse");
+        conferma.setHeaderText("Sei sicuro di voler segnalare un conflitto di interesse?");
+        conferma.setContentText("Segnalare un conflitto impedisce di continuare la revisione.");
 
-    /*      TODO:
-             1. Il revisore clicca sul pulsante “SEGNALA CONFLITTO” dell’articolo
-             che vuole segnalare
-             2. Il sistema mostra a video il messaggio: “Sei sicuro di voler segnalare
-             un conflitto di interesse per questo articolo?”
-             3. Il revisore clicca sul pulsante “OK” accanto al messaggio di domanda
-             4. Il sistema interroga il DBMS per memorizzare la segnalazione del
-             conflitto di interesse
-             5. Il sistema mostra a video il messaggio di conferma : “Segnalazione
-             inviata con successo!”
-             6. Il revisore clicca sul pulsante “OK” accanto al messaggio di conferma
-             7. Il sistema mostra a video la schermata “VISUALIZZA PAPERS REVISORE”
-         */
+        Optional<ButtonType> result = conferma.showAndWait();
 
-        System.out.println("Segnala conflitto");
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                Connection conn = DBMSBoundary.getConnection();
+
+                NotificaDao notificaDao = new NotificaDao(conn);
+                RuoloConferenzaDao ruoloDao = new RuoloConferenzaDao(conn);
+                RevisioneDao revisioneDao = new RevisioneDao(conn);
+                ConferenzaDao conferenzaDao = new ConferenzaDao(conn);
+                UtenteDao utenteDao = new UtenteDao(conn);
+
+                UtenteEntity revisore = UserContext.getUtente();
+                int idConferenza = paper.getRefConferenza();
+                int idPaper = paper.getId();
+                int idUtente = revisore.getId();
+
+                ConferenzaEntity conferenza = conferenzaDao.getById(idConferenza);
+
+                List<RuoloConferenzaEntity> ruoli = ruoloDao.getByConferenza(idConferenza);
+                List<Integer> idChair = ruoli.stream()
+                        .filter(r -> r.getRuolo() == Ruolo.Chair)
+                        .map(RuoloConferenzaEntity::getRefUtente)
+                        .toList();
+
+                String testoNotifica = String.format(
+                        "⚠️ Il revisore %s %s ha segnalato un conflitto di interesse per l’articolo \"%s\" (ID %d) nella conferenza %s.",
+                        revisore.getNome(), revisore.getCognome(), paper.getTitolo(), idPaper, conferenza.getNome()
+                );
+
+                for (Integer idDestinatario : idChair) {
+                    NotificaEntity notifica = new NotificaEntity(
+                            0,
+                            LocalDateTime.now(),       // data
+                            testoNotifica,             // testo
+                            false,                     // isLetta
+                            idDestinatario,            // refUtente
+                            idConferenza               // refConferenza
+                    );
+                    notificaDao.save(notifica);
+
+                    UtenteEntity chair = utenteDao.getById(idDestinatario);
+                    MailSegnalazione mail = new MailSegnalazione(
+                            chair.getEmail(),         // to
+                            revisore.getNome(),              // nomeSegnalante
+                            revisore.getCognome(),           // cognomeSegnalante
+                            conferenza.getNome(),       // nomeConferenza
+                            "Conflitto di interesse",        // motivo
+                            paper.getTitolo()                // titoloPaper
+                    );
+
+                    EmailSender emailSender = new EmailSender();
+                    emailSender.sendEmail(mail);
+                }
+
+                // Trova ed elimina la revisione del revisore (o del sottorevisore)
+                List<RevisioneEntity> revisioni = revisioneDao.getByPaper(idPaper);
+                for (RevisioneEntity revisione : revisioni) {
+                    if ((revisione.getRefUtente() == idUtente) ||
+                            (revisione.getRefSottorevisore() != null && revisione.getRefSottorevisore() == idUtente)) {
+                        revisioneDao.removeById(revisione.getId());  // rimuove la revisione dal DB
+                        break;
+                    }
+                }
+
+                Alert successo = new Alert(Alert.AlertType.INFORMATION);
+                successo.setTitle("Conflitto segnalato");
+                successo.setHeaderText("Segnalazione inviata con successo!");
+                successo.setContentText("Il chair verrà informato tramite una notifica.");
+                successo.showAndWait();
+
+                mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaPapersRevisore/visualizzaPapersRevisoreBoundary.fxml");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                Alert errore = new Alert(Alert.AlertType.ERROR);
+                errore.setTitle("Errore");
+                errore.setHeaderText("Errore durante l'invio della notifica.");
+                errore.setContentText("Contattare l’amministratore.");
+                errore.showAndWait();
+            }
+        }
     }
 
     public void handleSegnalaPlagio(PaperEntity paper) {
+        Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+        conferma.setTitle("Conflitto di interesse");
+        conferma.setHeaderText("Sei sicuro di voler segnalare un conflitto di interesse?");
+        conferma.setContentText("Segnalare un conflitto impedisce di continuare la revisione.");
 
-        /*  TODO:
-             1. Il revisore clicca sul pulsante “SEGNALA PLAGIO”
-             2. Il sistema mostra a video il messaggio: “Sei sicuro di voler segnalare
-             un plagio per questo articolo?”
-             3. Il revisore clicca sul pulsante “OK” accanto al messaggio di domanda
-             4. Il sistema interroga il DBMS per memorizzare la segnalazione
-             5. Il sistema mostra a video il messaggio di conferma: “Segnalazione di
-             plagio inviata con successo!”
-             6. Il revisore clicca sul pulsante “OK” accanto al messaggio di conferma
-             7. Il sistema mostra a video la schermata “VISUALIZZA PAPERS REVISORE”
-         */
+        Optional<ButtonType> result = conferma.showAndWait();
 
-        System.out.println("Segnala plagio");
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                Connection conn = DBMSBoundary.getConnection();
+
+                NotificaDao notificaDao = new NotificaDao(conn);
+                RuoloConferenzaDao ruoloDao = new RuoloConferenzaDao(conn);
+                RevisioneDao revisioneDao = new RevisioneDao(conn);
+                ConferenzaDao conferenzaDao = new ConferenzaDao(conn);
+                UtenteDao utenteDao = new UtenteDao(conn);
+
+                UtenteEntity revisore = UserContext.getUtente();
+                int idConferenza = paper.getRefConferenza();
+                int idPaper = paper.getId();
+                int idUtente = revisore.getId();
+
+                ConferenzaEntity conferenza = conferenzaDao.getById(idConferenza);
+
+                // 1. Trova la revisione del revisore (o del suo ruolo)
+                List<RevisioneEntity> revisioni = revisioneDao.getByPaper(idPaper);
+                for (RevisioneEntity revisione : revisioni) {
+                    if ((revisione.getRefUtente() == idUtente) ||
+                            (revisione.getRefSottorevisore() != null && revisione.getRefSottorevisore() == idUtente)) {
+                        revisione.setCommentoChair("Conflitto di interesse");
+                        revisioneDao.update(revisione);
+                        break;
+                    }
+                }
+
+                List<RuoloConferenzaEntity> ruoli = ruoloDao.getByConferenza(idConferenza);
+                List<Integer> idChair = ruoli.stream()
+                        .filter(r -> r.getRuolo() == Ruolo.Chair)
+                        .map(RuoloConferenzaEntity::getRefUtente)
+                        .toList();
+
+                String testoNotifica = String.format(
+                        "⚠️ Il revisore %s %s ha segnalato un plagio per l’articolo \"%s\" (ID %d) nella conferenza %s.",
+                        revisore.getNome(), revisore.getCognome(), paper.getTitolo(), idPaper, conferenza.getNome()
+                );
+
+                for (Integer idDestinatario : idChair) {
+                    NotificaEntity notifica = new NotificaEntity(
+                            0,
+                            LocalDateTime.now(),       // data
+                            testoNotifica,             // testo
+                            false,                     // isLetta
+                            idDestinatario,            // refUtente
+                            idConferenza               // refConferenza
+                    );
+                    notificaDao.save(notifica);
+
+                    UtenteEntity chair = utenteDao.getById(idDestinatario);
+                    MailSegnalazione mail = new MailSegnalazione(
+                            chair.getEmail(),         // to
+                            revisore.getNome(),              // nomeSegnalante
+                            revisore.getCognome(),           // cognomeSegnalante
+                            conferenza.getNome(),       // nomeConferenza
+                            "Plagio",        // motivo
+                            paper.getTitolo()                // titoloPaper
+                    );
+
+                    EmailSender emailSender = new EmailSender();
+                    emailSender.sendEmail(mail);
+                }
+
+                Alert successo = new Alert(Alert.AlertType.INFORMATION);
+                successo.setTitle("Conflitto segnalato");
+                successo.setHeaderText("Segnalazione inviata con successo!");
+                successo.setContentText("Il chair verrà informato tramite una notifica.");
+                successo.showAndWait();
+
+                mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaPapersRevisore/visualizzaPapersRevisoreBoundary.fxml");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                Alert errore = new Alert(Alert.AlertType.ERROR);
+                errore.setTitle("Errore");
+                errore.setHeaderText("Errore durante l'invio della notifica.");
+                errore.setContentText("Contattare l’amministratore.");
+                errore.showAndWait();
+            }
+        }
     }
-
 }

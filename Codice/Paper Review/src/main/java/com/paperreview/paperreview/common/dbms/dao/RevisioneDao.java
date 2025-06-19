@@ -188,4 +188,14 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
         }
         return null;
     }
+
+    public void removeById(int id) {
+        String query = "DELETE FROM " + tableName + " WHERE " + idColumn + " = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
