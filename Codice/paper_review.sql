@@ -108,27 +108,27 @@ INSERT INTO Conferenza (
 ) VALUES
 -- 1: scadenza_sottomissione = 17 giugno 2025
 ('Le Banane in Moldavia', 'Conferenza internazionale sulla coltivazione, distribuzione e innovazione nella filiera delle banane moldave', '2026-08-10 10:00:00', 'Chișinău', 'Topic', '3',
- 30, 20, 5,
+ 3, 20, 5,
  '2025-06-20 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59', '2025-09-26 23:59:59', '2025-10-29 23:59:59', '2025-11-02 23:59:59'),
 -- 2: scadenza_revisione = 17 giugno 2025
 ('Quantum Computing Congress', 'Calcolo quantistico e algoritmi innovativi', '2026-07-15 10:00:00', 'Zurigo', 'Broadcast', '4',
- 40, 10, 5,
+ 4, 10, 5,
  '2025-06-18 23:59:59', '2025-06-25 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59', '2025-09-26 23:59:59', '2025-10-29 23:59:59'),
 -- 3: scadenza_sottomissione_2 = 17 giugno 2025
 ('Sustainable Tech Forum', 'Tecnologie sostenibili e innovazione ambientale', '2026-07-20 09:30:00', 'Oslo', 'Broadcast', '3',
- 50, 7, 5,
+ 5, 7, 5,
  '2025-06-11 23:59:59', '2025-06-14 23:59:59', '2025-06-20 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59', '2025-09-26 23:59:59'),
 -- 4: scadenza_editing = 17 giugno 2025
 ('Ethics and AI 2025', 'Etica, filosofia e intelligenza artificiale', '2026-07-25 11:00:00', 'Oxford', 'Topic', '3',
- 60, 10, 5,
+ 6, 10, 5,
  '2025-06-08 23:59:59', '2025-06-11 23:59:59', '2025-06-14 23:59:59', '2025-06-20 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59'),
 -- 5: scadenza_sottomissione_3 = 17 giugno 2025
 ('Bioinformatics World Congress', 'Bioinformatica e analisi genetica computazionale', '2026-07-30 08:30:00', 'Boston', 'Broadcast', '4',
- 35, 14, 5,
+ 3, 14, 5,
  '2025-06-05 23:59:59', '2025-06-08 23:59:59', '2025-06-11 23:59:59', '2025-06-14 23:59:59', '2025-06-20 23:59:59', '2025-07-20 23:59:59'),
 -- 6: scadenza_impaginazione = 17 giugno 2025
 ('Data Science Expo 2025', 'Conferenza su tecniche avanzate di data science', '2026-07-01 09:00:00', 'Torino', 'Broadcast', '3',
- 28, 18, 5,
+ 2, 18, 5,
 '2025-06-05 23:59:59', '2025-06-07 23:59:59', '2025-06-09 23:59:59', '2025-06-11 23:59:59', '2025-06-14 23:59:59', '2025-06-20 23:59:59');
 
 INSERT INTO Ruolo_conferenza (ruolo, ref_utente, ref_conferenza) VALUES

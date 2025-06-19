@@ -248,8 +248,16 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
             // Controllo esistenza revisione
             RevisioneDao revisioneDao = new RevisioneDao(DBMSBoundary.getConnection());
             RevisioneEntity revisioneEsistente = revisioneDao.getByUtenteAndPaper(idUtente, idPaper);
+            // Controllo esistenza revisione
+            String testo = revisioneEsistente.getTesto();
+            String puntiForza = revisioneEsistente.getPuntiForza();
+            String puntiDebolezza = revisioneEsistente.getPuntiDebolezza();
+            Integer valutazione = revisioneEsistente.getValutazione();
 
-            if (revisioneEsistente != null ) {
+            if (revisioneEsistente != null || testo != null || !testo.isBlank() ||
+                    puntiForza != null || !puntiForza.isBlank() ||
+                    puntiDebolezza != null || !puntiDebolezza.isBlank() ||
+                    valutazione != null) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Revisione già esistente");
                 alert.setHeaderText("Hai già inviato una revisione per questo paper.");
@@ -302,8 +310,15 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
             // Controllo esistenza revisione
             RevisioneDao revisioneDao = new RevisioneDao(DBMSBoundary.getConnection());
             RevisioneEntity revisioneEsistente = revisioneDao.getByUtenteAndPaper(idUtente, idPaper);
+            String testo = revisioneEsistente.getTesto();
+            String puntiForza = revisioneEsistente.getPuntiForza();
+            String puntiDebolezza = revisioneEsistente.getPuntiDebolezza();
+            Integer valutazione = revisioneEsistente.getValutazione();
 
-            if (revisioneEsistente == null ) {
+            if (revisioneEsistente == null || testo == null || testo.isBlank() ||
+                    puntiForza == null || puntiForza.isBlank() ||
+                    puntiDebolezza == null || puntiDebolezza.isBlank() ||
+                    valutazione == null) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Revisione non esistente");
                 alert.setHeaderText("Non hai inviato ancora nessuna revisione per questo paper.");

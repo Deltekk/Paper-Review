@@ -162,26 +162,35 @@ public class RevisionaPaperControl implements ControlledScreen {
                 return;
             }
 
-            RevisioneEntity revisione = new RevisioneEntity(
-                    0,
-                    testo,
-                    valutazione,
-                    LocalDateTime.now(),
-                    puntiForza,
-                    puntiDebolezza,
-                    commentoChair,
-                    UserContext.getUtente().getId(),
-                    UserContext.getPaperAttuale().getId(),
-                    null // ref_sottorevisore
-            );
+            int idUtente = UserContext.getUtente().getId();
+            int idPaper = UserContext.getPaperAttuale().getId();
 
             RevisioneDao dao = new RevisioneDao(DBMSBoundary.getConnection());
-            dao.save(revisione);
+            RevisioneEntity revisioneEsistente = dao.getByUtenteAndPaper(idUtente, idPaper);
+
+            if (revisioneEsistente != null) {
+                // 🔄 UPDATE
+                revisioneEsistente.setTesto(testo);
+                revisioneEsistente.setValutazione(valutazione);
+                revisioneEsistente.setDataSottomissione(LocalDateTime.now());
+                revisioneEsistente.setPuntiForza(puntiForza);
+                revisioneEsistente.setPuntiDebolezza(puntiDebolezza);
+                revisioneEsistente.setCommentoChair(commentoChair);
+                dao.update(revisioneEsistente);
+            } else {
+                // 🆕 SAVE
+                RevisioneEntity nuovaRevisione = new RevisioneEntity(
+                        0, testo, valutazione, LocalDateTime.now(),
+                        puntiForza, puntiDebolezza, commentoChair,
+                        idUtente, idPaper, null
+                );
+                dao.save(nuovaRevisione);
+            }
 
             Alert successo = new Alert(Alert.AlertType.INFORMATION);
             successo.setTitle("Revisione completata");
-            successo.setHeaderText("Complimenti, hai appena effettuato una revisione!");
-            successo.setContentText("La tua revisione è stata registrata correttamente.");
+            successo.setHeaderText("Complimenti, hai appena inviato la tua revisione!");
+            successo.setContentText("La revisione è stata registrata correttamente.");
             successo.showAndWait();
 
             mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaPapersRevisore/visualizzaPapersRevisoreBoundary.fxml");
