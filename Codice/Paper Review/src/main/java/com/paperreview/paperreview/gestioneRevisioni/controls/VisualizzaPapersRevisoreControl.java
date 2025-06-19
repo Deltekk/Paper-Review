@@ -248,22 +248,22 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
             // Controllo esistenza revisione
             RevisioneDao revisioneDao = new RevisioneDao(DBMSBoundary.getConnection());
             RevisioneEntity revisioneEsistente = revisioneDao.getByUtenteAndPaper(idUtente, idPaper);
-            // Controllo esistenza revisione
-            String testo = revisioneEsistente.getTesto();
-            String puntiForza = revisioneEsistente.getPuntiForza();
-            String puntiDebolezza = revisioneEsistente.getPuntiDebolezza();
-            Integer valutazione = revisioneEsistente.getValutazione();
 
-            if (revisioneEsistente != null || testo != null ||
-                    puntiForza != null ||
-                    puntiDebolezza != null ||
-                    valutazione != null) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Revisione già esistente");
-                alert.setHeaderText("Hai già inviato una revisione per questo paper.");
-                alert.setContentText("Puoi al più modificarla dalla sezione apposita.");
-                alert.showAndWait();
-                return;
+            if (revisioneEsistente != null) {
+                // Controllo esistenza revisione
+                String testo = revisioneEsistente.getTesto();
+                String puntiForza = revisioneEsistente.getPuntiForza();
+                String puntiDebolezza = revisioneEsistente.getPuntiDebolezza();
+                Integer valutazione = revisioneEsistente.getValutazione();
+                if (testo != null || puntiForza != null || puntiDebolezza != null ||
+                        valutazione != null) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Revisione già esistente");
+                    alert.setHeaderText("Hai già inviato una revisione per questo paper.");
+                    alert.setContentText("Puoi al più modificarla dalla sezione apposita.");
+                    alert.showAndWait();
+                    return;
+                }
             }
 
             UserContext.setPaperAttuale(paper);
