@@ -296,6 +296,22 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
                 return;
             }
 
+            int idUtente = UserContext.getUtente().getId();
+            int idPaper = paper.getId();
+
+            // Controllo esistenza revisione
+            RevisioneDao revisioneDao = new RevisioneDao(DBMSBoundary.getConnection());
+            RevisioneEntity revisioneEsistente = revisioneDao.getByUtenteAndPaper(idUtente, idPaper);
+
+            if (revisioneEsistente == null ) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Revisione non esistente");
+                alert.setHeaderText("Non hai inviato ancora nessuna revisione per questo paper.");
+                alert.setContentText("Aggiungi una revisione nella sezione apposita.");
+                alert.showAndWait();
+                return;
+            }
+
             UserContext.setPaperAttuale(paper);
             mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaRevisionePaper/modificaRevisionePaperBoundary.fxml");
         } catch (Exception e) {
