@@ -4,7 +4,7 @@ import com.paperreview.paperreview.gestioneAccount.forms.LoginFormModel;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
-import com.paperreview.paperreview.gestioneNotifiche.MainControl;
+import com.paperreview.paperreview.MainControl;
 import com.paperreview.paperreview.entities.UtenteEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.gestioneNotifiche.controls.NotificaPushControl;

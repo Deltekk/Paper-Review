@@ -6,7 +6,7 @@ import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.dao.InvitoDao;
 import com.paperreview.paperreview.common.dbms.dao.NotificaDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.gestioneNotifiche.MainControl;
+import com.paperreview.paperreview.MainControl;
 import com.paperreview.paperreview.entities.InvitoEntity;
 import com.paperreview.paperreview.entities.NotificaEntity;
 import javafx.fxml.FXML;

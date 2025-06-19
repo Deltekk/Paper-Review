@@ -7,7 +7,7 @@ import com.paperreview.paperreview.common.dbms.dao.ConferenzaDao;
 import com.paperreview.paperreview.common.dbms.dao.PaperDao;
 import com.paperreview.paperreview.common.dbms.dao.ProceedingDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.gestioneNotifiche.MainControl;
+import com.paperreview.paperreview.MainControl;
 import com.paperreview.paperreview.entities.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;

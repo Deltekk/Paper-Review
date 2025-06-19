@@ -6,7 +6,7 @@ import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.TopicDao;
 import com.paperreview.paperreview.common.dbms.dao.TopicUtenteDao;
-import com.paperreview.paperreview.gestioneNotifiche.MainControl;
+import com.paperreview.paperreview.MainControl;
 import com.paperreview.paperreview.entities.TopicEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.gestioneRevisioni.forms.TopicFormModel;

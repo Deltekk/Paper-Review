@@ -8,7 +8,7 @@ import com.paperreview.paperreview.common.*;
 import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
 import com.paperreview.paperreview.common.email.EmailSender;
 import com.paperreview.paperreview.common.email.MailRecuperoAccount;
-import com.paperreview.paperreview.gestioneNotifiche.MainControl;
+import com.paperreview.paperreview.MainControl;
 import com.paperreview.paperreview.entities.UtenteEntity;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
