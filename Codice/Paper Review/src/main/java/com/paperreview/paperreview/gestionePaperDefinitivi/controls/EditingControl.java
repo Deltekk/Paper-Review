@@ -29,6 +29,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -50,7 +51,28 @@ public class EditingControl implements ControlledScreen {
             UserContext.setStandaloneInteraction(false);
 
             ConferenzaDao conferenzaDao = new ConferenzaDao(DBMSBoundary.getConnection());
-            List<ConferenzaEntity> conferenze = conferenzaDao.getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Editor);
+            //List<ConferenzaEntity> conferenze = conferenzaDao.getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Editor);
+
+            LocalDate oggi = LocalDate.now();
+
+            List<ConferenzaEntity> conferenze = conferenzaDao
+                    .getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Editor)
+                    .stream()
+                    .filter(c -> {
+                        LocalDate sottomissione2 = c.getScadenzaSottomissione2().toLocalDate();
+                        LocalDate editing = c.getScadenzaEditing().toLocalDate();
+                        LocalDate sottomissione3 = c.getScadenzaSottomissione3().toLocalDate();
+                        LocalDate proceedings = c.getScadenzaImpaginazione().toLocalDate();
+
+                        boolean traSottomissione2eEditing =
+                                (!oggi.isBefore(sottomissione2)) && oggi.isBefore(editing);
+
+                        boolean traSottomissione3eProceedings =
+                                (!oggi.isBefore(sottomissione3)) && oggi.isBefore(proceedings);
+
+                        return traSottomissione2eEditing || traSottomissione3eProceedings;
+                    })
+                    .collect(Collectors.toList());
 
             if(conferenze.isEmpty())
             {
@@ -156,7 +178,7 @@ public class EditingControl implements ControlledScreen {
         try {
             LocalDateTime now = LocalDateTime.now();
             LocalDateTime inizioScaricamento = conferenza.getScadenzaSottomissione2();
-            LocalDateTime fineScaricamento = conferenza.getScadenzaSottomissione3();
+            LocalDateTime fineScaricamento = conferenza.getScadenzaImpaginazione();
 
             if (now.isBefore(inizioScaricamento)) {
                 mostraErrore("Errore: non è ancora possibile scaricare i paper. Disponibili da: " + inizioScaricamento);
@@ -234,7 +256,7 @@ public class EditingControl implements ControlledScreen {
         }
 
         // Controlla se è passata la data per caricare i proceedings
-        if (LocalDate.now().isAfter(conferenza.getScadenzaEditing().toLocalDate())) {
+        if (LocalDate.now().isAfter(conferenza.getScadenzaImpaginazione().toLocalDate())) {
             Alert expiredAlert = new Alert(Alert.AlertType.WARNING);
             expiredAlert.setTitle("Operazione non consentita");
             expiredAlert.setHeaderText("Data di caricamento proceedings scaduta!");
