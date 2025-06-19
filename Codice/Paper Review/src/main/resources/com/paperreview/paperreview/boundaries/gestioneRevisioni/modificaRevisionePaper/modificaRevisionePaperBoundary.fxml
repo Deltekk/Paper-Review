@@ -15,7 +15,7 @@
 
     <VBox GridPane.columnIndex="0" spacing="15" alignment="CENTER" maxWidth="700" maxHeight="800" styleClass="bg-celeste">
 
-        <Label text="REVISIONE PAPER D'EMERGENZA" styleClass="h1, text-bianco, font-bold, ombra"/>
+        <Label text="MODIFICA REVISIONE" styleClass="h1, text-bianco, font-bold, ombra"/>
 
         <Label fx:id="labelConferenza" wrapText="true" styleClass="p, text-bianco, font-bold, ombra"/>
         <Label fx:id="labelPaper" wrapText="true" styleClass="p, text-bianco, font-bold, ombra, paper-label"/>
