@@ -165,7 +165,7 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
         Button buttonModificaRevisione = new Button("Modifica Revisione");
         Button buttonScaricaPaper = new Button("Scarica Paper");
         Button buttonInvitaSottorevisore = new Button("Invita Sottorevisore");
-        Button buttonVisualizzaRevisioni = new Button("Rimuovi Visualizza Revisioni");
+        Button buttonVisualizzaRevisioni = new Button("Visualizza Revisioni");
         Button buttonSegnalaConflitto = new Button("Segnala Conflitto");
         Button buttonSegnalaPlagio = new Button("Segnala Plagio");
 
