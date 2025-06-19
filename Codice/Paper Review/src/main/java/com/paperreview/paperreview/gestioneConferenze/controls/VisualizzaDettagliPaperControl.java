@@ -6,7 +6,7 @@ import com.paperreview.paperreview.common.dbms.dao.*;
 import com.paperreview.paperreview.common.email.EmailSender;
 import com.paperreview.paperreview.common.email.MailSegnalazione;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.gestioneNotifiche.MainControl;
+import com.paperreview.paperreview.MainControl;
 import com.paperreview.paperreview.entities.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;

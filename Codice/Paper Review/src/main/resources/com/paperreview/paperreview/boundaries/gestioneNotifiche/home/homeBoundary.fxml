@@ -8,7 +8,7 @@
 
 <ScrollPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.paperreview.paperreview.HomeControl"
+            fx:controller="com.paperreview.paperreview.gestioneNotifiche.HomeControl"
             prefWidth="1280" prefHeight="720" maxHeight="Infinity" maxWidth="Infinity"
             stylesheets="@homeStyle.css"
             styleClass="quadrettoni"

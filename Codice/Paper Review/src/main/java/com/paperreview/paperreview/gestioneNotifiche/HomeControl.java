@@ -1,4 +1,5 @@
-package com.paperreview.paperreview;
+package com.paperreview.paperreview.gestioneNotifiche;
+import com.paperreview.paperreview.MainControl;
 import com.paperreview.paperreview.common.CustomDateParser;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.dao.ConferenzaDao;
@@ -6,7 +7,6 @@ import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.RuoloConferenzaDao;
 import com.paperreview.paperreview.entities.*;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.gestioneNotifiche.MainControl;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,16 +23,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-
-/*
-   ⚠️  ️️!!! DIEGO LEGGI QUI !!! ⚠️
-
-   Qui bisogna implementare il get delle conferenze solo di quelle alla quale non partecipa
-   e la quale data di inizio non supera la data di inizio sottomissione della conferenza (o quella di inizio conferenza, ora non ricordo).
-
-    Devi finire anche l'implementazione del pulsante partecipa, io ho fatto solo che rimuove la conferenza da quelle disponibili.
- */
 
 public class HomeControl implements ControlledScreen {
 

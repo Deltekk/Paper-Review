@@ -9,7 +9,7 @@ import com.paperreview.paperreview.common.dbms.dao.UtenteDao;
 import com.paperreview.paperreview.common.email.EmailSender;
 import com.paperreview.paperreview.common.email.MailEditorInvito;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
-import com.paperreview.paperreview.gestioneNotifiche.MainControl;
+import com.paperreview.paperreview.MainControl;
 import com.paperreview.paperreview.entities.*;
 import com.paperreview.paperreview.gestioneConferenze.forms.InvitaEditoriFormModel;
 import javafx.fxml.FXML;
