@@ -8,7 +8,7 @@ public class MailSegnalazione extends MailBase {
     private final String titoloPaper;
 
     public MailSegnalazione(String to, String nomeSegnalante, String cognomeSegnalante, String nomeConferenza, String motivo, String titoloPaper) {
-        super(to, "SEGNALAZIONE " + motivo);
+        super(to, "Segnalazione " + motivo);
         this.nomeSegnalante = nomeSegnalante;
         this.cognomeSegnalante = cognomeSegnalante;
         this.nomeConferenza = nomeConferenza;
