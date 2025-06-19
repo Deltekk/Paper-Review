@@ -3,6 +3,8 @@ package com.paperreview.paperreview.gestioneConferenze.controls;
 import com.paperreview.paperreview.common.UserContext;
 import com.paperreview.paperreview.common.dbms.DBMSBoundary;
 import com.paperreview.paperreview.common.dbms.dao.*;
+import com.paperreview.paperreview.common.email.EmailSender;
+import com.paperreview.paperreview.common.email.MailSegnalazione;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.controls.MainControl;
 import com.paperreview.paperreview.entities.*;
@@ -19,6 +21,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -163,6 +166,123 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
     }
 
     public void handlePlagio(RevisioneEntity revisione) {
-        System.out.println("Plagio segnalato per revisione: " + revisione.getId());
+        int idChairAttuale = UserContext.getUtente().getId();
+
+        try {
+            // DAO inizializzazioni
+            Connection conn = DBMSBoundary.getConnection();
+            PaperDao paperDao = new PaperDao(conn);
+            NotificaDao notificaDao = new NotificaDao(conn);
+            RuoloConferenzaDao ruoloDao = new RuoloConferenzaDao(conn);
+            UtenteDao utenteDao = new UtenteDao(conn);
+            RevisioneDao revisioneDao = new RevisioneDao(conn);
+            ConferenzaDao conferenzaDao = new ConferenzaDao(conn);
+
+            // 1. Ottieni il paper associato alla revisione
+            PaperEntity paper = paperDao.getById(revisione.getRefPaper());
+
+            if (paper == null) {
+                System.err.println("Errore: Paper non trovato per revisione " + revisione.getId());
+                return;
+            }
+
+            int idConferenza = paper.getRefConferenza();
+            ConferenzaEntity conferenza = conferenzaDao.getById(idConferenza);
+            int idAutore = paper.getRefUtente();
+            int idPaper = paper.getId();
+            String nomePaper = paper.getTitolo();
+
+            String notifica = String.format(
+                    "Il Chair %s %s ha eliminato il paper \"%s\" per sospetto plagio nella conferenza \"%s\".",
+                    UserContext.getUtente().getNome(), UserContext.getUtente().getCognome(), paper.getTitolo(), conferenza.getNome()
+            );
+
+            // 2. Elimina il paper
+            paperDao.removeById(paper.getId());
+
+            // 3. Notifica agli altri Chair
+            Set<Integer> idsChair = ruoloDao.getIdUtentiByRuoloAndConferenza(Ruolo.Chair, idConferenza);
+            for (Integer idChair : idsChair) {
+                if(idChairAttuale == idChair) continue;
+
+                UtenteEntity chair = utenteDao.getById(idChair);
+
+                notificaDao.save(new NotificaEntity(
+                        0,
+                        LocalDateTime.now(),
+                        notifica,
+                        false, chair.getId(),
+                        idConferenza
+                ));
+
+                MailSegnalazione mail = new MailSegnalazione(
+                        chair.getEmail(),         // to
+                        UserContext.getUtente().getNome(),              // nomeSegnalante
+                        UserContext.getUtente().getCognome(),           // cognomeSegnalante
+                        conferenza.getNome(),       // nomeConferenza
+                        "Eliminato per plagio",        // motivo
+                        nomePaper                // titoloPaper
+                );
+
+                EmailSender emailSender = new EmailSender();
+                emailSender.sendEmail(mail);
+            }
+
+            // 4. Notifica al Revisore
+            List<RevisioneEntity> revisore = revisioneDao.getByPaper(idPaper);
+            for(RevisioneEntity rev : revisore) {
+                notificaDao.save(new NotificaEntity(
+                        0,
+                        LocalDateTime.now(),
+                        notifica,
+                        false, rev.getId(),
+                        idConferenza
+                ));
+
+                UtenteEntity utente = utenteDao.getById(rev.getRefUtente());
+
+                MailSegnalazione mail = new MailSegnalazione(
+                        utente.getEmail(),         // to
+                        UserContext.getUtente().getNome(),              // nomeSegnalante
+                        UserContext.getUtente().getCognome(),           // cognomeSegnalante
+                        conferenza.getNome(),       // nomeConferenza
+                        "Eliminato per plagio",        // motivo
+                        nomePaper                // titoloPaper
+                );
+
+                EmailSender emailSender = new EmailSender();
+                emailSender.sendEmail(mail);
+            }
+
+            // 5. Notifica all'autore
+            notificaDao.save(new NotificaEntity(
+                    0,
+                    LocalDateTime.now(),
+                    notifica,
+                    false, idAutore,
+                    idConferenza
+            ));
+
+            UtenteEntity utente = utenteDao.getById(idAutore);
+
+            MailSegnalazione mail = new MailSegnalazione(
+                    utente.getEmail(),         // to
+                    UserContext.getUtente().getNome(),              // nomeSegnalante
+                    UserContext.getUtente().getCognome(),           // cognomeSegnalante
+                    conferenza.getNome(),       // nomeConferenza
+                    "Eliminato per plagio",        // motivo
+                    nomePaper                // titoloPaper
+            );
+
+            EmailSender emailSender = new EmailSender();
+            emailSender.sendEmail(mail);
+
+            // Messaggio di conferma su console
+            System.out.println("Plagio segnalato: paper eliminato e notifiche inviate.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Errore durante la gestione della segnalazione di plagio.");
+        }
     }
 }
