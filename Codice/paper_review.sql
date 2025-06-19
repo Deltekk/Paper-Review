@@ -1,10 +1,10 @@
 INSERT INTO Utente (nome, cognome, email, password) VALUES
-                                                        ('Diego', 'Corona', 'diecoro2003@gmail.com', 'IdS30L!'),
-                                                        ('Leonardo Giovanni', 'Caiezza', 'leonardocaiezza20@gmail.com', 'IdS30L!'),
-                                                        ('Luca', 'Gaetani', 'luca.gae03@gmail.com', 'IdS30L!'),
-                                                        ('Daniele Orazio', 'Susino', 'susino.daniele@outlook.com', 'IdS30L!'),
-                                                        ('Giovanni','Castelli','caste283289@gmail.com','IdS30L!'),
-                                                        ('Giulia', 'Greco', 'greco.giulia1105@gmail.com', 'IdS30L!');
+                                                        ('Diego', 'Corona', 'diecoro2003@gmail.com', '$2a$12$uWNDYFYwlDv2y4qIul0mQOfpS5vFPauouB1HW10iZrbpyMik7BFvm'),
+                                                        ('Leonardo Giovanni', 'Caiezza', 'leonardocaiezza20@gmail.com', '$2a$12$uWNDYFYwlDv2y4qIul0mQOfpS5vFPauouB1HW10iZrbpyMik7BFvm'),
+                                                        ('Luca', 'Gaetani', 'luca.gae03@gmail.com', '$2a$12$uWNDYFYwlDv2y4qIul0mQOfpS5vFPauouB1HW10iZrbpyMik7BFvm'),
+                                                        ('Daniele Orazio', 'Susino', 'susino.daniele@outlook.com', '$2a$12$uWNDYFYwlDv2y4qIul0mQOfpS5vFPauouB1HW10iZrbpyMik7BFvm'),
+                                                        ('Giovanni','Castelli','caste283289@gmail.com','$2a$12$uWNDYFYwlDv2y4qIul0mQOfpS5vFPauouB1HW10iZrbpyMik7BFvm'),
+                                                        ('Giulia', 'Greco', 'greco.giulia1105@gmail.com', '$2a$12$uWNDYFYwlDv2y4qIul0mQOfpS5vFPauouB1HW10iZrbpyMik7BFvm');
 
 INSERT INTO Topic (nome) VALUES
                              ('Machine Learning'),
@@ -111,7 +111,7 @@ INSERT INTO Conferenza (
  30, 20, 5,
  '2025-06-20 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59', '2025-09-26 23:59:59', '2025-10-29 23:59:59', '2025-11-02 23:59:59'),
 -- 2: scadenza_revisione = 17 giugno 2025
-('Quantum Computing Congress', 'Calcolo quantistico e algoritmi innovativi', '2026-07-15 10:00:00', 'Zurigo', 'Topic', '4',
+('Quantum Computing Congress', 'Calcolo quantistico e algoritmi innovativi', '2026-07-15 10:00:00', 'Zurigo', 'Broadcast', '4',
  40, 10, 5,
  '2025-06-18 23:59:59', '2025-06-25 23:59:59', '2025-07-20 23:59:59', '2025-08-23 23:59:59', '2025-09-26 23:59:59', '2025-10-29 23:59:59'),
 -- 3: scadenza_sottomissione_2 = 17 giugno 2025
