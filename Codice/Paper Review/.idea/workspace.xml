@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/LoginControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/LoginControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/RegistrazioneControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneAccount/controls/RegistrazioneControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/VisualizzaDettagliPaperControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneConferenze/controls/VisualizzaDettagliPaperControl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -282,7 +280,7 @@
       <workItem from="1750244007056" duration="35909000" />
       <workItem from="1750330840403" duration="1314000" />
       <workItem from="1750332175282" duration="11093000" />
-      <workItem from="1750363507687" duration="1061000" />
+      <workItem from="1750363507687" duration="1536000" />
     </task>
     <servers />
   </component>

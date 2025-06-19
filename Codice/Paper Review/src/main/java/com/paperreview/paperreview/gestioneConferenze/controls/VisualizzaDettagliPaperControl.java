@@ -111,7 +111,10 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
         titoloPrivato.getStyleClass().addAll("font-bold", "text-bianco", "h5", "ombra");
 
         Label commento = new Label();
-        commento.setText(revisione.getCommentoChair().isBlank() ? "Non è presente un commento privato." : revisione.getCommentoChair() );
+
+        if(revisione.getCommentoChair() != null) {
+            commento.setText(revisione.getCommentoChair().isBlank() ? "Non è presente un commento privato." : revisione.getCommentoChair() );
+        }
 
         commento.getStyleClass().addAll("p", "text-bianco", "ombra", "text-bold");
         commento.setWrapText(true);
