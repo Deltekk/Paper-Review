@@ -221,7 +221,7 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
     public void handleRevisionaPaper(PaperEntity paper) {
         try {
             LocalDate oggi = LocalDate.now();
-            LocalDate inizioRevisione = UserContext.getConferenzaAttuale().getScadenzaSottomissione2().toLocalDate();
+            LocalDate inizioRevisione = UserContext.getConferenzaAttuale().getScadenzaSottomissione().toLocalDate();
             LocalDate fineRevisione = UserContext.getConferenzaAttuale().getScadenzaRevisione().toLocalDate();
 
             if (oggi.isBefore(inizioRevisione)) {
@@ -259,7 +259,7 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
     public void handleModificaRevisione(PaperEntity paper){
         try {
             LocalDate oggi = LocalDate.now();
-            LocalDate inizioRevisione = UserContext.getConferenzaAttuale().getScadenzaSottomissione2().toLocalDate();
+            LocalDate inizioRevisione = UserContext.getConferenzaAttuale().getScadenzaSottomissione().toLocalDate();
             LocalDate fineRevisione = UserContext.getConferenzaAttuale().getScadenzaRevisione().toLocalDate();
 
             if (oggi.isBefore(inizioRevisione)) {
