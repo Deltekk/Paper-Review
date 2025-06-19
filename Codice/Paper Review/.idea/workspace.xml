@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9648e802-5d92-40da-b39a-0ae640d7b994" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/controls/ModificaRevisionePaperControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaRevisionePaper/modificaRevisionePaperBoundary.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaRevisionePaper/modificaRevisionePaperStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/controls/VisualizzaPapersRevisoreControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/paperreview/paperreview/gestioneRevisioni/controls/VisualizzaPapersRevisoreControl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +63,7 @@
     "Shell Script.JPackage Build.executor": "Run",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/susin/Desktop/Materie/Ingegneria Del Software/Progetto-Ing-Soft/Codice/Paper Review/src/main/resources/com/paperreview/paperreview/boundaries/gestioneConferenze/revisionePaperEmergenza",
+    "last_opened_file_path": "C:/Users/susin/Desktop/Materie/Ingegneria Del Software/Progetto-Ing-Soft/Codice/Paper Review/src/main/resources/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaRevisionePaper",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -75,11 +79,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries\gestioneRevisioni\modificaRevisionePaper" />
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries\gestioneConferenze\revisionePaperEmergenza" />
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries\gestioneRevisioni\visualizzaSchermataRevisioni" />
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries\gestioneConferenze\visualizzaRevisori" />
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources" />
-      <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\susin\Desktop\Materie\Ingegneria Del Software\Progetto-Ing-Soft\Codice\Paper Review\src\main\resources\com\paperreview\paperreview\boundaries\gestioneRevisioni\visualizzaRevisioni" />
@@ -276,7 +280,7 @@
       <workItem from="1750108141360" duration="14672000" />
       <workItem from="1750159792479" duration="31801000" />
       <workItem from="1750204311104" duration="66000" />
-      <workItem from="1750244007056" duration="30847000" />
+      <workItem from="1750244007056" duration="31419000" />
     </task>
     <servers />
   </component>

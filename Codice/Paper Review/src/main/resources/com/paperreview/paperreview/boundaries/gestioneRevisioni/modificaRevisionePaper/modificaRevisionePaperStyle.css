@@ -1,0 +1,29 @@
+.pagina-centro {
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-padding: 40;
+}
+
+.bg-celeste{
+    -fx-background-radius: 20;
+}
+
+.read-only-textarea .text-area {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-wrap-text: true;
+}
+
+.read-only-textarea .text-area:focused {
+    -fx-background-insets: 0;
+    -fx-wrap-text: true;
+}
+
+.paper-label{
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-padding: 10;
+}

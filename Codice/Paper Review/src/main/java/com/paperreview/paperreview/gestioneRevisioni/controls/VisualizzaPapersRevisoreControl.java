@@ -218,11 +218,11 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
     }
 
     public void handleRevisionaPaper(PaperEntity paper) {
-        System.out.println("Revisiona paper");
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/revisionaPaper/revisionaPaperBoundary.fxml");
     }
 
     public void handleModificaRevisione(PaperEntity paper){
-        System.out.println("Modifica Revisione");
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaRevisionePaper/modificaRevisionePaperBoundary.fxml");
     }
 
     public void handleScaricaPaper(PaperEntity paper) {
