@@ -198,4 +198,12 @@ public class RevisioneDao extends BaseDao<RevisioneEntity> {
             e.printStackTrace();
         }
     }
+
+    public void removeByPaperId(int idPaper) throws SQLException {
+        String query = "DELETE FROM Revisione WHERE ref_paper = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idPaper);
+            stmt.executeUpdate();
+        }
+    }
 }

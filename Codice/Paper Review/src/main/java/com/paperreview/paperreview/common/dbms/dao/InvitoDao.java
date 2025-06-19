@@ -213,4 +213,12 @@ public class InvitoDao extends BaseDao<InvitoEntity> {
         }
         return results;
     }
+
+    public void removeByPaperId(int idPaper) throws SQLException {
+        String query = "DELETE FROM Invito WHERE ref_paper = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idPaper);
+            stmt.executeUpdate();
+        }
+    }
 }

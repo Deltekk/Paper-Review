@@ -177,6 +177,9 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
             UtenteDao utenteDao = new UtenteDao(conn);
             RevisioneDao revisioneDao = new RevisioneDao(conn);
             ConferenzaDao conferenzaDao = new ConferenzaDao(conn);
+            InvitoDao invitoDao = new InvitoDao(conn);
+            TopicPaperDao topicPaperDao = new TopicPaperDao(conn);
+            CoAutoriPaperDao coAutoriDao = new CoAutoriPaperDao(conn);
 
             // 1. Ottieni il paper associato alla revisione
             PaperEntity paper = paperDao.getById(revisione.getRefPaper());
@@ -198,7 +201,11 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
             );
 
             // 2. Elimina il paper
-            paperDao.removeById(paper.getId());
+            invitoDao.removeByPaperId(paper.getId());
+            revisioneDao.removeByPaperId(paper.getId());
+            topicPaperDao.removeByPaperId(paper.getId());
+            coAutoriDao.removeByPaperId(paper.getId());
+            paperDao.removeById(idPaper);
 
             // 3. Notifica agli altri Chair
             Set<Integer> idsChair = ruoloDao.getIdUtentiByRuoloAndConferenza(Ruolo.Chair, idConferenza);

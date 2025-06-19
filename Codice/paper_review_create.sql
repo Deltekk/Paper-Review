@@ -39,8 +39,8 @@ CREATE TABLE Notifica (
                           isLetta BOOLEAN NOT NULL,
                           ref_utente INT NOT NULL,
                           ref_conferenza INT NOT NULL,
-                          FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente),
-                          FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza)
+                          FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente) ON DELETE CASCADE,
+                          FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza) ON DELETE CASCADE
 );
 
 -- Tabella Topic
@@ -58,8 +58,8 @@ CREATE TABLE Paper (
                        data_sottomissione DATETIME,
                        ref_utente INT NOT NULL,
                        ref_conferenza INT NOT NULL,
-                       FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente),
-                       FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza)
+                       FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente) ON DELETE CASCADE,
+                       FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza) ON DELETE CASCADE
 );
 
 -- Tabella Invito
@@ -74,10 +74,10 @@ CREATE TABLE Invito (
                         ref_mittente INT NOT NULL,
                         ref_destinatario INT,
                         ref_paper INT,
-                        FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza),
-                        FOREIGN KEY (ref_mittente) REFERENCES Utente(id_utente),
-                        FOREIGN KEY (ref_destinatario) REFERENCES Utente(id_utente),
-                        FOREIGN KEY (ref_paper) REFERENCES Paper(id_paper)
+                        FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza) ON DELETE CASCADE,
+                        FOREIGN KEY (ref_mittente) REFERENCES Utente(id_utente) ON DELETE CASCADE,
+                        FOREIGN KEY (ref_destinatario) REFERENCES Utente(id_utente) ON DELETE SET NULL ,
+                        FOREIGN KEY (ref_paper) REFERENCES Paper(id_paper) ON DELETE CASCADE
 );
 
 -- Tabella Revisione
@@ -92,9 +92,9 @@ CREATE TABLE Revisione (
                            ref_utente INT NOT NULL,
                            ref_paper INT NOT NULL,
                            ref_sottorevisore INT,
-                           FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente),
-                           FOREIGN KEY (ref_paper) REFERENCES Paper(id_paper),
-                           FOREIGN KEY (ref_sottorevisore) REFERENCES  Utente(id_utente)
+                           FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente) ON DELETE CASCADE,
+                           FOREIGN KEY (ref_paper) REFERENCES Paper(id_paper) ON DELETE CASCADE,
+                           FOREIGN KEY (ref_sottorevisore) REFERENCES Utente(id_utente) ON DELETE SET NULL
 );
 
 -- Tabella Proceeding
@@ -105,8 +105,8 @@ CREATE TABLE Proceeding (
                             data_sottomissione DATETIME,
                             ref_utente INT NOT NULL,
                             ref_conferenza INT NOT NULL,
-                            FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente),
-                            FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza)
+                            FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente) ON DELETE CASCADE,
+                            FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza) ON DELETE CASCADE
 );
 
 -- Tabella Ruolo_conferenza
@@ -115,8 +115,8 @@ CREATE TABLE Ruolo_conferenza (
                                   ruolo ENUM('Chair', 'Revisore', 'Sottorevisore', 'Autore', 'Editor') NOT NULL,
                                   ref_utente INT NOT NULL,
                                   ref_conferenza INT NOT NULL,
-                                  FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente),
-                                  FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza)
+                                  FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente) ON DELETE CASCADE,
+                                  FOREIGN KEY (ref_conferenza) REFERENCES Conferenza(id_conferenza) ON DELETE CASCADE
 );
 
 -- Tabella TopicUtente
@@ -124,8 +124,8 @@ CREATE TABLE TopicUtente (
                              id_topic_utente INT AUTO_INCREMENT PRIMARY KEY,
                              ref_topic INT NOT NULL,
                              ref_utente INT NOT NULL,
-                             FOREIGN KEY (ref_topic) REFERENCES Topic(id_topic),
-                             FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente)
+                             FOREIGN KEY (ref_topic) REFERENCES Topic(id_topic) ON DELETE CASCADE,
+                             FOREIGN KEY (ref_utente) REFERENCES Utente(id_utente) ON DELETE CASCADE
 );
 
 -- Tabella TopicPaper
@@ -142,5 +142,7 @@ CREATE TABLE CoAutoriPaper (
                                id_CoAutoriPaper INT AUTO_INCREMENT PRIMARY KEY,
                                email VARCHAR(100) NOT NULL,
                                ref_paper INT NOT NULL,
-                               FOREIGN KEY (ref_paper) REFERENCES Paper(id_paper)
+                               FOREIGN KEY (ref_paper) REFERENCES Paper(id_paper) ON DELETE CASCADE
 );
+
+

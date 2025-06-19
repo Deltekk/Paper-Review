@@ -111,4 +111,12 @@ public class CoAutoriPaperDao {
         }
         return result;
     }
+
+    public void removeByPaperId(int idPaper) throws SQLException {
+        String query = "DELETE FROM CoAutoriPaper WHERE ref_paper = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idPaper);
+            stmt.executeUpdate();
+        }
+    }
 }

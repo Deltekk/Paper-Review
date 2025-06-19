@@ -27,6 +27,14 @@ public class TopicPaperDao {
         }
     }
 
+    public void removeByPaperId(int idPaper) throws SQLException {
+        String query = "DELETE FROM TopicPaper WHERE ref_paper = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idPaper);
+            stmt.executeUpdate();
+        }
+    }
+
     // Rimuove l'associazione tra un topic e un paper
     public void removeTopicFromPaper(int topicId, int paperId) throws SQLException {
         String query = "DELETE FROM TopicPaper WHERE ref_topic = ? AND ref_paper = ?";
