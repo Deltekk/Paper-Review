@@ -475,9 +475,9 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
 
     public void handleSegnalaPlagio(PaperEntity paper) {
         Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
-        conferma.setTitle("Conflitto di interesse");
-        conferma.setHeaderText("Sei sicuro di voler segnalare un conflitto di interesse?");
-        conferma.setContentText("Segnalare un conflitto impedisce di continuare la revisione.");
+        conferma.setTitle("Plagio");
+        conferma.setHeaderText("Sei sicuro di voler segnalare un plagio?");
+        conferma.setContentText("Segnalare un plagio manderà al chair un avviso.");
 
         Optional<ButtonType> result = conferma.showAndWait();
 
@@ -503,7 +503,7 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
                 for (RevisioneEntity revisione : revisioni) {
                     if ((revisione.getRefUtente() == idUtente) ||
                             (revisione.getRefSottorevisore() != null && revisione.getRefSottorevisore() == idUtente)) {
-                        revisione.setCommentoChair("Conflitto di interesse");
+                        revisione.setCommentoChair("Plagio");
                         revisioneDao.update(revisione);
                         break;
                     }
@@ -546,7 +546,7 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
                 }
 
                 Alert successo = new Alert(Alert.AlertType.INFORMATION);
-                successo.setTitle("Conflitto segnalato");
+                successo.setTitle("Plagio segnalato");
                 successo.setHeaderText("Segnalazione inviata con successo!");
                 successo.setContentText("Il chair verrà informato tramite una notifica.");
                 successo.showAndWait();
