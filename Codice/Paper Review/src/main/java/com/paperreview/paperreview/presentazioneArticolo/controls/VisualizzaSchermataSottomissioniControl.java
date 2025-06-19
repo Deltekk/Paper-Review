@@ -20,7 +20,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.w3c.dom.Text;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -53,6 +55,7 @@ public class VisualizzaSchermataSottomissioniControl implements ControlledScreen
                 testo.setWrapText(true);
                 testo.setPrefWidth(500);
                 testo.setAlignment(Pos.CENTER);
+                testo.setTextAlignment(TextAlignment.CENTER);
 
                 conferenzeContainer.getChildren().add(testo);
             }
