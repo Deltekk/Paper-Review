@@ -89,7 +89,7 @@ public class LoginControl implements ControlledScreen {
             UtenteEntity utente = dao.login(email, password);
 
             if (utente == null) {
-                errorLabel.setText("email o password errati");
+                errorLabel.setText("Email o password errati");
                 errorLabel.setVisible(true);
                 return;
             }

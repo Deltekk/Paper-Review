@@ -97,7 +97,7 @@ public class RegistrazioneControl implements ControlledScreen {
             boolean success = dao.saveIfNotExistsByEmail(utente);
 
             if (!success) {
-                errorLabel.setText("email già registrata");
+                errorLabel.setText("Email già registrata");
                 errorLabel.setVisible(true);
                 return;
             }
