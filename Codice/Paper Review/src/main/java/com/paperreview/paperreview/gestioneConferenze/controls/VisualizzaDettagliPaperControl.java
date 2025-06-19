@@ -81,8 +81,15 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
 
                 double averageScore = revisioneDao.getAverageScore(paper.getId());
 
-                Node card = creaCardRevisione(revisione, revisore, autori.toString(), averageScore);
-                paperContainer.getChildren().add(card);
+                if(revisione.getTesto() != null)
+                {
+                    if(!revisione.getTesto().isBlank())
+                    {
+                        Node card = creaCardRevisione(revisione, revisore, autori.toString(), averageScore);
+                        paperContainer.getChildren().add(card);
+                    }
+                }
+
             }
 
         } catch (Exception e) {
