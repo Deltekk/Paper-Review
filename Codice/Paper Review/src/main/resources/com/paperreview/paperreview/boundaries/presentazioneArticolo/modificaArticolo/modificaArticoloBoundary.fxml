@@ -57,7 +57,7 @@
                     <!-- Searchbar fissa sopra il scrollpane -->
                     <TextField fx:id="searchField" promptText="Cerca topic" styleClass="form-field, search-field, ombra" maxWidth="400" />
 
-                    <ScrollPane prefHeight="350" maxWidth="400" styleClass="form-container, ombra">
+                    <ScrollPane prefHeight="350" maxWidth="400" styleClass="scrollFormTopic, ombra">
                         <content>
                             <VBox fx:id="form2Container" spacing="25" alignment="TOP_LEFT" maxHeight="600"
                                   styleClass="form-container"/>

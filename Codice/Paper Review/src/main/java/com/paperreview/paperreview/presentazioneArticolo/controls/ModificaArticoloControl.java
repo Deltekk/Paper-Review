@@ -17,7 +17,6 @@ import com.paperreview.paperreview.entities.ConferenzaEntity;
 import com.paperreview.paperreview.entities.PaperEntity;
 import com.paperreview.paperreview.entities.TopicEntity;
 import com.paperreview.paperreview.presentazioneArticolo.forms.ModificaArticoloFormModel;
-import com.paperreview.paperreview.presentazioneArticolo.forms.ModificaArticoloTopicFormModel;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -30,15 +29,16 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModificaArticoloControl implements ControlledScreen {
 
     private MainControl mainControl;
-
     private List<TopicEntity> allTopics;
+    private List<CheckBox> checkBoxes = new ArrayList<>();
+
     private ModificaArticoloFormModel modificaArticoloForm;
-    private ModificaArticoloTopicFormModel topicFormModel;
     private boolean form1Valid, form2Valid, isEditable;
 
     @FXML private VBox form1Container, form2Container;
@@ -58,61 +58,53 @@ public class ModificaArticoloControl implements ControlledScreen {
             errorLabel.setVisible(false);
             UserContext.setStandaloneInteraction(false);
 
-            isEditable = LocalDateTime.now().isBefore(UserContext.getConferenzaAttuale().getScadenzaSottomissione());
+            ConferenzaEntity conferenza = UserContext.getConferenzaAttuale();
+            isEditable = LocalDateTime.now().isBefore(conferenza.getScadenzaSottomissione3());
 
             TopicDao topicDao = new TopicDao(DBMSBoundary.getConnection());
             allTopics = topicDao.getAll();
-            List<String> nomiTopic = allTopics.stream().map(TopicEntity::getNome).toList();
 
-            modificaArticoloForm = new ModificaArticoloFormModel("", "", 0, List.of(), isEditable);
-            topicFormModel = new ModificaArticoloTopicFormModel(nomiTopic, List.of(), isEditable);
+            PaperEntity paper = UserContext.getPaperAttuale();
+            List<String> topicSelezionati = new TopicPaperDao(DBMSBoundary.getConnection())
+                    .getTopicsForPaper(paper.getId())
+                    .stream().map(TopicEntity::getNome).toList();
+
+            CoAutoriPaperDao coAutoriDao = new CoAutoriPaperDao(DBMSBoundary.getConnection());
+            List<String> emailCoautori = coAutoriDao.getCoautoriForPaper(paper.getId())
+                    .stream().map(String::trim).toList();
+
+            modificaArticoloForm = new ModificaArticoloFormModel(
+                    paper.getTitolo(),
+                    paper.getAbstractPaper(),
+                    emailCoautori.size(),
+                    emailCoautori,
+                    isEditable
+            );
+
 
             Form form1 = modificaArticoloForm.createForm();
             FormRenderer renderer1 = new FormRenderer(form1);
             form1Container.getChildren().add(renderer1);
             removeBordersFromForm(renderer1);
 
-            Form form2 = topicFormModel.createForm();
-            FormRenderer renderer2 = new FormRenderer(form2);
-            form2Container.getChildren().add(renderer2);
-
-            modificaArticoloForm.getNumeroCoautoriField().valueProperty().addListener(this::coautoreListener);
-
             form1.validProperty().addListener((obs, o, n) -> {
                 form1Valid = n;
                 aggiornaStatoConferma();
             });
 
-            form2.validProperty().addListener((obs, o, n) -> {
-                form2Valid = n;
-                aggiornaStatoConferma();
-            });
+            modificaArticoloForm.getNumeroCoautoriField().valueProperty().addListener(this::coautoreListener);
+
+            populateCheckBoxes(allTopics, topicSelezionati);
 
             if (!isEditable) {
                 confirmButton.setDisable(true);
                 searchField.setDisable(true);
             }
+
+            searchField.textProperty().addListener((obs, oldVal, newVal) -> filterTopics(newVal));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void coautoreListener(ObservableValue<? extends Number> obs, Number oldVal, Number newVal) {
-        int count = newVal != null ? newVal.intValue() : 0;
-
-        modificaArticoloForm.salvaValoriCorrenti();
-        modificaArticoloForm.setNumeroCoautori(count);
-
-        Form updatedForm = modificaArticoloForm.createForm();
-        FormRenderer updatedRenderer = new FormRenderer(updatedForm);
-        form1Container.getChildren().setAll(updatedRenderer);
-        updatedForm.validProperty().addListener((o, ov, nv) -> {
-            form1Valid = nv;
-            aggiornaStatoConferma();
-        });
-        modificaArticoloForm.getNumeroCoautoriField().valueProperty().addListener(this::coautoreListener);
-
-        removeBordersFromForm(updatedRenderer);
     }
 
     private void removeBordersFromForm(FormRenderer formRenderer) {
@@ -130,6 +122,61 @@ public class ModificaArticoloControl implements ControlledScreen {
             }
         });
     }
+
+    private void populateCheckBoxes(List<TopicEntity> topics, List<String> selezionati) {
+        checkBoxes.clear();
+        form2Container.getChildren().clear();
+
+        for (TopicEntity topic : topics) {
+            CheckBox cb = new CheckBox(topic.getNome());
+            cb.setUserData(topic);
+            cb.setSelected(selezionati.contains(topic.getNome()));
+            cb.setDisable(!isEditable);
+            cb.selectedProperty().addListener((obs, oldVal, newVal) -> validateTopics());
+            checkBoxes.add(cb);
+            form2Container.getChildren().add(cb);
+        }
+
+        validateTopics();
+    }
+
+    private void filterTopics(String filter) {
+        String lowerFilter = filter.toLowerCase();
+
+        List<CheckBox> filtered = checkBoxes.stream()
+                .filter(cb -> cb.getText().toLowerCase().contains(lowerFilter))
+                .toList();
+
+        form2Container.getChildren().setAll(filtered);
+    }
+
+    private void validateTopics() {
+        long selectedCount = checkBoxes.stream().filter(CheckBox::isSelected).count();
+        form2Valid = selectedCount >= 1;
+        aggiornaStatoConferma();
+    }
+
+    private void coautoreListener(ObservableValue<? extends Number> obs, Number oldVal, Number newVal) {
+        int count = newVal != null ? newVal.intValue() : 0;
+
+        modificaArticoloForm.salvaValoriCorrenti(); // salva prima
+        List<String> vecchieEmail = modificaArticoloForm.getListaEmailCoautori();
+
+        modificaArticoloForm.setNumeroCoautori(count); // aggiorna campo
+        modificaArticoloForm.setEmailCoautori(vecchieEmail); // ricarica valori salvati
+
+        Form updatedForm = modificaArticoloForm.createForm();
+        FormRenderer updatedRenderer = new FormRenderer(updatedForm);
+        form1Container.getChildren().setAll(updatedRenderer);
+        updatedForm.validProperty().addListener((o, ov, nv) -> {
+            form1Valid = nv;
+            aggiornaStatoConferma();
+        });
+
+        modificaArticoloForm.getNumeroCoautoriField().valueProperty().addListener(this::coautoreListener);
+        removeBordersFromForm(updatedRenderer);
+    }
+
 
     private void aggiornaStatoConferma() {
         boolean ready = form1Valid && form2Valid && (selectedPdfFile != null);
@@ -184,7 +231,13 @@ public class ModificaArticoloControl implements ControlledScreen {
 
         task.setOnSucceeded(event -> {
             List<String> nomiTopicSelezionati = task.getValue();
-            topicFormModel.setSelectedTopics(nomiTopicSelezionati);
+
+            for (CheckBox cb : checkBoxes) {
+                TopicEntity topic = (TopicEntity) cb.getUserData();
+                cb.setSelected(nomiTopicSelezionati.contains(topic.getNome()));
+            }
+
+            validateTopics();
             aggiornaStatoConferma();
 
             String messaggio = String.join("\n• ", nomiTopicSelezionati);
@@ -201,69 +254,37 @@ public class ModificaArticoloControl implements ControlledScreen {
             errorLabel.setText("Errore durante la generazione automatica dei topics.");
             errorLabel.setVisible(true);
             aggiornaStatoConferma();
-
-            Throwable ex = task.getException();
-            ex.printStackTrace();
+            task.getException().printStackTrace();
         });
 
-        Thread thread = new Thread(task);
-        thread.setDaemon(true);
-        thread.start();
+        new Thread(task).start();
     }
 
     @FXML
     private void handleConferma() {
         errorLabel.setVisible(false);
 
-        // 🔒 Controllo periodo di sottomissione
-        LocalDateTime now = LocalDateTime.now();
         ConferenzaEntity conferenza = UserContext.getConferenzaAttuale();
+        LocalDateTime now = LocalDateTime.now();
 
-        boolean isInPrimoPeriodo = now.isBefore(conferenza.getScadenzaSottomissione());
-        boolean isInSecondoPeriodo = now.isAfter(conferenza.getScadenzaRevisione()) &&
-                now.isBefore(conferenza.getScadenzaSottomissione2());
-        boolean isInTerzoPeriodo = now.isAfter(conferenza.getScadenzaEditing()) &&
-                now.isBefore(conferenza.getScadenzaSottomissione3());
+        boolean isValid = now.isBefore(conferenza.getScadenzaSottomissione()) ||
+                (now.isAfter(conferenza.getScadenzaRevisione()) && now.isBefore(conferenza.getScadenzaSottomissione2())) ||
+                (now.isAfter(conferenza.getScadenzaEditing()) && now.isBefore(conferenza.getScadenzaSottomissione3()));
 
-        if (!isInPrimoPeriodo && !isInSecondoPeriodo && !isInTerzoPeriodo) {
-            if (!isInPrimoPeriodo && now.isBefore(conferenza.getScadenzaRevisione())) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Periodo non valido");
-                alert.setHeaderText("Non è possibile modificare la sottomissione in questo momento.");
-                alert.setContentText("Le modifiche sono consentite solo prima della prima scadenza di sottomissione.");
-                alert.showAndWait();
-                return;
-            }
-
-            if (!isInSecondoPeriodo && now.isAfter(conferenza.getScadenzaRevisione()) &&
-                    now.isBefore(conferenza.getScadenzaEditing())) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Periodo non valido");
-                alert.setHeaderText("Non è possibile modificare la sottomissione in questo momento.");
-                alert.setContentText("Le modifiche sono consentite solo dopo la revisione e prima della seconda scadenza di sottomissione.");
-                alert.showAndWait();
-                return;
-            }
-
-            if (!isInTerzoPeriodo && now.isAfter(conferenza.getScadenzaEditing())) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Periodo non valido");
-                alert.setHeaderText("Non è possibile modificare la sottomissione in questo momento.");
-                alert.setContentText("Le modifiche sono consentite solo dopo l'editing e prima della terza scadenza di sottomissione.");
-                alert.showAndWait();
-                return;
-            }
-
-            // Fallback generico se non rientra in nessun periodo noto
+        if (!isValid) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Periodo non valido");
             alert.setHeaderText("Non è possibile modificare la sottomissione in questo momento.");
-            alert.setContentText("Le modifiche sono consentite solo nei periodi tra le date di sottomissione.");
+            alert.setContentText("Le modifiche sono consentite solo tra le date di sottomissione.");
             alert.showAndWait();
             return;
         }
 
-        List<String> topicNomi = topicFormModel.getSelectedTopics();
+        List<String> topicNomi = checkBoxes.stream()
+                .filter(CheckBox::isSelected)
+                .map(cb -> ((TopicEntity) cb.getUserData()).getNome())
+                .toList();
+
         if (topicNomi.isEmpty()) {
             errorLabel.setText("Errore: devi selezionare almeno 1 topic!");
             errorLabel.setVisible(true);
@@ -283,33 +304,25 @@ public class ModificaArticoloControl implements ControlledScreen {
             List<String> coautori = modificaArticoloForm.getListaEmailCoautori();
 
             PaperDao paperDao = new PaperDao(DBMSBoundary.getConnection());
-            PaperEntity paper = paperDao.getById(UserContext.getPaperAttuale().getId()); // recupero esistente
+            PaperEntity paper = paperDao.getById(UserContext.getPaperAttuale().getId());
 
-            // Aggiorna i campi
             paper.setTitolo(titolo);
             paper.setAbstractPaper(abstractPaper);
             paper.setFile(Files.readAllBytes(selectedPdfFile.toPath()));
             paper.setDataSottomissione(LocalDateTime.now());
-
-            // Salva modifiche
-                        paperDao.update(paper);
+            paperDao.update(paper);
 
             int paperId = paper.getId();
 
-            // Rimuovi coautori e topic precedenti
             CoAutoriPaperDao coAutoriDao = new CoAutoriPaperDao(DBMSBoundary.getConnection());
             coAutoriDao.removeAllCoautoriFromPaper(paperId);
+            for (String email : coautori) {
+                coAutoriDao.addCoautoreToPaper(email, paperId);
+                EmailSender.sendEmail(new MailSottomissione(email, conferenza.getNome(), paper.getTitolo(), email));
+            }
 
             TopicPaperDao topicPaperDao = new TopicPaperDao(DBMSBoundary.getConnection());
             topicPaperDao.removeAllTopicsFromPaper(paperId);
-
-            // Aggiungi coautori nuovi
-            for (String email : coautori) {
-                coAutoriDao.addCoautoreToPaper(email, paperId);
-                EmailSender.sendEmail(new MailSottomissione(email, UserContext.getConferenzaAttuale().getNome(), paper.getTitolo(), email));
-            }
-
-            // Aggiungi topic nuovi
             for (TopicEntity topic : allTopics) {
                 if (topicNomi.contains(topic.getNome())) {
                     topicPaperDao.addTopicToPaper(topic.getId(), paperId);
@@ -317,17 +330,18 @@ public class ModificaArticoloControl implements ControlledScreen {
             }
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Sottomissione completata");
-            alert.setHeaderText("Articolo sottomesso con successo!");
-            alert.setContentText("Riceverai aggiornamenti nella sezione delle tue sottomissioni.");
+            alert.setTitle("Sottomissione modificata");
+            alert.setHeaderText("Articolo aggiornato con successo!");
+            alert.setContentText("Le modifiche sono state salvate correttamente.");
             alert.showAndWait();
 
             mainControl.setView("/com/paperreview/paperreview/boundaries/presentazioneArticolo/visualizzaSchermataSottomissioni/visualizzaSchermataSottomissioniBoundary.fxml");
 
         } catch (Exception e) {
-            errorLabel.setText("Errore durante la sottomissione dell'articolo");
+            errorLabel.setText("Errore durante la modifica dell'articolo.");
             errorLabel.setVisible(true);
             e.printStackTrace();
         }
     }
+
 }

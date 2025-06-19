@@ -89,7 +89,7 @@ public class ModificaRevisionePaperControl implements ControlledScreen {
                     region.setBorder(null);
                 }
             });
-            
+
             confirmButton.setDisable(true);
 
             // Listener per la validità del form

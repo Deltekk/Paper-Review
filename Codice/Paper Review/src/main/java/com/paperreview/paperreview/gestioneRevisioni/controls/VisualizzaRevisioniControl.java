@@ -16,6 +16,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.sql.Connection;
@@ -53,6 +54,7 @@ public class VisualizzaRevisioniControl implements ControlledScreen {
                 testo.setWrapText(true);
                 testo.setPrefWidth(500);
                 testo.setAlignment(Pos.CENTER);
+                testo.setTextAlignment(TextAlignment.CENTER);
 
                 revisioniContainer.getChildren().add(testo);
             }

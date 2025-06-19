@@ -203,6 +203,20 @@ public class VisualizzaSottomissioniControl implements ControlledScreen {
 
     public void handleVisualizzaRevisioni(PaperEntity paper)
     {
+
+        // Controlla se siamo in periodo di pubblicazione proceedings
+        if(LocalDate.now().isAfter(UserContext.getConferenzaAttuale().getScadenzaRevisione().toLocalDate())) {
+            Alert expiredAlert = new Alert(Alert.AlertType.WARNING);
+            expiredAlert.setTitle("Operazione non consentita");
+            expiredAlert.setHeaderText("Data di revisione da raggiungere!");
+            expiredAlert.setContentText(String.format(
+                    "Ancora non è possibile visualizzare le revisioni, riprova dopo giorno \"%s\".",
+                    UserContext.getConferenzaAttuale().getScadenzaRevisione()
+            ));
+            expiredAlert.showAndWait();
+            return;
+        }
+
         UserContext.setPaperAttuale(paper);
         mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaRevisioni/visualizzaRevisioniBoundary.fxml");
     }

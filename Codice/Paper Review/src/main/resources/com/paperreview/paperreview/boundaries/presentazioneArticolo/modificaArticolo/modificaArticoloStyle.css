@@ -1,0 +1,48 @@
+.pagina-centro {
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-padding: 25;
+}
+
+.bg-celeste{
+    -fx-background-radius: 20;
+    -fx-padding: 25;
+}
+
+.scrollPane{
+    -fx-background-color: transparent;
+    -fx-pref-height: 700;
+    -fx-background-radius: 25;
+}
+
+.trasparente{
+    -fx-background-color: transparent;
+}
+
+.viewport{
+    -fx-background-color: transparent;
+}
+
+.text-rosso{
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
+
+.blue-button, .green-button{
+    -fx-max-width: 780;
+}
+
+.form-container > {
+    -fx-background-radius: 25;
+    -fx-text-alignment: center;
+    -fx-padding: 20;
+}
+
+.form-container{
+    -fx-text-alignment: left;
+    -fx-background-radius: 25;
+}
+
+.scrollFormTopic {
+    -fx-background-radius: 25;
+}
