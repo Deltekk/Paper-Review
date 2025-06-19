@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.paperreview.paperreview.gestioneConferenze.controls.RevisionaPaperEmergenzaControl"
+           stylesheets="@revisionaPaperEmergenzaStyle.css"
+           styleClass="pagina-centro, quadrettoni"
+           prefHeight="400.0" prefWidth="600.0">
+
+    <VBox GridPane.columnIndex="0" spacing="15" alignment="CENTER" maxWidth="700" maxHeight="800" styleClass="bg-celeste">
+
+        <Label text="REVISIONE PAPER D'EMERGENZA" styleClass="h1, text-bianco, font-bold, ombra"/>
+
+        <Label fx:id="labelConferenza" wrapText="true" styleClass="p, text-bianco, font-bold, ombra"/>
+        <Label fx:id="labelPaper" wrapText="true" styleClass="p, text-bianco, font-bold, ombra, paper-label"/>
+
+        <!-- Qui metti il contenitore vuoto per il form -->
+
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scrollPane">
+            <content>
+                <VBox fx:id="formContainer" maxWidth="700" minWidth="400" styleClass="form-container"/>
+            </content>
+        </ScrollPane>
+
+        <HBox spacing="10" alignment="CENTER">
+            <Label text="Score:" styleClass="p, text-bianco, ombra"/>
+            <Slider fx:id="scoreSlider"
+                    min="-2" max="2"
+                    blockIncrement="1"
+                    majorTickUnit="1"
+                    minorTickCount="0"
+                    showTickMarks="true"
+                    showTickLabels="true"
+                    snapToTicks="true"
+                    HBox.hgrow="ALWAYS"
+                    maxWidth="400"
+            />
+
+        </HBox>
+
+        <!-- Bottone di conferma -->
+        <Button fx:id="confirmButton"
+                text="Conferma"
+                maxWidth="900"
+                minWidth="300"
+                styleClass="green-button"
+                onAction="#handleConferma"/>
+
+    </VBox>
+
+</StackPane>
