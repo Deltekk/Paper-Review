@@ -183,10 +183,6 @@ public class ModificaRevisionePaperControl implements ControlledScreen {
 
             // Recupera revisione esistente
             RevisioneDao dao = new RevisioneDao(DBMSBoundary.getConnection());
-            RevisioneEntity revisione = dao.getByUtenteAndPaper(
-                    UserContext.getUtente().getId(),
-                    UserContext.getPaperAttuale().getId()
-            );
 
             // Applica modifiche
             revisione.setTesto(testo);
