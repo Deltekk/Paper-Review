@@ -1,5 +1,7 @@
 package paperreviewserver.common.dbms.dao;
 
+import paperreviewserver.entities.PaperEntity;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -101,5 +103,26 @@ public class PaperDao {
             }
         }
         return rows;
+    }
+
+    public List<PaperEntity> getByConferenza(int idConferenza) throws SQLException {
+        List<PaperEntity> papers = new ArrayList<>();
+        String query = "SELECT id_paper, titolo, ref_utente, data_sottomissione FROM Paper WHERE ref_conferenza = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    PaperEntity paper = new PaperEntity();
+                    paper.setId(rs.getInt("id_paper"));
+                    paper.setTitolo(rs.getString("titolo"));
+                    paper.setRefUtente(rs.getInt("ref_utente"));
+                    paper.setDataSottomissione(rs.getTimestamp("data_sottomissione") != null
+                            ? rs.getTimestamp("data_sottomissione").toLocalDateTime() : null);
+                    papers.add(paper);
+                }
+            }
+        }
+        return papers;
     }
 }

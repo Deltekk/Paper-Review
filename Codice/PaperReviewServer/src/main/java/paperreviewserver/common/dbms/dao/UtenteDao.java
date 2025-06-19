@@ -1,5 +1,7 @@
 package paperreviewserver.common.dbms.dao;
 
+import paperreviewserver.entities.UtenteEntity;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +62,32 @@ public class UtenteDao {
             }
         }
         return null;  // Se l'utente non viene trovato
+    }
+
+    public List<UtenteEntity> getRevisoriConferenza(int idConferenza) throws SQLException {
+        List<UtenteEntity> revisori = new ArrayList<>();
+
+        String query = """
+        SELECT u.id_utente, u.nome, u.cognome, u.email
+        FROM Utente u
+        JOIN Ruolo_conferenza rc ON u.id_utente = rc.ref_utente
+        WHERE rc.ref_conferenza = ? AND rc.ruolo = 'Revisore'
+    """;
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idConferenza);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    UtenteEntity u = new UtenteEntity();
+                    u.setId(rs.getInt("id_utente"));
+                    u.setNome(rs.getString("nome"));
+                    u.setCognome(rs.getString("cognome"));
+                    u.setEmail(rs.getString("email"));
+                    revisori.add(u);
+                }
+            }
+        }
+
+        return revisori;
     }
 }

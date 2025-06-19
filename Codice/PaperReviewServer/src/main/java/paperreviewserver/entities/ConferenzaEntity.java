@@ -12,6 +12,7 @@ public class ConferenzaEntity {
     private LocalDateTime scadenzaEditing;
     private LocalDateTime scadenzaSottomissione3;
     private LocalDateTime scadenzaImpaginazione;
+    private String modalitaDistribuzione;
 
     // Getters
     public int getId() { return id; }
@@ -23,6 +24,7 @@ public class ConferenzaEntity {
     public LocalDateTime getScadenzaEditing() { return scadenzaEditing; }
     public LocalDateTime getScadenzaSottomissione3() { return scadenzaSottomissione3; }
     public LocalDateTime getScadenzaImpaginazione() { return scadenzaImpaginazione; }
+    public String getModalitaDistribuzione() { return modalitaDistribuzione; }
 
     // Setters
     public void setId(int id) { this.id = id; }
@@ -34,4 +36,5 @@ public class ConferenzaEntity {
     public void setScadenzaEditing(LocalDateTime scadenzaEditing) { this.scadenzaEditing = scadenzaEditing; }
     public void setScadenzaSottomissione3(LocalDateTime scadenzaSottomissione3) { this.scadenzaSottomissione3 = scadenzaSottomissione3; }
     public void setScadenzaImpaginazione(LocalDateTime scadenzaImpaginazione) { this.scadenzaImpaginazione = scadenzaImpaginazione; }
+    public void setModalitaDistribuzione(String modalitaDistribuzione) { this.modalitaDistribuzione = modalitaDistribuzione; }
 }
