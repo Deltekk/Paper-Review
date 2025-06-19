@@ -24,6 +24,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VisualizzaSchermataRevisioniControl implements ControlledScreen {
 
@@ -43,7 +44,20 @@ public class VisualizzaSchermataRevisioniControl implements ControlledScreen {
             UserContext.setStandaloneInteraction(false);
 
             ConferenzaDao conferenzaDao = new ConferenzaDao(connection);
-            List<ConferenzaEntity> conferenze = conferenzaDao.getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Revisore);
+            //List<ConferenzaEntity> conferenze = conferenzaDao.getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Revisore);
+
+            LocalDate oggi = LocalDate.now();
+
+            List<ConferenzaEntity> conferenze = conferenzaDao
+                    .getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Editor)
+                    .stream()
+                    .filter(c -> {
+                        LocalDate sottomissione1 = c.getScadenzaSottomissione().toLocalDate();
+                        LocalDate revisione = c.getScadenzaRevisione().toLocalDate();
+
+                        return !oggi.isBefore(sottomissione1) && revisione.isBefore(revisione);
+                    })
+                    .collect(Collectors.toList());
 
             if(conferenze.isEmpty())
             {
