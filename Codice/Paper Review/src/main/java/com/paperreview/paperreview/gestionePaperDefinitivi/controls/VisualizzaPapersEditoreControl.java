@@ -42,7 +42,6 @@ public class VisualizzaPapersEditoreControl implements ControlledScreen {
 
     public void initialize() {
         try{
-            UserContext.setPaperAttuale(null);
 
             conferenzaLabel.setText(String.format("Conferenza: \"%s\"", UserContext.getConferenzaAttuale().getNome()));
             conferenzaLabel.setVisible(true);

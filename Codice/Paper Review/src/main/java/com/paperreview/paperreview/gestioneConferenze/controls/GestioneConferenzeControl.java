@@ -34,7 +34,6 @@ public class GestioneConferenzeControl implements ControlledScreen {
     public void initialize() {
         try{
 
-            UserContext.setConferenzaAttuale(null);
             UserContext.setStandaloneInteraction(false);
 
             ConferenzaDao conferenzaDao = new ConferenzaDao(DBMSBoundary.getConnection());
@@ -176,7 +175,6 @@ public class GestioneConferenzeControl implements ControlledScreen {
     @FXML
     public void handleCreaConferenza()
     {
-        UserContext.setConferenzaAttuale(null);
         UserContext.setStandaloneInteraction(false);
         mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/creaConferenza/creaConferenzaBoundary.fxml");
     }

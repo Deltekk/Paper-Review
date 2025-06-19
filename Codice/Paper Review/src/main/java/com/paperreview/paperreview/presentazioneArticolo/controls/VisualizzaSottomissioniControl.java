@@ -45,7 +45,6 @@ public class VisualizzaSottomissioniControl implements ControlledScreen {
 
     public void initialize() {
         try(Connection connection = DBMSBoundary.getConnection()){
-            UserContext.setPaperAttuale(null);
 
             conferenzaLabel.setText(String.format("Conferenza: \"%s\"", UserContext.getConferenzaAttuale().getNome()));
             conferenzaLabel.setVisible(true);

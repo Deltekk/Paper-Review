@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.InputStream;
@@ -79,11 +80,12 @@ public class HomeControl implements ControlledScreen {
             conferenzeContainer.getChildren().clear();
 
             if (conferenzeNonDaAutore.isEmpty()) {
-                Label testo = new Label("Non ci sono conferenze a cui puoi ancora partecipare come autore.");
+                Label testo = new Label("Non sono presenti conferenze a cui puoi partecipare come autore.");
                 testo.getStyleClass().addAll("font-bold", "text-rosso", "h5");
                 testo.setWrapText(true);
                 testo.setPrefWidth(500);
                 testo.setAlignment(Pos.CENTER);
+                testo.setTextAlignment(TextAlignment.CENTER);
 
                 conferenzeContainer.getChildren().add(testo);
             } else {

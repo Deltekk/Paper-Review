@@ -49,9 +49,7 @@ public class EditingControl implements ControlledScreen {
     public void initialize() {
         try{
 
-            UserContext.setConferenzaAttuale(null);
             UserContext.setStandaloneInteraction(false);
-            UserContext.setPaperAttuale(null);
 
             ConferenzaDao conferenzaDao = new ConferenzaDao(DBMSBoundary.getConnection());
             List<ConferenzaEntity> conferenze = conferenzaDao.getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Editor);

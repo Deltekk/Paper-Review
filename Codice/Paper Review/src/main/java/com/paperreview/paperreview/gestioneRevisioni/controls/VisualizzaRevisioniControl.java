@@ -38,8 +38,6 @@ public class VisualizzaRevisioniControl implements ControlledScreen {
     public void initialize() {
         try(Connection connection = DBMSBoundary.getConnection()){
 
-            UserContext.setRevisioneCorrente(null);
-
             conferenzaLabel.setText(String.format("Conferenza: \"%s\"", UserContext.getConferenzaAttuale().getNome()));
             paperLabel.setText(String.format("Paper: \"%s\"", UserContext.getPaperAttuale().getTitolo()));
             conferenzaLabel.setVisible(true);

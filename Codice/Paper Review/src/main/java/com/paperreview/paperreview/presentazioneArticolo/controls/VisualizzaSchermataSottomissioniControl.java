@@ -155,7 +155,6 @@ public class VisualizzaSchermataSottomissioniControl implements ControlledScreen
 
     public void handleRitirati(ConferenzaEntity conferenza,  VBox boxConferenza)
     {
-        UserContext.setConferenzaAttuale(null);
 
         // Controlla se la data di scadenza per la sottomissione è già passata
         if (LocalDate.now().isAfter(conferenza.getScadenzaSottomissione().toLocalDate())) {

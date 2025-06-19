@@ -43,9 +43,7 @@ public class VisualizzaSchermataRevisioniControl implements ControlledScreen {
     public void initialize() {
         try(Connection connection = DBMSBoundary.getConnection()){
 
-            UserContext.setConferenzaAttuale(null);
             UserContext.setStandaloneInteraction(false);
-            UserContext.setPaperAttuale(null);
 
             ConferenzaDao conferenzaDao = new ConferenzaDao(connection);
             List<ConferenzaEntity> conferenze = conferenzaDao.getAllByIdAndRuolo(UserContext.getUtente().getId(), Ruolo.Revisore);
