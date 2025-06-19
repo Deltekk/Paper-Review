@@ -130,8 +130,89 @@ public class ModificaRevisionePaperControl implements ControlledScreen {
 
     @FXML
     public void handleConferma() {
-        // TODO: Fai la modifica, mi raccomando basta che modifichi i valori di revisione con i setters e fai revisione.update();
-        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaPapersRevisore/visualizzaPapersRevisoreBoundary.fxml");
+        try {
+            LocalDate oggi = LocalDate.now();
+            LocalDate dataInizio = UserContext.getConferenzaAttuale().getScadenzaSottomissione().toLocalDate();
+            LocalDate dataFine = UserContext.getConferenzaAttuale().getScadenzaRevisione().toLocalDate();
 
+            if (oggi.isBefore(dataInizio)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setHeaderText("Errore: non è ancora possibile modificare la revisione");
+                alert.setContentText("La finestra per la revisione si aprirà il " + dataInizio);
+                alert.showAndWait();
+                return;
+            }
+
+            if (oggi.isAfter(dataFine)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setHeaderText("Errore: non puoi più modificare la revisione");
+                alert.setContentText("La scadenza era il " + dataFine);
+                alert.showAndWait();
+                return;
+            }
+
+            String testo = revisione.getTesto();
+            String puntiForza = revisione.getPuntiForza();
+            String puntiDebolezza = revisione.getPuntiDebolezza();
+            String commentoChair = revisione.getCommentoChair();
+            int valutazione = (int) scoreSlider.getValue();
+
+            if (testo == null || testo.isBlank() ||
+                    puntiForza == null || puntiForza.isBlank() ||
+                    puntiDebolezza == null || puntiDebolezza.isBlank()) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setHeaderText("Errore: i campi devono essere tutti compilati!");
+                alert.setContentText("Compila tutti i campi richiesti prima di confermare.");
+                alert.showAndWait();
+                return;
+            }
+
+            final int NUMERO_MASSIMO_CARATTERI = 2000;
+            if (testo.length() > NUMERO_MASSIMO_CARATTERI) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setHeaderText("Errore: hai superato il numero massimo di caratteri consentiti.");
+                alert.setContentText("Il massimo è " + NUMERO_MASSIMO_CARATTERI + " caratteri.");
+                alert.showAndWait();
+                return;
+            }
+
+            // Recupera revisione esistente
+            RevisioneDao dao = new RevisioneDao(DBMSBoundary.getConnection());
+            RevisioneEntity revisione = dao.getByUtenteAndPaper(
+                    UserContext.getUtente().getId(),
+                    UserContext.getPaperAttuale().getId()
+            );
+
+            // Applica modifiche
+            revisione.setTesto(testo);
+            revisione.setValutazione(valutazione);
+            revisione.setDataSottomissione(LocalDateTime.now());
+            revisione.setPuntiForza(puntiForza);
+            revisione.setPuntiDebolezza(puntiDebolezza);
+            revisione.setCommentoChair(commentoChair);
+
+            dao.update(revisione);
+
+            Alert successo = new Alert(Alert.AlertType.INFORMATION);
+            successo.setTitle("Revisione aggiornata");
+            successo.setHeaderText("La revisione è stata modificata con successo.");
+            successo.setContentText("Grazie per aver aggiornato la tua revisione!");
+            successo.showAndWait();
+
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaPapersRevisore/visualizzaPapersRevisoreBoundary.fxml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert errore = new Alert(Alert.AlertType.ERROR);
+            errore.setTitle("Errore");
+            errore.setHeaderText("Errore durante la modifica della revisione");
+            errore.setContentText("Contattare l’amministratore.");
+            errore.showAndWait();
+        }
     }
 }
