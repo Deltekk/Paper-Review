@@ -13,6 +13,7 @@ import com.paperreview.paperreview.common.email.MailSottomissione;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
 import com.paperreview.paperreview.common.llm.LLMBoundary;
 import com.paperreview.paperreview.controls.MainControl;
+import com.paperreview.paperreview.entities.ConferenzaEntity;
 import com.paperreview.paperreview.entities.PaperEntity;
 import com.paperreview.paperreview.entities.TopicEntity;
 import com.paperreview.paperreview.presentazioneArticolo.forms.ModificaArticoloFormModel;
@@ -213,10 +214,32 @@ public class ModificaArticoloControl implements ControlledScreen {
 
     @FXML
     private void handleConferma() {
-
-        // TODO: Diego controlla sto coso
-
         errorLabel.setVisible(false);
+
+        // 🔒 Controllo periodo di sottomissione
+        LocalDateTime now = LocalDateTime.now();
+        ConferenzaEntity conferenza = UserContext.getConferenzaAttuale();
+
+        LocalDateTime s1 = conferenza.getScadenzaSottomissione();
+        LocalDateTime s2 = conferenza.getScadenzaSottomissione2();
+        LocalDateTime s3 = conferenza.getScadenzaSottomissione3();
+        LocalDateTime impaginazione = conferenza.getScadenzaImpaginazione();
+
+        boolean inPeriodoSottomissione =
+                (now.isAfter(s1) && now.isBefore(s2)) ||
+                        (now.isAfter(s2) && now.isBefore(s3)) ||
+                        (now.isAfter(s3) && now.isBefore(impaginazione));
+
+        if (!inPeriodoSottomissione) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Periodo non valido");
+            alert.setHeaderText("Non è possibile modificare la sottomissione in questo momento.");
+            alert.setContentText(String.format(
+                    "La modifica è consentita solo nei periodi tra le date di sottomissione e impaginazione.\n\n" +
+                            "Scadenza attuale impaginazione: %s", impaginazione.toLocalDate()));
+            alert.showAndWait();
+            return;
+        }
 
         List<String> topicNomi = topicFormModel.getSelectedTopics();
         if (topicNomi.isEmpty()) {
@@ -237,26 +260,34 @@ public class ModificaArticoloControl implements ControlledScreen {
             String abstractPaper = modificaArticoloForm.getAbstract();
             List<String> coautori = modificaArticoloForm.getListaEmailCoautori();
 
-            PaperEntity paper = new PaperEntity(titolo, abstractPaper,
-                    Files.readAllBytes(selectedPdfFile.toPath()), LocalDateTime.now(),
-                    UserContext.getUtente().getId(), UserContext.getConferenzaAttuale().getId());
-
             PaperDao paperDao = new PaperDao(DBMSBoundary.getConnection());
-            paperDao.save(paper);
+            PaperEntity paper = paperDao.getById(UserContext.getPaperAttuale().getId()); // recupero esistente
+
+            // Aggiorna i campi
+            paper.setTitolo(titolo);
+            paper.setAbstractPaper(abstractPaper);
+            paper.setFile(Files.readAllBytes(selectedPdfFile.toPath()));
+            paper.setDataSottomissione(LocalDateTime.now());
+
+            // Salva modifiche
+                        paperDao.update(paper);
 
             int paperId = paper.getId();
 
+            // Rimuovi coautori e topic precedenti
             CoAutoriPaperDao coAutoriDao = new CoAutoriPaperDao(DBMSBoundary.getConnection());
-            String titoloPaper = titolo;
-            String emailAutore = UserContext.getUtente().getEmail();
-            String nomeConferenza = UserContext.getConferenzaAttuale().getNome();
-
-            for (String email : coautori) {
-                coAutoriDao.addCoautoreToPaper(email, paperId);
-                EmailSender.sendEmail(new MailSottomissione(email, nomeConferenza, titoloPaper, emailAutore));
-            }
+            coAutoriDao.removeAllCoautoriFromPaper(paperId);
 
             TopicPaperDao topicPaperDao = new TopicPaperDao(DBMSBoundary.getConnection());
+            topicPaperDao.removeAllTopicsFromPaper(paperId);
+
+            // Aggiungi coautori nuovi
+            for (String email : coautori) {
+                coAutoriDao.addCoautoreToPaper(email, paperId);
+                EmailSender.sendEmail(new MailSottomissione(email, UserContext.getConferenzaAttuale().getNome(), paper.getTitolo(), email));
+            }
+
+            // Aggiungi topic nuovi
             for (TopicEntity topic : allTopics) {
                 if (topicNomi.contains(topic.getNome())) {
                     topicPaperDao.addTopicToPaper(topic.getId(), paperId);
