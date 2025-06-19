@@ -171,9 +171,29 @@ public class VisualizzaPapersEditoreControl implements ControlledScreen {
 
     public void handleInviaFeedback(PaperEntity paper)
     {
+        LocalDateTime now = LocalDateTime.now();
+        ConferenzaEntity conferenza = UserContext.getConferenzaAttuale();
+
+        if (!now.isAfter(conferenza.getScadenzaSottomissione2())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Periodo non valido");
+            alert.setHeaderText("Non è possibile inviare Feedback in questo momento.");
+            alert.setContentText("La modifica è consentita solo dopo la seconda scadenza di sottomissione " + conferenza.getScadenzaSottomissione2());
+            alert.showAndWait();
+            return;
+        }
+
+        if (!now.isBefore(conferenza.getScadenzaEditing())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Periodo non valido");
+            alert.setHeaderText("Non è possibile inviare Feedback in questo momento.");
+            alert.setContentText("La modifica è consentita solo prima della scadenza di editing " + conferenza.getScadenzaEditing());
+            alert.showAndWait();
+            return;
+        }
+
         UserContext.setPaperAttuale(paper);
         mainControl.setView("/com/paperreview/paperreview/boundaries/gestionePaperDefinitivi/inviaFeedback/inviaFeedbackBoundary.fxml");
-
     }
 
     private void mostraErrore(String messaggio) {

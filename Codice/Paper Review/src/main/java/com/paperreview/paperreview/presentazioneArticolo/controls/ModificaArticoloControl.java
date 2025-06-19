@@ -219,22 +219,46 @@ public class ModificaArticoloControl implements ControlledScreen {
         LocalDateTime now = LocalDateTime.now();
         ConferenzaEntity conferenza = UserContext.getConferenzaAttuale();
 
-        LocalDateTime s1 = conferenza.getScadenzaSottomissione();
-        LocalDateTime s2 = conferenza.getScadenzaSottomissione2();
-        LocalDateTime s3 = conferenza.getScadenzaSottomissione3();
-        LocalDateTime impaginazione = conferenza.getScadenzaImpaginazione();
+        boolean isInPrimoPeriodo = now.isBefore(conferenza.getScadenzaSottomissione());
+        boolean isInSecondoPeriodo = now.isAfter(conferenza.getScadenzaRevisione()) &&
+                now.isBefore(conferenza.getScadenzaSottomissione2());
+        boolean isInTerzoPeriodo = now.isAfter(conferenza.getScadenzaEditing()) &&
+                now.isBefore(conferenza.getScadenzaSottomissione3());
 
-        boolean inPeriodoSottomissione =
-                (now.isBefore(conferenza.getScadenzaSottomissione())) ||
-                        (now.isAfter(conferenza.getScadenzaRevisione()) && now.isBefore(conferenza.getScadenzaSottomissione2())) ||
-                        (now.isAfter(conferenza.getScadenzaEditing()) && now.isBefore(conferenza.getScadenzaSottomissione3()));
+        if (!isInPrimoPeriodo && !isInSecondoPeriodo && !isInTerzoPeriodo) {
+            if (!isInPrimoPeriodo && now.isBefore(conferenza.getScadenzaRevisione())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Periodo non valido");
+                alert.setHeaderText("Non è possibile modificare la sottomissione in questo momento.");
+                alert.setContentText("Le modifiche sono consentite solo prima della prima scadenza di sottomissione.");
+                alert.showAndWait();
+                return;
+            }
 
-        if (!inPeriodoSottomissione) {
+            if (!isInSecondoPeriodo && now.isAfter(conferenza.getScadenzaRevisione()) &&
+                    now.isBefore(conferenza.getScadenzaEditing())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Periodo non valido");
+                alert.setHeaderText("Non è possibile modificare la sottomissione in questo momento.");
+                alert.setContentText("Le modifiche sono consentite solo dopo la revisione e prima della seconda scadenza di sottomissione.");
+                alert.showAndWait();
+                return;
+            }
+
+            if (!isInTerzoPeriodo && now.isAfter(conferenza.getScadenzaEditing())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Periodo non valido");
+                alert.setHeaderText("Non è possibile modificare la sottomissione in questo momento.");
+                alert.setContentText("Le modifiche sono consentite solo dopo l'editing e prima della terza scadenza di sottomissione.");
+                alert.showAndWait();
+                return;
+            }
+
+            // Fallback generico se non rientra in nessun periodo noto
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Periodo non valido");
             alert.setHeaderText("Non è possibile modificare la sottomissione in questo momento.");
-            alert.setContentText(String.format(
-                    "La modifica è consentita solo nei periodi tra le date di sottomissione.\n\n"));
+            alert.setContentText("Le modifiche sono consentite solo nei periodi tra le date di sottomissione.");
             alert.showAndWait();
             return;
         }
