@@ -80,7 +80,7 @@ public class PrenotazioneBroadcastControl implements ControlledScreen {
         titoloLabel.setWrapText(true);
 
         Label abstractLabel = new Label(paper.getAbstractPaper());
-        abstractLabel.getStyleClass().addAll("p", "text-bianco");
+        abstractLabel.getStyleClass().addAll("p", "text-bianco", "ombra", "font-bold");
         abstractLabel.setWrapText(true);
 
         VBox abstractBox = new VBox(10, abstractLabel);
@@ -98,11 +98,12 @@ public class PrenotazioneBroadcastControl implements ControlledScreen {
         for (String co : coautori) sb.append(", ").append(co);
 
         FontIcon authorIcon = new FontIcon("fas-users");
+        authorIcon.getStyleClass().addAll("ombra");
         authorIcon.setIconColor(Color.WHITE);
         authorIcon.setIconSize(20);
 
         Label autoriLabel = new Label(sb.toString());
-        autoriLabel.getStyleClass().addAll("font-bold", "text-bianco", "ombra");
+        autoriLabel.getStyleClass().addAll("font-bold", "text-bianco", "ombra", "p");
         autoriLabel.setWrapText(true);
 
         HBox autoriBox = new HBox(10, authorIcon, autoriLabel);
@@ -114,13 +115,14 @@ public class PrenotazioneBroadcastControl implements ControlledScreen {
                         .collect(Collectors.joining(", "))
         );
 
-        topicLabel.getStyleClass().addAll("font-bold", "text-bianco", "ombra");
+        topicLabel.getStyleClass().addAll("font-bold", "text-bianco", "ombra", "p");
         topicLabel.setWrapText(true);
 
         HBox bottomRow = new HBox(30);
         bottomRow.setAlignment(Pos.CENTER_LEFT);
 
         FontIcon tagIcon = new FontIcon("fas-tags");
+        tagIcon.getStyleClass().addAll("ombra");
         tagIcon.setIconColor(Color.WHITE);
         tagIcon.setIconSize(20);
 
