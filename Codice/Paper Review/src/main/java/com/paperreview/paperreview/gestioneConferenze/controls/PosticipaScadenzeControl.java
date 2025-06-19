@@ -137,6 +137,38 @@ public class PosticipaScadenzeControl implements ControlledScreen {
             if (isModificabile(s4) && isModificabile(s5) && !verificaSuccessione(newS4, newS5, "di scadenza dell'adeguamento del formato", "la scadenza di fine editing")) return;
             if (isModificabile(s5) && isModificabile(s6) && !verificaSuccessione(newS5, newS6, "di scadenza dell'impaginazione", "la scadenza dell'adeguamento del formato")) return;
 
+            if (isModificabile(s1) && newS1.isBefore(s1)) {
+                errorLabel.setText("Errore: Non è possibile anticipare la scadenza della sottomissione.");
+                errorLabel.setVisible(true);
+                return;
+            }
+            if (isModificabile(s2) && newS2.isBefore(s2)) {
+                errorLabel.setText("Errore: Non è possibile anticipare la scadenza della revisione.");
+                errorLabel.setVisible(true);
+                return;
+            }
+            if (isModificabile(s3) && newS3.isBefore(s3)) {
+                errorLabel.setText("Errore: Non è possibile anticipare la scadenza dell’adeguamento dei contenuti.");
+                errorLabel.setVisible(true);
+                return;
+            }
+            if (isModificabile(s4) && newS4.isBefore(s4)) {
+                errorLabel.setText("Errore: Non è possibile anticipare la scadenza dell’editing.");
+                errorLabel.setVisible(true);
+                return;
+            }
+            if (isModificabile(s5) && newS5.isBefore(s5)) {
+                errorLabel.setText("Errore: Non è possibile anticipare la scadenza dell’adeguamento del formato.");
+                errorLabel.setVisible(true);
+                return;
+            }
+            if (isModificabile(s6) && newS6.isBefore(s6)) {
+                errorLabel.setText("Errore: Non è possibile anticipare la scadenza dell’impaginazione.");
+                errorLabel.setVisible(true);
+                return;
+            }
+
+
             if (newS6.isAfter(dataFineConferenza.plusDays(3))) {
                 errorLabel.setText("La scadenza dell'impaginazione non può essere oltre 3 giorni dopo la conferenza.");
                 errorLabel.setVisible(true);
