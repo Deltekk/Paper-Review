@@ -250,13 +250,12 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
             RevisioneEntity revisioneEsistente = revisioneDao.getByUtenteAndPaper(idUtente, idPaper);
 
             if (revisioneEsistente != null) {
-                // Controllo esistenza revisione
                 String testo = revisioneEsistente.getTesto();
                 String puntiForza = revisioneEsistente.getPuntiForza();
                 String puntiDebolezza = revisioneEsistente.getPuntiDebolezza();
                 Integer valutazione = revisioneEsistente.getValutazione();
-                if (testo != null || puntiForza != null || puntiDebolezza != null ||
-                        valutazione != null) {
+
+                if (testo != null && puntiForza != null && puntiDebolezza != null && valutazione != null) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Revisione già esistente");
                     alert.setHeaderText("Hai già inviato una revisione per questo paper.");
