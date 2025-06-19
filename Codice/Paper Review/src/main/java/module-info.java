@@ -19,6 +19,7 @@ module com.paperreview.paperreview {
     requires org.checkerframework.checker.qual;
     requires com.fasterxml.jackson.databind;
     requires java.net.http;
+    requires net.bytebuddy;
 
     opens com.paperreview.paperreview to javafx.fxml;
     exports com.paperreview.paperreview;
