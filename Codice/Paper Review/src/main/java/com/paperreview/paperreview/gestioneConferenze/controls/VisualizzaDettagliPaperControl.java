@@ -81,8 +81,15 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
 
                 double averageScore = revisioneDao.getAverageScore(paper.getId());
 
-                Node card = creaCardRevisione(revisione, revisore, autori.toString(), averageScore);
-                paperContainer.getChildren().add(card);
+                if(revisione.getTesto() != null)
+                {
+                    if(!revisione.getTesto().isBlank())
+                    {
+                        Node card = creaCardRevisione(revisione, revisore, autori.toString(), averageScore);
+                        paperContainer.getChildren().add(card);
+                    }
+                }
+
             }
 
         } catch (Exception e) {
@@ -96,27 +103,60 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
         card.setPadding(new Insets(25));
         card.setPrefWidth(1000);
 
+        /* REVISIONE */
+
         Label titolo = new Label("Revisione");
         titolo.getStyleClass().addAll("font-bold", "text-bianco", "h4", "ombra");
 
         Label testo = new Label(revisione.getTesto());
-        testo.getStyleClass().addAll("p", "text-bianco");
+        testo.getStyleClass().addAll("p", "text-bianco", "ombra", "text-bold");
         testo.setWrapText(true);
+
+        /* COMMENTO PRIVATO */
 
         Label titoloPrivato = new Label("Commento privato");
         titoloPrivato.getStyleClass().addAll("font-bold", "text-bianco", "h5", "ombra");
-        Label commento = new Label(revisione.getCommentoChair());
-        commento.getStyleClass().addAll("p", "text-bianco");
+
+        Label commento = new Label();
+
+        if(revisione.getCommentoChair() != null) {
+            commento.setText(revisione.getCommentoChair().isBlank() ? "Non è presente un commento privato." : revisione.getCommentoChair() );
+        }
+
+        commento.getStyleClass().addAll("p", "text-bianco", "ombra", "text-bold");
         commento.setWrapText(true);
+
+        /* PUNTI DI FORZA */
+
+        Label puntiDiForza = new Label("Punti di forza");
+        puntiDiForza.getStyleClass().addAll("font-bold", "text-bianco", "h5", "ombra");
+
+        Label puntiDiForzaLabel = new Label(revisione.getPuntiForza());
+        puntiDiForzaLabel.getStyleClass().addAll("p", "text-bianco", "ombra", "text-bold");
+        puntiDiForzaLabel.setWrapText(true);
+
+        /* PUNTI DI DEBOLEZZA */
+
+        Label puntiDiDebolezza = new Label("Punti di debolezza");
+        puntiDiDebolezza.getStyleClass().addAll("font-bold", "text-bianco", "h5", "ombra");
+
+        Label puntiDiDebolezzaLabel = new Label(revisione.getPuntiDebolezza());
+        puntiDiDebolezzaLabel.getStyleClass().addAll("p", "text-bianco", "ombra", "text-bold");
+        puntiDiDebolezzaLabel.setWrapText(true);
+
+        /* REVISORE */
 
         FontIcon revisoreIcon = new FontIcon("fas-user-secret");
         revisoreIcon.setIconColor(Color.WHITE);
-        revisoreIcon.setIconSize(18);
+        revisoreIcon.setIconSize(24);
+        revisoreIcon.getStyleClass().addAll("text-bianco", "ombra");
 
-        Label autore = new Label(revisore.getNome() + " " + revisore.getCognome());
-        autore.getStyleClass().addAll("font-bold", "text-bianco", "ombra");
-        HBox autoreBox = new HBox(10, revisoreIcon, autore);
+        Label revisoreLabel = new Label(revisore.getNome() + " " + revisore.getCognome());
+        revisoreLabel.getStyleClass().addAll("font-bold", "text-bianco", "ombra");
+        HBox autoreBox = new HBox(10, revisoreIcon, revisoreLabel);
         autoreBox.setAlignment(Pos.CENTER_LEFT);
+
+        /* SCORE */
 
         HBox scoreBox = new HBox(10);
         FontIcon scoreIcon = new FontIcon("fas-star");
@@ -125,19 +165,25 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
         scoreIcon.getStyleClass().setAll("text-bianco", "ombra");
 
         Integer maxScore = Integer.valueOf(UserContext.getConferenzaAttuale().getMetodoValutazione().getValoreDb());
-        Label labelScore = new Label(String.format("%.2f/%d", averageScore, maxScore));
+        Label labelScore = new Label(String.format("%.2f/%.2f", averageScore, (float) maxScore));
         labelScore.getStyleClass().addAll("h6", "text-bianco", "ombra", "font-light");
         labelScore.setWrapText(true);
         scoreBox.setAlignment(Pos.CENTER_LEFT);
         scoreBox.getChildren().addAll(scoreIcon, labelScore);
 
+        /* AUTORI */
+
         FontIcon autoriIcon = new FontIcon("fas-users");
         autoriIcon.setIconColor(Color.WHITE);
-        autoriIcon.setIconSize(18);
+        autoriIcon.setIconSize(24);
+        autoriIcon.getStyleClass().addAll("text-bianco", "ombra");
+
         Label autoriLabel = new Label(autori);
         autoriLabel.getStyleClass().addAll("font-bold", "text-bianco", "ombra");
         HBox autoriBox = new HBox(10, autoriIcon, autoriLabel);
         autoriBox.setAlignment(Pos.CENTER_LEFT);
+
+        /* PULSANTI */
 
         Button btnConflitto = new Button("Segnala conflitto");
         btnConflitto.getStyleClass().addAll("red-button");
@@ -160,7 +206,7 @@ public class VisualizzaDettagliPaperControl implements ControlledScreen {
         bottomRow.setAlignment(Pos.CENTER_LEFT);
         HBox.setHgrow(leftBox, Priority.ALWAYS);
 
-        card.getChildren().addAll(titolo, testo, titoloPrivato, commento, bottomRow);
+        card.getChildren().addAll(titolo, testo, titoloPrivato, commento, puntiDiForza, puntiDiForzaLabel, puntiDiDebolezza, puntiDiDebolezzaLabel, bottomRow);
         return card;
     }
 

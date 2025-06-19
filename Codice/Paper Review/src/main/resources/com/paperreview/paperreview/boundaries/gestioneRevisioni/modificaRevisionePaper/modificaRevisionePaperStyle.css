@@ -27,3 +27,20 @@
     -fx-alignment: center;
     -fx-padding: 10;
 }
+
+.scrollPane, .trasparente{
+    -fx-background-color: transparent;
+    -fx-padding: 25;
+}
+
+.scrollPane > Content{
+    -fx-background-color: transparent;
+}
+
+.viewport{
+    -fx-background-color: transparent;
+}
+
+.bg-celeste{
+    -fx-padding: 25;
+}

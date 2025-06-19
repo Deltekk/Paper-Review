@@ -42,6 +42,8 @@ public class ModificaRevisionePaperControl implements ControlledScreen {
 
     private MainControl mainControl;
 
+    private Boolean isValid = false;
+
     @Override
     public void setMainController(MainControl mainControl) {
         this.mainControl = mainControl;
@@ -87,17 +89,21 @@ public class ModificaRevisionePaperControl implements ControlledScreen {
                     region.setBorder(null);
                 }
             });
+            
+            confirmButton.setDisable(true);
 
-            // Disabilita il pulsante solo se il form è invalido o non è stato modificato
-            confirmButton.setDisable(!form.isValid() || !form.changedProperty().get());
-
-            // Aggiorna ogni volta che cambia validità o modifiche
+            // Listener per la validità del form
             form.validProperty().addListener((obs, oldVal, newVal) -> {
                 confirmButton.setDisable(!newVal || !form.changedProperty().get());
             });
-            form.changedProperty().addListener((obs, oldVal, newVal) -> {
-                confirmButton.setDisable(!form.isValid() || !newVal);
+
+            // Aggiungi un listener al cambiamento del valore del rating (scoreSlider)
+            scoreSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
+                confirmButton.setDisable(!form.validProperty().get() || !form.changedProperty().get());
             });
+
+            // Abilita il pulsante se il form è valido e se è stato modificato
+            confirmButton.setDisable(!form.isValid() || !form.changedProperty().get());
         } catch (SQLException e) {
             // TODO: gestire questo errore.
             throw new RuntimeException(e);
