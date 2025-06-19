@@ -193,11 +193,22 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
         buttonSegnalaConflitto.setOnAction(event -> handleSegnalaConflitto(paper));
         buttonSegnalaPlagio.setOnAction(event -> handleSegnalaPlagio(paper));
 
+
+        // Prima riga
         buttonGrid.add(buttonRevisionaPaper, 0, 0);
         buttonGrid.add(buttonModificaRevisione, 1, 0);
-        buttonGrid.add(buttonScaricaPaper, 0, 1);
-        buttonGrid.add(buttonInvitaSottorevisore, 1, 1);
-        buttonGrid.add(buttonVisualizzaRevisioni, 0, 2, 2, 1);
+
+        // Seconda riga (bottonone centrale su due colonne)
+        buttonGrid.add(buttonScaricaPaper, 0, 1, 2, 1); // colspan 2, rowspan 1
+
+        // Terza riga
+        buttonGrid.add(buttonInvitaSottorevisore, 0, 2);
+        buttonGrid.add(buttonVisualizzaRevisioni, 1, 2);
+
+        // Quarta riga
+        buttonGrid.add(buttonSegnalaConflitto, 0, 3);
+        buttonGrid.add(buttonSegnalaPlagio, 1, 3);
+
 
         /* COMPOSIZIONE: [Testo] [Spacer] [Bottoni] */
 
