@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -218,11 +219,77 @@ public class VisualizzaPapersRevisoreControl implements ControlledScreen {
     }
 
     public void handleRevisionaPaper(PaperEntity paper) {
-        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/revisionaPaper/revisionaPaperBoundary.fxml");
+        try {
+            LocalDate oggi = LocalDate.now();
+            LocalDate inizioRevisione = UserContext.getConferenzaAttuale().getScadenzaSottomissione2().toLocalDate();
+            LocalDate fineRevisione = UserContext.getConferenzaAttuale().getScadenzaRevisione().toLocalDate();
+
+            if (oggi.isBefore(inizioRevisione)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Periodo non valido");
+                alert.setHeaderText("Non è ancora iniziato il periodo di revisione.");
+                alert.setContentText("Il periodo di revisione inizia il " + inizioRevisione);
+                alert.showAndWait();
+                return;
+            }
+
+            if (oggi.isAfter(fineRevisione)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Periodo scaduto");
+                alert.setHeaderText("Il periodo di revisione è terminato.");
+                alert.setContentText("La data di scadenza era il " + fineRevisione);
+                alert.showAndWait();
+                return;
+            }
+
+            UserContext.setPaperAttuale(paper);
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/revisionaPaper/revisionaPaperBoundary.fxml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Errore durante il controllo del periodo");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
     }
 
+
     public void handleModificaRevisione(PaperEntity paper){
-        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaRevisionePaper/modificaRevisionePaperBoundary.fxml");
+        try {
+            LocalDate oggi = LocalDate.now();
+            LocalDate inizioRevisione = UserContext.getConferenzaAttuale().getScadenzaSottomissione2().toLocalDate();
+            LocalDate fineRevisione = UserContext.getConferenzaAttuale().getScadenzaRevisione().toLocalDate();
+
+            if (oggi.isBefore(inizioRevisione)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Periodo non valido");
+                alert.setHeaderText("Non è ancora iniziato il periodo di revisione.");
+                alert.setContentText("Il periodo di revisione inizia il " + inizioRevisione);
+                alert.showAndWait();
+                return;
+            }
+
+            if (oggi.isAfter(fineRevisione)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Periodo scaduto");
+                alert.setHeaderText("Il periodo di revisione è terminato.");
+                alert.setContentText("La data di scadenza era il " + fineRevisione);
+                alert.showAndWait();
+                return;
+            }
+
+            UserContext.setPaperAttuale(paper);
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaRevisionePaper/modificaRevisionePaperBoundary.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Errore durante il controllo del periodo");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
     }
 
     public void handleScaricaPaper(PaperEntity paper) {

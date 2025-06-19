@@ -130,12 +130,6 @@ public class VisualizzaSchermataRevisioniControl implements ControlledScreen {
 
     public void handleVisualizzaPapers(ConferenzaEntity conferenza)
     {
-
-        if(conferenza.getMetodoAssegnazione() == MetodoAssegnazione.Broadcast)
-        {
-            // TODO: Controllare se
-        }
-
         // Controlla se siamo in periodo di sottomissione
         if(LocalDate.now().isBefore(conferenza.getScadenzaSottomissione().toLocalDate())) {
             Alert expiredAlert = new Alert(Alert.AlertType.WARNING);
