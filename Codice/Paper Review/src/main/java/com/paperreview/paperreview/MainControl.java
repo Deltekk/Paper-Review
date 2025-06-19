@@ -1,9 +1,14 @@
 package com.paperreview.paperreview;
 
+import com.paperreview.paperreview.common.UserContext;
+import com.paperreview.paperreview.common.dbms.DBMSBoundary;
+import com.paperreview.paperreview.common.dbms.dao.TopicUtenteDao;
 import com.paperreview.paperreview.common.interfaces.ControlledScreen;
+import com.paperreview.paperreview.entities.TopicEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -12,6 +17,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.image.Image;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 public class MainControl {
@@ -136,7 +144,37 @@ public class MainControl {
     }
 
     public void handleRevisioni(){
-        setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaSchermataRevisioni/visualizzaSchermataRevisioniBoundary.fxml");
+
+        try(Connection connection = DBMSBoundary.getConnection())
+        {
+
+            // Controlliamo se l'utente corrente ha almeno 3 topic assegnati
+
+            TopicUtenteDao topicUtenteDao = new TopicUtenteDao(connection);
+            Set<TopicEntity> topics = topicUtenteDao.getTopicsForUser(UserContext.getUtente().getId());
+
+            // Se no reindirizziamo alla pagina di modifica topic
+
+            if(topics.size() < 3)
+            {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Operazione non consentita");
+                alert.setHeaderText("Per fare da revisore, devi prima impostare i tuoi topic!");
+                alert.setContentText(String.format("Verrai reindirizzato alla pagina di modifica dei tuoi topic."));
+                alert.showAndWait();
+
+                setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaTopic/modificaTopicBoundary.fxml");
+                return;
+            }
+
+            // Se si allora lo lasciamo procedere
+
+            setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaSchermataRevisioni/visualizzaSchermataRevisioniBoundary.fxml");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void handleSottomissioni(){

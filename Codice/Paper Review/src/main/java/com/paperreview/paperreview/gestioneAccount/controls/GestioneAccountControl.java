@@ -35,7 +35,7 @@ public class GestioneAccountControl implements ControlledScreen {
 
     @FXML
     private void handleVisualizzaTopic(){
-        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaTopic/modificaTopic.fxml");
+        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaTopic/modificaTopicBoundary.fxml");
     }
 
 }
