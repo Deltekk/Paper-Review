@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.paperreview.paperreview.presentazioneArticolo.controls.ModificaArticoloControl"
+           stylesheets="@modificaArticoloStyle.css"
+           styleClass="pagina-centro, quadrettoni"
+           prefWidth="900" prefHeight="600">
+
+    <VBox alignment="TOP_CENTER" spacing="25" styleClass="bg-celeste" maxWidth="900" maxHeight="800">
+
+        <!-- Titolo -->
+        <Label text="MODIFICA ARTICOLO" styleClass="h1, text-bianco, font-bold, ombra"/>
+
+        <!-- Errore -->
+        <Label fx:id="errorLabel"
+               text="Errore: i campi devono essere tutti compilati!"
+               styleClass="p, text-rosso, font-bold"
+               visible="false"
+               wrapText="true"/>
+
+        <!-- Scrollable form -->
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scrollPane">
+            <content>
+
+                <VBox alignment="CENTER" spacing="25">
+                    <VBox fx:id="form1Container" spacing="25" alignment="TOP_CENTER" maxWidth="900" minWidth="500" maxHeight="600"
+                          styleClass="form-container"/>
+
+                    <!-- Bottone di carica pdf -->
+                    <Button fx:id="caricaPDFButton"
+                            text="Carica PDF"
+                            maxWidth="900"
+                            minWidth="300"
+                            styleClass="blue-button"
+                            onAction="#handleCaricaPDF"/>
+
+                    <Label fx:id="paperLabel"
+                           text="Paper selezionato: nessuno"
+                           styleClass="p, text-bianco, font-bold, ombra"
+                           wrapText="true"/>
+
+                    <!-- Bottone di Genera topics -->
+                    <Button fx:id="generaTopicsButton"
+                            text="Genera Topics"
+                            maxWidth="900"
+                            minWidth="300"
+                            styleClass="blue-button"
+                            onAction="#handleGeneraTopics"/>
+
+                    <!-- Searchbar fissa sopra il scrollpane -->
+                    <TextField fx:id="searchField" promptText="Cerca topic" styleClass="form-field, search-field, ombra" maxWidth="400" />
+
+                    <ScrollPane prefHeight="350" maxWidth="400" styleClass="form-container, ombra">
+                        <content>
+                            <VBox fx:id="form2Container" spacing="25" alignment="TOP_LEFT" maxHeight="600"
+                                  styleClass="form-container"/>
+                        </content>
+                    </ScrollPane>
+
+
+
+                    <!-- Bottone di conferma -->
+                    <Button fx:id="confirmButton"
+                            text="Conferma"
+                            maxWidth="900"
+                            minWidth="300"
+                            styleClass="green-button"
+                            onAction="#handleConferma"/>
+                </VBox>
+
+            </content>
+        </ScrollPane>
+
+    </VBox>
+</StackPane>
