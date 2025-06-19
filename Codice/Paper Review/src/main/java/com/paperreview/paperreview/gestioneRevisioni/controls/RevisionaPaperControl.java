@@ -197,6 +197,4 @@ public class RevisionaPaperControl implements ControlledScreen {
             errore.showAndWait();
         }
     }
-
-
 }

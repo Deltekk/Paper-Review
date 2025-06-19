@@ -20,12 +20,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
+import net.bytebuddy.asm.Advice;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -347,14 +349,44 @@ public class VisualizzaPapersChairControl implements ControlledScreen {
         }
     }
 
-    public void handleRevisioneEmergenza(PaperEntity paper)
-    {
+    public void handleRevisioneEmergenza(PaperEntity paper) {
+        try {
+            LocalDate oggi = LocalDate.now();
+            LocalDate inizioRevisione = UserContext.getConferenzaAttuale().getScadenzaSottomissione2().toLocalDate();
+            LocalDate fineRevisione = UserContext.getConferenzaAttuale().getScadenzaRevisione().toLocalDate();
 
-        // TODO: Controllare se siamo in periodo di revisione, se no impedire la revisione d'emergenza con un popup
+            if (oggi.isBefore(inizioRevisione)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Periodo non valido");
+                alert.setHeaderText("Non è ancora iniziato il periodo di revisione.");
+                alert.setContentText("Il periodo di revisione inizia il " + inizioRevisione);
+                alert.showAndWait();
+                return;
+            }
 
-        UserContext.setPaperAttuale(paper);
-        mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/revisionaPaperEmergenza/revisionaPaperEmergenzaBoundary.fxml");
+            if (oggi.isAfter(fineRevisione)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Periodo scaduto");
+                alert.setHeaderText("Il periodo di revisione è terminato.");
+                alert.setContentText("La data di scadenza era il " + fineRevisione);
+                alert.showAndWait();
+                return;
+            }
+
+            // Se siamo nel periodo corretto, prosegui
+            UserContext.setPaperAttuale(paper);
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/revisionaPaperEmergenza/revisionaPaperEmergenzaBoundary.fxml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Errore");
+            errorAlert.setHeaderText("Errore durante il controllo del periodo");
+            errorAlert.setContentText(e.getMessage());
+            errorAlert.showAndWait();
+        }
     }
+
 
     public void handleVisualizzaDettagli(PaperEntity paper) {
         try {
