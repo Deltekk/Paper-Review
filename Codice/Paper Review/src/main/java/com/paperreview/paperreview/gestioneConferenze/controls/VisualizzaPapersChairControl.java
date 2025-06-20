@@ -374,8 +374,7 @@ public class VisualizzaPapersChairControl implements ControlledScreen {
 
             // Se siamo nel periodo corretto, prosegui
             UserContext.setPaperAttuale(paper);
-            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/revisionaPaperEmergenza/revisionaPaperEmergenzaBoundary.fxml");
-
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneConferenze/revisionePaperEmergenza/revisionaPaperEmergenzaBoundary.fxml");
         } catch (Exception e) {
             e.printStackTrace();
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
