@@ -163,6 +163,8 @@ public class MainControl {
                 alert.setContentText(String.format("Verrai reindirizzato alla pagina di modifica dei tuoi topic."));
                 alert.showAndWait();
 
+                UserContext.setVieneDaRevisione(true);
+
                 setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/modificaTopic/modificaTopicBoundary.fxml");
                 return;
             }

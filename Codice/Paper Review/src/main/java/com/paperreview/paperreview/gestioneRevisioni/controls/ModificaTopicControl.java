@@ -221,5 +221,10 @@ public class ModificaTopicControl implements ControlledScreen {
         alert.setContentText(String.format("Se vuoi, puoi iniziare a fare le revisioni!"));
         alert.showAndWait();
 
+        if(UserContext.getVieneDaRevisione())
+        {
+            mainControl.setView("/com/paperreview/paperreview/boundaries/gestioneRevisioni/visualizzaSchermataRevisioni/visualizzaSchermataRevisioniBoundary.fxml");
+        }
+
     }
 }

@@ -5,13 +5,12 @@ import com.paperreview.paperreview.entities.PaperEntity;
 import com.paperreview.paperreview.entities.RevisioneEntity;
 import com.paperreview.paperreview.entities.UtenteEntity;
 
-import java.util.List;
-
 public class UserContext {
 
     private static UtenteEntity utente;
     private static ConferenzaEntity conferenzaAttuale;
     private static boolean standaloneInteraction;
+    private static boolean vieneDaRevisione;
 
     private static PaperEntity paperAttuale;
     private static RevisioneEntity revisioneCorrente;
@@ -62,5 +61,13 @@ public class UserContext {
 
     public static void setRevisioneCorrente(RevisioneEntity revisioni) {
         revisioneCorrente = revisioni;
+    }
+
+    public static boolean getVieneDaRevisione() {
+        return vieneDaRevisione;
+    }
+
+    public static void setVieneDaRevisione(boolean vieneDaRevisione) {
+        UserContext.vieneDaRevisione = vieneDaRevisione;
     }
 }
